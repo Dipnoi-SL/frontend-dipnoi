@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "start:dev": "NODE_ENV=development ng serve",
+    "build": "NODE_ENV=production ng build",
+    "watch": "NODE_ENV=development ng build --watch --configuration development",
     "test": "NODE_ENV=test ng test",
     "prepare": "husky install",
     "lint": "eslint \"{src,apps,libs,test}/**/*.{ts,js,tsx,jsx}\" --fix",
