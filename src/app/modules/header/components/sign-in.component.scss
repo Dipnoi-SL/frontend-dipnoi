@@ -1,0 +1,16 @@
+form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  min-width: 300px;
+}
+
+mat-form-field {
+  margin-bottom: 20px;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

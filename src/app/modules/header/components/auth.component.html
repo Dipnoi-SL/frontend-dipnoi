@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{ view === 'sign-in' ? 'Sign in' : 'Sign up' }}</h1>
+<div mat-dialog-content>
+  <dipnoi-sign-in *ngIf="view === 'sign-in'"></dipnoi-sign-in>
+  <dipnoi-sign-up *ngIf="view === 'sign-up'"></dipnoi-sign-up>
+</div>
+<small
+  >You might want to {{ view === 'sign-in' ? 'sign up' : 'sign in' }}
+  <a (click)="onChangeView()">here</a></small
+>

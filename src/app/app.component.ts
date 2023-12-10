@@ -5,6 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './modules/header/components/header.component';
 import { FooterComponent } from './modules/footer/components/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { FooterComponent } from './modules/footer/components/footer.component';
     MatToolbarModule,
     HeaderComponent,
     FooterComponent,
+    HttpClientModule,
   ],
 })
 export class AppComponent {}

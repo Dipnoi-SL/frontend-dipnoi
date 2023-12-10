@@ -1,1 +1,22 @@
-<mat-toolbar>Header</mat-toolbar>
+<mat-toolbar
+  ><div>Left Navigation</div>
+  <div *ngIf="userService.currentUser | async">
+    <button mat-icon-button [mat-menu-trigger-for]="userMenu">
+      <mat-icon fontIcon="account_circle"></mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <ng-template matMenuContent let-name="name">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item (click)="onSignOut()">Sign out</button>
+      </ng-template>
+    </mat-menu>
+  </div>
+  <div *ngIf="!(userService.currentUser | async)">
+    <button mat-raised-button color="accent" (click)="onSignIn()">
+      Sign in
+    </button>
+    <button mat-raised-button color="accent" (click)="onSignUp()">
+      Sign up
+    </button>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,33 @@
+<form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Email</mat-label>
+    <input type="email" formControlName="email" matInput />
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Password</mat-label>
+    <input
+      [type]="hidePassword ? 'password' : 'text'"
+      formControlName="password"
+      matInput
+    />
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="hidePassword = !hidePassword"
+    >
+      <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="!signInForm.valid"
+    type="submit"
+  >
+    Sign in
+  </button>
+  <div class="error" *ngIf="hasErrored">
+    <mat-error>Invalid credentials</mat-error>
+  </div>
+</form>
