@@ -17,6 +17,7 @@
       [type]="hidePassword ? 'password' : 'text'"
       formControlName="password"
       matInput
+      #passwordInput="matInput"
     />
     <button
       type="button"
@@ -24,7 +25,18 @@
       matSuffix
       (click)="hidePassword = !hidePassword"
     >
-      <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      <mat-icon
+        [color]="
+          signUpForm.controls.password.invalid &&
+          signUpForm.controls.password.touched
+            ? 'warn'
+            : passwordInput.focused
+              ? 'primary'
+              : ''
+        "
+      >
+        {{ hidePassword ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
     </button>
     <mat-hint *ngIf="signUpForm.controls.password.untouched">
       <br />
