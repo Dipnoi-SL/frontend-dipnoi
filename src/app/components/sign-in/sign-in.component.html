@@ -27,7 +27,5 @@
   >
     Sign in
   </button>
-  <div class="error" *ngIf="hasErrored">
-    <mat-error>Invalid credentials</mat-error>
-  </div>
+  <p class="error feedback" *ngIf="hasErrored">Invalid credentials</p>
 </form>

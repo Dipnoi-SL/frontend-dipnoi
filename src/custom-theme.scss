@@ -43,6 +43,9 @@ $frontend-dipnoi-theme: mat.define-dark-theme(
 @include mat.all-component-densities($frontend-dipnoi-theme);
 @include mat.all-component-themes($frontend-dipnoi-theme);
 
+$success: #22bb33;
+$error: mat.get-color-from-palette($frontend-dipnoi-warn);
+
 html,
 body {
   height: 100%;
@@ -63,4 +66,12 @@ app-root {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.success {
+  color: $success;
+}
+
+.error {
+  color: $error;
 }

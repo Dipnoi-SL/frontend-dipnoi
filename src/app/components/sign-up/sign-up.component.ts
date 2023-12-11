@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { emailValidationRegexp } from '../../constants/email-validation-regexp';
 import { MatIconModule } from '@angular/material/icon';
 import { passwordValidationRegexp } from '../../constants/password-validation-regexp';
-import { AuthComponent } from '../auth/auth.component';
 import { UserService } from '../../services/user.service';
+import { AuthComponent } from '../auth/auth.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'dipnoi-sign-up',
@@ -26,6 +26,7 @@ import { UserService } from '../../services/user.service';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
+  hasErrored = false;
   signUpForm = this.formBuilder.group({
     email: [
       '',
@@ -50,7 +51,13 @@ export class SignUpComponent {
         this.signUpForm.controls.email.value,
         this.signUpForm.controls.password.value,
       )
-      .subscribe();
-    this.dialogRef.close();
+      .subscribe({
+        next: () => {
+          this.dialogRef.close();
+        },
+        error: () => {
+          this.hasErrored = true;
+        },
+      });
   }
 }
