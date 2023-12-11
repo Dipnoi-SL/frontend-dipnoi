@@ -4,14 +4,24 @@
       mat-tab-link
       routerLink="/proposals"
       [active]="router.isActive('/proposals', false)"
-      >Proposals</a
     >
+      Proposals
+    </a>
+    <a
+      mat-tab-link
+      routerLink="/news"
+      [active]="router.isActive('/news', false)"
+    >
+      News
+    </a>
     <a
       mat-tab-link
       routerLink="/help"
       [active]="router.isActive('/help', false)"
-      >Help</a
     >
+      Help
+    </a>
+    <a class="invisible" mat-tab-link [active]="true"></a>
   </nav>
   <div *ngIf="userService.currentUser | async">
     <button mat-icon-button [mat-menu-trigger-for]="userMenu">
@@ -19,7 +29,7 @@
     </button>
     <mat-menu #userMenu="matMenu">
       <ng-template matMenuContent let-name="name">
-        <button mat-menu-item>Settings</button>
+        <button mat-menu-item routerLink="/settings">Settings</button>
         <button mat-menu-item (click)="onSignOut()">Sign out</button>
       </ng-template>
     </mat-menu>

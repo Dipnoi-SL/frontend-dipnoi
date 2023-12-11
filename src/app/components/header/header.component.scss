@@ -2,3 +2,8 @@ mat-toolbar {
   height: 56px;
   justify-content: space-between;
 }
+
+.invisible {
+  opacity: 0;
+  cursor: unset;
+}
