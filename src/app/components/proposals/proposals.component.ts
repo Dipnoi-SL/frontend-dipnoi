@@ -5,8 +5,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 @Component({
   selector: 'dipnoi-main',
   standalone: true,
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.scss',
+  templateUrl: './proposals.component.html',
+  styleUrl: './proposals.component.scss',
   imports: [CommonModule, MatSidenavModule],
 })
-export class MainComponent {}
+export class ProposalsComponent {}

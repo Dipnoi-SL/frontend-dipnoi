@@ -32,10 +32,6 @@ export class HeaderComponent {
     this.dialog.open(AuthComponent, { data: { view: 'sign-in' } });
   }
 
-  onSignUp() {
-    this.dialog.open(AuthComponent, { data: { view: 'sign-up' } });
-  }
-
   onSignOut() {
     this.userService.signOut().subscribe();
   }

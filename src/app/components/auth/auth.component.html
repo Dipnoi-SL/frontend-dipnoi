@@ -1,6 +1,9 @@
 <div class="wrapper">
   <dipnoi-sign-in *ngIf="view === 'sign-in'"></dipnoi-sign-in>
   <dipnoi-sign-up *ngIf="view === 'sign-up'"></dipnoi-sign-up>
+  <dipnoi-forgot-password
+    *ngIf="view === 'forgot-password'"
+  ></dipnoi-forgot-password>
   <div class="options">
     <h3>Or continue with:</h3>
   </div>
