@@ -3,9 +3,11 @@
     <mat-label>Email</mat-label>
     <input type="email" formControlName="email" matInput />
     <mat-error *ngIf="signUpForm.controls.email.hasError('required')">
+      <br />
       Must not be empty
     </mat-error>
     <mat-error *ngIf="signUpForm.controls.email.hasError('pattern')">
+      <br />
       Must be a valid email
     </mat-error>
   </mat-form-field>
@@ -25,6 +27,7 @@
       <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
     </button>
     <mat-hint *ngIf="signUpForm.controls.password.untouched">
+      <br />
       Must contain at least 8 characters
       <br />
       Must contain at least one lowercase letter
@@ -36,9 +39,11 @@
       Must contain at least one special character
     </mat-hint>
     <mat-error *ngIf="signUpForm.controls.password.hasError('required')">
+      <br />
       Must not be empty
     </mat-error>
     <mat-error *ngIf="signUpForm.controls.password.hasError('pattern')">
+      <br />
       Must contain at least 8 characters
       <br />
       Must contain at least one lowercase letter
@@ -52,7 +57,7 @@
   </mat-form-field>
   <button
     mat-raised-button
-    color="accent"
+    color="primary"
     [disabled]="!signUpForm.valid"
     type="submit"
   >
