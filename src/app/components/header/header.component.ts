@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthComponent } from '../auth/auth.component';
+import { MatTabNavPanel, MatTabsModule } from '@angular/material/tabs';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'dipnoi-header',
@@ -18,14 +20,19 @@ import { AuthComponent } from '../auth/auth.component';
     MatButtonModule,
     MatDialogModule,
     MatMenuModule,
+    MatTabsModule,
+    RouterLink,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  @Input({ required: true }) tabPanel!: MatTabNavPanel;
+
   constructor(
     public readonly userService: UserService,
-    public dialog: MatDialog,
+    public readonly router: Router,
+    private readonly dialog: MatDialog,
   ) {}
 
   onSignIn() {

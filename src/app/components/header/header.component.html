@@ -1,5 +1,18 @@
-<mat-toolbar
-  ><div>Left Navigation</div>
+<mat-toolbar>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a
+      mat-tab-link
+      routerLink="/proposals"
+      [active]="router.isActive('/proposals', false)"
+      >Proposals</a
+    >
+    <a
+      mat-tab-link
+      routerLink="/help"
+      [active]="router.isActive('/help', false)"
+      >Help</a
+    >
+  </nav>
   <div *ngIf="userService.currentUser | async">
     <button mat-icon-button [mat-menu-trigger-for]="userMenu">
       <mat-icon fontIcon="account_circle"></mat-icon>
