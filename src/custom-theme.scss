@@ -11,13 +11,9 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$frontend-dipnoi-primary: mat.define-palette(mat.$blue-gray-palette);
-$frontend-dipnoi-accent: mat.define-palette(
-  mat.$indigo-palette,
-  A200,
-  A100,
-  A400
-);
+$frontend-dipnoi-primary: mat.define-palette(mat.$cyan-palette, 700);
+// $frontend-dipnoi-primary: mat.define-palette(mat.$blue-palette, 500);
+$frontend-dipnoi-accent: mat.define-palette(mat.$lime-palette);
 
 // The warn palette is optional (defaults to red).
 $frontend-dipnoi-warn: mat.define-palette(mat.$red-palette);
@@ -41,6 +37,10 @@ $frontend-dipnoi-theme: mat.define-dark-theme(
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
+@include mat.typography-hierarchy($frontend-dipnoi-theme);
+@include mat.all-component-bases($frontend-dipnoi-theme);
+@include mat.all-component-typographies($frontend-dipnoi-theme);
+@include mat.all-component-densities($frontend-dipnoi-theme);
 @include mat.all-component-themes($frontend-dipnoi-theme);
 
 html,
@@ -55,7 +55,7 @@ body {
 
 a {
   cursor: pointer;
-  color: mat.get-color-from-palette($frontend-dipnoi-accent);
+  color: mat.get-color-from-palette($frontend-dipnoi-primary);
 }
 
 app-root {

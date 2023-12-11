@@ -1,0 +1,21 @@
+.wrapper {
+  padding: 40px;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}

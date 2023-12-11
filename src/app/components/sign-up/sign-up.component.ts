@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../user/services/user.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
-import { emailValidationRegexp } from '../../../common/constants/email-validation-regexp';
+import { emailValidationRegexp } from '../../constants/email-validation-regexp';
 import { MatIconModule } from '@angular/material/icon';
-import { passwordValidationRegexp } from '../../../common/constants/password-validation-regexp';
-import { AuthComponent } from './auth.component';
+import { passwordValidationRegexp } from '../../constants/password-validation-regexp';
+import { AuthComponent } from '../auth/auth.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'dipnoi-sign-up',

@@ -12,10 +12,10 @@
     </mat-menu>
   </div>
   <div *ngIf="!(userService.currentUser | async)">
-    <button mat-raised-button color="accent" (click)="onSignIn()">
+    <button mat-raised-button color="primary" (click)="onSignIn()">
       Sign in
     </button>
-    <button mat-raised-button color="accent" (click)="onSignUp()">
+    <button mat-raised-button color="primary" (click)="onSignUp()">
       Sign up
     </button>
   </div>

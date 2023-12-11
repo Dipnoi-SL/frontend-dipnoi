@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { SignInComponent } from './sign-in.component';
-import { SignUpComponent } from './sign-up.component';
+import { SignInComponent } from '../sign-in/sign-in.component';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'dipnoi-auth',
@@ -12,13 +12,18 @@ import { SignUpComponent } from './sign-up.component';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {
-  view: 'sign-in' | 'sign-up';
+  view: 'sign-in' | 'sign-up' | 'forgot-password';
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: { view: 'sign-in' | 'sign-up' }) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    data: {
+      view: 'sign-in' | 'sign-up' | 'forgot-password';
+    },
+  ) {
     this.view = data.view;
   }
 
-  onChangeView() {
-    this.view = this.view === 'sign-in' ? 'sign-up' : 'sign-in';
+  onChangeView(view: 'sign-in' | 'sign-up' | 'forgot-password') {
+    this.view = view;
   }
 }
