@@ -3,5 +3,6 @@
 mat-tab-nav-panel {
   flex-grow: 1;
   height: calc(100vh - $headerHeight - $footerHeight);
-  width: calc(100vw - $sidenavWidth);
+  width: calc(100vw - max((100vw - $maxScreenWidth), 0px) - $sidenavWidth);
+  padding-left: max(calc((100vw - $maxScreenWidth) / 2), 0px);
 }

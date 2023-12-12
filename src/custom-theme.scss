@@ -51,6 +51,7 @@ $accent: mat.get-color-from-palette($frontend-dipnoi-accent);
 $warn: mat.get-color-from-palette($frontend-dipnoi-warn);
 $success: mat.get-color-from-palette($frontend-dipnoi-success);
 
+$maxScreenWidth: 1920px;
 $headerHeight: 56px;
 $footerHeight: 40px;
 $sidenavWidth: 260px;

@@ -5,6 +5,8 @@ mat-toolbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding-left: max(calc((100vw - $maxScreenWidth) / 2), 16px);
+  padding-right: max(calc((100vw - $maxScreenWidth) / 2), 16px);
 }
 
 a {
