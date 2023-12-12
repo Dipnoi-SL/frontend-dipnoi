@@ -14,8 +14,8 @@ mat-sidenav {
 }
 
 .mdc-list-item:hover::before {
-  background-color: unset;
-  opacity: unset;
+  background-color: $primary;
+  opacity: 0.04;
 }
 
 .selected {
