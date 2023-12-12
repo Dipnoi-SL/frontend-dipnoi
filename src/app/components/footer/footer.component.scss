@@ -1,5 +1,7 @@
+@import '../../../custom-theme.scss';
+
 mat-toolbar {
-  height: 40px;
+  height: $footerHeight;
   display: flex;
   justify-content: space-around;
   align-items: center;

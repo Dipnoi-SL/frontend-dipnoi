@@ -5,22 +5,12 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  width: 240px;
-}
-
-.mdc-list-item:focus::before {
-  background-color: unset;
-  opacity: unset;
-}
-
-.mdc-list-item:hover::before {
-  background-color: $primary;
-  opacity: 0.04;
+  width: $sidenavWidth;
 }
 
 .selected {
-  border-right: 2px solid $primary;
-  color: $primary !important;
+  border-right: 4px solid $primary;
+  border-radius: 4px;
 }
 
 .not-selected {

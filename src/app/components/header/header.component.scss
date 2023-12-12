@@ -1,5 +1,7 @@
+@import '../../../custom-theme.scss';
+
 mat-toolbar {
-  height: 56px;
+  height: $headerHeight;
   justify-content: space-between;
 }
 

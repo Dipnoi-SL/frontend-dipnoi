@@ -4,6 +4,7 @@ import { HelpComponent } from './components/help/help.component';
 import { NewsComponent } from './components/news/news.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { BlaComponent } from './components/proposals/bla/bla.component';
 
 export const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
@@ -16,7 +17,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'bla',
-        component: HelpComponent,
+        component: BlaComponent,
       },
       {
         path: 'blabla',
