@@ -46,8 +46,10 @@ $frontend-dipnoi-theme: mat.define-dark-theme(
 @include mat.all-component-densities($frontend-dipnoi-theme);
 @include mat.all-component-themes($frontend-dipnoi-theme);
 
+$primary: mat.get-color-from-palette($frontend-dipnoi-primary);
+$accent: mat.get-color-from-palette($frontend-dipnoi-accent);
+$warn: mat.get-color-from-palette($frontend-dipnoi-warn);
 $success: mat.get-color-from-palette($frontend-dipnoi-success);
-$error: mat.get-color-from-palette($frontend-dipnoi-warn);
 
 html,
 body {
@@ -76,5 +78,13 @@ app-root {
 }
 
 .error {
-  color: $error;
+  color: $warn;
+}
+
+mat-sidenav.mat-drawer {
+  background-color: unset;
+}
+
+mat-sidenav-content.mat-drawer-content {
+  background-color: var(--mat-sidenav-container-background-color);
 }

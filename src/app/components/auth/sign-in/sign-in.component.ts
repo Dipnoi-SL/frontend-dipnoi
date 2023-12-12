@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthComponent } from '../auth/auth.component';
+import { AuthComponent } from '../auth.component';
 
 @Component({
   selector: 'dipnoi-sign-in',

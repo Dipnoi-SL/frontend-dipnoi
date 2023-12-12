@@ -1,4 +1,25 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened="true">Sidenav</mat-sidenav>
-  <mat-sidenav-content>Content</mat-sidenav-content>
+  <mat-sidenav mode="side" opened="true">
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/proposals/bla"
+        [activated]="router.isActive('/proposals/bla', false)"
+        [ngClass]="{ selected: router.isActive('/proposals/bla', false) }"
+      >
+        Bla
+      </a>
+      <a
+        mat-list-item
+        routerLink="/proposals/blabla"
+        [activated]="router.isActive('/proposals/blabla', false)"
+        [ngClass]="{ selected: router.isActive('/proposals/blabla', false) }"
+      >
+        BlaBla
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>

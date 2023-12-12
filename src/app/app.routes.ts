@@ -10,6 +10,19 @@ export const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'help', component: HelpComponent },
   { path: 'news', component: NewsComponent },
-  { path: 'proposals', component: ProposalsComponent },
-  { path: '**', redirectTo: '/proposals' },
+  {
+    path: 'proposals',
+    component: ProposalsComponent,
+    children: [
+      {
+        path: 'bla',
+        component: HelpComponent,
+      },
+      {
+        path: 'blabla',
+        component: HelpComponent,
+      },
+    ],
+  },
+  { path: '**', redirectTo: '/proposals/bla' },
 ];

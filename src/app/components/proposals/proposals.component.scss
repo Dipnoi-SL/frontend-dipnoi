@@ -1,7 +1,23 @@
+@import '../../../custom-theme.scss';
+
 mat-sidenav-container {
   height: 100%;
 }
 
 mat-sidenav {
   width: 240px;
+}
+
+.mdc-list-item:focus::before {
+  background-color: unset;
+  opacity: unset;
+}
+
+.mdc-list-item:hover::before {
+  background-color: unset;
+  opacity: unset;
+}
+
+.selected {
+  border-right: 2px solid $primary;
 }
