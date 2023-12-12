@@ -1,16 +1,14 @@
 mat-toolbar {
-  height: 100px;
+  height: 40px;
   display: flex;
   justify-content: space-around;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
 a {
   text-decoration: none;
+}
+
+.no-margin {
+  margin: 0 0 0;
 }

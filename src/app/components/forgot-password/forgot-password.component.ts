@@ -36,10 +36,7 @@ export class ForgotPasswordComponent {
 
   onSendRecoveryEmail() {
     this.userService
-      .signIn(
-        this.forgotPasswordForm.controls.email.value,
-        this.forgotPasswordForm.controls.email.value,
-      )
+      .sendRecoveryEmail(this.forgotPasswordForm.controls.email.value)
       .subscribe({
         next: () => {
           this.dialogRef.close();

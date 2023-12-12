@@ -47,7 +47,7 @@ export class SignUpComponent {
 
   onSignUp() {
     this.userService
-      .signIn(
+      .signUp(
         this.signUpForm.controls.email.value,
         this.signUpForm.controls.password.value,
       )

@@ -27,4 +27,18 @@ export class UserService {
       }),
     );
   }
+
+  sendRecoveryEmail(email: string | null) {
+    console.log(email);
+    return this.http.get<User>('/assets/current-user.json').pipe(tap(() => {}));
+  }
+
+  signUp(email: string | null, password: string | null) {
+    console.log(email, password);
+    return this.http.get<User>('/assets/current-user.json').pipe(
+      tap((user) => {
+        this.currentUser.next(user);
+      }),
+    );
+  }
 }
