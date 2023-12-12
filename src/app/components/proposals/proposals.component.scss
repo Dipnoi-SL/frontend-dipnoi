@@ -20,4 +20,9 @@ mat-sidenav {
 
 .selected {
   border-right: 2px solid $primary;
+  color: $primary !important;
+}
+
+.not-selected {
+  opacity: 0.6;
 }

@@ -5,7 +5,9 @@
         mat-list-item
         routerLink="/proposals/bla"
         [activated]="router.isActive('/proposals/bla', false)"
-        [ngClass]="{ selected: router.isActive('/proposals/bla', false) }"
+        [ngClass]="
+          router.isActive('/proposals/bla', false) ? 'selected' : 'not-selected'
+        "
       >
         Bla
       </a>
@@ -13,7 +15,11 @@
         mat-list-item
         routerLink="/proposals/blabla"
         [activated]="router.isActive('/proposals/blabla', false)"
-        [ngClass]="{ selected: router.isActive('/proposals/blabla', false) }"
+        [ngClass]="
+          router.isActive('/proposals/blabla', false)
+            ? 'selected'
+            : 'not-selected'
+        "
       >
         BlaBla
       </a>
