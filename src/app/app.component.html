@@ -1,5 +1,7 @@
-<dipnoi-header [tabPanel]="tabPanel"></dipnoi-header>
+<dipnoi-header [tabPanelRef]="tabPanelRef"></dipnoi-header>
 
-<mat-tab-nav-panel #tabPanel><router-outlet></router-outlet></mat-tab-nav-panel>
+<mat-tab-nav-panel #tabPanelRef>
+  <router-outlet></router-outlet>
+</mat-tab-nav-panel>
 
 <dipnoi-footer></dipnoi-footer>

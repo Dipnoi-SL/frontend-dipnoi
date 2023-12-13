@@ -1,3 +1,8 @@
-<mat-card>
-  <mat-card-content>Simple card</mat-card-content>
+<mat-card
+  [routerLink]="[]"
+  [relativeTo]="route"
+  [queryParams]="buildSelectedQueryParam()"
+  queryParamsHandling="merge"
+>
+  <mat-card-content>{{ proposal.description }}</mat-card-content>
 </mat-card>

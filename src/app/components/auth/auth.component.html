@@ -1,17 +1,31 @@
 <div class="wrapper">
-  <dipnoi-sign-in *ngIf="view === 'sign-in'"></dipnoi-sign-in>
-  <dipnoi-sign-up *ngIf="view === 'sign-up'"></dipnoi-sign-up>
+  <dipnoi-sign-in *ngIf="(view | async) === signInPath"></dipnoi-sign-in>
+  <dipnoi-sign-up *ngIf="(view | async) === signUpPath"></dipnoi-sign-up>
   <dipnoi-forgot-password
-    *ngIf="view === 'forgot-password'"
+    *ngIf="(view | async) === forgotPasswordPath"
   ></dipnoi-forgot-password>
   <div class="options">
     <h3>Or continue with:</h3>
   </div>
   <div class="links">
-    <a (click)="onChangeView('forgot-password')">Forgot your password?</a>
+    <a
+      [routerLink]="[]"
+      [relativeTo]="route"
+      [queryParams]="buildAuthQueryParam(forgotPasswordPath)"
+      queryParamsHandling="merge"
+    >
+      Forgot your password?
+    </a>
     <small>o</small>
-    <a (click)="onChangeView(view === 'sign-in' ? 'sign-up' : 'sign-in')">
-      {{ view === 'sign-in' ? 'Sign up' : 'Sign in' }} here
+    <a
+      [routerLink]="[]"
+      [relativeTo]="route"
+      [queryParams]="
+        buildAuthQueryParam(view.value === signInPath ? signUpPath : signInPath)
+      "
+      queryParamsHandling="merge"
+    >
+      {{ (view | async) === signInPath ? 'Sign up' : 'Sign in' }} here
     </a>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { RoutePathEnum } from '../../app.routes';
 
 @Component({
   selector: 'dipnoi-proposals',
@@ -18,5 +19,8 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
   ],
 })
 export class ProposalsComponent {
+  proposalsBlaPath = `/${RoutePathEnum.PROPOSALS}/${RoutePathEnum.BLA}`;
+  proposalsBlaBlaPath = `/${RoutePathEnum.PROPOSALS}/${RoutePathEnum.BLABLA}`;
+
   constructor(public readonly router: Router) {}
 }

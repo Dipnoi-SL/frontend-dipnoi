@@ -1,10 +1,14 @@
 <div
   infiniteScroll
   [scrollWindow]="false"
-  (scrolled)="onScrolled()"
+  (scrolled)="onScrollEnd()"
   class="infinite-scroll"
+  [infiniteScrollContainer]="infiniteScrollContainerRef"
+  [fromRoot]="true"
+  [infiniteScrollDistance]="0"
 >
   <dipnoi-proposal-card
-    *ngFor="let proposal of proposals"
+    *ngFor="let proposal of proposals | async"
+    [proposal]="proposal"
   ></dipnoi-proposal-card>
 </div>

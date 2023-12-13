@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ProposalCardComponent } from '../proposal-card/proposal-card.component';
+import { BehaviorSubject } from 'rxjs';
+import { Proposal } from '../../../models/proposal.model';
 
 @Component({
   selector: 'dipnoi-proposal-list',
@@ -11,36 +13,183 @@ import { ProposalCardComponent } from '../proposal-card/proposal-card.component'
   imports: [CommonModule, InfiniteScrollModule, ProposalCardComponent],
 })
 export class ProposalListComponent {
-  proposals = [
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-  ];
+  @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
 
-  onScrolled() {
-    console.log('A');
+  proposals = new BehaviorSubject<Proposal[]>([
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+    {
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: '1',
+      description: 'YISUS',
+    },
+  ]);
+
+  onScrollEnd() {
+    this.proposals.next(
+      this.proposals.value.concat(
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+        {
+          id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          title: '1',
+          description: 'YISUS',
+        },
+      ),
+    );
   }
 }

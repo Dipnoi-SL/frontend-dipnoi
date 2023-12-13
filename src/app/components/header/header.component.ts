@@ -4,11 +4,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../services/user.service';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { AuthComponent } from '../auth/auth.component';
 import { MatTabNavPanel, MatTabsModule } from '@angular/material/tabs';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RoutePathEnum } from '../../app.routes';
 
 @Component({
   selector: 'dipnoi-header',
@@ -18,7 +17,6 @@ import { Router, RouterLink } from '@angular/router';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule,
     MatMenuModule,
     MatTabsModule,
     RouterLink,
@@ -27,19 +25,24 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Input({ required: true }) tabPanel!: MatTabNavPanel;
+  @Input({ required: true }) tabPanelRef!: MatTabNavPanel;
+
+  proposalsPath = `/${RoutePathEnum.PROPOSALS}`;
+  blaPath = `/${RoutePathEnum.BLA}`;
+  newsPath = `/${RoutePathEnum.NEWS}`;
+  helpPath = `/${RoutePathEnum.HELP}`;
 
   constructor(
     public readonly userService: UserService,
     public readonly router: Router,
-    private readonly dialog: MatDialog,
+    public readonly route: ActivatedRoute,
   ) {}
-
-  onSignIn() {
-    this.dialog.open(AuthComponent, { data: { view: 'sign-in' } });
-  }
 
   onSignOut() {
     this.userService.signOut().subscribe();
+  }
+
+  buildAuthQueryParam() {
+    return { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
   }
 }

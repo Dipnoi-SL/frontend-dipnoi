@@ -1,36 +1,45 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RoutePathEnum } from '../../app.routes';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-auth',
   standalone: true,
   imports: [
     CommonModule,
-    MatDialogModule,
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
+    RouterLink,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
-export class AuthComponent {
-  view: 'sign-in' | 'sign-up' | 'forgot-password';
+export class AuthComponent implements OnInit, OnDestroy {
+  queryParams$!: Subscription;
+  view = new BehaviorSubject<string | undefined>(undefined);
+  signInPath = RoutePathEnum.SIGN_IN;
+  signUpPath = RoutePathEnum.SIGN_UP;
+  forgotPasswordPath = RoutePathEnum.FORGOT_PASSWORD;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    data: {
-      view: 'sign-in' | 'sign-up' | 'forgot-password';
-    },
-  ) {
-    this.view = data.view;
+  constructor(public readonly route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.queryParams$ = this.route.queryParams.subscribe((queryParams) => {
+      this.view.next(queryParams[RoutePathEnum.AUTH]);
+    });
   }
 
-  onChangeView(view: 'sign-in' | 'sign-up' | 'forgot-password') {
-    this.view = view;
+  ngOnDestroy(): void {
+    this.queryParams$.unsubscribe();
+  }
+
+  buildAuthQueryParam(value: string) {
+    return { [RoutePathEnum.AUTH]: value };
   }
 }

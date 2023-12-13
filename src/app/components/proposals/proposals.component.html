@@ -3,20 +3,20 @@
     <mat-nav-list disableRipple="true">
       <a
         mat-list-item
-        routerLink="/proposals/bla"
-        [activated]="router.isActive('/proposals/bla', false)"
+        [routerLink]="proposalsBlaPath"
+        [activated]="router.isActive(proposalsBlaPath, false)"
         [ngClass]="
-          router.isActive('/proposals/bla', false) ? 'selected' : 'not-selected'
+          router.isActive(proposalsBlaPath, false) ? 'selected' : 'not-selected'
         "
       >
         Bla
       </a>
       <a
         mat-list-item
-        routerLink="/proposals/blabla"
-        [activated]="router.isActive('/proposals/blabla', false)"
+        [routerLink]="proposalsBlaBlaPath"
+        [activated]="router.isActive(proposalsBlaBlaPath, false)"
         [ngClass]="
-          router.isActive('/proposals/blabla', false)
+          router.isActive(proposalsBlaBlaPath, false)
             ? 'selected'
             : 'not-selected'
         "

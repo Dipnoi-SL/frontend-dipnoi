@@ -6,24 +6,42 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { BlaComponent } from './components/proposals/bla/bla.component';
 
+export enum RoutePathEnum {
+  ABOUT_US = 'about-us',
+  SETTINGS = 'settings',
+  HELP = 'help',
+  NEWS = 'news',
+  PROPOSALS = 'proposals',
+  BLA = 'bla',
+  BLABLA = 'blabla',
+  AUTH = 'auth',
+  SIGN_IN = 'sign-in',
+  SIGN_UP = 'sign-up',
+  FORGOT_PASSWORD = 'forgot-password',
+  PROPOSAL = 'selected-proposal',
+}
+
 export const routes: Routes = [
-  { path: 'about-us', component: AboutUsComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'help', component: HelpComponent },
-  { path: 'news', component: NewsComponent },
+  { path: RoutePathEnum.ABOUT_US, component: AboutUsComponent },
+  { path: RoutePathEnum.SETTINGS, component: SettingsComponent },
+  { path: RoutePathEnum.HELP, component: HelpComponent },
+  { path: RoutePathEnum.NEWS, component: NewsComponent },
   {
-    path: 'proposals',
+    path: RoutePathEnum.PROPOSALS,
     component: ProposalsComponent,
     children: [
       {
-        path: 'bla',
+        path: RoutePathEnum.BLA,
         component: BlaComponent,
       },
       {
-        path: 'blabla',
+        path: RoutePathEnum.BLABLA,
         component: HelpComponent,
       },
     ],
   },
-  { path: '**', redirectTo: '/proposals/bla' },
+  {
+    path: '**',
+    redirectTo: `/${RoutePathEnum.PROPOSALS}/${RoutePathEnum.BLA}`,
+  },
 ];

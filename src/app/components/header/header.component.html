@@ -1,23 +1,23 @@
 <mat-toolbar>
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel" animationDuration="0">
+  <nav mat-tab-nav-bar [tabPanel]="tabPanelRef" animationDuration="0">
     <a
       mat-tab-link
-      routerLink="/proposals/bla"
-      [active]="router.isActive('/proposals', false)"
+      [routerLink]="proposalsPath + blaPath"
+      [active]="router.isActive(proposalsPath, false)"
     >
       Proposals
     </a>
     <a
       mat-tab-link
-      routerLink="/news"
-      [active]="router.isActive('/news', false)"
+      [routerLink]="newsPath"
+      [active]="router.isActive(newsPath, false)"
     >
       News
     </a>
     <a
       mat-tab-link
-      routerLink="/help"
-      [active]="router.isActive('/help', false)"
+      [routerLink]="helpPath"
+      [active]="router.isActive(helpPath, false)"
     >
       Help
     </a>
@@ -35,7 +35,14 @@
     </mat-menu>
   </div>
   <div *ngIf="!(userService.currentUser | async)">
-    <button mat-raised-button color="primary" (click)="onSignIn()">
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="[]"
+      [relativeTo]="route"
+      [queryParams]="buildAuthQueryParam()"
+      queryParamsHandling="merge"
+    >
       Sign in
     </button>
   </div>

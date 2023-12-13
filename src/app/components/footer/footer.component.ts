@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
+import { RoutePathEnum } from '../../app.routes';
 
 @Component({
   selector: 'dipnoi-footer',
@@ -10,4 +11,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './footer.component.scss',
   imports: [CommonModule, MatToolbarModule, RouterLink],
 })
-export class FooterComponent {}
+export class FooterComponent {
+  aboutUsPath = `/${RoutePathEnum.ABOUT_US}`;
+}
