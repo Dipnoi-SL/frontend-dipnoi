@@ -1,46 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MatCardModule } from '@angular/material/card';
+import { ProposalListComponent } from '../proposal-list/proposal-list.component';
 
 @Component({
   selector: 'dipnoi-bla',
   standalone: true,
   templateUrl: './bla.component.html',
   styleUrl: './bla.component.scss',
-  imports: [CommonModule, InfiniteScrollModule, MatCardModule],
+  imports: [CommonModule, ProposalListComponent],
 })
-export class BlaComponent {
-  proposals = [
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-    'A',
-  ];
-
-  onScrolled() {
-    console.log('A');
-  }
-}
+export class BlaComponent {}

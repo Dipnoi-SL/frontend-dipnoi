@@ -1,0 +1,10 @@
+<div
+  infiniteScroll
+  [scrollWindow]="false"
+  (scrolled)="onScrolled()"
+  class="infinite-scroll"
+>
+  <dipnoi-proposal-card
+    *ngFor="let proposal of proposals"
+  ></dipnoi-proposal-card>
+</div>
