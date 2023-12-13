@@ -29,7 +29,7 @@ export class ForgotPasswordComponent {
   });
 
   constructor(
-    public readonly userService: UserService,
+    private readonly userService: UserService,
     private readonly formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AuthComponent>,
   ) {}

@@ -15,8 +15,6 @@ import { RoutePathEnum } from '../../../app.routes';
 export class ProposalCardComponent {
   @Input({ required: true }) proposal!: Proposal;
 
-  proposalPath = RoutePathEnum.PROPOSAL;
-
   constructor(public readonly route: ActivatedRoute) {}
 
   buildSelectedQueryParam() {
