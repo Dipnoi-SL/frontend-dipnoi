@@ -4,12 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
-import { emailValidationRegexp } from '../../../constants/email-validation-regexp';
 import { MatIconModule } from '@angular/material/icon';
-import { passwordValidationRegexp } from '../../../constants/password-validation-regexp';
 import { UserService } from '../../../services/user.service';
 import { AuthComponent } from '../auth.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import {
+  EMAIL_VALIDATION_REGEXP,
+  PASSWORD_VALIDATION_REGEXP,
+} from '../../../constants/literals';
 
 @Component({
   selector: 'dipnoi-sign-up',
@@ -30,11 +32,11 @@ export class SignUpComponent {
   signUpForm = this.formBuilder.group({
     email: [
       '',
-      [Validators.required, Validators.pattern(emailValidationRegexp)],
+      [Validators.required, Validators.pattern(EMAIL_VALIDATION_REGEXP)],
     ],
     password: [
       '',
-      [Validators.required, Validators.pattern(passwordValidationRegexp)],
+      [Validators.required, Validators.pattern(PASSWORD_VALIDATION_REGEXP)],
     ],
   });
   hidePassword = true;
