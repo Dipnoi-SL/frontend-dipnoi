@@ -21,13 +21,13 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  queryParams$!: Subscription;
   view = new BehaviorSubject<string | undefined>(undefined);
+  queryParams$!: Subscription;
   signInPath = RoutePathEnum.SIGN_IN;
   signUpPath = RoutePathEnum.SIGN_UP;
   forgotPasswordPath = RoutePathEnum.FORGOT_PASSWORD;
 
-  constructor(public readonly route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.queryParams$ = this.route.queryParams.subscribe((queryParams) => {

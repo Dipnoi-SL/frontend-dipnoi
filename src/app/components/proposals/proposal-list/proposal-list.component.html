@@ -8,7 +8,7 @@
   [infiniteScrollDistance]="0"
 >
   <dipnoi-proposal-card
-    *ngFor="let proposal of proposals | async"
+    *ngFor="let proposal of proposalService.proposals | async"
     [proposal]="proposal"
   ></dipnoi-proposal-card>
 </div>

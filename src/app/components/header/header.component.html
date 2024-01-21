@@ -23,7 +23,7 @@
     </a>
     <a class="invisible" mat-tab-link [active]="true"></a>
   </nav>
-  <div *ngIf="userService.currentUser | async">
+  <div *ngIf="userService.authUser | async">
     <button mat-icon-button [mat-menu-trigger-for]="userMenu">
       <mat-icon fontIcon="account_circle"></mat-icon>
     </button>
@@ -34,7 +34,7 @@
       </ng-template>
     </mat-menu>
   </div>
-  <div *ngIf="!(userService.currentUser | async)">
+  <div *ngIf="!(userService.authUser | async)">
     <button
       mat-raised-button
       color="primary"

@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  Validators,
+  NonNullableFormBuilder,
+} from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 import { AuthComponent } from '../auth.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
@@ -42,13 +46,13 @@ export class SignUpComponent {
   hidePassword = true;
 
   constructor(
-    private readonly userService: UserService,
-    private readonly formBuilder: FormBuilder,
+    private authService: AuthService,
+    private formBuilder: NonNullableFormBuilder,
     private dialogRef: MatDialogRef<AuthComponent>,
   ) {}
 
   onSignUp() {
-    this.userService
+    this.authService
       .signUp(
         this.signUpForm.controls.email.value,
         this.signUpForm.controls.password.value,

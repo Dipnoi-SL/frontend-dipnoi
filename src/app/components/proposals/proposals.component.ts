@@ -22,5 +22,5 @@ export class ProposalsComponent {
   proposalsBlaPath = `/${RoutePathEnum.PROPOSALS}/${RoutePathEnum.BLA}`;
   proposalsBlaBlaPath = `/${RoutePathEnum.PROPOSALS}/${RoutePathEnum.BLABLA}`;
 
-  constructor(public readonly router: Router) {}
+  constructor(public router: Router) {}
 }

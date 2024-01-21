@@ -1,11 +1,10 @@
 import { RoleEnum } from '../constants/enums';
+import { AbstractEntity } from './abstract-entity.model';
 
-export interface User {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
-  username: string;
-  email: string;
+export interface User extends AbstractEntity {
   role: RoleEnum;
-  active: boolean;
+  nickname: string | null;
+  avatarUri: string;
+  reputation: number;
+  popularity: number;
 }

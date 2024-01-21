@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ProposalCardComponent } from '../proposal-card/proposal-card.component';
-import { BehaviorSubject } from 'rxjs';
-import { Proposal } from '../../../models/proposal.model';
+import { ProposalService } from '../../../services/proposal.service';
+import { ProposalStateEnum } from '../../../constants/enums';
 
 @Component({
   selector: 'dipnoi-proposal-list',
@@ -12,184 +12,30 @@ import { Proposal } from '../../../models/proposal.model';
   styleUrl: './proposal-list.component.scss',
   imports: [CommonModule, InfiniteScrollModule, ProposalCardComponent],
 })
-export class ProposalListComponent {
+export class ProposalListComponent implements OnInit {
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
 
-  proposals = new BehaviorSubject<Proposal[]>([
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: '1',
-      description: 'YISUS',
-    },
-  ]);
+  constructor(public proposalService: ProposalService) {}
+
+  ngOnInit() {
+    this.proposalService
+      .reset({
+        states: [
+          ProposalStateEnum.SELECTED_FOR_DEVELOPMENT,
+          ProposalStateEnum.IN_DEVELOPMENT,
+        ],
+      })
+      .subscribe();
+  }
 
   onScrollEnd() {
-    this.proposals.next(
-      this.proposals.value.concat(
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-        {
-          id: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '1',
-          description: 'YISUS',
-        },
-      ),
-    );
+    this.proposalService
+      .readMore({
+        states: [
+          ProposalStateEnum.SELECTED_FOR_DEVELOPMENT,
+          ProposalStateEnum.IN_DEVELOPMENT,
+        ],
+      })
+      ?.subscribe();
   }
 }

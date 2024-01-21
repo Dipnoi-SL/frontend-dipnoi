@@ -1,44 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
-import { User } from '../models/user.model';
+import { MyUser } from '../models/my-user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  currentUser = new BehaviorSubject<User | null>(null);
+  authUser = new BehaviorSubject<MyUser | null>(null);
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-  signIn(email: string | null, password: string | null) {
-    console.log(email, password);
-    return this.http.get<User>('/assets/current-user.json').pipe(
-      tap((user) => {
-        this.currentUser.next(user);
+  readMe() {
+    return this.http.get<MyUser>(`${environment.apiUrl}/users/me`).pipe(
+      tap({
+        next: (res) => {
+          this.authUser.next(res);
+        },
       }),
     );
   }
 
-  signOut() {
-    return this.http.get<User>('/assets/current-user.json').pipe(
-      tap(() => {
-        this.currentUser.next(null);
-      }),
-    );
-  }
-
-  sendRecoveryEmail(email: string | null) {
-    console.log(email);
-    return this.http.get<User>('/assets/current-user.json').pipe(tap(() => {}));
-  }
-
-  signUp(email: string | null, password: string | null) {
-    console.log(email, password);
-    return this.http.get<User>('/assets/current-user.json').pipe(
-      tap((user) => {
-        this.currentUser.next(user);
-      }),
-    );
+  clearMe() {
+    this.authUser.next(null);
   }
 }
