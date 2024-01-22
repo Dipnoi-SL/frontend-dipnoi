@@ -29,13 +29,13 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(public route: ActivatedRoute) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.queryParams$ = this.route.queryParams.subscribe((queryParams) => {
       this.view.next(queryParams[RoutePathEnum.AUTH]);
     });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.queryParams$.unsubscribe();
   }
 

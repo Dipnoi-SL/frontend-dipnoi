@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private authService: AuthService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.authService.initialize().subscribe();
 
     this.queryParams$ = this.route.queryParams.subscribe((queryParams) => {
@@ -70,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.queryParams$.unsubscribe();
   }
 

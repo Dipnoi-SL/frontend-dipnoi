@@ -36,7 +36,9 @@ export class ForgotPasswordComponent {
 
   onSendRecoveryEmail() {
     this.authService
-      .requestPasswordReset(this.forgotPasswordForm.controls.email.value)
+      .requestPasswordReset({
+        email: this.forgotPasswordForm.controls.email.value,
+      })
       .subscribe({
         next: () => {
           this.dialogRef.close();

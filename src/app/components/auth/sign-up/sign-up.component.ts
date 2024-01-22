@@ -53,10 +53,10 @@ export class SignUpComponent {
 
   onSignUp() {
     this.authService
-      .signUp(
-        this.signUpForm.controls.email.value,
-        this.signUpForm.controls.password.value,
-      )
+      .signUp({
+        email: this.signUpForm.controls.email.value,
+        password: this.signUpForm.controls.password.value,
+      })
       .subscribe({
         next: () => {
           this.dialogRef.close();

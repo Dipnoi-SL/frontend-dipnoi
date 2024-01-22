@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { concatMap, tap } from 'rxjs';
+import { BehaviorSubject, concatMap, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResponse } from '../models/token-response.model';
 import { UserService } from './user.service';
@@ -9,6 +9,7 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class AuthService {
+  signedIn = new BehaviorSubject<boolean>(false);
   accessToken: string | null = null;
 
   constructor(
@@ -16,62 +17,50 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
-  signUp(email: string, password: string) {
-    return this.http.post(`${environment.apiUrl}/auth/sign-up`, {
-      email,
-      password,
-    });
+  signUp(params: { email: string; password: string }) {
+    return this.http.post(`${environment.apiUrl}/auth/sign-up`, params);
   }
 
-  signIn(email: string, password: string) {
+  signIn(params: { email: string; password: string }) {
     return this.http
-      .post<TokenResponse>(
-        `${environment.apiUrl}/auth/sign-in`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true },
-      )
+      .post<TokenResponse>(`${environment.apiUrl}/auth/sign-in`, params, {
+        withCredentials: true,
+      })
       .pipe(
         concatMap((res) => {
-          this.accessToken = res.accessToken;
+          this.startSession(res);
 
           return this.userService.readMe();
         }),
       );
   }
 
-  googleSignIn(accessToken: string) {
+  googleSignIn(params: { accessToken: string }) {
     return this.http
       .post<TokenResponse>(
         `${environment.apiUrl}/auth/google-sign-in`,
-        {
-          accessToken,
-        },
+        params,
         { withCredentials: true },
       )
       .pipe(
         concatMap((res) => {
-          this.accessToken = res.accessToken;
+          this.startSession(res);
 
           return this.userService.readMe();
         }),
       );
   }
 
-  facebookSignIn(accessToken: string) {
+  facebookSignIn(params: { accessToken: string }) {
     return this.http
       .post<TokenResponse>(
         `${environment.apiUrl}/auth/facebook-sign-in`,
-        {
-          accessToken,
-        },
+        params,
         { withCredentials: true },
       )
       .pipe(
         concatMap((res) => {
-          this.accessToken = res.accessToken;
+          this.startSession(res);
 
           return this.userService.readMe();
         }),
@@ -101,51 +90,44 @@ export class AuthService {
       .pipe(
         tap({
           next: (res) => {
-            this.accessToken = res.accessToken;
+            this.startSession(res);
           },
         }),
       );
   }
 
-  updatePassword(newPassword: string, oldPassword: string) {
+  updatePassword(params: { newPassword: string; oldPassword: string }) {
     return this.http
       .put<TokenResponse>(
         `${environment.apiUrl}/auth/update-password`,
-        {
-          newPassword,
-          oldPassword,
-        },
+        params,
         { withCredentials: true },
       )
       .pipe(
         tap({
           next: (res) => {
-            this.accessToken = res.accessToken;
+            this.startSession(res);
           },
         }),
       );
   }
 
-  requestPasswordReset(email: string) {
-    return this.http.post(`${environment.apiUrl}/auth/request-password-reset`, {
-      email,
-    });
+  requestPasswordReset(params: { email: string }) {
+    return this.http.post(
+      `${environment.apiUrl}/auth/request-password-reset`,
+      params,
+    );
   }
 
-  resetPassword(newPassword: string, resetToken: string) {
+  resetPassword(params: { newPassword: string; resetToken: string }) {
     return this.http
-      .put<TokenResponse>(
-        `${environment.apiUrl}/auth/reset-password`,
-        {
-          newPassword,
-          resetToken,
-        },
-        { withCredentials: true },
-      )
+      .put<TokenResponse>(`${environment.apiUrl}/auth/reset-password`, params, {
+        withCredentials: true,
+      })
       .pipe(
         tap({
           next: (res) => {
-            this.accessToken = res.accessToken;
+            this.startSession(res);
           },
         }),
       );
@@ -155,37 +137,30 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/request-activation`, {});
   }
 
-  activate(activationToken: string, nickname: string) {
+  activate(params: { activationToken: string; nickname: string }) {
     return this.http
-      .put<TokenResponse>(
-        `${environment.apiUrl}/auth/activate`,
-        {
-          activationToken,
-          nickname,
-        },
-        { withCredentials: true },
-      )
+      .put<TokenResponse>(`${environment.apiUrl}/auth/activate`, params, {
+        withCredentials: true,
+      })
       .pipe(
         concatMap((res) => {
-          this.accessToken = res.accessToken;
+          this.startSession(res);
 
           return this.userService.readMe();
         }),
       );
   }
 
-  socialActivate(nickname: string) {
+  socialActivate(params: { nickname: string }) {
     return this.http
       .put<TokenResponse>(
         `${environment.apiUrl}/auth/social-activate`,
-        {
-          nickname,
-        },
+        params,
         { withCredentials: true },
       )
       .pipe(
         concatMap((res) => {
-          this.accessToken = res.accessToken;
+          this.startSession(res);
 
           return this.userService.readMe();
         }),
@@ -195,15 +170,27 @@ export class AuthService {
   initialize() {
     return this.refreshTokens().pipe(
       concatMap((res) => {
-        this.accessToken = res.accessToken;
+        this.startSession(res);
 
         return this.userService.readMe();
       }),
     );
   }
 
+  startSession(res: TokenResponse) {
+    if (!this.accessToken) {
+      this.accessToken = res.accessToken;
+
+      this.signedIn.next(true);
+    } else {
+      this.accessToken = res.accessToken;
+    }
+  }
+
   closeSession() {
     this.accessToken = null;
+
+    this.signedIn.next(false);
 
     this.userService.clearMe();
   }

@@ -1,1 +1,7 @@
-<div class="wrapper"></div>
+<div class="wrapper">
+  <dipnoi-proposal-dialog-content
+    [proposal]="
+      (proposalService.proposalsInfo | async)![proposalId] ?? initialProposal
+    "
+  ></dipnoi-proposal-dialog-content>
+</div>

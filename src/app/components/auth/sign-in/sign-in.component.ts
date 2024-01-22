@@ -39,10 +39,10 @@ export class SignInComponent {
 
   onSignIn() {
     this.authService
-      .signIn(
-        this.signInForm.controls.email.value,
-        this.signInForm.controls.password.value,
-      )
+      .signIn({
+        email: this.signInForm.controls.email.value,
+        password: this.signInForm.controls.password.value,
+      })
       .subscribe({
         next: () => {
           this.dialogRef.close();
