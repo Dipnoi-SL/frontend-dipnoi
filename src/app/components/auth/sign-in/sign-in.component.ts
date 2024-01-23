@@ -32,9 +32,9 @@ export class SignInComponent {
   hidePassword = true;
 
   constructor(
-    private authService: AuthService,
-    private formBuilder: NonNullableFormBuilder,
-    private dialogRef: MatDialogRef<AuthComponent>,
+    public authService: AuthService,
+    public formBuilder: NonNullableFormBuilder,
+    public dialogRef: MatDialogRef<AuthComponent>,
   ) {}
 
   onSignIn() {

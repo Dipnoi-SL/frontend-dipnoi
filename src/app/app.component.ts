@@ -42,10 +42,10 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private dialog: MatDialog,
-    private authService: AuthService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public authService: AuthService,
   ) {}
 
   ngOnInit() {

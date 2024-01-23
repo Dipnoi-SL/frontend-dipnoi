@@ -1,0 +1,23 @@
+<div
+  infiniteScroll
+  insufficientItems
+  [existingItems]="
+    (commentService.commentsInfo | async)![params.proposalId]?.length ?? 0
+  "
+  [containerRef]="infiniteScrollContainerRef"
+  (loadMoreItems)="onScrollEnd()"
+  [scrollWindow]="false"
+  (scrolled)="onScrollEnd()"
+  class="infinite-scroll"
+  [infiniteScrollContainer]="infiniteScrollContainerRef"
+  [fromRoot]="true"
+  [infiniteScrollDistance]="0"
+>
+  <div
+    *ngFor="
+      let comment of (commentService.commentsInfo | async)![params.proposalId]
+    "
+  >
+    <p>Comment {{ comment.body }}</p>
+  </div>
+</div>

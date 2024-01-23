@@ -45,6 +45,7 @@ export class ProposalService {
         tap({
           next: (res) => {
             this.proposalsList.next(res.data);
+
             this.pageMeta.next(res.meta);
           },
         }),
@@ -71,6 +72,7 @@ export class ProposalService {
               this.proposalsList.next(
                 this.proposalsList.value.concat(res.data),
               );
+
               this.pageMeta.next(res.meta);
             },
           }),

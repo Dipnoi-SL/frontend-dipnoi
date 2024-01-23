@@ -1,0 +1,5 @@
+<h1>Proposal {{ proposal.initialTitle }}</h1>
+<dipnoi-poll
+  *ngFor="let poll of (pollService.pollsInfo | async)![proposal.id]"
+  [poll]="poll"
+></dipnoi-poll>

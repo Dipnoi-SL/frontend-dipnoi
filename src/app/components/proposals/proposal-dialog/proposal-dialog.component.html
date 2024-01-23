@@ -1,7 +1,13 @@
-<div class="wrapper">
+<div class="wrapper" #infiniteScrollContainerRef>
   <dipnoi-proposal-dialog-content
-    [proposal]="
-      (proposalService.proposalsInfo | async)![proposalId] ?? initialProposal
+    *ngIf="
+      (proposalService.proposalsInfo | async)![proposalId] ??
+      initialProposal as proposal
     "
+    [proposal]="proposal"
   ></dipnoi-proposal-dialog-content>
+  <dipnoi-comment-list
+    [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+    [proposalId]="proposalId"
+  ></dipnoi-comment-list>
 </div>

@@ -18,15 +18,17 @@ export class InsufficientItemsDirective implements OnChanges {
 
   previousExistingItems?: number;
 
-  ngOnChanges(): void {
-    if (
-      this.existingItems &&
-      this.existingItems !== this.previousExistingItems &&
-      this.containerRef.clientHeight === this.containerRef.scrollHeight
-    ) {
-      this.previousExistingItems = this.existingItems;
+  ngOnChanges() {
+    requestAnimationFrame(() => {
+      if (
+        this.existingItems &&
+        this.existingItems !== this.previousExistingItems &&
+        this.containerRef.clientHeight === this.containerRef.scrollHeight
+      ) {
+        this.previousExistingItems = this.existingItems;
 
-      this.loadMoreItems.emit();
-    }
+        this.loadMoreItems.emit();
+      }
+    });
   }
 }

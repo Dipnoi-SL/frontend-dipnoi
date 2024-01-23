@@ -34,3 +34,8 @@ export enum ProposalOrderByEnum {
   IMPORTANCE = 'importance',
   PRIORITY = 'priority',
 }
+
+export enum CommentOrderByEnum {
+  CREATED_AT = 'createdAt',
+  POPULARITY = 'popularity',
+}
