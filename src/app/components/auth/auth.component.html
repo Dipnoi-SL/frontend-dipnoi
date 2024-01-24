@@ -1,8 +1,8 @@
 <div class="wrapper">
-  <dipnoi-sign-in *ngIf="(view | async) === signInPath"></dipnoi-sign-in>
-  <dipnoi-sign-up *ngIf="(view | async) === signUpPath"></dipnoi-sign-up>
+  <dipnoi-sign-in *ngIf="view === signInPath"></dipnoi-sign-in>
+  <dipnoi-sign-up *ngIf="view === signUpPath"></dipnoi-sign-up>
   <dipnoi-forgot-password
-    *ngIf="(view | async) === forgotPasswordPath"
+    *ngIf="view === forgotPasswordPath"
   ></dipnoi-forgot-password>
   <div class="options">
     <h3>Or continue with:</h3>
@@ -21,11 +21,11 @@
       [routerLink]="[]"
       [relativeTo]="route"
       [queryParams]="
-        buildAuthQueryParam(view.value === signInPath ? signUpPath : signInPath)
+        buildAuthQueryParam(view === signInPath ? signUpPath : signInPath)
       "
       queryParamsHandling="merge"
     >
-      {{ (view | async) === signInPath ? 'Sign up' : 'Sign in' }} here
+      {{ view === signInPath ? 'Sign up' : 'Sign in' }} here
     </a>
   </div>
 </div>

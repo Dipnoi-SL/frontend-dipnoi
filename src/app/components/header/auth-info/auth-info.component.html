@@ -1,0 +1,28 @@
+<div
+  *ngIf="userService.authUser | async"
+  class="dropdown"
+  (click)="toggleDropdown()"
+>
+  <button class="dropdown-button">
+    <!-- <mat-icon fontIcon="account_circle"></mat-icon> -->
+  </button>
+  <div
+    class="dropdown-content"
+    [style.display]="isDropdownOpen ? 'block' : 'none'"
+  >
+    <button *ngFor="let item of navigationItems" [routerLink]="item.path">
+      {{ item.title }}
+    </button>
+    <button (click)="onSignOut()">Sign out</button>
+  </div>
+</div>
+
+<button
+  *ngIf="!(userService.authUser | async)"
+  [routerLink]="[]"
+  [relativeTo]="route"
+  [queryParams]="signInQueryParams"
+  queryParamsHandling="merge"
+>
+  Sign in
+</button>

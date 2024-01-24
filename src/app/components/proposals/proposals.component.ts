@@ -1,26 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { RoutePathEnum } from '../../app.routes';
+import { RouterOutlet } from '@angular/router';
+import { AdsComponent } from './ads/ads.component';
+import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 
 @Component({
   selector: 'dipnoi-proposals',
   standalone: true,
   templateUrl: './proposals.component.html',
   styleUrl: './proposals.component.scss',
-  imports: [
-    CommonModule,
-    MatSidenavModule,
-    MatListModule,
-    RouterOutlet,
-    RouterLink,
-  ],
+  imports: [CommonModule, RouterOutlet, AdsComponent, SideNavigationComponent],
 })
-export class ProposalsComponent {
-  proposalsBlaPath = `/${RoutePathEnum.PROPOSALS}/${RoutePathEnum.BLA}`;
-  proposalsBlaBlaPath = `/${RoutePathEnum.PROPOSALS}/${RoutePathEnum.BLABLA}`;
-
-  constructor(public router: Router) {}
-}
+export class ProposalsComponent {}

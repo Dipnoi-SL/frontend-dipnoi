@@ -1,19 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatTabsModule } from '@angular/material/tabs';
 import { Subscription } from 'rxjs';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { RoutePathEnum } from './app.routes';
 import { ProposalDialogComponent } from './components/proposals/proposal-dialog/proposal-dialog.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { AuthService } from './services/auth.service';
+import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-root',
@@ -23,19 +19,16 @@ import { AuthService } from './services/auth.service';
   imports: [
     CommonModule,
     RouterOutlet,
-    MatSidenavModule,
-    MatToolbarModule,
     HeaderComponent,
-    FooterComponent,
     HttpClientModule,
-    MatTabsModule,
+    DialogModule,
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {
   queryParams$!: Subscription;
   dialogInfo: Record<
     string,
-    { component: ComponentType<any>; ref: MatDialogRef<Component> | null }
+    { component: ComponentType<any>; ref: DialogRef<Component> | null }
   > = {
     [RoutePathEnum.AUTH]: { component: AuthComponent, ref: null },
     [RoutePathEnum.PROPOSAL]: { component: ProposalDialogComponent, ref: null },
@@ -44,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     public router: Router,
     public route: ActivatedRoute,
-    public dialog: MatDialog,
+    public dialog: Dialog,
     public authService: AuthService,
   ) {}
 
@@ -88,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.dialogInfo[queryParam].component,
       );
 
-      this.dialogInfo[queryParam].ref?.afterClosed().subscribe(() => {
+      this.dialogInfo[queryParam].ref?.closed.subscribe(() => {
         this.dialogInfo[queryParam].ref = null;
 
         this.router.navigate([], {

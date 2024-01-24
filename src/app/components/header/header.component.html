@@ -1,49 +1,7 @@
-<mat-toolbar>
-  <nav mat-tab-nav-bar [tabPanel]="tabPanelRef" animationDuration="0">
-    <a
-      mat-tab-link
-      [routerLink]="proposalsPath + blaPath"
-      [active]="router.isActive(proposalsPath, false)"
-    >
-      Proposals
-    </a>
-    <a
-      mat-tab-link
-      [routerLink]="newsPath"
-      [active]="router.isActive(newsPath, false)"
-    >
-      News
-    </a>
-    <a
-      mat-tab-link
-      [routerLink]="helpPath"
-      [active]="router.isActive(helpPath, false)"
-    >
-      Help
-    </a>
-    <a class="invisible" mat-tab-link [active]="true"></a>
-  </nav>
-  <div *ngIf="userService.authUser | async">
-    <button mat-icon-button [mat-menu-trigger-for]="userMenu">
-      <mat-icon fontIcon="account_circle"></mat-icon>
-    </button>
-    <mat-menu #userMenu="matMenu">
-      <ng-template matMenuContent let-name="name">
-        <button mat-menu-item routerLink="/settings">Settings</button>
-        <button mat-menu-item (click)="onSignOut()">Sign out</button>
-      </ng-template>
-    </mat-menu>
+<div class="wrapper">
+  <div class="content">
+    <dipnoi-tab-navigation></dipnoi-tab-navigation>
+    <dipnoi-auth-info></dipnoi-auth-info>
   </div>
-  <div *ngIf="!(userService.authUser | async)">
-    <button
-      mat-raised-button
-      color="primary"
-      [routerLink]="[]"
-      [relativeTo]="route"
-      [queryParams]="buildAuthQueryParam()"
-      queryParamsHandling="merge"
-    >
-      Sign in
-    </button>
-  </div>
-</mat-toolbar>
+  <div class="horizontal-divider"></div>
+</div>

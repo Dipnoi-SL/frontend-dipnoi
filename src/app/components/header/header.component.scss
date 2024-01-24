@@ -1,12 +1,16 @@
-@import '../../../custom-theme.scss';
+@import '../../../styles.scss';
 
-mat-toolbar {
+.wrapper {
+  display: flex;
+  flex-direction: column;
   height: $headerHeight;
-  justify-content: space-between;
-  padding-left: max(calc((100vw - $maxScreenWidth) / 2), 16px);
-  padding-right: max(calc((100vw - $maxScreenWidth) / 2), 16px);
 }
 
-.invisible {
-  visibility: hidden;
+.content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: max(calc((100vw - $maxScreenWidth) / 2), 16px);
+  padding-right: max(calc((100vw - $maxScreenWidth) / 2), 16px);
 }

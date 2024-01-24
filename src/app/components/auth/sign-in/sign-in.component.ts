@@ -1,25 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AuthComponent } from '../auth.component';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'dipnoi-sign-in',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatIconModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })
@@ -34,7 +23,7 @@ export class SignInComponent {
   constructor(
     public authService: AuthService,
     public formBuilder: NonNullableFormBuilder,
-    public dialogRef: MatDialogRef<AuthComponent>,
+    public dialogRef: DialogRef<AuthComponent>,
   ) {}
 
   onSignIn() {

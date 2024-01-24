@@ -1,4 +1,5 @@
 <div
+  class="wrapper"
   infiniteScroll
   insufficientItems
   [existingItems]="(proposalService.proposalsList | async)!.length"
@@ -6,7 +7,6 @@
   (loadMoreItems)="onScrollEnd()"
   [scrollWindow]="false"
   (scrolled)="onScrollEnd()"
-  class="infinite-scroll"
   [infiniteScrollContainer]="infiniteScrollContainerRef"
   [fromRoot]="true"
   [infiniteScrollDistance]="0"

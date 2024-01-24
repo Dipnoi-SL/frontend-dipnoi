@@ -5,7 +5,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RoutePathEnum } from '../../app.routes';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-auth',
@@ -21,7 +21,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  view = new BehaviorSubject<string | undefined>(undefined);
+  view?: string;
   queryParams$!: Subscription;
   signInPath = RoutePathEnum.SIGN_IN;
   signUpPath = RoutePathEnum.SIGN_UP;
@@ -31,7 +31,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.queryParams$ = this.route.queryParams.subscribe((queryParams) => {
-      this.view.next(queryParams[RoutePathEnum.AUTH]);
+      this.view = queryParams[RoutePathEnum.AUTH];
     });
   }
 

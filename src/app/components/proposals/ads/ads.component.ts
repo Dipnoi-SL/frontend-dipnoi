@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'dipnoi-news',
+  selector: 'dipnoi-ads',
   standalone: true,
-  templateUrl: './news.component.html',
-  styleUrl: './news.component.scss',
+  templateUrl: './ads.component.html',
+  styleUrl: './ads.component.scss',
   imports: [CommonModule],
 })
-export class NewsComponent {}
+export class AdsComponent {}

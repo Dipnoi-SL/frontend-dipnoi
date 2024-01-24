@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProposalListComponent } from '../proposal-list/proposal-list.component';
-import { BehaviorSubject } from 'rxjs';
 import {
   OrderEnum,
   ProposalOrderByEnum,
@@ -9,14 +8,14 @@ import {
 } from '../../../constants/enums';
 
 @Component({
-  selector: 'dipnoi-bla',
+  selector: 'dipnoi-backlog',
   standalone: true,
-  templateUrl: './bla.component.html',
-  styleUrl: './bla.component.scss',
+  templateUrl: './backlog.component.html',
+  styleUrl: './backlog.component.scss',
   imports: [CommonModule, ProposalListComponent],
 })
-export class BlaComponent {
-  params = new BehaviorSubject<{
+export class BacklogComponent {
+  params: {
     orderBy?: ProposalOrderByEnum;
     order?: OrderEnum;
     states?: ProposalStateEnum[];
@@ -24,7 +23,7 @@ export class BlaComponent {
     createdAt?: string;
     resetAt?: string;
     userId?: number;
-  }>({
+  } = {
     states: [],
-  });
+  };
 }

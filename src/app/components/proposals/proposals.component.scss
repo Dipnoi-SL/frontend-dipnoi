@@ -1,18 +1,10 @@
-@import '../../../custom-theme.scss';
+@import '../../../styles.scss';
 
-mat-sidenav-container {
-  height: 100%;
+.wrapper {
+  display: flex;
+  height: calc(100vh - $headerHeight);
 }
 
-mat-sidenav {
-  width: $sidenavWidth;
-}
-
-.selected {
-  border-right: 4px solid $primary;
-  border-radius: 4px;
-}
-
-.not-selected {
-  opacity: 0.6;
+.content {
+  flex-grow: 1;
 }

@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <div
+    *ngFor="let item of navigationItems"
+    [routerLink]="item.path"
+    routerLinkActive="active"
+  >
+    <p>{{ item.title }}</p>
+  </div>
+</div>

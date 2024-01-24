@@ -1,33 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import {
   ReactiveFormsModule,
   Validators,
   NonNullableFormBuilder,
 } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../services/auth.service';
 import { AuthComponent } from '../auth.component';
-import { MatDialogRef } from '@angular/material/dialog';
 import {
   EMAIL_VALIDATION_REGEXP,
   PASSWORD_VALIDATION_REGEXP,
 } from '../../../constants/literals';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'dipnoi-sign-up',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatIconModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
@@ -48,7 +37,7 @@ export class SignUpComponent {
   constructor(
     public authService: AuthService,
     public formBuilder: NonNullableFormBuilder,
-    public dialogRef: MatDialogRef<AuthComponent>,
+    public dialogRef: DialogRef<AuthComponent>,
   ) {}
 
   onSignUp() {
