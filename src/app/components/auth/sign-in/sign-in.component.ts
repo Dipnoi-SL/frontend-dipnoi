@@ -4,11 +4,12 @@ import { AuthService } from '../../../services/auth.service';
 import { ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
 import { AuthComponent } from '../auth.component';
 import { DialogRef } from '@angular/cdk/dialog';
+import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
   selector: 'dipnoi-sign-in',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgIconComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })

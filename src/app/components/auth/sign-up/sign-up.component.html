@@ -1,44 +1,38 @@
-<!-- <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-  <mat-form-field subscriptSizing="dynamic">
-    <mat-label>Email</mat-label>
-    <input type="email" formControlName="email" matInput />
-    <mat-error *ngIf="signUpForm.controls.email.hasError('required')">
-      <br />
+<form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+  <div>
+    <label [htmlFor]="email">Email</label>
+    <input type="email" formControlName="email" #email />
+    <small
+      *ngIf="
+        signUpForm.controls.email.hasError('required') &&
+        signUpForm.controls.email.touched
+      "
+      class="error"
+    >
       Must not be empty
-    </mat-error>
-    <mat-error *ngIf="signUpForm.controls.email.hasError('pattern')">
-      <br />
+    </small>
+    <small
+      *ngIf="
+        signUpForm.controls.email.hasError('pattern') &&
+        signUpForm.controls.email.touched
+      "
+      class="error"
+    >
       Must be a valid email
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field subscriptSizing="dynamic">
-    <mat-label>Password</mat-label>
+    </small>
+  </div>
+  <div>
+    <label [htmlFor]="password">Password</label>
     <input
       [type]="hidePassword ? 'password' : 'text'"
       formControlName="password"
-      matInput
-      #passwordInput="matInput"
+      #password
     />
-    <button
-      type="button"
-      mat-icon-button
-      matSuffix
+    <ng-icon
       (click)="hidePassword = !hidePassword"
-    >
-      <mat-icon
-        [color]="
-          signUpForm.controls.password.invalid &&
-          signUpForm.controls.password.touched
-            ? 'warn'
-            : passwordInput.focused
-              ? 'primary'
-              : ''
-        "
-      >
-        {{ hidePassword ? 'visibility_off' : 'visibility' }}
-      </mat-icon>
-    </button>
-    <mat-hint *ngIf="signUpForm.controls.password.untouched">
+      [name]="hidePassword ? 'matVisibilityOffOutline' : 'matVisibilityOutline'"
+    ></ng-icon>
+    <small *ngIf="signUpForm.controls.password.untouched">
       <br />
       Must contain at least 8 characters
       <br />
@@ -49,12 +43,24 @@
       Must contain at least one number
       <br />
       Must contain at least one special character
-    </mat-hint>
-    <mat-error *ngIf="signUpForm.controls.password.hasError('required')">
+    </small>
+    <small
+      *ngIf="
+        signUpForm.controls.password.hasError('required') &&
+        signUpForm.controls.password.touched
+      "
+      class="error"
+    >
       <br />
       Must not be empty
-    </mat-error>
-    <mat-error *ngIf="signUpForm.controls.password.hasError('pattern')">
+    </small>
+    <small
+      *ngIf="
+        signUpForm.controls.password.hasError('pattern') &&
+        signUpForm.controls.password.touched
+      "
+      class="error"
+    >
       <br />
       Must contain at least 8 characters
       <br />
@@ -65,15 +71,8 @@
       Must contain at least one number
       <br />
       Must contain at least one special character
-    </mat-error>
-  </mat-form-field>
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!signUpForm.valid"
-    type="submit"
-  >
-    Sign up
-  </button>
+    </small>
+  </div>
+  <button [disabled]="!signUpForm.valid" type="submit">Sign up</button>
   <p class="error feedback" *ngIf="hasErrored">Something wrong happened</p>
-</form> -->
+</form>

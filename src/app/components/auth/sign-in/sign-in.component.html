@@ -1,43 +1,20 @@
-<!-- <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
-  <mat-form-field subscriptSizing="dynamic">
-    <mat-label>Email</mat-label>
-    <input type="email" formControlName="email" matInput />
-  </mat-form-field>
-  <mat-form-field subscriptSizing="dynamic">
-    <mat-label>Password</mat-label>
+<form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+  <div>
+    <label [htmlFor]="email">Email</label>
+    <input type="email" formControlName="email" #email />
+  </div>
+  <div>
+    <label [htmlFor]="password">Password</label>
     <input
       [type]="hidePassword ? 'password' : 'text'"
       formControlName="password"
-      matInput
-      #passwordInput="matInput"
+      #password
     />
-    <button
-      type="button"
-      mat-icon-button
-      matSuffix
+    <ng-icon
       (click)="hidePassword = !hidePassword"
-    >
-      <mat-icon
-        [color]="
-          signInForm.controls.password.invalid &&
-          signInForm.controls.password.touched
-            ? 'warn'
-            : passwordInput.focused
-              ? 'primary'
-              : ''
-        "
-      >
-        {{ hidePassword ? 'visibility_off' : 'visibility' }}
-      </mat-icon>
-    </button>
-  </mat-form-field>
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!signInForm.valid"
-    type="submit"
-  >
-    Sign in
-  </button>
-  <p class="error feedback" *ngIf="hasErrored">Invalid credentials</p>
-</form> -->
+      [name]="hidePassword ? 'matVisibilityOffOutline' : 'matVisibilityOutline'"
+    ></ng-icon>
+  </div>
+  <button [disabled]="!signInForm.valid" type="submit">Sign in</button>
+  <p *ngIf="hasErrored" class="error feedback">Invalid credentials</p>
+</form>

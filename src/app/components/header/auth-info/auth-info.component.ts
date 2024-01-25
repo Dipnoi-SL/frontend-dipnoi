@@ -4,11 +4,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
 import { RoutePathEnum } from '../../../app.routes';
+import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
   selector: 'dipnoi-auth-info',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NgIconComponent],
   templateUrl: './auth-info.component.html',
   styleUrl: './auth-info.component.scss',
 })

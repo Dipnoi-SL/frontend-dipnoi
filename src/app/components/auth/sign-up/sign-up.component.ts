@@ -12,11 +12,12 @@ import {
   PASSWORD_VALIDATION_REGEXP,
 } from '../../../constants/literals';
 import { DialogRef } from '@angular/cdk/dialog';
+import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
   selector: 'dipnoi-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgIconComponent],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })

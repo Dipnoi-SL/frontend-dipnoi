@@ -4,11 +4,22 @@ import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { provideIcons } from '@ng-icons/core';
+import {
+  matAccountCircleOutline,
+  matVisibilityOffOutline,
+  matVisibilityOutline,
+} from '@ng-icons/material-icons/outline';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
+    provideIcons({
+      matAccountCircleOutline,
+      matVisibilityOffOutline,
+      matVisibilityOutline,
+    }),
     importProvidersFrom(HttpClientModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
