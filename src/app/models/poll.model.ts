@@ -7,4 +7,5 @@ export interface Poll extends AbstractEntity {
   positiveValue: number;
   negativeValue: number;
   myInterestVote: boolean | null;
+  proposalId: number;
 }

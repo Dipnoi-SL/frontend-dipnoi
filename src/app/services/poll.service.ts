@@ -14,33 +14,13 @@ export class PollService {
 
   readMany(params: { proposalId: number }) {
     return this.http
-      .get<Poll[]>(`${environment.apiUrl}/proposals/${params.proposalId}/polls`)
+      .get<Poll[]>(`${environment.apiUrl}/polls`, { params })
       .pipe(
         tap({
           next: (res) => {
             this.pollsInfo.next({
               ...this.pollsInfo.value,
               [params.proposalId]: res,
-            });
-          },
-        }),
-      );
-  }
-
-  createOne(params: { proposalId: number; label: string }) {
-    return this.http
-      .post<Poll>(
-        `${environment.apiUrl}/proposals/${params.proposalId}/polls`,
-        params,
-      )
-      .pipe(
-        tap({
-          next: (res) => {
-            this.pollsInfo.next({
-              ...this.pollsInfo.value,
-              [params.proposalId]: [res].concat(
-                this.pollsInfo.value[params.proposalId] ?? [],
-              ),
             });
           },
         }),
@@ -54,7 +34,7 @@ export class PollService {
   }) {
     return this.http
       .put<Poll>(
-        `${environment.apiUrl}/proposals/${params.proposalId}/polls/${params.id}/interest-votes`,
+        `${environment.apiUrl}/polls/${params.id}/interest-votes`,
         params,
       )
       .pipe(

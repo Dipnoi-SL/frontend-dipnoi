@@ -86,7 +86,7 @@ export class ProposalService {
     initialTitle: string;
     initialDescription: string;
     categories: ProposalCategoryEnum[];
-    polls: { label: string }[];
+    pollLabels: string[];
   }) {
     return this.http
       .post<Proposal>(`${environment.apiUrl}/proposals`, params)
@@ -105,26 +105,6 @@ export class ProposalService {
   readOne(params: { id: number }) {
     return this.http
       .get<Proposal>(`${environment.apiUrl}/proposals/${params.id}`)
-      .pipe(
-        tap({
-          next: (res) => {
-            this.proposalsInfo.next({
-              ...this.proposalsInfo.value,
-              [res.id]: res,
-            });
-          },
-        }),
-      );
-  }
-
-  updateOne(params: {
-    id: number;
-    initialTitle: string;
-    initialDescription: string;
-    categories: ProposalCategoryEnum[];
-  }) {
-    return this.http
-      .put<Proposal>(`${environment.apiUrl}/proposals/${params.id}`, params)
       .pipe(
         tap({
           next: (res) => {
