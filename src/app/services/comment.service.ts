@@ -28,12 +28,9 @@ export class CommentService {
     order?: OrderEnum;
   }) {
     return this.http
-      .get<Page<Comment>>(
-        `${environment.apiUrl}/proposals/${params.proposalId}/comments`,
-        {
-          params: { ...params, page: 1, take: 10 },
-        },
-      )
+      .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
+        params: { ...params, page: 1, take: 10 },
+      })
       .pipe(
         tap({
           next: (res) => {
@@ -55,12 +52,9 @@ export class CommentService {
   }) {
     if (this.pageMeta.value?.hasNextPage) {
       return this.http
-        .get<Page<Comment>>(
-          `${environment.apiUrl}/proposals/${params.proposalId}/comments`,
-          {
-            params: { ...params, page: this.pageMeta.value.page + 1, take: 10 },
-          },
-        )
+        .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
+          params: { ...params, page: this.pageMeta.value.page + 1, take: 10 },
+        })
         .pipe(
           tap({
             next: (res) => {
@@ -82,10 +76,7 @@ export class CommentService {
 
   createOne(params: { proposalId: number; body: string }) {
     return this.http
-      .post<Comment>(
-        `${environment.apiUrl}/proposals/${params.proposalId}/comments`,
-        params,
-      )
+      .post<Comment>(`${environment.apiUrl}/comments`, params)
       .pipe(
         tap({
           next: (res) => {
@@ -107,7 +98,7 @@ export class CommentService {
   }) {
     return this.http
       .put<Comment>(
-        `${environment.apiUrl}/proposals/${params.proposalId}/comments/${params.id}/feedbacks`,
+        `${environment.apiUrl}/comments/${params.id}/feedbacks`,
         params,
       )
       .pipe(

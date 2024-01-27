@@ -8,4 +8,5 @@ export interface Comment extends AbstractEntity {
   popularity: number;
   myFeedback: boolean | null;
   user: User;
+  proposalId: number;
 }

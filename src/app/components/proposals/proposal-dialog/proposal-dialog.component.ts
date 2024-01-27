@@ -8,6 +8,7 @@ import { RoutePathEnum } from '../../../app.routes';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { CommentListComponent } from '../comment-list/comment-list.component';
+import { PollService } from '../../../services/poll.service';
 
 @Component({
   selector: 'dipnoi-proposal-dialog',
@@ -24,6 +25,7 @@ export class ProposalDialogComponent implements OnInit, OnDestroy {
   constructor(
     public authService: AuthService,
     public proposalService: ProposalService,
+    public pollService: PollService,
     public route: ActivatedRoute,
   ) {
     this.proposalId = parseInt(
@@ -40,6 +42,12 @@ export class ProposalDialogComponent implements OnInit, OnDestroy {
       this.proposalService
         .readOne({
           id: this.proposalId,
+        })
+        .subscribe();
+
+      this.pollService
+        .readMany({
+          proposalId: this.proposalId,
         })
         .subscribe();
     });
