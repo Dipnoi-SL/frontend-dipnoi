@@ -34,7 +34,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
     this.params = { proposalId: this.proposalId };
 
     this.signedIn$ = this.authService.signedIn.subscribe(() => {
-      this.commentService.reset(this.params).subscribe();
+      this.commentService.readMany(this.params).subscribe();
     });
   }
 

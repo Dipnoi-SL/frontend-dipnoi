@@ -28,7 +28,7 @@ export class ProposalService {
 
   constructor(private http: HttpClient) {}
 
-  reset(params: {
+  readMany(params: {
     orderBy?: ProposalOrderByEnum;
     order?: OrderEnum;
     states?: ProposalStateEnum[];

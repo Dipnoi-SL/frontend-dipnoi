@@ -37,7 +37,7 @@ export class ProposalListComponent implements OnInit {
   constructor(public proposalService: ProposalService) {}
 
   ngOnInit() {
-    this.proposalService.reset(this.params).subscribe();
+    this.proposalService.readMany(this.params).subscribe();
   }
 
   onScrollEnd() {

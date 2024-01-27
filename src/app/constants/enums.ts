@@ -38,4 +38,5 @@ export enum ProposalOrderByEnum {
 export enum CommentOrderByEnum {
   CREATED_AT = 'createdAt',
   POPULARITY = 'popularity',
+  LAST_DAY_POPULARITY = 'lastDayPopularity',
 }

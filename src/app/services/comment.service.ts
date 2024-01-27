@@ -22,7 +22,7 @@ export class CommentService {
 
   constructor(private http: HttpClient) {}
 
-  reset(params: {
+  readMany(params: {
     proposalId: number;
     orderBy?: CommentOrderByEnum;
     order?: OrderEnum;
