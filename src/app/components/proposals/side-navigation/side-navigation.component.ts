@@ -14,5 +14,6 @@ export class SideNavigationComponent {
   navigationItems = [
     { title: 'Home', path: RoutePathEnum.HOME },
     { title: 'Backlog', path: RoutePathEnum.BACKLOG },
+    { title: 'Open proposals', path: RoutePathEnum.OPEN_PROPOSALS },
   ];
 }

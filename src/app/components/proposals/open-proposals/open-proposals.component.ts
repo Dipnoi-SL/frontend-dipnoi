@@ -8,13 +8,13 @@ import {
 } from '../../../constants/enums';
 
 @Component({
-  selector: 'dipnoi-backlog',
+  selector: 'dipnoi-open-proposals',
   standalone: true,
-  templateUrl: './backlog.component.html',
-  styleUrl: './backlog.component.scss',
+  templateUrl: './open-proposals.component.html',
+  styleUrl: './open-proposals.component.scss',
   imports: [CommonModule, ProposalListComponent],
 })
-export class BacklogComponent {
+export class OpenProposalsComponent {
   params: {
     take?: number;
     page?: number;
@@ -26,9 +26,6 @@ export class BacklogComponent {
     resetAt?: string;
     userId?: number;
   } = {
-    states: [
-      ProposalStateEnum.SELECTED_FOR_DEVELOPMENT,
-      ProposalStateEnum.IN_DEVELOPMENT,
-    ],
+    states: [ProposalStateEnum.FINAL_PHASE],
   };
 }

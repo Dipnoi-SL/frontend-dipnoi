@@ -1,11 +1,6 @@
+import { PageMeta } from './page-meta.model';
+
 export interface Page<T> {
   data: T[];
-  meta: {
-    page: number;
-    take: number;
-    itemCount: number;
-    pageCount: number;
-    hasPreviousPage: boolean;
-    hasNextPage: boolean;
-  };
+  meta: PageMeta;
 }

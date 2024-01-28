@@ -2,7 +2,7 @@
   class="wrapper"
   infiniteScroll
   insufficientItems
-  [existingItems]="(proposalService.proposalsList | async)!.length"
+  [existingItems]="proposals?.length ?? 0"
   [containerRef]="infiniteScrollContainerRef"
   (loadMoreItems)="onScrollEnd()"
   [scrollWindow]="false"
@@ -12,7 +12,7 @@
   [infiniteScrollDistance]="0"
 >
   <dipnoi-proposal-card
-    *ngFor="let proposal of proposalService.proposalsList | async"
+    *ngFor="let proposal of proposals"
     [proposal]="proposal"
   ></dipnoi-proposal-card>
 </div>

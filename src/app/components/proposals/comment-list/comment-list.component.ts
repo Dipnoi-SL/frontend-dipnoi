@@ -6,6 +6,8 @@ import { InsufficientItemsDirective } from '../../../directives/insufficient-ite
 import { CommentService } from '../../../services/comment.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
+import { Comment } from '../../../models/comment.model';
+import { PageMeta } from '../../../models/page-meta.model';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -24,6 +26,8 @@ export class CommentListComponent implements OnInit, OnDestroy {
     orderBy?: CommentOrderByEnum;
     order?: OrderEnum;
   };
+  comments?: Comment[];
+  meta?: PageMeta;
 
   constructor(
     public commentService: CommentService,
@@ -34,12 +38,26 @@ export class CommentListComponent implements OnInit, OnDestroy {
     this.params = { proposalId: this.proposalId };
 
     this.signedIn$ = this.authService.signedIn.subscribe(() => {
-      this.commentService.readMany(this.params).subscribe();
+      this.commentService.readMany(this.params).subscribe({
+        next: (res) => {
+          this.comments = res.data;
+          this.meta = res.meta;
+        },
+      });
     });
   }
 
   onScrollEnd() {
-    this.commentService.readMore(this.params)?.subscribe();
+    if (this.meta?.hasNextPage) {
+      this.commentService
+        .readMany({ ...this.params, page: this.meta.page + 1 })
+        .subscribe({
+          next: (res) => {
+            this.comments = this.comments!.concat(res.data);
+            this.meta = res.meta;
+          },
+        });
+    }
   }
 
   ngOnDestroy() {

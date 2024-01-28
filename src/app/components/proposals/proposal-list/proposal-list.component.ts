@@ -9,6 +9,8 @@ import {
   ProposalStateEnum,
 } from '../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../directives/insufficient-items.directive';
+import { Proposal } from '../../../models/proposal.model';
+import { PageMeta } from '../../../models/page-meta.model';
 
 @Component({
   selector: 'dipnoi-proposal-list',
@@ -25,6 +27,8 @@ import { InsufficientItemsDirective } from '../../../directives/insufficient-ite
 export class ProposalListComponent implements OnInit {
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) params!: {
+    take?: number;
+    page?: number;
     orderBy?: ProposalOrderByEnum;
     order?: OrderEnum;
     states?: ProposalStateEnum[];
@@ -34,13 +38,30 @@ export class ProposalListComponent implements OnInit {
     userId?: number;
   };
 
+  proposals?: Proposal[];
+  meta?: PageMeta;
+
   constructor(public proposalService: ProposalService) {}
 
   ngOnInit() {
-    this.proposalService.readMany(this.params).subscribe();
+    this.proposalService.readMany(this.params).subscribe({
+      next: (res) => {
+        this.proposals = res.data;
+        this.meta = res.meta;
+      },
+    });
   }
 
   onScrollEnd() {
-    this.proposalService.readMore(this.params)?.subscribe();
+    if (this.meta?.hasNextPage) {
+      this.proposalService
+        .readMany({ ...this.params, page: this.meta.page + 1 })
+        .subscribe({
+          next: (res) => {
+            this.proposals = this.proposals!.concat(res.data);
+            this.meta = res.meta;
+          },
+        });
+    }
   }
 }

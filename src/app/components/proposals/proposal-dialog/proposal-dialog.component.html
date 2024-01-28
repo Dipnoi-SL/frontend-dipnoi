@@ -1,11 +1,6 @@
 <div class="wrapper" #infiniteScrollContainerRef>
-  <dipnoi-proposal-dialog-content
-    *ngIf="
-      (proposalService.proposalsInfo | async)![proposalId] ??
-      initialProposal as proposal
-    "
-    [proposal]="proposal"
-  ></dipnoi-proposal-dialog-content>
+  <h1 *ngIf="proposal">Proposal {{ proposal.initialTitle }}</h1>
+  <dipnoi-poll *ngFor="let poll of polls" [poll]="poll"></dipnoi-poll>
   <dipnoi-comment-list
     [infiniteScrollContainerRef]="infiniteScrollContainerRef"
     [proposalId]="proposalId"
