@@ -1,78 +1,86 @@
-<form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-  <div>
-    <label [htmlFor]="email">Email</label>
-    <input type="email" formControlName="email" #email />
-    <small
-      *ngIf="
-        signUpForm.controls.email.hasError('required') &&
-        signUpForm.controls.email.touched
-      "
-      class="error"
-    >
-      Must not be empty
-    </small>
-    <small
-      *ngIf="
-        signUpForm.controls.email.hasError('pattern') &&
-        signUpForm.controls.email.touched
-      "
-      class="error"
-    >
-      Must be a valid email
-    </small>
-  </div>
-  <div>
-    <label [htmlFor]="password">Password</label>
-    <input
-      [type]="hidePassword ? 'password' : 'text'"
-      formControlName="password"
-      #password
-    />
-    <ng-icon
-      (click)="hidePassword = !hidePassword"
-      [name]="hidePassword ? 'matVisibilityOffOutline' : 'matVisibilityOutline'"
-    ></ng-icon>
-    <small *ngIf="signUpForm.controls.password.untouched">
-      <br />
-      Must contain at least 8 characters
-      <br />
-      Must contain at least one lowercase letter
-      <br />
-      Must contain at least one uppercase letter
-      <br />
-      Must contain at least one number
-      <br />
-      Must contain at least one special character
-    </small>
-    <small
-      *ngIf="
-        signUpForm.controls.password.hasError('required') &&
-        signUpForm.controls.password.touched
-      "
-      class="error"
-    >
-      <br />
-      Must not be empty
-    </small>
-    <small
-      *ngIf="
-        signUpForm.controls.password.hasError('pattern') &&
-        signUpForm.controls.password.touched
-      "
-      class="error"
-    >
-      <br />
-      Must contain at least 8 characters
-      <br />
-      Must contain at least one lowercase letter
-      <br />
-      Must contain at least one uppercase letter
-      <br />
-      Must contain at least one number
-      <br />
-      Must contain at least one special character
-    </small>
-  </div>
-  <button [disabled]="!signUpForm.valid" type="submit">Sign up</button>
-  <p class="error feedback" *ngIf="hasErrored">Something wrong happened</p>
-</form>
+<ng-container *ngIf="state$ | async as state">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+    <div>
+      <label [htmlFor]="email">Email</label>
+      <input type="email" formControlName="email" #email />
+      <small
+        *ngIf="
+          signUpForm.controls.email.hasError('required') &&
+          signUpForm.controls.email.touched
+        "
+        class="error"
+      >
+        Must not be empty
+      </small>
+      <small
+        *ngIf="
+          signUpForm.controls.email.hasError('pattern') &&
+          signUpForm.controls.email.touched
+        "
+        class="error"
+      >
+        Must be a valid email
+      </small>
+    </div>
+    <div>
+      <label [htmlFor]="password">Password</label>
+      <input
+        [type]="state.hidePassword ? 'password' : 'text'"
+        formControlName="password"
+        #password
+      />
+      <ng-icon
+        (click)="onHidePassword()"
+        [name]="
+          state.hidePassword
+            ? 'matVisibilityOffOutline'
+            : 'matVisibilityOutline'
+        "
+      ></ng-icon>
+      <small *ngIf="signUpForm.controls.password.untouched">
+        <br />
+        Must contain at least 8 characters
+        <br />
+        Must contain at least one lowercase letter
+        <br />
+        Must contain at least one uppercase letter
+        <br />
+        Must contain at least one number
+        <br />
+        Must contain at least one special character
+      </small>
+      <small
+        *ngIf="
+          signUpForm.controls.password.hasError('required') &&
+          signUpForm.controls.password.touched
+        "
+        class="error"
+      >
+        <br />
+        Must not be empty
+      </small>
+      <small
+        *ngIf="
+          signUpForm.controls.password.hasError('pattern') &&
+          signUpForm.controls.password.touched
+        "
+        class="error"
+      >
+        <br />
+        Must contain at least 8 characters
+        <br />
+        Must contain at least one lowercase letter
+        <br />
+        Must contain at least one uppercase letter
+        <br />
+        Must contain at least one number
+        <br />
+        Must contain at least one special character
+      </small>
+    </div>
+    <button [disabled]="!signUpForm.valid" type="submit">Sign up</button>
+    <p *ngIf="state.hasErrored" class="error feedback">
+      Something wrong happened
+    </p>
+  </form>
+</ng-container>

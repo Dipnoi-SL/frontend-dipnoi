@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProposalListComponent } from '../proposal-list/proposal-list.component';
 import {
@@ -6,6 +6,7 @@ import {
   ProposalOrderByEnum,
   ProposalStateEnum,
 } from '../../../constants/enums';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
 
 @Component({
   selector: 'dipnoi-open-proposals',
@@ -13,8 +14,9 @@ import {
   templateUrl: './open-proposals.component.html',
   styleUrl: './open-proposals.component.scss',
   imports: [CommonModule, ProposalListComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OpenProposalsComponent {
+export class OpenProposalsComponent extends StatefulComponent<{
   params: {
     take?: number;
     page?: number;
@@ -25,7 +27,9 @@ export class OpenProposalsComponent {
     createdAt?: string;
     resetAt?: string;
     userId?: number;
-  } = {
-    states: [ProposalStateEnum.FINAL_PHASE],
   };
+}> {
+  constructor() {
+    super({ params: { states: [ProposalStateEnum.FINAL_PHASE] } });
+  }
 }

@@ -1,31 +1,35 @@
-<div class="wrapper">
-  <dipnoi-sign-in *ngIf="view === signInPath"></dipnoi-sign-in>
-  <dipnoi-sign-up *ngIf="view === signUpPath"></dipnoi-sign-up>
-  <dipnoi-forgot-password
-    *ngIf="view === forgotPasswordPath"
-  ></dipnoi-forgot-password>
-  <div class="options">
-    <h3>Or continue with:</h3>
+<ng-container *ngIf="state$ | async as state">
+  <div class="wrapper">
+    <dipnoi-sign-in *ngIf="state.view === signInPath"></dipnoi-sign-in>
+    <dipnoi-sign-up *ngIf="state.view === signUpPath"></dipnoi-sign-up>
+    <dipnoi-forgot-password
+      *ngIf="state.view === forgotPasswordPath"
+    ></dipnoi-forgot-password>
+    <div class="options">
+      <h3>Or continue with:</h3>
+    </div>
+    <div class="links">
+      <a
+        [routerLink]="[]"
+        [relativeTo]="route"
+        [queryParams]="buildAuthQueryParam(forgotPasswordPath)"
+        queryParamsHandling="merge"
+      >
+        Forgot your password?
+      </a>
+      <small>o</small>
+      <a
+        [routerLink]="[]"
+        [relativeTo]="route"
+        [queryParams]="
+          buildAuthQueryParam(
+            state.view === signInPath ? signUpPath : signInPath
+          )
+        "
+        queryParamsHandling="merge"
+      >
+        {{ state.view === signInPath ? 'Sign up' : 'Sign in' }} here
+      </a>
+    </div>
   </div>
-  <div class="links">
-    <a
-      [routerLink]="[]"
-      [relativeTo]="route"
-      [queryParams]="buildAuthQueryParam(forgotPasswordPath)"
-      queryParamsHandling="merge"
-    >
-      Forgot your password?
-    </a>
-    <small>o</small>
-    <a
-      [routerLink]="[]"
-      [relativeTo]="route"
-      [queryParams]="
-        buildAuthQueryParam(view === signInPath ? signUpPath : signInPath)
-      "
-      queryParamsHandling="merge"
-    >
-      {{ view === signInPath ? 'Sign up' : 'Sign in' }} here
-    </a>
-  </div>
-</div>
+</ng-container>

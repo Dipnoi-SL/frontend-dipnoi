@@ -1,20 +1,26 @@
-<form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
-  <div>
-    <label [htmlFor]="email">Email</label>
-    <input type="email" formControlName="email" #email />
-  </div>
-  <div>
-    <label [htmlFor]="password">Password</label>
-    <input
-      [type]="hidePassword ? 'password' : 'text'"
-      formControlName="password"
-      #password
-    />
-    <ng-icon
-      (click)="hidePassword = !hidePassword"
-      [name]="hidePassword ? 'matVisibilityOffOutline' : 'matVisibilityOutline'"
-    ></ng-icon>
-  </div>
-  <button [disabled]="!signInForm.valid" type="submit">Sign in</button>
-  <p *ngIf="hasErrored" class="error feedback">Invalid credentials</p>
-</form>
+<ng-container *ngIf="state$ | async as state">
+  <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+    <div>
+      <label [htmlFor]="email">Email</label>
+      <input type="email" formControlName="email" #email />
+    </div>
+    <div>
+      <label [htmlFor]="password">Password</label>
+      <input
+        [type]="state.hidePassword ? 'password' : 'text'"
+        formControlName="password"
+        #password
+      />
+      <ng-icon
+        (click)="onHidePassword()"
+        [name]="
+          state.hidePassword
+            ? 'matVisibilityOffOutline'
+            : 'matVisibilityOutline'
+        "
+      ></ng-icon>
+    </div>
+    <button [disabled]="!signInForm.valid" type="submit">Sign in</button>
+    <p *ngIf="state.hasErrored" class="error feedback">Invalid credentials</p>
+  </form>
+</ng-container>

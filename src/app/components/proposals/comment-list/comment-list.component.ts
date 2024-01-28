@@ -1,4 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommentOrderByEnum, OrderEnum } from '../../../constants/enums';
@@ -8,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { Comment } from '../../../models/comment.model';
 import { PageMeta } from '../../../models/page-meta.model';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -15,52 +22,62 @@ import { PageMeta } from '../../../models/page-meta.model';
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.scss',
   imports: [CommonModule, InfiniteScrollModule, InsufficientItemsDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentListComponent implements OnInit, OnDestroy {
+export class CommentListComponent
+  extends StatefulComponent<{
+    params: {
+      proposalId?: number;
+      orderBy?: CommentOrderByEnum;
+      order?: OrderEnum;
+    };
+    comments?: Comment[];
+    meta?: PageMeta;
+  }>
+  implements OnInit, OnDestroy
+{
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) proposalId!: number;
 
   signedIn$!: Subscription;
-  params!: {
-    proposalId: number;
-    orderBy?: CommentOrderByEnum;
-    order?: OrderEnum;
-  };
-  comments?: Comment[];
-  meta?: PageMeta;
 
   constructor(
     public commentService: CommentService,
     public authService: AuthService,
-  ) {}
+  ) {
+    super({ params: {} });
+  }
 
   ngOnInit() {
-    this.params = { proposalId: this.proposalId };
+    this.updateState({ params: { proposalId: this.proposalId } });
 
-    this.signedIn$ = this.authService.signedIn.subscribe(() => {
-      this.commentService.readMany(this.params).subscribe({
+    this.signedIn$ = this.authService.signedIn$.subscribe(() => {
+      this.commentService.readMany(this.state.params).subscribe({
         next: (res) => {
-          this.comments = res.data;
-          this.meta = res.meta;
+          this.updateState({ comments: res.data, meta: res.meta });
         },
       });
     });
   }
 
   onScrollEnd() {
-    if (this.meta?.hasNextPage) {
+    if (this.state.meta?.hasNextPage) {
       this.commentService
-        .readMany({ ...this.params, page: this.meta.page + 1 })
+        .readMany({ ...this.state.params, page: this.state.meta.page + 1 })
         .subscribe({
           next: (res) => {
-            this.comments = this.comments!.concat(res.data);
-            this.meta = res.meta;
+            this.updateState({
+              comments: this.state.comments!.concat(res.data),
+              meta: res.meta,
+            });
           },
         });
     }
   }
 
-  ngOnDestroy() {
+  override ngOnDestroy() {
     this.signedIn$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

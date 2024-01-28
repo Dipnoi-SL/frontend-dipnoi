@@ -1,18 +1,20 @@
-<div
-  class="wrapper"
-  infiniteScroll
-  insufficientItems
-  [existingItems]="proposals?.length ?? 0"
-  [containerRef]="infiniteScrollContainerRef"
-  (loadMoreItems)="onScrollEnd()"
-  [scrollWindow]="false"
-  (scrolled)="onScrollEnd()"
-  [infiniteScrollContainer]="infiniteScrollContainerRef"
-  [fromRoot]="true"
-  [infiniteScrollDistance]="0"
->
-  <dipnoi-proposal-card
-    *ngFor="let proposal of proposals"
-    [proposal]="proposal"
-  ></dipnoi-proposal-card>
-</div>
+<ng-container *ngIf="state$ | async as state">
+  <div
+    class="wrapper"
+    infiniteScroll
+    insufficientItems
+    [existingItems]="state.proposals?.length ?? 0"
+    [containerRef]="infiniteScrollContainerRef"
+    (loadMoreItems)="onScrollEnd()"
+    [scrollWindow]="false"
+    (scrolled)="onScrollEnd()"
+    [infiniteScrollContainer]="infiniteScrollContainerRef"
+    [fromRoot]="true"
+    [infiniteScrollDistance]="0"
+  >
+    <dipnoi-proposal-card
+      *ngFor="let proposal of state.proposals"
+      [proposal]="proposal"
+    ></dipnoi-proposal-card>
+  </div>
+</ng-container>

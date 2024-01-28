@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { RoutePathEnum } from '../../../app.routes';
@@ -9,6 +9,7 @@ import { RoutePathEnum } from '../../../app.routes';
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './tab-navigation.component.html',
   styleUrl: './tab-navigation.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabNavigationComponent {
   navigationItems = [

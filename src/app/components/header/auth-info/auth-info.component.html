@@ -1,28 +1,30 @@
-<div
-  *ngIf="userService.authUser | async"
-  class="dropdown"
-  (click)="toggleDropdown()"
->
-  <button class="dropdown-button">
-    <ng-icon name="matAccountCircleOutline "></ng-icon>
-  </button>
-  <div
-    class="dropdown-content"
-    [style.display]="isDropdownOpen ? 'block' : 'none'"
+<ng-container *ngIf="state$ | async as state">
+  <ng-container
+    *ngIf="userService.authUser$ | async as authUser; else elseAuthUser"
   >
-    <button *ngFor="let item of navigationItems" [routerLink]="item.path">
-      {{ item.title }}
+    <div class="dropdown" (click)="toggleDropdown()">
+      <button class="dropdown-button">
+        <ng-icon name="matAccountCircleOutline "></ng-icon>
+      </button>
+      <div
+        class="dropdown-content"
+        [style.display]="state.isDropdownOpen ? 'block' : 'none'"
+      >
+        <button *ngFor="let item of navigationItems" [routerLink]="item.path">
+          {{ item.title }}
+        </button>
+        <button (click)="onSignOut()">Sign out</button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #elseAuthUser>
+    <button
+      [routerLink]="[]"
+      [relativeTo]="route"
+      [queryParams]="signInQueryParams"
+      queryParamsHandling="merge"
+    >
+      Sign in
     </button>
-    <button (click)="onSignOut()">Sign out</button>
-  </div>
-</div>
-
-<button
-  *ngIf="!(userService.authUser | async)"
-  [routerLink]="[]"
-  [relativeTo]="route"
-  [queryParams]="signInQueryParams"
-  queryParamsHandling="merge"
->
-  Sign in
-</button>
+  </ng-template>
+</ng-container>

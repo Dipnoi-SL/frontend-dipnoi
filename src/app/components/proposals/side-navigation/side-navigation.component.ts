@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoutePathEnum } from '../../../app.routes';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -9,6 +9,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './side-navigation.component.html',
   styleUrl: './side-navigation.component.scss',
   imports: [CommonModule, RouterLink, RouterLinkActive],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideNavigationComponent {
   navigationItems = [

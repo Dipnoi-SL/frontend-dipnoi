@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
@@ -23,6 +28,7 @@ import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
     HttpClientModule,
     DialogModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
   queryParams$!: Subscription;

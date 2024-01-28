@@ -9,7 +9,8 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  signedIn = new BehaviorSubject<boolean>(false);
+  private _signedIn$ = new BehaviorSubject<boolean>(false);
+  signedIn$ = this._signedIn$.asObservable();
   accessToken: string | null = null;
 
   constructor(
@@ -181,7 +182,7 @@ export class AuthService {
     if (!this.accessToken) {
       this.accessToken = res.accessToken;
 
-      this.signedIn.next(true);
+      this._signedIn$.next(true);
     } else {
       this.accessToken = res.accessToken;
     }
@@ -190,7 +191,7 @@ export class AuthService {
   closeSession() {
     this.accessToken = null;
 
-    this.signedIn.next(false);
+    this._signedIn$.next(false);
 
     this.userService.clearMe();
   }

@@ -8,7 +8,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  authUser = new BehaviorSubject<MyUser | null>(null);
+  private _authUser$ = new BehaviorSubject<MyUser | null>(null);
+  authUser$ = this._authUser$.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -16,13 +17,13 @@ export class UserService {
     return this.http.get<MyUser>(`${environment.apiUrl}/users/me`).pipe(
       tap({
         next: (res) => {
-          this.authUser.next(res);
+          this._authUser$.next(res);
         },
       }),
     );
   }
 
   clearMe() {
-    this.authUser.next(null);
+    this._authUser$.next(null);
   }
 }

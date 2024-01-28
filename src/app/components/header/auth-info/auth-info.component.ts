@@ -1,10 +1,15 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
 import { RoutePathEnum } from '../../../app.routes';
 import { NgIconComponent } from '@ng-icons/core';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
 
 @Component({
   selector: 'dipnoi-auth-info',
@@ -12,9 +17,11 @@ import { NgIconComponent } from '@ng-icons/core';
   imports: [CommonModule, RouterLink, NgIconComponent],
   templateUrl: './auth-info.component.html',
   styleUrl: './auth-info.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthInfoComponent {
-  isDropdownOpen = false;
+export class AuthInfoComponent extends StatefulComponent<{
+  isDropdownOpen: boolean;
+}> {
   signInQueryParams = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
   navigationItems = [{ title: 'Settings', path: RoutePathEnum.SETTINGS }];
 
@@ -22,12 +29,14 @@ export class AuthInfoComponent {
     public authService: AuthService,
     public userService: UserService,
     public route: ActivatedRoute,
-  ) {}
+  ) {
+    super({ isDropdownOpen: false });
+  }
 
   @HostListener('document:click', ['$event.target'])
   closeDropdown(element: HTMLElement) {
     if (!element.closest('.dropdown-button')) {
-      this.isDropdownOpen = false;
+      this.updateState({ isDropdownOpen: false });
     }
   }
 
@@ -36,6 +45,6 @@ export class AuthInfoComponent {
   }
 
   toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+    this.updateState({ isDropdownOpen: !this.state.isDropdownOpen });
   }
 }

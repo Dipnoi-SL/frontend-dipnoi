@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
@@ -11,6 +11,7 @@ import { DialogRef } from '@angular/cdk/dialog';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm = this.formBuilder.group({

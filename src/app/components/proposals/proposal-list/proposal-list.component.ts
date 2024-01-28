@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ProposalCardComponent } from '../proposal-card/proposal-card.component';
@@ -11,6 +16,7 @@ import {
 import { InsufficientItemsDirective } from '../../../directives/insufficient-items.directive';
 import { Proposal } from '../../../models/proposal.model';
 import { PageMeta } from '../../../models/page-meta.model';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
 
 @Component({
   selector: 'dipnoi-proposal-list',
@@ -23,8 +29,12 @@ import { PageMeta } from '../../../models/page-meta.model';
     ProposalCardComponent,
     InsufficientItemsDirective,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalListComponent implements OnInit {
+export class ProposalListComponent
+  extends StatefulComponent<{ proposals?: Proposal[]; meta?: PageMeta }>
+  implements OnInit
+{
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) params!: {
     take?: number;
@@ -38,28 +48,28 @@ export class ProposalListComponent implements OnInit {
     userId?: number;
   };
 
-  proposals?: Proposal[];
-  meta?: PageMeta;
-
-  constructor(public proposalService: ProposalService) {}
+  constructor(public proposalService: ProposalService) {
+    super({});
+  }
 
   ngOnInit() {
     this.proposalService.readMany(this.params).subscribe({
       next: (res) => {
-        this.proposals = res.data;
-        this.meta = res.meta;
+        this.updateState({ proposals: res.data, meta: res.meta });
       },
     });
   }
 
   onScrollEnd() {
-    if (this.meta?.hasNextPage) {
+    if (this.state.meta?.hasNextPage) {
       this.proposalService
-        .readMany({ ...this.params, page: this.meta.page + 1 })
+        .readMany({ ...this.params, page: this.state.meta.page + 1 })
         .subscribe({
           next: (res) => {
-            this.proposals = this.proposals!.concat(res.data);
-            this.meta = res.meta;
+            this.updateState({
+              proposals: this.state.proposals!.concat(res.data),
+              meta: res.meta,
+            });
           },
         });
     }

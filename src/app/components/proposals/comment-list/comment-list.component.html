@@ -1,17 +1,19 @@
-<div
-  class="wrapper"
-  infiniteScroll
-  insufficientItems
-  [existingItems]="comments?.length ?? 0"
-  [containerRef]="infiniteScrollContainerRef"
-  (loadMoreItems)="onScrollEnd()"
-  [scrollWindow]="false"
-  (scrolled)="onScrollEnd()"
-  [infiniteScrollContainer]="infiniteScrollContainerRef"
-  [fromRoot]="true"
-  [infiniteScrollDistance]="0"
->
-  <div *ngFor="let comment of comments">
-    <p>Comment {{ comment.body }}</p>
+<ng-container *ngIf="state$ | async as state">
+  <div
+    class="wrapper"
+    infiniteScroll
+    insufficientItems
+    [existingItems]="state.comments?.length ?? 0"
+    [containerRef]="infiniteScrollContainerRef"
+    (loadMoreItems)="onScrollEnd()"
+    [scrollWindow]="false"
+    (scrolled)="onScrollEnd()"
+    [infiniteScrollContainer]="infiniteScrollContainerRef"
+    [fromRoot]="true"
+    [infiniteScrollDistance]="0"
+  >
+    <div *ngFor="let comment of state.comments">
+      <p>Comment {{ comment.body }}</p>
+    </div>
   </div>
-</div>
+</ng-container>

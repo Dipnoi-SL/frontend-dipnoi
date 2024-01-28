@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PollService } from '../../../services/poll.service';
 import { Poll } from '../../../models/poll.model';
@@ -9,6 +9,7 @@ import { Poll } from '../../../models/poll.model';
   templateUrl: './poll.component.html',
   styleUrl: './poll.component.scss',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PollComponent {
   @Input({ required: true }) poll!: Poll;

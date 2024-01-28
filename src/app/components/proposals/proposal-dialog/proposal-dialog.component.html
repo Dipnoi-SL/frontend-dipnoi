@@ -1,8 +1,10 @@
-<div class="wrapper" #infiniteScrollContainerRef>
-  <h1 *ngIf="proposal">Proposal {{ proposal.initialTitle }}</h1>
-  <dipnoi-poll *ngFor="let poll of polls" [poll]="poll"></dipnoi-poll>
-  <dipnoi-comment-list
-    [infiniteScrollContainerRef]="infiniteScrollContainerRef"
-    [proposalId]="proposalId"
-  ></dipnoi-comment-list>
-</div>
+<ng-container *ngIf="state$ | async as state">
+  <div class="wrapper" #infiniteScrollContainerRef>
+    <h1 *ngIf="state.proposal">Proposal {{ state.proposal.initialTitle }}</h1>
+    <dipnoi-poll *ngFor="let poll of state.polls" [poll]="poll"></dipnoi-poll>
+    <dipnoi-comment-list
+      [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+      [proposalId]="proposalId"
+    ></dipnoi-comment-list>
+  </div>
+</ng-container>
