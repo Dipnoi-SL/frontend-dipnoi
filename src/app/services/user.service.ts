@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { MyUser } from '../models/my-user.model';
 import { environment } from '../../environments/environment';
+import { NicknameExistance } from '../models/nickname-existance.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +26,11 @@ export class UserService {
 
   clearMe() {
     this._authUser$.next(null);
+  }
+
+  checkNicknameExistance(params: { nickname: string }) {
+    return this.http.get<NicknameExistance>(
+      `${environment.apiUrl}/users/nicknames/${params.nickname}`,
+    );
   }
 }
