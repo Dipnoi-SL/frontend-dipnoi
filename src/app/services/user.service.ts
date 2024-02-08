@@ -38,6 +38,22 @@ export class UserService {
     );
   }
 
+  createOrUpdateOneAvatar(params: { avatar: File }) {
+    const formData = new FormData();
+
+    formData.append('file', params.avatar, params.avatar.name);
+
+    return this.http
+      .put<MyUser>(`${environment.apiUrl}/users/me/avatar`, formData)
+      .pipe(
+        tap({
+          next: (res) => {
+            this._authUser$.next(res);
+          },
+        }),
+      );
+  }
+
   checkNicknameExistance(params: { nickname: string }) {
     return this.http.get<NicknameExistance>(
       `${environment.apiUrl}/users/nicknames/${params.nickname}`,

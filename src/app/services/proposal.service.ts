@@ -47,6 +47,17 @@ export class ProposalService {
     );
   }
 
+  createOrUpdateOneThumbnail(params: { id: number; thumbnail: File }) {
+    const formData = new FormData();
+
+    formData.append('file', params.thumbnail, params.thumbnail.name);
+
+    return this.http.put<Proposal>(
+      `${environment.apiUrl}/proposals/${params.id}/thumbnail`,
+      formData,
+    );
+  }
+
   createOneFollow(params: { id: number }) {
     return this.http.post<Proposal>(
       `${environment.apiUrl}/proposals/${params.id}/follows`,
