@@ -23,7 +23,7 @@ export interface Proposal extends AbstractEntity {
   resetAt: string | null;
   completedAt: string | null;
   disregardedAt: string | null;
-  myImportanceVote: number | null;
+  myImportanceVote?: number | null;
   followed: boolean;
   user: User;
 }

@@ -6,7 +6,7 @@ export interface Comment extends AbstractEntity {
   positiveValue: number;
   negativeValue: number;
   popularity: number;
-  myFeedback: boolean | null;
+  myFeedback?: boolean | null;
   user: User;
   proposalId: number;
 }
