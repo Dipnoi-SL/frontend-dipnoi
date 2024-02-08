@@ -28,6 +28,16 @@ export class UserService {
     this._authUser$.next(null);
   }
 
+  updateMe(params: { nickname: string }) {
+    return this.http.put<MyUser>(`${environment.apiUrl}/users/me`, params).pipe(
+      tap({
+        next: (res) => {
+          this._authUser$.next(res);
+        },
+      }),
+    );
+  }
+
   checkNicknameExistance(params: { nickname: string }) {
     return this.http.get<NicknameExistance>(
       `${environment.apiUrl}/users/nicknames/${params.nickname}`,
