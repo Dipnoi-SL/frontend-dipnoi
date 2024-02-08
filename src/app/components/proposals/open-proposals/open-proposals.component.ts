@@ -30,6 +30,10 @@ export class OpenProposalsComponent extends StatefulComponent<{
   };
 }> {
   constructor() {
-    super({ params: { states: [ProposalStateEnum.FINAL_PHASE] } });
+    super({
+      params: {
+        states: [ProposalStateEnum.FINAL_PHASE, ProposalStateEnum.LAST_CALL],
+      },
+    });
   }
 }
