@@ -1,5 +1,30 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="wrapper" #infiniteScrollContainerRef>
+    <div class="content-header">
+      <div class="content-header-section">
+        <h1>Pending proposals</h1>
+        <button>Create</button>
+      </div>
+      <div class="content-header-section">
+        <dipnoi-toggle
+          *ngIf="userService.authUser$ | async"
+          (onToggleUpdated)="handleOnToggleUpdated($event)"
+        ></dipnoi-toggle>
+        <dipnoi-params
+          (onParamsUpdated)="handleOnParamsUpdated($event)"
+        ></dipnoi-params>
+      </div>
+    </div>
+    <div
+      class="pinned-proposals"
+      *ngIf="state.isPinnedShown && (userService.authUser$ | async)"
+    >
+      <dipnoi-proposal-card
+        *ngFor="let proposal of state.pinnedProposals"
+        [proposal]="proposal"
+      ></dipnoi-proposal-card>
+      <div class="inset-horizontal-divider"></div>
+    </div>
     <dipnoi-proposal-list
       [infiniteScrollContainerRef]="infiniteScrollContainerRef"
       [params]="state.params"

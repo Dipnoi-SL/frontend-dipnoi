@@ -57,10 +57,20 @@ app-root {
 
 .horizontal-divider {
   border-bottom: 1px solid #000;
-  padding-bottom: 1px;
 }
 
 .vertical-divider {
   border-right: 1px solid #000;
-  padding-right: 1px;
+}
+
+.inset-horizontal-divider {
+  border-bottom: 1px solid #000;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.inset-vertical-divider {
+  border-right: 1px solid #000;
+  margin-top: 10%;
+  margin-bottom: 10%;
 }

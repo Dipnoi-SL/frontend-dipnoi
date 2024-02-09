@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
+  OnChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -33,7 +33,7 @@ import { StatefulComponent } from '../../../directives/stateful-component.direct
 })
 export class ProposalListComponent
   extends StatefulComponent<{ proposals?: Proposal[]; meta?: PageMeta }>
-  implements OnInit
+  implements OnChanges
 {
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) params!: {
@@ -52,7 +52,7 @@ export class ProposalListComponent
     super({});
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.proposalService.readMany(this.params).subscribe({
       next: (res) => {
         this.updateState({ proposals: res.data, meta: res.meta });

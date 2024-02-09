@@ -7,13 +7,14 @@ import {
   ProposalStateEnum,
 } from '../../../constants/enums';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { ParamsComponent } from '../params/params.component';
 
 @Component({
   selector: 'dipnoi-open-proposals',
   standalone: true,
   templateUrl: './open-proposals.component.html',
   styleUrl: './open-proposals.component.scss',
-  imports: [CommonModule, ProposalListComponent],
+  imports: [CommonModule, ProposalListComponent, ParamsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OpenProposalsComponent extends StatefulComponent<{
@@ -35,5 +36,16 @@ export class OpenProposalsComponent extends StatefulComponent<{
         states: [ProposalStateEnum.FINAL_PHASE, ProposalStateEnum.LAST_CALL],
       },
     });
+  }
+
+  handleNewParams(newParams: {
+    orderBy?: ProposalOrderByEnum;
+    order?: OrderEnum;
+    search?: string;
+    createdAt?: string;
+    resetAt?: string;
+    userId?: number;
+  }) {
+    this.updateState({ params: { ...this.state.params, ...newParams } });
   }
 }

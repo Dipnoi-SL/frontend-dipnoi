@@ -6,7 +6,7 @@
   >
     <p>{{ item.title }}</p>
   </div>
-  <div class="horizontal-divider"></div>
+  <div class="inset-horizontal-divider"></div>
   <div
     *ngFor="let item of navigationSecondSet"
     [routerLink]="item.path"
@@ -23,7 +23,7 @@
       <p>{{ pendingReviewItem.title }}</p>
     </div>
   </ng-container>
-  <div class="horizontal-divider"></div>
+  <div class="inset-horizontal-divider"></div>
   <div
     *ngFor="let item of navigationThirdSet"
     [routerLink]="item.path"

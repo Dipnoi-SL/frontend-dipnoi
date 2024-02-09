@@ -7,13 +7,14 @@ import {
   ProposalStateEnum,
 } from '../../../constants/enums';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { ParamsComponent } from '../params/params.component';
 
 @Component({
   selector: 'dipnoi-changelog',
   standalone: true,
   templateUrl: './changelog.component.html',
   styleUrl: './changelog.component.scss',
-  imports: [CommonModule, ProposalListComponent],
+  imports: [CommonModule, ProposalListComponent, ParamsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangelogComponent extends StatefulComponent<{
@@ -35,5 +36,16 @@ export class ChangelogComponent extends StatefulComponent<{
         states: [ProposalStateEnum.COMPLETED],
       },
     });
+  }
+
+  handleNewParams(newParams: {
+    orderBy?: ProposalOrderByEnum;
+    order?: OrderEnum;
+    search?: string;
+    createdAt?: string;
+    resetAt?: string;
+    userId?: number;
+  }) {
+    this.updateState({ params: { ...this.state.params, ...newParams } });
   }
 }

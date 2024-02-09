@@ -1,0 +1,12 @@
+<div class="dropdown" (click)="toggleDropdown()">
+  <button class="dropdown-button">
+    <ng-icon name="matTuneOutline"></ng-icon>
+  </button>
+  <div
+    class="dropdown-content"
+    [style.display]="state.isDropdownOpen ? 'block' : 'none'"
+  >
+    <button>A</button>
+  </div>
+</div>
+<input type="text" [(ngModel)]="search" (keydown)="debounceSearch()" />

@@ -6,5 +6,5 @@
 }
 
 .content {
-  flex-grow: 1;
+  width: calc(100vw - 2 * $sidenavWidth - 2px);
 }
