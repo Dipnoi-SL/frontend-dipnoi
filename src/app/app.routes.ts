@@ -6,6 +6,7 @@ import { HomeComponent } from './components/proposals/home/home.component';
 import { PendingProposalsComponent } from './components/proposals/pending-proposals/pending-proposals.component';
 import { ChangelogComponent } from './components/proposals/changelog/changelog.component';
 import { ArchiveComponent } from './components/proposals/archive/archive.component';
+import { PendingReviewComponent } from './components/proposals/pending-review/pending-review.component';
 
 export enum RoutePathEnum {
   ABOUT_US = '/about-us',
@@ -17,6 +18,7 @@ export enum RoutePathEnum {
   BACKLOG = '/proposals/backlog',
   OPEN_PROPOSALS = '/proposals/open-proposals',
   PENDING_PROPOSALS = '/proposals/pending-proposals',
+  PENDING_REVIEW = '/proposals/pending-review',
   CHANGELOG = '/proposals/changelog',
   ARCHIVE = '/proposals/archive',
   AUTH = 'auth',
@@ -46,6 +48,10 @@ export const routes: Routes = [
       {
         path: 'pending-proposals',
         component: PendingProposalsComponent,
+      },
+      {
+        path: 'pending-review',
+        component: PendingReviewComponent,
       },
       {
         path: 'changelog',
