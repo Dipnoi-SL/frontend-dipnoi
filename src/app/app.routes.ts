@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 import { ProposalsComponent } from './components/proposals/proposals.component';
 import { BacklogComponent } from './components/proposals/backlog/backlog.component';
 import { OpenProposalsComponent } from './components/proposals/open-proposals/open-proposals.component';
+import { HomeComponent } from './components/proposals/home/home.component';
+import { PendingProposalsComponent } from './components/proposals/pending-proposals/pending-proposals.component';
+import { ChangelogComponent } from './components/proposals/changelog/changelog.component';
+import { ArchiveComponent } from './components/proposals/archive/archive.component';
 
 export enum RoutePathEnum {
   ABOUT_US = '/about-us',
@@ -12,6 +16,9 @@ export enum RoutePathEnum {
   HOME = '/proposals/home',
   BACKLOG = '/proposals/backlog',
   OPEN_PROPOSALS = '/proposals/open-proposals',
+  PENDING_PROPOSALS = '/proposals/pending-proposals',
+  CHANGELOG = '/proposals/changelog',
+  ARCHIVE = '/proposals/archive',
   AUTH = 'auth',
   SIGN_IN = 'sign-in',
   SIGN_UP = 'sign-up',
@@ -26,7 +33,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: BacklogComponent,
+        component: HomeComponent,
       },
       {
         path: 'backlog',
@@ -35,6 +42,18 @@ export const routes: Routes = [
       {
         path: 'open-proposals',
         component: OpenProposalsComponent,
+      },
+      {
+        path: 'pending-proposals',
+        component: PendingProposalsComponent,
+      },
+      {
+        path: 'changelog',
+        component: ChangelogComponent,
+      },
+      {
+        path: 'archive',
+        component: ArchiveComponent,
       },
       {
         path: '**',

@@ -16,5 +16,8 @@ export class SideNavigationComponent {
     { title: 'Home', path: RoutePathEnum.HOME },
     { title: 'Backlog', path: RoutePathEnum.BACKLOG },
     { title: 'Open proposals', path: RoutePathEnum.OPEN_PROPOSALS },
+    { title: 'Pending proposals', path: RoutePathEnum.PENDING_PROPOSALS },
+    { title: 'Changelog', path: RoutePathEnum.CHANGELOG },
+    { title: 'Archive', path: RoutePathEnum.ARCHIVE },
   ];
 }
