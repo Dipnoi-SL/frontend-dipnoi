@@ -66,6 +66,6 @@ export class ParamsComponent extends StatefulComponent<{
       });
 
       this.onParamsUpdated.emit(this.state.params);
-    }, 700);
+    }, 500);
   }
 }

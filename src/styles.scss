@@ -15,6 +15,16 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
 a {
   cursor: pointer;
   color: blue;
@@ -57,20 +67,10 @@ app-root {
 
 .horizontal-divider {
   border-bottom: 1px solid #000;
+  width: 100%;
 }
 
 .vertical-divider {
   border-right: 1px solid #000;
-}
-
-.inset-horizontal-divider {
-  border-bottom: 1px solid #000;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
-.inset-vertical-divider {
-  border-right: 1px solid #000;
-  margin-top: 10%;
-  margin-bottom: 10%;
+  height: 100%;
 }

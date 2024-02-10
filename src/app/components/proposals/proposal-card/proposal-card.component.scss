@@ -1,5 +1,54 @@
 .wrapper {
   cursor: pointer;
   background-color: grey;
+  display: flex;
+  height: 125px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0px 15px 15px;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag {
+  border: 1px solid black;
+}
+
+.description {
+  height: 60px;
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  word-break: break-word;
   overflow: hidden;
+}
+
+.thumbnail {
+  min-width: 125px;
+  background-color: black;
+}
+
+.scores {
+  margin: 15px 0px 15px 0px;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }

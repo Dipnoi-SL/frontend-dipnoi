@@ -5,5 +5,36 @@
   [queryParams]="buildSelectedQueryParam()"
   queryParamsHandling="merge"
 >
-  {{ content }}
+  <div class="thumbnail"></div>
+  <div class="content">
+    <div class="summary">
+      <div class="header">
+        <h3>
+          {{ proposal.initialTitle }}
+        </h3>
+        <div class="vertical-divider"></div>
+        <p>
+          {{ proposal.user.nickname }}
+        </p>
+        <div class="vertical-divider"></div>
+        <small>
+          {{ proposal.createdAt }}
+        </small>
+        <div *ngFor="let tag of proposal.categories" class="tag">
+          <small>
+            {{ tag }}
+          </small>
+        </div>
+      </div>
+      <p class="description">
+        {{ proposal.initialDescription }}
+      </p>
+    </div>
+    <div class="vertical-divider"></div>
+  </div>
+  <div class="scores">
+    <div>score1</div>
+    <div>score1</div>
+    <div>score1</div>
+  </div>
 </div>

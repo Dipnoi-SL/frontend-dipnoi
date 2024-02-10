@@ -11,6 +11,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: max(calc((100vw - $maxScreenWidth) / 2), 16px);
-  padding-right: max(calc((100vw - $maxScreenWidth) / 2), 16px);
+  padding: 0px max(calc((100vw - $maxScreenWidth) / 2), 16px) 0px
+    max(calc((100vw - $maxScreenWidth) / 2), 16px);
 }
