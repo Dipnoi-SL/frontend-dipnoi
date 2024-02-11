@@ -1,6 +1,33 @@
 .wrapper {
   width: 60vw;
   height: 80vh;
-  overflow-y: scroll;
   background-color: grey;
+  display: flex;
+  padding: 20px;
+}
+
+.content {
+  margin-right: 20px;
+  padding-right: 20px;
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.poll-section {
+  display: flex;
+  justify-content: space-around;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  margin-top: 76px;
+  width: 280px;
+  gap: 20px;
+}
+
+.box {
+  border: 1px solid black;
 }

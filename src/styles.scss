@@ -61,8 +61,24 @@ app-root {
   color: green;
 }
 
-.error {
+.success-background {
+  background-color: green;
+}
+
+.warning {
   color: yellow;
+}
+
+.warning-background {
+  background-color: yellow;
+}
+
+.error {
+  color: red;
+}
+
+.error-background {
+  background-color: red;
 }
 
 .horizontal-divider {

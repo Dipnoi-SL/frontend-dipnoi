@@ -1,10 +1,27 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="wrapper" #infiniteScrollContainerRef>
-    <h1 *ngIf="state.proposal">Proposal {{ state.proposal.initialTitle }}</h1>
-    <dipnoi-poll *ngFor="let poll of state.polls" [poll]="poll"></dipnoi-poll>
-    <dipnoi-comment-list
-      [infiniteScrollContainerRef]="infiniteScrollContainerRef"
-      [proposalId]="proposalId"
-    ></dipnoi-comment-list>
+  <div class="wrapper">
+    <div class="content" #infiniteScrollContainerRef>
+      <div *ngIf="state.proposal">
+        <h1>{{ state.proposal.initialTitle }}</h1>
+        <div [innerHTML]="state.proposal.initialDescription"></div>
+      </div>
+      <div class="horizontal-divider"></div>
+      <div class="poll-section">
+        <dipnoi-poll
+          *ngFor="let poll of state.polls"
+          [poll]="poll"
+        ></dipnoi-poll>
+      </div>
+      <div class="horizontal-divider"></div>
+      <dipnoi-comment-list
+        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        [proposalId]="proposalId"
+      ></dipnoi-comment-list>
+    </div>
+    <div class="stats">
+      <div class="box">AA</div>
+      <div class="box">AA</div>
+      <div class="box">AA</div>
+    </div>
   </div>
 </ng-container>

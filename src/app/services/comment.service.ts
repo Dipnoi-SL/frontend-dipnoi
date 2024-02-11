@@ -28,7 +28,6 @@ export class CommentService {
   }
 
   createOrUpdateOneFeedback(params: {
-    proposalId: number;
     id: number;
     myFeedback: boolean | null;
   }) {

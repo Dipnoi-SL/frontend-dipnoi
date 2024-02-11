@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 222px;
+}
+
+.button-row {
+  display: flex;
+  gap: 3px;
+}
+
+.vote-button {
+  width: 72px;
+}
+
+.bar-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bar {
+  height: 8px;
+  width: 100%;
+  background-color: white;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 70%;
+}

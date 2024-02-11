@@ -14,7 +14,6 @@ export class PollService {
   }
 
   createOrUpdateOneInterestVote(params: {
-    proposalId: number;
     id: number;
     myInterestVote: boolean | null;
   }) {
