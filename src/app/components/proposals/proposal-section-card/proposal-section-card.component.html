@@ -1,0 +1,24 @@
+<div *ngIf="isFirstInSection" class="section">
+  <div class="horizontal-divider section-divider"></div>
+  <p>{{ finalDate.toLocaleDateString() }}</p>
+  <div class="horizontal-divider section-divider"></div>
+</div>
+<div
+  class="wrapper"
+  [routerLink]="[]"
+  [relativeTo]="route"
+  [queryParams]="buildSelectedQueryParam()"
+  queryParamsHandling="merge"
+>
+  <div class="column">{{ proposal.initialTitle }}</div>
+  <div class="column">{{ proposal.user.nickname }}</div>
+  <div class="column">
+    <div *ngFor="let tag of proposal.categories" class="tag">
+      <small>
+        {{ tag }}
+      </small>
+    </div>
+  </div>
+  <div class="column">{{ proposal.createdAt }}</div>
+  <div class="column">{{ finalDate.toDateString() }}</div>
+</div>

@@ -33,8 +33,11 @@
     <div class="vertical-divider"></div>
   </div>
   <div class="scores">
-    <div>score1</div>
-    <div>score1</div>
-    <div>score1</div>
+    <p *ngIf="!isInBacklog">{{ positiveRatio }}%</p>
+    <p *ngIf="!isInBacklog">
+      {{ totalValue }}
+    </p>
+    <p *ngIf="isInBacklog">{{ importanceTag }}</p>
+    <p *ngIf="proposal.cost">{{ proposal.cost }}</p>
   </div>
 </div>

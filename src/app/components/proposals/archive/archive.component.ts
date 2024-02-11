@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProposalListComponent } from '../proposal-list/proposal-list.component';
 import {
   OrderEnum,
   ProposalOrderByEnum,
@@ -8,13 +7,14 @@ import {
 } from '../../../constants/enums';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { ParamsComponent } from '../params/params.component';
+import { ProposalSectionListComponent } from '../proposal-section-list/proposal-section-list.component';
 
 @Component({
   selector: 'dipnoi-archive',
   standalone: true,
   templateUrl: './archive.component.html',
   styleUrl: './archive.component.scss',
-  imports: [CommonModule, ProposalListComponent, ParamsComponent],
+  imports: [CommonModule, ProposalSectionListComponent, ParamsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchiveComponent extends StatefulComponent<{

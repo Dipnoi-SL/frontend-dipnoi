@@ -1,0 +1,28 @@
+.section {
+  display: flex;
+  align-items: center;
+}
+
+.section-divider {
+  flex-grow: 1;
+}
+
+.wrapper {
+  cursor: pointer;
+  background-color: grey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  padding: 0px 60px;
+}
+
+.column {
+  display: flex;
+  align-items: center;
+  width: 200px;
+}
+
+.tag {
+  border: 1px solid black;
+}
