@@ -3,10 +3,10 @@
   height: 80vh;
   background-color: grey;
   display: flex;
-  padding: 20px;
 }
 
 .content {
+  margin: 7px;
   margin-right: 20px;
   padding-right: 20px;
   flex-grow: 1;
@@ -23,11 +23,34 @@
 .stats {
   display: flex;
   flex-direction: column;
-  margin-top: 76px;
+  margin: 7px;
+  padding: 69px 13px 0px 0px;
   width: 280px;
   gap: 20px;
+  overflow-y: scroll;
 }
 
 .box {
+  padding: 20px;
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.box-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bar {
+  height: 8px;
+  width: 160px;
+  background-color: white;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 70%;
+  background-color: green;
 }

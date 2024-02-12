@@ -19,9 +19,74 @@
       ></dipnoi-comment-list>
     </div>
     <div class="stats">
-      <div class="box">AA</div>
-      <div class="box">AA</div>
-      <div class="box">AA</div>
+      <div class="box">
+        <h4>Details</h4>
+        <div class="box-row">
+          <small>Title</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.initialTitle }}
+          </small>
+        </div>
+        <div class="box-row">
+          <small>Author</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.user.nickname }}
+          </small>
+        </div>
+        <div class="box-row">
+          <small>Labels</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.categories[0] }}
+          </small>
+        </div>
+      </div>
+      <div class="box">
+        <h4>Backing</h4>
+        <div class="box-row">
+          <ng-icon name="matAccessibleForwardOutline"></ng-icon>
+          <div class="bar">
+            <div class="bar-fill"></div>
+          </div>
+          <ng-icon name="matAccessibleForwardOutline"></ng-icon>
+        </div>
+        <div class="box-row">
+          <small>Votes</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.positiveValue }}
+          </small>
+        </div>
+        <div class="box-row">
+          <small>Balance</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.positiveValue + state.proposal.negativeValue }}
+          </small>
+        </div>
+        <div class="box-row">
+          <small>Ratio</small>
+          <small *ngIf="state.proposal">{{ 70 }}%</small>
+        </div>
+      </div>
+      <div class="box">
+        <h4>Status</h4>
+        <div class="box-row">
+          <small>Stage</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.state }}
+          </small>
+        </div>
+        <div class="box-row">
+          <small>Comments</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.numComments }}
+          </small>
+        </div>
+        <div class="box-row">
+          <small>Releases</small>
+          <small *ngIf="state.proposal">
+            {{ state.proposal.createdAt }}
+          </small>
+        </div>
+      </div>
     </div>
   </div>
 </ng-container>

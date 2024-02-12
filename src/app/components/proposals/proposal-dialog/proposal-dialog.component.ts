@@ -16,13 +16,14 @@ import { PollService } from '../../../services/poll.service';
 import { PollComponent } from '../poll/poll.component';
 import { Poll } from '../../../models/poll.model';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
   selector: 'dipnoi-proposal-dialog',
   standalone: true,
   templateUrl: './proposal-dialog.component.html',
   styleUrl: './proposal-dialog.component.scss',
-  imports: [CommonModule, CommentListComponent, PollComponent],
+  imports: [CommonModule, CommentListComponent, PollComponent, NgIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProposalDialogComponent
