@@ -15,13 +15,19 @@ import { AuthService } from '../../../services/auth.service';
 import { Comment } from '../../../models/comment.model';
 import { PageMeta } from '../../../models/page-meta.model';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { CommentComponent } from '../comment/comment.component';
 
 @Component({
   selector: 'dipnoi-comment-list',
   standalone: true,
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.scss',
-  imports: [CommonModule, InfiniteScrollModule, InsufficientItemsDirective],
+  imports: [
+    CommonModule,
+    InfiniteScrollModule,
+    InsufficientItemsDirective,
+    CommentComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentListComponent

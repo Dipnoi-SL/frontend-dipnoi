@@ -189,9 +189,11 @@ export class AuthService {
   }
 
   closeSession() {
-    this.accessToken = null;
+    if (this.accessToken) {
+      this.accessToken = null;
 
-    this._signedIn$.next(false);
+      this._signedIn$.next(false);
+    }
 
     this.userService.clearMe();
   }

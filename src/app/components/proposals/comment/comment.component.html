@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <div class="avatar"></div>
+  <div class="info-container">
+    <div class="header">
+      <h3>{{ comment.user.nickname }}</h3>
+      <small>{{ comment.createdAt }}</small>
+    </div>
+    <p>{{ comment.body }}</p>
+    <div class="feedback-info">
+      <ng-icon name="matThumbUpOutline"></ng-icon>
+      <small>{{ comment.positiveValue }}</small>
+      <ng-icon name="matThumbDownOutline"></ng-icon>
+    </div>
+  </div>
+</div>

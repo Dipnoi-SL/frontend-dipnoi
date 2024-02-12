@@ -1,4 +1,11 @@
 <ng-container *ngIf="state$ | async as state">
+  <h2>Comments ({{ state.meta?.itemCount ?? 0 }})</h2>
+  <div class="creation-container">
+    <div class="avatar"></div>
+    <div>
+      <input type="text" placeholder="Add a comment..." />
+    </div>
+  </div>
   <div
     class="wrapper"
     infiniteScroll
@@ -13,7 +20,7 @@
     [infiniteScrollDistance]="0"
   >
     <div *ngFor="let comment of state.comments">
-      <p>Comment {{ comment.body }}</p>
+      <dipnoi-comment [comment]="comment"></dipnoi-comment>
     </div>
   </div>
 </ng-container>

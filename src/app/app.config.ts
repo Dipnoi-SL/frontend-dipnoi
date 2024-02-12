@@ -11,6 +11,8 @@ import {
   matTuneOutline,
   matVisibilityOffOutline,
   matVisibilityOutline,
+  matThumbUpOutline,
+  matThumbDownOutline,
 } from '@ng-icons/material-icons/outline';
 
 export const appConfig: ApplicationConfig = {
@@ -23,6 +25,8 @@ export const appConfig: ApplicationConfig = {
       matVisibilityOutline,
       matTuneOutline,
       matAccessibleForwardOutline,
+      matThumbUpOutline,
+      matThumbDownOutline,
     }),
     importProvidersFrom(HttpClientModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
