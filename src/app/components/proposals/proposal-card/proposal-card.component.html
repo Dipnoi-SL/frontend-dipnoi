@@ -20,6 +20,18 @@
         <small>
           {{ proposal.createdAt }}
         </small>
+        <div *ngIf="isSelectedForDevelopment" class="tag">
+          <small>ON HOLD</small>
+        </div>
+        <div *ngIf="isInDevelopment" class="tag">
+          <small>IN DEVELOPMENT</small>
+        </div>
+        <div *ngIf="isLastCall" class="tag">
+          <small>LAST CALL</small>
+        </div>
+        <div *ngIf="isPendingSpecification" class="tag">
+          <small>SELECTED</small>
+        </div>
         <div *ngFor="let tag of proposal.categories" class="tag">
           <small>
             {{ tag }}

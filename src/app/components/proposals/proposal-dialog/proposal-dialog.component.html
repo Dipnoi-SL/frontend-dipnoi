@@ -74,6 +74,12 @@
             {{ state.proposal.state }}
           </small>
         </div>
+        <div *ngIf="state.proposal && state.proposal.cost" class="box-row">
+          <small>Cost</small>
+          <small>
+            {{ state.proposal.cost }}
+          </small>
+        </div>
         <div class="box-row">
           <small>Comments</small>
           <small *ngIf="state.proposal">
