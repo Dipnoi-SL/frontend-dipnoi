@@ -2,7 +2,7 @@
   class="wrapper"
   [routerLink]="[]"
   [relativeTo]="route"
-  [queryParams]="buildSelectedQueryParam()"
+  [queryParams]="proposal.selectedQueryParam"
   queryParamsHandling="merge"
 >
   <div class="thumbnail"></div>
@@ -20,18 +20,26 @@
         <small>
           {{ proposal.createdAt }}
         </small>
-        <div *ngIf="isSelectedForDevelopment" class="tag">
+        <div *ngIf="proposal.isSelectedForDevelopment" class="tag">
           <small>ON HOLD</small>
         </div>
-        <div *ngIf="isInDevelopment" class="tag">
+        <div *ngIf="proposal.isInDevelopment" class="tag">
           <small>IN DEVELOPMENT</small>
         </div>
-        <div *ngIf="isLastCall" class="tag">
+        <div *ngIf="proposal.isLastCall" class="tag">
           <small>LAST CALL</small>
         </div>
-        <div *ngIf="isPendingSpecification" class="tag">
-          <small>SELECTED</small>
-        </div>
+        <ng-container *ngIf="userService.authUser$ | async as authUser">
+          <div
+            *ngIf="
+              proposal.isPendingSpecification &&
+              authUser.id === proposal.user.id
+            "
+            class="tag"
+          >
+            <small>SELECTED</small>
+          </div>
+        </ng-container>
         <div *ngFor="let tag of proposal.categories" class="tag">
           <small>
             {{ tag }}
@@ -45,11 +53,15 @@
     <div class="vertical-divider"></div>
   </div>
   <div class="scores">
-    <p *ngIf="!isInBacklog">{{ positiveRatio }}%</p>
-    <p *ngIf="!isInBacklog">
-      {{ totalValue }}
+    <p *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment">
+      {{ proposal.positiveRatio }}%
     </p>
-    <p *ngIf="isInBacklog">{{ importanceTag }}</p>
+    <p *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment">
+      {{ proposal.totalValue }}
+    </p>
+    <p *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment">
+      {{ proposal.importanceTag }}
+    </p>
     <p *ngIf="proposal.cost">{{ proposal.cost }}</p>
   </div>
 </div>

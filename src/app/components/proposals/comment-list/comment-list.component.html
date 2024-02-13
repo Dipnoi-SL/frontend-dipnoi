@@ -1,16 +1,11 @@
 <ng-container *ngIf="state$ | async as state">
-  <ng-container *ngIf="commentService.comments$ | async as comments">
-    <ng-container
-      *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
-    >
-      <h2>Comments ({{ selectedProposal.numComments }})</h2>
-    </ng-container>
-    <div class="creation-container">
-      <div class="avatar"></div>
-      <div>
-        <input type="text" placeholder="Add a comment..." />
-      </div>
+  <div class="creation-container">
+    <div class="avatar"></div>
+    <div>
+      <input type="text" placeholder="Add a comment..." />
     </div>
+  </div>
+  <ng-container *ngIf="commentService.comments$ | async as comments">
     <div
       class="wrapper"
       infiniteScroll

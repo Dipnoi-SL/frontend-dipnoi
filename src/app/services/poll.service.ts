@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Poll } from '../models/poll.model';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,7 @@ export class PollService {
     return this.http
       .get<Poll[]>(`${environment.apiUrl}/polls`, { params })
       .pipe(
+        map((res) => res.map((poll) => new Poll(poll))),
         tap({
           next: (res) => {
             this._polls$.next(res);
@@ -35,6 +36,7 @@ export class PollService {
         params,
       )
       .pipe(
+        map((res) => new Poll(res)),
         tap({
           next: (res) => {
             if (this._polls$.value) {

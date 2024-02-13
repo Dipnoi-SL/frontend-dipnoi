@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { Comment } from '../models/comment.model';
 import { CommentOrderByEnum, OrderEnum } from '../constants/enums';
 import { Page } from '../models/page.model';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
 
 @Injectable({
@@ -25,15 +25,15 @@ export class CommentService {
     orderBy?: CommentOrderByEnum;
     order?: OrderEnum;
   }) {
-    this._comments$.next(null);
-
-    this.meta = null;
-
     return this.http
       .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
         params,
       })
       .pipe(
+        map((res) => ({
+          data: res.data.map((comment) => new Comment(comment)),
+          meta: new PageMeta(res.meta),
+        })),
         tap({
           next: (res) => {
             this._comments$.next(res.data);
@@ -57,6 +57,10 @@ export class CommentService {
           params: { ...params, page: this.meta.page + 1 },
         })
         .pipe(
+          map((res) => ({
+            data: res.data.map((comment) => new Comment(comment)),
+            meta: new PageMeta(res.meta),
+          })),
           tap({
             next: (res) => {
               this._comments$.next(this._comments$.value!.concat(res.data));
@@ -74,6 +78,7 @@ export class CommentService {
     return this.http
       .post<Comment>(`${environment.apiUrl}/comments`, params)
       .pipe(
+        map((res) => new Comment(res)),
         tap({
           next: (res) => {
             if (this._comments$.value) {
@@ -96,6 +101,7 @@ export class CommentService {
         params,
       )
       .pipe(
+        map((res) => new Comment(res)),
         tap({
           next: (res) => {
             if (this._comments$.value) {

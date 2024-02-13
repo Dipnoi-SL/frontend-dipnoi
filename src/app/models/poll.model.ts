@@ -1,12 +1,18 @@
 import { AbstractEntity } from './abstract-entity.model';
 
-export interface Poll extends AbstractEntity {
-  label: string | null;
-  isInitial: boolean;
-  isFinal: boolean;
-  positiveValue: number;
-  negativeValue: number;
-  nullValue: number;
+export class Poll extends AbstractEntity {
+  label!: string | null;
+  isInitial!: boolean;
+  isFinal!: boolean;
+  positiveValue!: number;
+  negativeValue!: number;
+  nullValue!: number;
   myInterestVote?: boolean | null;
-  proposalId: number;
+  proposalId!: number;
+
+  constructor(data: Poll) {
+    super(data);
+
+    Object.assign(this, data);
+  }
 }

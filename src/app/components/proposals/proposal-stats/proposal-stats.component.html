@@ -1,7 +1,7 @@
-<ng-container
-  *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
->
-  <div class="wrapper">
+<div class="wrapper">
+  <ng-container
+    *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
+  >
     <div class="box">
       <h4>Details</h4>
       <div class="box-row">
@@ -76,5 +76,5 @@
         </small>
       </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
+</div>

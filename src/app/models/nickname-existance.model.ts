@@ -1,3 +1,7 @@
-export interface NicknameExistance {
-  exists: boolean;
+export class NicknameExistance {
+  exists!: boolean;
+
+  constructor(data: NicknameExistance) {
+    Object.assign(this, data);
+  }
 }

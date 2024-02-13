@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { MyUser } from '../models/my-user.model';
 import { environment } from '../../environments/environment';
 import { NicknameExistance } from '../models/nickname-existance.model';
@@ -16,6 +16,7 @@ export class UserService {
 
   readMe() {
     return this.http.get<MyUser>(`${environment.apiUrl}/users/me`).pipe(
+      map((res) => new MyUser(res)),
       tap({
         next: (res) => {
           this._authUser$.next(res);
@@ -30,6 +31,7 @@ export class UserService {
 
   updateMe(params: { nickname: string }) {
     return this.http.put<MyUser>(`${environment.apiUrl}/users/me`, params).pipe(
+      map((res) => new MyUser(res)),
       tap({
         next: (res) => {
           this._authUser$.next(res);
@@ -46,6 +48,7 @@ export class UserService {
     return this.http
       .put<MyUser>(`${environment.apiUrl}/users/me/avatar`, formData)
       .pipe(
+        map((res) => new MyUser(res)),
         tap({
           next: (res) => {
             this._authUser$.next(res);

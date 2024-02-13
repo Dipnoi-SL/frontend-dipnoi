@@ -22,7 +22,7 @@ import { StatefulComponent } from '../../../directives/stateful-component.direct
 export class AuthInfoComponent extends StatefulComponent<{
   isDropdownOpen: boolean;
 }> {
-  signInQueryParams = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
+  signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
   navigationItems = [{ title: 'Settings', path: RoutePathEnum.SETTINGS }];
 
   constructor(

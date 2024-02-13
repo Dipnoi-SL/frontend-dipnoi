@@ -15,7 +15,7 @@ import { PollComponent } from '../poll/poll.component';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { NgIconComponent } from '@ng-icons/core';
 import { UserService } from '../../../services/user.service';
-import { ProposalStateEnum, RoleEnum } from '../../../constants/enums';
+import { ProposalStateEnum } from '../../../constants/enums';
 import { ProposalStatsComponent } from '../proposal-stats/proposal-stats.component';
 
 @Component({
@@ -40,11 +40,6 @@ export class ProposalDialogComponent
 {
   authUser$!: Subscription;
   proposalId!: number;
-  isPendingReview: boolean = false;
-  isOpen: boolean = false;
-  isLastCall: boolean = false;
-  isSelectedForDevelopment: boolean = false;
-  isInDevelopment: boolean = false;
 
   constructor(
     public userService: UserService,
@@ -60,29 +55,12 @@ export class ProposalDialogComponent
   }
 
   ngOnInit() {
-    this.authUser$ = this.userService.authUser$.subscribe((authUser) => {
+    this.authUser$ = this.userService.authUser$.subscribe(() => {
       this.proposalService
         .readOne({
           id: this.proposalId,
         })
-        .subscribe({
-          next: (res) => {
-            if (authUser?.role === RoleEnum.DEVELOPER) {
-              this.isPendingReview =
-                res.state === ProposalStateEnum.PENDING_REVIEW;
-
-              this.isOpen = res.state === ProposalStateEnum.FINAL_PHASE;
-
-              this.isLastCall = res.state === ProposalStateEnum.LAST_CALL;
-
-              this.isSelectedForDevelopment =
-                res.state === ProposalStateEnum.SELECTED_FOR_DEVELOPMENT;
-
-              this.isInDevelopment =
-                res.state === ProposalStateEnum.IN_DEVELOPMENT;
-            }
-          },
-        });
+        .subscribe();
 
       this.pollService
         .readMany({

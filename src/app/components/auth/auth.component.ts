@@ -28,13 +28,18 @@ import { StatefulComponent } from '../../directives/stateful-component.directive
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthComponent
-  extends StatefulComponent<{ view?: string }>
+  extends StatefulComponent<{ view?: RoutePathEnum }>
   implements OnInit, OnDestroy
 {
   queryParams$!: Subscription;
   signInPath = RoutePathEnum.SIGN_IN;
   signUpPath = RoutePathEnum.SIGN_UP;
   forgotPasswordPath = RoutePathEnum.FORGOT_PASSWORD;
+  signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
+  signUpQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_UP };
+  forgotPasswordQueryParam = {
+    [RoutePathEnum.AUTH]: RoutePathEnum.FORGOT_PASSWORD,
+  };
 
   constructor(public route: ActivatedRoute) {
     super({});
@@ -50,9 +55,5 @@ export class AuthComponent
     this.queryParams$.unsubscribe();
 
     super.ngOnDestroy();
-  }
-
-  buildAuthQueryParam(value: string) {
-    return { [RoutePathEnum.AUTH]: value };
   }
 }

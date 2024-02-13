@@ -16,7 +16,7 @@
   </div>
   <ng-container *ngIf="userService.authUser$ | async as authUser">
     <div
-      *ngIf="authUser.role === developerRole"
+      *ngIf="authUser.isDeveloper"
       [routerLink]="pendingReviewItem.path"
       routerLinkActive="active"
     >

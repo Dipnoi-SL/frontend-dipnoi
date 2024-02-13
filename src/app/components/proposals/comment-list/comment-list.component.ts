@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { CommentComponent } from '../comment/comment.component';
 import { UserService } from '../../../services/user.service';
-import { ProposalService } from '../../../services/proposal.service';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -47,7 +46,6 @@ export class CommentListComponent
   constructor(
     public commentService: CommentService,
     public userService: UserService,
-    public proposalService: ProposalService,
   ) {
     super({ params: {} });
   }

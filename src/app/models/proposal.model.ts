@@ -1,29 +1,120 @@
+import { RoutePathEnum } from '../app.routes';
 import { ProposalCategoryEnum, ProposalStateEnum } from '../constants/enums';
 import { AbstractEntity } from './abstract-entity.model';
 import { User } from './user.model';
 
-export interface Proposal extends AbstractEntity {
-  initialTitle: string;
-  finalTitle: string | null;
-  initialDescription: string;
-  finalDescription: string | null;
-  thumbnailUri: string;
-  state: ProposalStateEnum;
-  numComments: number;
-  positiveValue: number;
-  negativeValue: number;
-  popularity: number;
-  lastDayPopularity: number;
-  trending: number;
-  cost: number | null;
-  importance: number;
-  priority: number;
-  disregardingReason: string | null;
-  categories: ProposalCategoryEnum[];
-  resetAt: string | null;
-  completedAt: string | null;
-  disregardedAt: string | null;
+export class Proposal extends AbstractEntity {
+  initialTitle!: string;
+  finalTitle!: string | null;
+  initialDescription!: string;
+  finalDescription!: string | null;
+  thumbnailUri!: string;
+  state!: ProposalStateEnum;
+  numComments!: number;
+  positiveValue!: number;
+  negativeValue!: number;
+  popularity!: number;
+  lastDayPopularity!: number;
+  trending!: number;
+  cost!: number | null;
+  importance!: number;
+  priority!: number;
+  disregardingReason!: string | null;
+  categories!: ProposalCategoryEnum[];
+  resetAt!: string | null;
+  completedAt!: string | null;
+  disregardedAt!: string | null;
   myImportanceVote?: number | null;
-  followed: boolean;
-  user: User;
+  followed!: boolean;
+  user!: User;
+
+  constructor(data: Proposal) {
+    super(data);
+
+    Object.assign(this, data);
+  }
+
+  get isInitialPhase() {
+    return this.state === ProposalStateEnum.INITIAL_PHASE;
+  }
+
+  get isPendingSpecification() {
+    return this.state === ProposalStateEnum.PENDING_SPECIFICATION;
+  }
+
+  get isPendingReview() {
+    return this.state === ProposalStateEnum.PENDING_REVIEW;
+  }
+
+  get isFinalPhase() {
+    return this.state === ProposalStateEnum.FINAL_PHASE;
+  }
+
+  get isLastCall() {
+    return this.state === ProposalStateEnum.LAST_CALL;
+  }
+
+  get isSelectedForDevelopment() {
+    return this.state === ProposalStateEnum.SELECTED_FOR_DEVELOPMENT;
+  }
+
+  get isInDevelopment() {
+    return this.state === ProposalStateEnum.IN_DEVELOPMENT;
+  }
+
+  get isCompleted() {
+    return this.state === ProposalStateEnum.COMPLETED;
+  }
+
+  get isNotBacked() {
+    return this.state === ProposalStateEnum.NOT_BACKED;
+  }
+
+  get isNotViable() {
+    return this.state === ProposalStateEnum.NOT_VIABLE;
+  }
+
+  get totalValue() {
+    return this.positiveValue + this.negativeValue;
+  }
+
+  get positiveRatio() {
+    return this.totalValue
+      ? Math.round((100 * this.positiveValue) / this.totalValue)
+      : 0;
+  }
+
+  get importanceTag() {
+    return this.importance > 4
+      ? 'MAX'
+      : this.importance > 3
+        ? 'HIGH'
+        : this.importance > 2
+          ? 'MED'
+          : this.importance > 1
+            ? 'LOW'
+            : 'MIN';
+  }
+
+  get selectedQueryParam() {
+    return { [RoutePathEnum.PROPOSAL]: this.id };
+  }
+
+  get finalDate() {
+    return this.state === ProposalStateEnum.COMPLETED
+      ? new Date(this.completedAt!)
+      : new Date(this.disregardedAt!);
+  }
+
+  isFirstInSection(previousProposal?: Proposal) {
+    if (!previousProposal) {
+      return true;
+    }
+
+    return (
+      this.finalDate.getFullYear() !==
+        previousProposal.finalDate.getFullYear() ||
+      this.finalDate.getMonth() !== previousProposal.finalDate.getMonth()
+    );
+  }
 }

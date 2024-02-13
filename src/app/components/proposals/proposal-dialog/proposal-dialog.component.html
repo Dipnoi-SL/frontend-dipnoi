@@ -1,21 +1,29 @@
 <ng-container *ngIf="state$ | async as state">
-  <ng-container
-    *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
-  >
-    <div class="wrapper">
-      <div class="content" #infiniteScrollContainerRef>
+  <div class="wrapper">
+    <div class="content" #infiniteScrollContainerRef>
+      <ng-container
+        *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
+      >
         <div class="header">
           <h1>{{ selectedProposal.initialTitle }}</h1>
           <ng-icon name="matChatOutline"></ng-icon>
           <ng-icon name="matStarOutlineOutline"></ng-icon>
-          <div *ngIf="isPendingReview">Accept</div>
-          <div *ngIf="isPendingReview">Request edit</div>
-          <div *ngIf="isPendingReview">Deny</div>
-          <div *ngIf="isLastCall">Return to open</div>
-          <div *ngIf="isOpen">Last call</div>
-          <div *ngIf="isLastCall">Select for development</div>
-          <div *ngIf="isSelectedForDevelopment">Start development</div>
-          <div *ngIf="isInDevelopment">Complete</div>
+          <ng-container *ngIf="userService.authUser$ | async as authUser">
+            <ng-container *ngIf="authUser.isDeveloper">
+              <div *ngIf="selectedProposal.isPendingReview">Accept</div>
+              <div *ngIf="selectedProposal.isPendingReview">Request edit</div>
+              <div *ngIf="selectedProposal.isPendingReview">Deny</div>
+              <div *ngIf="selectedProposal.isLastCall">Return to open</div>
+              <div *ngIf="selectedProposal.isFinalPhase">Last call</div>
+              <div *ngIf="selectedProposal.isLastCall">
+                Select for development
+              </div>
+              <div *ngIf="selectedProposal.isSelectedForDevelopment">
+                Start development
+              </div>
+              <div *ngIf="selectedProposal.isInDevelopment">Complete</div>
+            </ng-container>
+          </ng-container>
         </div>
         <div *ngIf="state.changingTo">
           <input type="text" class="edit-box" />
@@ -32,14 +40,15 @@
           </div>
         </ng-container>
         <div class="horizontal-divider"></div>
-        <dipnoi-comment-list
-          [infiniteScrollContainerRef]="infiniteScrollContainerRef"
-          [proposalId]="proposalId"
-        ></dipnoi-comment-list>
-      </div>
-      <div class="stats">
-        <dipnoi-proposal-stats></dipnoi-proposal-stats>
-      </div>
+        <h2>Comments ({{ selectedProposal.numComments }})</h2>
+      </ng-container>
+      <dipnoi-comment-list
+        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        [proposalId]="proposalId"
+      ></dipnoi-comment-list>
     </div>
-  </ng-container>
+    <div class="stats">
+      <dipnoi-proposal-stats></dipnoi-proposal-stats>
+    </div>
+  </div>
 </ng-container>

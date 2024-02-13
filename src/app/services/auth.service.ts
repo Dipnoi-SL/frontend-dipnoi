@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { concatMap, tap } from 'rxjs';
+import { concatMap, map, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResponse } from '../models/token-response.model';
 import { UserService } from './user.service';
@@ -26,6 +26,7 @@ export class AuthService {
         withCredentials: true,
       })
       .pipe(
+        map((res) => new TokenResponse(res)),
         concatMap((res) => {
           this.startSession(res);
 
@@ -42,6 +43,7 @@ export class AuthService {
         { withCredentials: true },
       )
       .pipe(
+        map((res) => new TokenResponse(res)),
         concatMap((res) => {
           this.startSession(res);
 
@@ -58,6 +60,7 @@ export class AuthService {
         { withCredentials: true },
       )
       .pipe(
+        map((res) => new TokenResponse(res)),
         concatMap((res) => {
           this.startSession(res);
 
@@ -87,6 +90,7 @@ export class AuthService {
         { withCredentials: true },
       )
       .pipe(
+        map((res) => new TokenResponse(res)),
         tap({
           next: (res) => {
             this.startSession(res);
@@ -103,6 +107,7 @@ export class AuthService {
         { withCredentials: true },
       )
       .pipe(
+        map((res) => new TokenResponse(res)),
         tap({
           next: (res) => {
             this.startSession(res);
@@ -124,6 +129,7 @@ export class AuthService {
         withCredentials: true,
       })
       .pipe(
+        map((res) => new TokenResponse(res)),
         tap({
           next: (res) => {
             this.startSession(res);
@@ -142,6 +148,7 @@ export class AuthService {
         withCredentials: true,
       })
       .pipe(
+        map((res) => new TokenResponse(res)),
         concatMap((res) => {
           this.startSession(res);
 
@@ -158,6 +165,7 @@ export class AuthService {
         { withCredentials: true },
       )
       .pipe(
+        map((res) => new TokenResponse(res)),
         concatMap((res) => {
           this.startSession(res);
 

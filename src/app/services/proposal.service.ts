@@ -9,7 +9,7 @@ import {
   ProposalOrderByEnum,
   ProposalStateEnum,
 } from '../constants/enums';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
 
 @Injectable({
@@ -40,15 +40,15 @@ export class ProposalService {
     resetAt?: string;
     userId?: number;
   }) {
-    this._proposals$.next(null);
-
-    this.meta = null;
-
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
         params,
       })
       .pipe(
+        map((res) => ({
+          data: res.data.map((proposal) => new Proposal(proposal)),
+          meta: new PageMeta(res.meta),
+        })),
         tap({
           next: (res) => {
             this._proposals$.next(res.data);
@@ -76,6 +76,10 @@ export class ProposalService {
           params: { ...params, page: this.meta.page + 1 },
         })
         .pipe(
+          map((res) => ({
+            data: res.data.map((proposal) => new Proposal(proposal)),
+            meta: new PageMeta(res.meta),
+          })),
           tap({
             next: (res) => {
               this._proposals$.next(this._proposals$.value!.concat(res.data));
@@ -100,13 +104,15 @@ export class ProposalService {
     resetAt?: string;
     userId?: number;
   }) {
-    this._pinnedProposals$.next(null);
-
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
         params,
       })
       .pipe(
+        map((res) => ({
+          data: res.data.map((proposal) => new Proposal(proposal)),
+          meta: new PageMeta(res.meta),
+        })),
         tap({
           next: (res) => {
             this._pinnedProposals$.next(res.data);
@@ -125,11 +131,10 @@ export class ProposalService {
   }
 
   readOne(params: { id: number }) {
-    this._selectedProposal$.next(null);
-
     return this.http
       .get<Proposal>(`${environment.apiUrl}/proposals/${params.id}`)
       .pipe(
+        map((res) => new Proposal(res)),
         tap({
           next: (res) => {
             this._selectedProposal$.next(res);

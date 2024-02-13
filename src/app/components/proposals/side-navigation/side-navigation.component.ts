@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RoutePathEnum } from '../../../app.routes';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { RoleEnum } from '../../../constants/enums';
 
 @Component({
   selector: 'dipnoi-side-navigation',
@@ -30,7 +29,6 @@ export class SideNavigationComponent {
     title: 'Pending review',
     path: RoutePathEnum.PENDING_REVIEW,
   };
-  developerRole = RoleEnum.DEVELOPER;
 
   constructor(public userService: UserService) {}
 }

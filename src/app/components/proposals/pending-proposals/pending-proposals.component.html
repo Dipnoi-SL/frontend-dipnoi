@@ -6,10 +6,16 @@
         <div>Create</div>
       </div>
       <div class="content-header-section">
-        <dipnoi-toggle
-          *ngIf="userService.authUser$ | async"
-          (onToggleUpdated)="handleOnToggleUpdated($event)"
-        ></dipnoi-toggle>
+        <ng-container *ngIf="userService.authUser$ | async">
+          <ng-container
+            *ngIf="proposalService.pinnedProposals$ | async as pinnedProposals"
+          >
+            <dipnoi-toggle
+              *ngIf="pinnedProposals.length"
+              (onToggleUpdated)="handleOnToggleUpdated($event)"
+            ></dipnoi-toggle>
+          </ng-container>
+        </ng-container>
         <dipnoi-params
           (onParamsUpdated)="handleOnParamsUpdated($event)"
         ></dipnoi-params>

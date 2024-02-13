@@ -1,3 +1,7 @@
-export interface TokenResponse {
-  accessToken: string;
+export class TokenResponse {
+  accessToken!: string;
+
+  constructor(data: TokenResponse) {
+    Object.assign(this, data);
+  }
 }

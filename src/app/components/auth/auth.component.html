@@ -12,7 +12,7 @@
       <a
         [routerLink]="[]"
         [relativeTo]="route"
-        [queryParams]="buildAuthQueryParam(forgotPasswordPath)"
+        [queryParams]="forgotPasswordQueryParam"
         queryParamsHandling="merge"
       >
         Forgot your password?
@@ -22,9 +22,7 @@
         [routerLink]="[]"
         [relativeTo]="route"
         [queryParams]="
-          buildAuthQueryParam(
-            state.view === signInPath ? signUpPath : signInPath
-          )
+          state.view === signInPath ? signUpQueryParam : signInQueryParam
         "
         queryParamsHandling="merge"
       >
