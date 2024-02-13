@@ -1,98 +1,45 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="wrapper">
-    <div class="content" #infiniteScrollContainerRef>
-      <div *ngIf="state.proposal">
-        <h1>{{ state.proposal.initialTitle }}</h1>
-        <div [innerHTML]="state.proposal.initialDescription"></div>
-      </div>
-      <div class="horizontal-divider"></div>
-      <div class="poll-section">
-        <dipnoi-poll
-          *ngFor="let poll of state.polls"
-          [poll]="poll"
-        ></dipnoi-poll>
-      </div>
-      <div class="horizontal-divider"></div>
-      <dipnoi-comment-list
-        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
-        [proposalId]="proposalId"
-      ></dipnoi-comment-list>
-    </div>
-    <div class="stats">
-      <div class="box">
-        <h4>Details</h4>
-        <div class="box-row">
-          <small>Title</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.initialTitle }}
-          </small>
+  <ng-container
+    *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
+  >
+    <div class="wrapper">
+      <div class="content" #infiniteScrollContainerRef>
+        <div class="header">
+          <h1>{{ selectedProposal.initialTitle }}</h1>
+          <ng-icon name="matChatOutline"></ng-icon>
+          <ng-icon name="matStarOutlineOutline"></ng-icon>
+          <div *ngIf="isPendingReview">Accept</div>
+          <div *ngIf="isPendingReview">Request edit</div>
+          <div *ngIf="isPendingReview">Deny</div>
+          <div *ngIf="isLastCall">Return to open</div>
+          <div *ngIf="isOpen">Last call</div>
+          <div *ngIf="isLastCall">Select for development</div>
+          <div *ngIf="isSelectedForDevelopment">Start development</div>
+          <div *ngIf="isInDevelopment">Complete</div>
         </div>
-        <div class="box-row">
-          <small>Author</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.user.nickname }}
-          </small>
-        </div>
-        <div class="box-row">
-          <small>Labels</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.categories[0] }}
-          </small>
-        </div>
-      </div>
-      <div class="box">
-        <h4>Backing</h4>
-        <div class="box-row">
-          <ng-icon name="matAccessibleForwardOutline"></ng-icon>
-          <div class="bar">
-            <div class="bar-fill"></div>
+        <div *ngIf="state.changingTo">
+          <input type="text" class="edit-box" />
+          <div class="actions">
+            <div>Cancel</div>
+            <div>Submit</div>
           </div>
-          <ng-icon name="matAccessibleForwardOutline"></ng-icon>
         </div>
-        <div class="box-row">
-          <small>Votes</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.positiveValue }}
-          </small>
-        </div>
-        <div class="box-row">
-          <small>Balance</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.positiveValue + state.proposal.negativeValue }}
-          </small>
-        </div>
-        <div class="box-row">
-          <small>Ratio</small>
-          <small *ngIf="state.proposal">{{ 70 }}%</small>
-        </div>
+        <div [innerHTML]="selectedProposal.initialDescription"></div>
+        <div class="horizontal-divider"></div>
+        <ng-container *ngIf="pollService.polls$ | async as polls">
+          <div class="poll-section">
+            <dipnoi-poll *ngFor="let poll of polls" [poll]="poll"></dipnoi-poll>
+          </div>
+        </ng-container>
+        <div class="horizontal-divider"></div>
+        <dipnoi-comment-list
+          [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+          [proposalId]="proposalId"
+        ></dipnoi-comment-list>
       </div>
-      <div class="box">
-        <h4>Status</h4>
-        <div class="box-row">
-          <small>Stage</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.state }}
-          </small>
-        </div>
-        <div *ngIf="state.proposal && state.proposal.cost" class="box-row">
-          <small>Cost</small>
-          <small>
-            {{ state.proposal.cost }}
-          </small>
-        </div>
-        <div class="box-row">
-          <small>Comments</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.numComments }}
-          </small>
-        </div>
-        <div class="box-row">
-          <small>Releases</small>
-          <small *ngIf="state.proposal">
-            {{ state.proposal.createdAt }}
-          </small>
-        </div>
+      <div class="stats">
+        <dipnoi-proposal-stats></dipnoi-proposal-stats>
       </div>
     </div>
-  </div>
+  </ng-container>
 </ng-container>

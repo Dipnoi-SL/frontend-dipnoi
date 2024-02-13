@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Comment } from '../../../models/comment.model';
 import { CommentService } from '../../../services/comment.service';
@@ -20,10 +15,7 @@ import { NgIconComponent } from '@ng-icons/core';
 export class CommentComponent {
   @Input({ required: true }) comment!: Comment;
 
-  constructor(
-    public changeDetector: ChangeDetectorRef,
-    public commentService: CommentService,
-  ) {}
+  constructor(public commentService: CommentService) {}
 
   onVoteClick(myFeedback: boolean | null) {
     this.commentService
@@ -31,12 +23,6 @@ export class CommentComponent {
         id: this.comment.id,
         myFeedback,
       })
-      .subscribe({
-        next: (res) => {
-          this.comment = res;
-
-          this.changeDetector.detectChanges();
-        },
-      });
+      .subscribe();
   }
 }

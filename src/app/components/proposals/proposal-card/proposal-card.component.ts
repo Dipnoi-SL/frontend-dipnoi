@@ -40,12 +40,10 @@ export class ProposalCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.authUser$ = this.userService.authUser$.subscribe({
-      next: (authUser) => {
-        this.isPendingSpecification =
-          this.proposal.state === ProposalStateEnum.PENDING_SPECIFICATION &&
-          this.proposal.user.id === authUser?.id;
-      },
+    this.authUser$ = this.userService.authUser$.subscribe((authUser) => {
+      this.isPendingSpecification =
+        this.proposal.state === ProposalStateEnum.PENDING_SPECIFICATION &&
+        this.proposal.user.id === authUser?.id;
     });
 
     this.isLastCall = this.proposal.state === ProposalStateEnum.LAST_CALL;

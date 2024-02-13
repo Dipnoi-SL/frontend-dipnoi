@@ -14,9 +14,6 @@ import {
   ProposalStateEnum,
 } from '../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../directives/insufficient-items.directive';
-import { Proposal } from '../../../models/proposal.model';
-import { PageMeta } from '../../../models/page-meta.model';
-import { StatefulComponent } from '../../../directives/stateful-component.directive';
 
 @Component({
   selector: 'dipnoi-proposal-list',
@@ -31,10 +28,7 @@ import { StatefulComponent } from '../../../directives/stateful-component.direct
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalListComponent
-  extends StatefulComponent<{ proposals?: Proposal[]; meta?: PageMeta }>
-  implements OnChanges
-{
+export class ProposalListComponent implements OnChanges {
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) params!: {
     take?: number;
@@ -48,30 +42,13 @@ export class ProposalListComponent
     userId?: number;
   };
 
-  constructor(public proposalService: ProposalService) {
-    super({});
-  }
+  constructor(public proposalService: ProposalService) {}
 
   ngOnChanges() {
-    this.proposalService.readMany(this.params).subscribe({
-      next: (res) => {
-        this.updateState({ proposals: res.data, meta: res.meta });
-      },
-    });
+    this.proposalService.readMany(this.params).subscribe();
   }
 
   onScrollEnd() {
-    if (this.state.meta?.hasNextPage) {
-      this.proposalService
-        .readMany({ ...this.params, page: this.state.meta.page + 1 })
-        .subscribe({
-          next: (res) => {
-            this.updateState({
-              proposals: this.state.proposals!.concat(res.data),
-              meta: res.meta,
-            });
-          },
-        });
-    }
+    this.proposalService.readManyMore(this.params)?.subscribe();
   }
 }

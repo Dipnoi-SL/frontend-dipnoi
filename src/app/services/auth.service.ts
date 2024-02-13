@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, concatMap, tap } from 'rxjs';
+import { concatMap, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResponse } from '../models/token-response.model';
 import { UserService } from './user.service';
@@ -9,8 +9,6 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private _signedIn$ = new BehaviorSubject<boolean>(false);
-  signedIn$ = this._signedIn$.asObservable();
   accessToken: string | null = null;
 
   constructor(
@@ -179,21 +177,11 @@ export class AuthService {
   }
 
   startSession(res: TokenResponse) {
-    if (!this.accessToken) {
-      this.accessToken = res.accessToken;
-
-      this._signedIn$.next(true);
-    } else {
-      this.accessToken = res.accessToken;
-    }
+    this.accessToken = res.accessToken;
   }
 
   closeSession() {
-    if (this.accessToken) {
-      this.accessToken = null;
-
-      this._signedIn$.next(false);
-    }
+    this.accessToken = null;
 
     this.userService.clearMe();
   }

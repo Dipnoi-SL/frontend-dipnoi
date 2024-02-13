@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PollService } from '../../../services/poll.service';
 import { Poll } from '../../../models/poll.model';
@@ -19,10 +14,7 @@ import { Poll } from '../../../models/poll.model';
 export class PollComponent {
   @Input({ required: true }) poll!: Poll;
 
-  constructor(
-    public changeDetector: ChangeDetectorRef,
-    public pollService: PollService,
-  ) {}
+  constructor(public pollService: PollService) {}
 
   onVoteClick(myInterestVote: boolean | null) {
     this.pollService
@@ -30,12 +22,6 @@ export class PollComponent {
         id: this.poll.id,
         myInterestVote,
       })
-      .subscribe({
-        next: (res) => {
-          this.poll = res;
-
-          this.changeDetector.detectChanges();
-        },
-      });
+      .subscribe();
   }
 }

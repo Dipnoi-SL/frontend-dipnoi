@@ -7,9 +7,12 @@
     </div>
     <p>{{ comment.body }}</p>
     <div class="feedback-info">
-      <ng-icon name="matThumbUpOutline"></ng-icon>
+      <ng-icon name="matThumbUpOutline" (click)="onVoteClick(true)"></ng-icon>
       <small>{{ comment.positiveValue }}</small>
-      <ng-icon name="matThumbDownOutline"></ng-icon>
+      <ng-icon
+        name="matThumbDownOutline"
+        (click)="onVoteClick(false)"
+      ></ng-icon>
     </div>
   </div>
 </div>

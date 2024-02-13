@@ -16,10 +16,8 @@ import { ParamsComponent } from '../params/params.component';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { ProposalCardComponent } from '../proposal-card/proposal-card.component';
 import { ProposalService } from '../../../services/proposal.service';
-import { Proposal } from '../../../models/proposal.model';
 import { UserService } from '../../../services/user.service';
 import { Subscription } from 'rxjs';
-import { MyUser } from '../../../models/my-user.model';
 
 @Component({
   selector: 'dipnoi-pending-proposals',
@@ -49,7 +47,6 @@ export class PendingProposalsComponent
       userId?: number;
     };
     isPinnedShown: boolean;
-    pinnedProposals: Proposal[];
   }>
   implements OnInit, OnDestroy
 {
@@ -68,32 +65,29 @@ export class PendingProposalsComponent
         ],
       },
       isPinnedShown: true,
-      pinnedProposals: [],
     });
   }
 
   ngOnInit() {
-    this.authUser$ = this.userService.authUser$.subscribe(
-      (authUser: MyUser | null) => {
-        if (authUser) {
-          this.proposalService
-            .readMany({
-              take: 3,
-              orderBy: ProposalOrderByEnum.CREATED_AT,
-              order: OrderEnum.DESC,
-              states: [ProposalStateEnum.PENDING_SPECIFICATION],
-              userId: authUser.id,
-            })
-            .subscribe({
-              next: (res) => {
-                this.updateState({ pinnedProposals: res.data });
-              },
-            });
-        } else {
-          this.updateState({ isPinnedShown: true });
-        }
-      },
-    );
+    this.authUser$ = this.userService.authUser$.subscribe((authUser) => {
+      if (authUser) {
+        this.proposalService
+          .readManyAsPinned({
+            take: 3,
+            orderBy: ProposalOrderByEnum.CREATED_AT,
+            order: OrderEnum.DESC,
+            states: [ProposalStateEnum.PENDING_SPECIFICATION],
+            userId: authUser.id,
+          })
+          .subscribe({
+            next: () => {
+              this.updateState({ isPinnedShown: true });
+            },
+          });
+      } else {
+        this.updateState({ isPinnedShown: false });
+      }
+    });
   }
 
   handleOnParamsUpdated(params: {

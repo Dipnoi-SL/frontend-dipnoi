@@ -3,28 +3,28 @@
     *ngIf="userService.authUser$ | async as authUser; else elseAuthUser"
   >
     <div class="dropdown" (click)="toggleDropdown()">
-      <button class="dropdown-button">
+      <div class="dropdown-button">
         <ng-icon name="matAccountCircleOutline"></ng-icon>
-      </button>
+      </div>
       <div
         class="dropdown-content"
         [style.display]="state.isDropdownOpen ? 'block' : 'none'"
       >
-        <button *ngFor="let item of navigationItems" [routerLink]="item.path">
+        <div *ngFor="let item of navigationItems" [routerLink]="item.path">
           {{ item.title }}
-        </button>
-        <button (click)="onSignOut()">Sign out</button>
+        </div>
+        <div (click)="onSignOut()">Sign out</div>
       </div>
     </div>
   </ng-container>
   <ng-template #elseAuthUser>
-    <button
+    <div
       [routerLink]="[]"
       [relativeTo]="route"
       [queryParams]="signInQueryParams"
       queryParamsHandling="merge"
     >
       Sign in
-    </button>
+    </div>
   </ng-template>
 </ng-container>

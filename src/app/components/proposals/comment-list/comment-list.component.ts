@@ -11,11 +11,10 @@ import { CommentOrderByEnum, OrderEnum } from '../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../directives/insufficient-items.directive';
 import { CommentService } from '../../../services/comment.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
-import { Comment } from '../../../models/comment.model';
-import { PageMeta } from '../../../models/page-meta.model';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { CommentComponent } from '../comment/comment.component';
+import { UserService } from '../../../services/user.service';
+import { ProposalService } from '../../../services/proposal.service';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -37,19 +36,18 @@ export class CommentListComponent
       orderBy?: CommentOrderByEnum;
       order?: OrderEnum;
     };
-    comments?: Comment[];
-    meta?: PageMeta;
   }>
   implements OnInit, OnDestroy
 {
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) proposalId!: number;
 
-  signedIn$!: Subscription;
+  authUser$!: Subscription;
 
   constructor(
     public commentService: CommentService,
-    public authService: AuthService,
+    public userService: UserService,
+    public proposalService: ProposalService,
   ) {
     super({ params: {} });
   }
@@ -57,32 +55,17 @@ export class CommentListComponent
   ngOnInit() {
     this.updateState({ params: { proposalId: this.proposalId } });
 
-    this.signedIn$ = this.authService.signedIn$.subscribe(() => {
-      this.commentService.readMany(this.state.params).subscribe({
-        next: (res) => {
-          this.updateState({ comments: res.data, meta: res.meta });
-        },
-      });
+    this.authUser$ = this.userService.authUser$.subscribe(() => {
+      this.commentService.readMany(this.state.params).subscribe();
     });
   }
 
   onScrollEnd() {
-    if (this.state.meta?.hasNextPage) {
-      this.commentService
-        .readMany({ ...this.state.params, page: this.state.meta.page + 1 })
-        .subscribe({
-          next: (res) => {
-            this.updateState({
-              comments: this.state.comments!.concat(res.data),
-              meta: res.meta,
-            });
-          },
-        });
-    }
+    this.commentService.readManyMore(this.state.params)?.subscribe();
   }
 
   override ngOnDestroy() {
-    this.signedIn$.unsubscribe();
+    this.authUser$.unsubscribe();
 
     super.ngOnDestroy();
   }
