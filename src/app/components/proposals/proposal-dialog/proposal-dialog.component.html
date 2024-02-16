@@ -1,54 +1,26 @@
-<ng-container *ngIf="state$ | async as state">
-  <div class="wrapper">
-    <div class="content" #infiniteScrollContainerRef>
-      <ng-container
-        *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
-      >
-        <div class="header">
-          <h1>{{ selectedProposal.initialTitle }}</h1>
-          <ng-icon name="matChatOutline"></ng-icon>
-          <ng-icon name="matStarOutlineOutline"></ng-icon>
-          <ng-container *ngIf="userService.authUser$ | async as authUser">
-            <ng-container *ngIf="authUser.isDeveloper">
-              <div *ngIf="selectedProposal.isPendingReview">Accept</div>
-              <div *ngIf="selectedProposal.isPendingReview">Request edit</div>
-              <div *ngIf="selectedProposal.isPendingReview">Deny</div>
-              <div *ngIf="selectedProposal.isLastCall">Return to open</div>
-              <div *ngIf="selectedProposal.isFinalPhase">Last call</div>
-              <div *ngIf="selectedProposal.isLastCall">
-                Select for development
-              </div>
-              <div *ngIf="selectedProposal.isSelectedForDevelopment">
-                Start development
-              </div>
-              <div *ngIf="selectedProposal.isInDevelopment">Complete</div>
-            </ng-container>
-          </ng-container>
+<div class="wrapper">
+  <div class="content" #infiniteScrollContainerRef>
+    <ng-container
+      *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
+    >
+      <dipnoi-proposal-content
+        [proposal]="selectedProposal"
+      ></dipnoi-proposal-content>
+      <div class="horizontal-divider"></div>
+      <ng-container *ngIf="pollService.polls$ | async as polls">
+        <div class="poll-section">
+          <dipnoi-poll *ngFor="let poll of polls" [poll]="poll"></dipnoi-poll>
         </div>
-        <div *ngIf="state.changingTo">
-          <input type="text" class="edit-box" />
-          <div class="actions">
-            <div>Cancel</div>
-            <div>Submit</div>
-          </div>
-        </div>
-        <div [innerHTML]="selectedProposal.initialDescription"></div>
-        <div class="horizontal-divider"></div>
-        <ng-container *ngIf="pollService.polls$ | async as polls">
-          <div class="poll-section">
-            <dipnoi-poll *ngFor="let poll of polls" [poll]="poll"></dipnoi-poll>
-          </div>
-        </ng-container>
-        <div class="horizontal-divider"></div>
-        <h2>Comments ({{ selectedProposal.numComments }})</h2>
       </ng-container>
-      <dipnoi-comment-list
-        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
-        [proposalId]="proposalId"
-      ></dipnoi-comment-list>
-    </div>
-    <div class="stats">
-      <dipnoi-proposal-stats></dipnoi-proposal-stats>
-    </div>
+      <div class="horizontal-divider"></div>
+      <h2>Comments ({{ selectedProposal.numComments }})</h2>
+    </ng-container>
+    <dipnoi-comment-list
+      [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+      [proposalId]="proposalId"
+    ></dipnoi-comment-list>
   </div>
-</ng-container>
+  <div class="stats">
+    <dipnoi-proposal-stats></dipnoi-proposal-stats>
+  </div>
+</div>

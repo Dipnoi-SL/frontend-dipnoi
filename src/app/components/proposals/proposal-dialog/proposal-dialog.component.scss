@@ -13,22 +13,6 @@
   overflow-y: scroll;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.edit-box {
-  width: 100%;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
 .poll-section {
   display: flex;
   justify-content: space-around;

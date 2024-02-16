@@ -127,7 +127,16 @@ export class ProposalService {
     categories: ProposalCategoryEnum[];
     pollLabels: string[];
   }) {
-    return this.http.post<Proposal>(`${environment.apiUrl}/proposals`, params);
+    return this.http
+      .post<Proposal>(`${environment.apiUrl}/proposals`, params)
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._proposals$.next([res, ...this._proposals$.value!]);
+          },
+        }),
+      );
   }
 
   readOne(params: { id: number }) {
@@ -148,23 +157,48 @@ export class ProposalService {
 
     formData.append('file', params.thumbnail, params.thumbnail.name);
 
-    return this.http.put<Proposal>(
-      `${environment.apiUrl}/proposals/${params.id}/thumbnail`,
-      formData,
-    );
+    return this.http
+      .put<Proposal>(
+        `${environment.apiUrl}/proposals/${params.id}/thumbnail`,
+        formData,
+      )
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._selectedProposal$.next(res);
+          },
+        }),
+      );
   }
 
   createOneFollow(params: { id: number }) {
-    return this.http.post<Proposal>(
-      `${environment.apiUrl}/proposals/${params.id}/follows`,
-      {},
-    );
+    return this.http
+      .post<Proposal>(
+        `${environment.apiUrl}/proposals/${params.id}/follows`,
+        {},
+      )
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._selectedProposal$.next(res);
+          },
+        }),
+      );
   }
 
   deleteOneFollow(params: { id: number }) {
-    return this.http.delete<Proposal>(
-      `${environment.apiUrl}/proposals/${params.id}/follows`,
-    );
+    return this.http
+      .delete<Proposal>(`${environment.apiUrl}/proposals/${params.id}/follows`)
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._selectedProposal$.next(res);
+          },
+        }),
+      );
   }
 
   createOrUpdateOneSpecification(params: {
@@ -172,10 +206,19 @@ export class ProposalService {
     finalTitle: string;
     finalDescription: string;
   }) {
-    return this.http.put<Proposal>(
-      `${environment.apiUrl}/proposals/${params.id}/specifications`,
-      params,
-    );
+    return this.http
+      .put<Proposal>(
+        `${environment.apiUrl}/proposals/${params.id}/specifications`,
+        params,
+      )
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._selectedProposal$.next(res);
+          },
+        }),
+      );
   }
 
   createOrUpdateOneReview(params: {
@@ -184,26 +227,53 @@ export class ProposalService {
     cost?: number;
     disregardingReason?: string;
   }) {
-    return this.http.put<Proposal>(
-      `${environment.apiUrl}/proposals/${params.id}/reviews`,
-      params,
-    );
+    return this.http
+      .put<Proposal>(
+        `${environment.apiUrl}/proposals/${params.id}/reviews`,
+        params,
+      )
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._selectedProposal$.next(res);
+          },
+        }),
+      );
   }
 
   createOneTransition(params: { id: number; state: ProposalStateEnum }) {
-    return this.http.post<Proposal>(
-      `${environment.apiUrl}/proposals/${params.id}/transitions`,
-      params,
-    );
+    return this.http
+      .post<Proposal>(
+        `${environment.apiUrl}/proposals/${params.id}/transitions`,
+        params,
+      )
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._selectedProposal$.next(res);
+          },
+        }),
+      );
   }
 
   createOrUpdateOneImportanceVote(params: {
     id: number;
     myImportanceVote: number | null;
   }) {
-    return this.http.put<Proposal>(
-      `${environment.apiUrl}/proposals/${params.id}/importance-votes`,
-      params,
-    );
+    return this.http
+      .put<Proposal>(
+        `${environment.apiUrl}/proposals/${params.id}/importance-votes`,
+        params,
+      )
+      .pipe(
+        map((res) => new Proposal(res)),
+        tap({
+          next: (res) => {
+            this._selectedProposal$.next(res);
+          },
+        }),
+      );
   }
 }

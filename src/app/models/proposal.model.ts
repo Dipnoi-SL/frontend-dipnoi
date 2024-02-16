@@ -117,4 +117,36 @@ export class Proposal extends AbstractEntity {
       this.finalDate.getMonth() !== previousProposal.finalDate.getMonth()
     );
   }
+
+  get nextState() {
+    return this.state === ProposalStateEnum.INITIAL_PHASE
+      ? ProposalStateEnum.PENDING_SPECIFICATION
+      : this.state === ProposalStateEnum.PENDING_SPECIFICATION
+        ? ProposalStateEnum.PENDING_REVIEW
+        : this.state === ProposalStateEnum.PENDING_REVIEW
+          ? ProposalStateEnum.FINAL_PHASE
+          : this.state === ProposalStateEnum.FINAL_PHASE
+            ? ProposalStateEnum.LAST_CALL
+            : this.state === ProposalStateEnum.LAST_CALL
+              ? ProposalStateEnum.SELECTED_FOR_DEVELOPMENT
+              : this.state === ProposalStateEnum.SELECTED_FOR_DEVELOPMENT
+                ? ProposalStateEnum.IN_DEVELOPMENT
+                : ProposalStateEnum.COMPLETED;
+  }
+
+  get previousState() {
+    return this.state === ProposalStateEnum.PENDING_SPECIFICATION
+      ? ProposalStateEnum.INITIAL_PHASE
+      : this.state === ProposalStateEnum.PENDING_REVIEW
+        ? ProposalStateEnum.PENDING_SPECIFICATION
+        : this.state === ProposalStateEnum.FINAL_PHASE
+          ? ProposalStateEnum.PENDING_REVIEW
+          : this.state === ProposalStateEnum.LAST_CALL
+            ? ProposalStateEnum.FINAL_PHASE
+            : this.state === ProposalStateEnum.SELECTED_FOR_DEVELOPMENT
+              ? ProposalStateEnum.LAST_CALL
+              : this.state === ProposalStateEnum.IN_DEVELOPMENT
+                ? ProposalStateEnum.SELECTED_FOR_DEVELOPMENT
+                : ProposalStateEnum.IN_DEVELOPMENT;
+  }
 }

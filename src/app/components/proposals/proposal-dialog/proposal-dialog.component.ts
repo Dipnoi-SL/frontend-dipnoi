@@ -12,11 +12,10 @@ import { Subscription } from 'rxjs';
 import { CommentListComponent } from '../comment-list/comment-list.component';
 import { PollService } from '../../../services/poll.service';
 import { PollComponent } from '../poll/poll.component';
-import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { NgIconComponent } from '@ng-icons/core';
 import { UserService } from '../../../services/user.service';
-import { ProposalStateEnum } from '../../../constants/enums';
 import { ProposalStatsComponent } from '../proposal-stats/proposal-stats.component';
+import { ProposalContentComponent } from '../proposal-content/proposal-content.component';
 
 @Component({
   selector: 'dipnoi-proposal-dialog',
@@ -29,15 +28,11 @@ import { ProposalStatsComponent } from '../proposal-stats/proposal-stats.compone
     PollComponent,
     NgIconComponent,
     ProposalStatsComponent,
+    ProposalContentComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalDialogComponent
-  extends StatefulComponent<{
-    changingTo: ProposalStateEnum | null;
-  }>
-  implements OnInit, OnDestroy
-{
+export class ProposalDialogComponent implements OnInit, OnDestroy {
   authUser$!: Subscription;
   proposalId!: number;
 
@@ -47,8 +42,6 @@ export class ProposalDialogComponent
     public pollService: PollService,
     public route: ActivatedRoute,
   ) {
-    super({ changingTo: null });
-
     this.proposalId = parseInt(
       this.route.snapshot.queryParams[RoutePathEnum.PROPOSAL],
     );
@@ -70,9 +63,7 @@ export class ProposalDialogComponent
     });
   }
 
-  override ngOnDestroy() {
-    this.authUser$?.unsubscribe();
-
-    super.ngOnDestroy();
+  ngOnDestroy() {
+    this.authUser$.unsubscribe();
   }
 }
