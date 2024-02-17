@@ -17,11 +17,13 @@ export class PollComponent {
   constructor(public pollService: PollService) {}
 
   onVoteClick(myInterestVote: boolean | null) {
-    this.pollService
-      .createOrUpdateOneInterestVote({
-        id: this.poll.id,
-        myInterestVote,
-      })
-      ?.subscribe();
+    if (myInterestVote !== this.poll.myInterestVote) {
+      this.pollService
+        .createOrUpdateOneInterestVote({
+          id: this.poll.id,
+          myInterestVote,
+        })
+        ?.subscribe();
+    }
   }
 }

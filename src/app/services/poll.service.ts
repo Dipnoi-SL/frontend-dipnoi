@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Poll } from '../models/poll.model';
 import { BehaviorSubject, map, tap } from 'rxjs';
-import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +12,15 @@ export class PollService {
   private _polls$ = new BehaviorSubject<Poll[] | null>(null);
   polls$ = this._polls$.asObservable();
 
+  private _initialPoll$ = new BehaviorSubject<Poll | null>(null);
+  initialPoll$ = this._initialPoll$.asObservable();
+
+  private _finalPoll$ = new BehaviorSubject<Poll | null>(null);
+  finalPoll$ = this._finalPoll$.asObservable();
+
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private userService: UserService,
   ) {}
 
   readMany(params: { proposalId: number }) {
@@ -24,7 +30,19 @@ export class PollService {
         map((res) => res.map((poll) => new Poll(poll))),
         tap({
           next: (res) => {
-            this._polls$.next(res);
+            const polls: Poll[] = [];
+
+            for (const poll of res) {
+              if (poll.isInitial) {
+                this._initialPoll$.next(poll);
+              } else if (poll.isFinal) {
+                this._finalPoll$.next(poll);
+              } else {
+                polls.push(poll);
+              }
+            }
+
+            this._polls$.next(polls);
           },
         }),
       );
@@ -34,7 +52,7 @@ export class PollService {
     id: number;
     myInterestVote: boolean | null;
   }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .put<Poll>(
           `${environment.apiUrl}/polls/${params.id}/interest-votes`,

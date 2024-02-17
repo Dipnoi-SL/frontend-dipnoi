@@ -11,7 +11,7 @@ import {
 } from '../constants/enums';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
-import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +30,7 @@ export class ProposalService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private userService: UserService,
   ) {}
 
   readMany(params: {
@@ -144,7 +144,7 @@ export class ProposalService {
     categories: ProposalCategoryEnum[];
     pollLabels: string[];
   }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .post<Proposal>(`${environment.apiUrl}/proposals`, params)
         .pipe(
@@ -161,7 +161,7 @@ export class ProposalService {
   }
 
   createOrUpdateOneThumbnail(params: { id: number; thumbnail: File }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       const formData = new FormData();
 
       formData.append('file', params.thumbnail, params.thumbnail.name);
@@ -185,7 +185,7 @@ export class ProposalService {
   }
 
   createOneFollow(params: { id: number }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .post<Proposal>(
           `${environment.apiUrl}/proposals/${params.id}/follows`,
@@ -205,7 +205,7 @@ export class ProposalService {
   }
 
   deleteOneFollow(params: { id: number }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .delete<Proposal>(
           `${environment.apiUrl}/proposals/${params.id}/follows`,
@@ -228,7 +228,7 @@ export class ProposalService {
     finalTitle: string;
     finalDescription: string;
   }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .put<Proposal>(
           `${environment.apiUrl}/proposals/${params.id}/specifications`,
@@ -253,7 +253,7 @@ export class ProposalService {
     cost?: number;
     disregardingReason?: string;
   }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .put<Proposal>(
           `${environment.apiUrl}/proposals/${params.id}/reviews`,
@@ -273,7 +273,7 @@ export class ProposalService {
   }
 
   createOneTransition(params: { id: number; state: ProposalStateEnum }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .post<Proposal>(
           `${environment.apiUrl}/proposals/${params.id}/transitions`,
@@ -296,7 +296,7 @@ export class ProposalService {
     id: number;
     myImportanceVote: number | null;
   }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .put<Proposal>(
           `${environment.apiUrl}/proposals/${params.id}/importance-votes`,

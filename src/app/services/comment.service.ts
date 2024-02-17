@@ -6,7 +6,7 @@ import { CommentOrderByEnum, OrderEnum } from '../constants/enums';
 import { Page } from '../models/page.model';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
-import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class CommentService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    private userService: UserService,
   ) {}
 
   readMany(params: {
@@ -79,7 +79,7 @@ export class CommentService {
   }
 
   createOne(params: { proposalId: number; body: string }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .post<Comment>(`${environment.apiUrl}/comments`, params)
         .pipe(
@@ -103,7 +103,7 @@ export class CommentService {
     id: number;
     myFeedback: boolean | null;
   }) {
-    if (this.authService.accessToken) {
+    if (this.userService.isActive) {
       return this.http
         .put<Comment>(
           `${environment.apiUrl}/comments/${params.id}/feedbacks`,

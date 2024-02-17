@@ -100,20 +100,24 @@ export class AuthService {
   }
 
   updatePassword(params: { newPassword: string; oldPassword: string }) {
-    return this.http
-      .put<TokenResponse>(
-        `${environment.apiUrl}/auth/update-password`,
-        params,
-        { withCredentials: true },
-      )
-      .pipe(
-        map((res) => new TokenResponse(res)),
-        tap({
-          next: (res) => {
-            this.startSession(res);
-          },
-        }),
-      );
+    if (this.accessToken) {
+      return this.http
+        .put<TokenResponse>(
+          `${environment.apiUrl}/auth/update-password`,
+          params,
+          { withCredentials: true },
+        )
+        .pipe(
+          map((res) => new TokenResponse(res)),
+          tap({
+            next: (res) => {
+              this.startSession(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   requestPasswordReset(params: { email: string }) {
@@ -139,7 +143,14 @@ export class AuthService {
   }
 
   requestActivation() {
-    return this.http.post(`${environment.apiUrl}/auth/request-activation`, {});
+    if (this.accessToken) {
+      return this.http.post(
+        `${environment.apiUrl}/auth/request-activation`,
+        {},
+      );
+    }
+
+    return;
   }
 
   activate(params: { activationToken: string; nickname: string }) {
@@ -158,20 +169,24 @@ export class AuthService {
   }
 
   socialActivate(params: { nickname: string }) {
-    return this.http
-      .put<TokenResponse>(
-        `${environment.apiUrl}/auth/social-activate`,
-        params,
-        { withCredentials: true },
-      )
-      .pipe(
-        map((res) => new TokenResponse(res)),
-        concatMap((res) => {
-          this.startSession(res);
+    if (this.accessToken) {
+      return this.http
+        .put<TokenResponse>(
+          `${environment.apiUrl}/auth/social-activate`,
+          params,
+          { withCredentials: true },
+        )
+        .pipe(
+          map((res) => new TokenResponse(res)),
+          concatMap((res) => {
+            this.startSession(res);
 
-          return this.userService.readMe();
-        }),
-      );
+            return this.userService.readMe();
+          }),
+        );
+    }
+
+    return;
   }
 
   initialize() {

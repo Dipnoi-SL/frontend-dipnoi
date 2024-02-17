@@ -11,7 +11,10 @@
       <small>{{ poll.positiveValue }}</small>
     </div>
     <div class="bar">
-      <div class="bar-fill success-background"></div>
+      <div
+        class="bar-fill success-background"
+        [ngStyle]="{ width: poll.positiveRatio + '%' }"
+      ></div>
     </div>
   </div>
   <div>
@@ -20,7 +23,10 @@
       <small>{{ poll.nullValue }}</small>
     </div>
     <div class="bar">
-      <div class="bar-fill warning-background"></div>
+      <div
+        class="bar-fill warning-background"
+        [ngStyle]="{ width: poll.nullRatio + '%' }"
+      ></div>
     </div>
   </div>
   <div>
@@ -29,7 +35,10 @@
       <small>{{ poll.negativeValue }}</small>
     </div>
     <div class="bar">
-      <div class="bar-fill error-background"></div>
+      <div
+        class="bar-fill error-background"
+        [ngStyle]="{ width: poll.negativeRatio + '%' }"
+      ></div>
     </div>
   </div>
 </div>

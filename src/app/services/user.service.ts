@@ -12,7 +12,13 @@ export class UserService {
   private _authUser$ = new BehaviorSubject<MyUser | null>(null);
   authUser$ = this._authUser$.asObservable();
 
-  constructor(private http: HttpClient) {}
+  isActive = false;
+
+  constructor(private http: HttpClient) {
+    this.authUser$.subscribe((authUser) => {
+      this.isActive = authUser?.active ?? false;
+    });
+  }
 
   readMe() {
     return this.http.get<MyUser>(`${environment.apiUrl}/users/me`).pipe(
