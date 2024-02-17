@@ -22,6 +22,6 @@ export class PollComponent {
         id: this.poll.id,
         myInterestVote,
       })
-      .subscribe();
+      ?.subscribe();
   }
 }

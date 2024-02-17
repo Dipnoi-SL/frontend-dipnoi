@@ -44,11 +44,11 @@ export class ProposalContentComponent extends StatefulComponent<{
     if (this.proposal.followed) {
       this.proposalService
         .deleteOneFollow({ id: this.proposal.id })
-        .subscribe();
+        ?.subscribe();
     } else {
       this.proposalService
         .createOneFollow({ id: this.proposal.id })
-        .subscribe();
+        ?.subscribe();
     }
   }
 
@@ -100,14 +100,14 @@ export class ProposalContentComponent extends StatefulComponent<{
                 ? undefined
                 : this.stateChangeForm.controls.disregardingReason.value,
           })
-          .subscribe();
+          ?.subscribe();
       } else {
         this.proposalService
           .createOneTransition({
             id: this.proposal.id,
             state: this.state.changingTo,
           })
-          .subscribe();
+          ?.subscribe();
       }
     }
   }

@@ -6,6 +6,7 @@ import { CommentOrderByEnum, OrderEnum } from '../constants/enums';
 import { Page } from '../models/page.model';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,10 @@ export class CommentService {
 
   meta: PageMeta | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) {}
 
   readMany(params: {
     proposalId?: number;
@@ -75,50 +79,58 @@ export class CommentService {
   }
 
   createOne(params: { proposalId: number; body: string }) {
-    return this.http
-      .post<Comment>(`${environment.apiUrl}/comments`, params)
-      .pipe(
-        map((res) => new Comment(res)),
-        tap({
-          next: (res) => {
-            if (this._comments$.value) {
-              this._comments$.next([res, ...this._comments$.value]);
-            } else {
-              this._comments$.next([res]);
-            }
-          },
-        }),
-      );
+    if (this.authService.accessToken) {
+      return this.http
+        .post<Comment>(`${environment.apiUrl}/comments`, params)
+        .pipe(
+          map((res) => new Comment(res)),
+          tap({
+            next: (res) => {
+              if (this._comments$.value) {
+                this._comments$.next([res, ...this._comments$.value]);
+              } else {
+                this._comments$.next([res]);
+              }
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOrUpdateOneFeedback(params: {
     id: number;
     myFeedback: boolean | null;
   }) {
-    return this.http
-      .put<Comment>(
-        `${environment.apiUrl}/comments/${params.id}/feedbacks`,
-        params,
-      )
-      .pipe(
-        map((res) => new Comment(res)),
-        tap({
-          next: (res) => {
-            if (this._comments$.value) {
-              const commentIndex = this._comments$.value.findIndex(
-                (comment) => comment.id === res.id,
-              );
+    if (this.authService.accessToken) {
+      return this.http
+        .put<Comment>(
+          `${environment.apiUrl}/comments/${params.id}/feedbacks`,
+          params,
+        )
+        .pipe(
+          map((res) => new Comment(res)),
+          tap({
+            next: (res) => {
+              if (this._comments$.value) {
+                const commentIndex = this._comments$.value.findIndex(
+                  (comment) => comment.id === res.id,
+                );
 
-              if (commentIndex >= 0) {
-                this._comments$.next([
-                  ...this._comments$.value.slice(0, commentIndex),
-                  res,
-                  ...this._comments$.value.slice(commentIndex + 1),
-                ]);
+                if (commentIndex >= 0) {
+                  this._comments$.next([
+                    ...this._comments$.value.slice(0, commentIndex),
+                    res,
+                    ...this._comments$.value.slice(commentIndex + 1),
+                  ]);
+                }
               }
-            }
-          },
-        }),
-      );
+            },
+          }),
+        );
+    }
+
+    return;
   }
 }

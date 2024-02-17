@@ -23,6 +23,6 @@ export class CommentComponent {
         id: this.comment.id,
         myFeedback,
       })
-      .subscribe();
+      ?.subscribe();
   }
 }

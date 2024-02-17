@@ -30,31 +30,41 @@ export class UserService {
   }
 
   updateMe(params: { nickname: string }) {
-    return this.http.put<MyUser>(`${environment.apiUrl}/users/me`, params).pipe(
-      map((res) => new MyUser(res)),
-      tap({
-        next: (res) => {
-          this._authUser$.next(res);
-        },
-      }),
-    );
+    if (this._authUser$.value) {
+      return this.http
+        .put<MyUser>(`${environment.apiUrl}/users/me`, params)
+        .pipe(
+          map((res) => new MyUser(res)),
+          tap({
+            next: (res) => {
+              this._authUser$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOrUpdateOneAvatar(params: { avatar: File }) {
-    const formData = new FormData();
+    if (this._authUser$.value) {
+      const formData = new FormData();
 
-    formData.append('file', params.avatar, params.avatar.name);
+      formData.append('file', params.avatar, params.avatar.name);
 
-    return this.http
-      .put<MyUser>(`${environment.apiUrl}/users/me/avatar`, formData)
-      .pipe(
-        map((res) => new MyUser(res)),
-        tap({
-          next: (res) => {
-            this._authUser$.next(res);
-          },
-        }),
-      );
+      return this.http
+        .put<MyUser>(`${environment.apiUrl}/users/me/avatar`, formData)
+        .pipe(
+          map((res) => new MyUser(res)),
+          tap({
+            next: (res) => {
+              this._authUser$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   checkNicknameExistance(params: { nickname: string }) {

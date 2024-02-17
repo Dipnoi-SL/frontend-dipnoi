@@ -11,6 +11,7 @@ import {
 } from '../constants/enums';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,10 @@ export class ProposalService {
 
   meta: PageMeta | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) {}
 
   readMany(params: {
     take?: number;
@@ -121,24 +125,6 @@ export class ProposalService {
       );
   }
 
-  createOne(params: {
-    initialTitle: string;
-    initialDescription: string;
-    categories: ProposalCategoryEnum[];
-    pollLabels: string[];
-  }) {
-    return this.http
-      .post<Proposal>(`${environment.apiUrl}/proposals`, params)
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._proposals$.next([res, ...this._proposals$.value!]);
-          },
-        }),
-      );
-  }
-
   readOne(params: { id: number }) {
     return this.http
       .get<Proposal>(`${environment.apiUrl}/proposals/${params.id}`)
@@ -152,53 +138,89 @@ export class ProposalService {
       );
   }
 
+  createOne(params: {
+    initialTitle: string;
+    initialDescription: string;
+    categories: ProposalCategoryEnum[];
+    pollLabels: string[];
+  }) {
+    if (this.authService.accessToken) {
+      return this.http
+        .post<Proposal>(`${environment.apiUrl}/proposals`, params)
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._proposals$.next([res, ...this._proposals$.value!]);
+            },
+          }),
+        );
+    }
+
+    return;
+  }
+
   createOrUpdateOneThumbnail(params: { id: number; thumbnail: File }) {
-    const formData = new FormData();
+    if (this.authService.accessToken) {
+      const formData = new FormData();
 
-    formData.append('file', params.thumbnail, params.thumbnail.name);
+      formData.append('file', params.thumbnail, params.thumbnail.name);
 
-    return this.http
-      .put<Proposal>(
-        `${environment.apiUrl}/proposals/${params.id}/thumbnail`,
-        formData,
-      )
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._selectedProposal$.next(res);
-          },
-        }),
-      );
+      return this.http
+        .put<Proposal>(
+          `${environment.apiUrl}/proposals/${params.id}/thumbnail`,
+          formData,
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOneFollow(params: { id: number }) {
-    return this.http
-      .post<Proposal>(
-        `${environment.apiUrl}/proposals/${params.id}/follows`,
-        {},
-      )
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._selectedProposal$.next(res);
-          },
-        }),
-      );
+    if (this.authService.accessToken) {
+      return this.http
+        .post<Proposal>(
+          `${environment.apiUrl}/proposals/${params.id}/follows`,
+          {},
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   deleteOneFollow(params: { id: number }) {
-    return this.http
-      .delete<Proposal>(`${environment.apiUrl}/proposals/${params.id}/follows`)
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._selectedProposal$.next(res);
-          },
-        }),
-      );
+    if (this.authService.accessToken) {
+      return this.http
+        .delete<Proposal>(
+          `${environment.apiUrl}/proposals/${params.id}/follows`,
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOrUpdateOneSpecification(params: {
@@ -206,19 +228,23 @@ export class ProposalService {
     finalTitle: string;
     finalDescription: string;
   }) {
-    return this.http
-      .put<Proposal>(
-        `${environment.apiUrl}/proposals/${params.id}/specifications`,
-        params,
-      )
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._selectedProposal$.next(res);
-          },
-        }),
-      );
+    if (this.authService.accessToken) {
+      return this.http
+        .put<Proposal>(
+          `${environment.apiUrl}/proposals/${params.id}/specifications`,
+          params,
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOrUpdateOneReview(params: {
@@ -227,53 +253,65 @@ export class ProposalService {
     cost?: number;
     disregardingReason?: string;
   }) {
-    return this.http
-      .put<Proposal>(
-        `${environment.apiUrl}/proposals/${params.id}/reviews`,
-        params,
-      )
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._selectedProposal$.next(res);
-          },
-        }),
-      );
+    if (this.authService.accessToken) {
+      return this.http
+        .put<Proposal>(
+          `${environment.apiUrl}/proposals/${params.id}/reviews`,
+          params,
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOneTransition(params: { id: number; state: ProposalStateEnum }) {
-    return this.http
-      .post<Proposal>(
-        `${environment.apiUrl}/proposals/${params.id}/transitions`,
-        params,
-      )
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._selectedProposal$.next(res);
-          },
-        }),
-      );
+    if (this.authService.accessToken) {
+      return this.http
+        .post<Proposal>(
+          `${environment.apiUrl}/proposals/${params.id}/transitions`,
+          params,
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOrUpdateOneImportanceVote(params: {
     id: number;
     myImportanceVote: number | null;
   }) {
-    return this.http
-      .put<Proposal>(
-        `${environment.apiUrl}/proposals/${params.id}/importance-votes`,
-        params,
-      )
-      .pipe(
-        map((res) => new Proposal(res)),
-        tap({
-          next: (res) => {
-            this._selectedProposal$.next(res);
-          },
-        }),
-      );
+    if (this.authService.accessToken) {
+      return this.http
+        .put<Proposal>(
+          `${environment.apiUrl}/proposals/${params.id}/importance-votes`,
+          params,
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 }
