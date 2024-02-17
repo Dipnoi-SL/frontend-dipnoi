@@ -7,6 +7,7 @@ import { Page } from '../models/page.model';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
 import { UserService } from './user.service';
+import { ProposalService } from './proposal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,7 @@ export class CommentService {
   constructor(
     private http: HttpClient,
     private userService: UserService,
+    private proposalService: ProposalService,
   ) {}
 
   readMany(params: {
@@ -91,6 +93,10 @@ export class CommentService {
               } else {
                 this._comments$.next([res]);
               }
+
+              this.proposalService
+                .readOne({ id: params.proposalId })
+                .subscribe();
             },
           }),
         );

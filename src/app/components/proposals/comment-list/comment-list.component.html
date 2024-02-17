@@ -1,9 +1,26 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="creation-container">
+  <div
+    *ngIf="createCommentForm.controls.commentToCreate"
+    class="creation-container"
+  >
     <div class="avatar"></div>
-    <div>
-      <input type="text" placeholder="Add a comment..." />
-    </div>
+    <form [formGroup]="createCommentForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label [htmlFor]="commentToCreate">Add a comment</label>
+        <input
+          type="text"
+          class="create-comment-box"
+          formControlName="commentToCreate"
+          #commentToCreate
+        />
+      </div>
+      <div *ngIf="createCommentForm.valid" class="actions">
+        <div (click)="onCancel()">Cancel</div>
+        <button [disabled]="!createCommentForm.valid" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
   <ng-container *ngIf="commentService.comments$ | async as comments">
     <div

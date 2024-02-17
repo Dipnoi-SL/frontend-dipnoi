@@ -14,6 +14,11 @@ import { Subscription } from 'rxjs';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { CommentComponent } from '../comment/comment.component';
 import { UserService } from '../../../services/user.service';
+import {
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -25,6 +30,7 @@ import { UserService } from '../../../services/user.service';
     InfiniteScrollModule,
     InsufficientItemsDirective,
     CommentComponent,
+    ReactiveFormsModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -41,11 +47,15 @@ export class CommentListComponent
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) proposalId!: number;
 
+  createCommentForm = this.formBuilder.group({
+    commentToCreate: ['', Validators.required],
+  });
   authUser$!: Subscription;
 
   constructor(
     public commentService: CommentService,
     public userService: UserService,
+    public formBuilder: NonNullableFormBuilder,
   ) {
     super({ params: {} });
   }
@@ -60,6 +70,23 @@ export class CommentListComponent
 
   onScrollEnd() {
     this.commentService.readManyMore(this.state.params)?.subscribe();
+  }
+
+  onCancel() {
+    this.createCommentForm.reset();
+  }
+
+  onSubmit() {
+    this.commentService
+      .createOne({
+        proposalId: this.proposalId,
+        body: this.createCommentForm.controls.commentToCreate.value,
+      })
+      ?.subscribe({
+        next: () => {
+          this.onCancel();
+        },
+      });
   }
 
   override ngOnDestroy() {

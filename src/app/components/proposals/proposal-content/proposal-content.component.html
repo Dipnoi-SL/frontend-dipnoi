@@ -1,5 +1,13 @@
 <div class="header">
-  <h1>{{ proposal.initialTitle }}</h1>
+  <h1>
+    {{
+      proposal.isInitialPhase ||
+      proposal.isPendingSpecification ||
+      proposal.isPendingReview
+        ? proposal.initialTitle
+        : proposal.finalTitle
+    }}
+  </h1>
   <ng-icon name="matChatOutline"></ng-icon>
   <ng-icon name="matStarOutlineOutline" (click)="onFollow()"></ng-icon>
   <ng-container *ngIf="userService.authUser$ | async as authUser">
@@ -50,4 +58,12 @@
     </div>
   </form>
 </div>
-<div [innerHTML]="proposal.initialDescription"></div>
+<div
+  [innerHTML]="
+    proposal.isInitialPhase ||
+    proposal.isPendingSpecification ||
+    proposal.isPendingReview
+      ? proposal.initialDescription
+      : proposal.finalDescription
+  "
+></div>

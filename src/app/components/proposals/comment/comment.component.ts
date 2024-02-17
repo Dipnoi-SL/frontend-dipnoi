@@ -17,12 +17,21 @@ export class CommentComponent {
 
   constructor(public commentService: CommentService) {}
 
-  onVoteClick(myFeedback: boolean | null) {
-    this.commentService
-      .createOrUpdateOneFeedback({
-        id: this.comment.id,
-        myFeedback,
-      })
-      ?.subscribe();
+  onVoteClick(myFeedback: boolean) {
+    if (myFeedback === this.comment.myFeedback) {
+      this.commentService
+        .createOrUpdateOneFeedback({
+          id: this.comment.id,
+          myFeedback: null,
+        })
+        ?.subscribe();
+    } else {
+      this.commentService
+        .createOrUpdateOneFeedback({
+          id: this.comment.id,
+          myFeedback,
+        })
+        ?.subscribe();
+    }
   }
 }
