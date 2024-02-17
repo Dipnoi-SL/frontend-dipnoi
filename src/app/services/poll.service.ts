@@ -31,15 +31,22 @@ export class PollService {
         tap({
           next: (res) => {
             const polls: Poll[] = [];
+            let finalFound = false;
 
             for (const poll of res) {
               if (poll.isInitial) {
                 this._initialPoll$.next(poll);
               } else if (poll.isFinal) {
+                finalFound = true;
+
                 this._finalPoll$.next(poll);
               } else {
                 polls.push(poll);
               }
+            }
+
+            if (!finalFound) {
+              this._finalPoll$.next(null);
             }
 
             this._polls$.next(polls);
@@ -62,7 +69,11 @@ export class PollService {
           map((res) => new Poll(res)),
           tap({
             next: (res) => {
-              if (this._polls$.value) {
+              if (res.isInitial) {
+                this._initialPoll$.next(res);
+              } else if (res.isFinal) {
+                this._finalPoll$.next(res);
+              } else if (this._polls$.value) {
                 const pollIndex = this._polls$.value.findIndex(
                   (poll) => poll.id === res.id,
                 );

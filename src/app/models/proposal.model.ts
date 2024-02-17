@@ -18,6 +18,7 @@ export class Proposal extends AbstractEntity {
   trending!: number;
   cost!: number | null;
   importance!: number;
+  importanceWeightsSum!: number;
   priority!: number;
   disregardingReason!: string | null;
   categories!: ProposalCategoryEnum[];
@@ -32,6 +33,14 @@ export class Proposal extends AbstractEntity {
     super(data);
 
     Object.assign(this, data);
+  }
+
+  get currentTitle() {
+    return this.finalTitle ?? this.initialTitle;
+  }
+
+  get currentDescription() {
+    return this.finalDescription ?? this.initialDescription;
   }
 
   get isInitialPhase() {

@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProposalService } from '../../../services/proposal.service';
 import { NgIconComponent } from '@ng-icons/core';
+import { Proposal } from '../../../models/proposal.model';
+import { PollService } from '../../../services/poll.service';
+import { Poll } from '../../../models/poll.model';
 
 @Component({
   selector: 'dipnoi-proposal-stats',
@@ -12,5 +15,46 @@ import { NgIconComponent } from '@ng-icons/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProposalStatsComponent {
-  constructor(public proposalService: ProposalService) {}
+  @Input({ required: true }) proposal!: Proposal;
+
+  constructor(
+    public proposalService: ProposalService,
+    public pollService: PollService,
+  ) {}
+
+  onImportanceVote(myImportanceVote: number) {
+    if (myImportanceVote === this.proposal.myImportanceVote) {
+      this.proposalService
+        .createOrUpdateOneImportanceVote({
+          id: this.proposal.id,
+          myImportanceVote: null,
+        })
+        ?.subscribe();
+    } else {
+      this.proposalService
+        .createOrUpdateOneImportanceVote({
+          id: this.proposal.id,
+          myImportanceVote,
+        })
+        ?.subscribe();
+    }
+  }
+
+  onInterestVote(myInterestVote: boolean, poll: Poll) {
+    if (myInterestVote === poll.myInterestVote) {
+      this.pollService
+        .createOrUpdateOneInterestVote({
+          id: poll.id,
+          myInterestVote: null,
+        })
+        ?.subscribe();
+    } else {
+      this.pollService
+        .createOrUpdateOneInterestVote({
+          id: poll.id,
+          myInterestVote,
+        })
+        ?.subscribe();
+    }
+  }
 }

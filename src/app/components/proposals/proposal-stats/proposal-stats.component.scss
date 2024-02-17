@@ -18,6 +18,11 @@
   justify-content: space-between;
 }
 
+.num-votes-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .bar {
   height: 8px;
   width: 160px;
@@ -26,6 +31,5 @@
 
 .bar-fill {
   height: 100%;
-  width: 70%;
   background-color: green;
 }

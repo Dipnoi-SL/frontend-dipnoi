@@ -1,9 +1,9 @@
 <div class="wrapper">
   <h3>{{ poll.label }}</h3>
   <div class="button-row">
-    <div class="vote-button" (click)="onVoteClick(true)">Yes</div>
-    <div class="vote-button" (click)="onVoteClick(null)">Skip</div>
-    <div class="vote-button" (click)="onVoteClick(false)">No</div>
+    <div class="vote-button" (click)="onVote(true)">Yes</div>
+    <div class="vote-button" (click)="onVote(null)">Skip</div>
+    <div class="vote-button" (click)="onVote(false)">No</div>
   </div>
   <div>
     <div class="bar-info">

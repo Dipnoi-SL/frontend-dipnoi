@@ -16,7 +16,7 @@ export class PollComponent {
 
   constructor(public pollService: PollService) {}
 
-  onVoteClick(myInterestVote: boolean | null) {
+  onVote(myInterestVote: boolean | null) {
     if (myInterestVote !== this.poll.myInterestVote) {
       this.pollService
         .createOrUpdateOneInterestVote({

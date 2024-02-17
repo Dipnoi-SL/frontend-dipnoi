@@ -10,7 +10,7 @@
   [queryParams]="proposal.selectedQueryParam"
   queryParamsHandling="merge"
 >
-  <div class="column">{{ proposal.initialTitle }}</div>
+  <div class="column">{{ proposal.currentTitle }}</div>
   <div class="column">{{ proposal.user.nickname }}</div>
   <div class="column">
     <div *ngFor="let tag of proposal.categories" class="tag">

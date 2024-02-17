@@ -29,6 +29,12 @@
     ></dipnoi-comment-list>
   </div>
   <div class="stats">
-    <dipnoi-proposal-stats></dipnoi-proposal-stats>
+    <ng-container
+      *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
+    >
+      <dipnoi-proposal-stats
+        [proposal]="selectedProposal"
+      ></dipnoi-proposal-stats>
+    </ng-container>
   </div>
 </div>

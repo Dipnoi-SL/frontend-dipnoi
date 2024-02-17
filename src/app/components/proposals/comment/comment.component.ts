@@ -17,7 +17,7 @@ export class CommentComponent {
 
   constructor(public commentService: CommentService) {}
 
-  onVoteClick(myFeedback: boolean) {
+  onVote(myFeedback: boolean) {
     if (myFeedback === this.comment.myFeedback) {
       this.commentService
         .createOrUpdateOneFeedback({
