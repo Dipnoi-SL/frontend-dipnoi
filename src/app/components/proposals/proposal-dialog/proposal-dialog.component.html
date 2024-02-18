@@ -6,6 +6,7 @@
       <dipnoi-proposal-content
         [proposal]="selectedProposal"
       ></dipnoi-proposal-content>
+      <div class="horizontal-divider"></div>
       <ng-container
         *ngIf="
           selectedProposal.isInitialPhase ||
@@ -13,14 +14,13 @@
           selectedProposal.isPendingReview
         "
       >
-        <div class="horizontal-divider"></div>
         <ng-container *ngIf="pollService.polls$ | async as polls">
           <div class="poll-section">
             <dipnoi-poll *ngFor="let poll of polls" [poll]="poll"></dipnoi-poll>
           </div>
+          <div *ngIf="polls.length" class="horizontal-divider"></div>
         </ng-container>
       </ng-container>
-      <div class="horizontal-divider"></div>
       <h2>Comments ({{ selectedProposal.numComments }})</h2>
     </ng-container>
     <dipnoi-comment-list

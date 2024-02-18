@@ -1,10 +1,20 @@
 <div class="header">
-  <h1>
-    {{ proposal.currentTitle }}
-  </h1>
+  <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+    <h1>
+      {{ proposal.getCurrentTitle(authUser.data) }}
+    </h1>
+  </ng-container>
   <ng-icon name="matChatOutline"></ng-icon>
   <ng-icon name="matStarOutlineOutline" (click)="onFollow()"></ng-icon>
   <ng-container *ngIf="userService.authUser$ | async as authUser">
+    <div
+      *ngIf="
+        proposal.isPendingSpecification && proposal.user.id === authUser.id
+      "
+      (click)="onNextState()"
+    >
+      Specify
+    </div>
     <ng-container *ngIf="authUser.isDeveloper">
       <div *ngIf="proposal.isPendingReview" (click)="onNextState()">Accept</div>
       <div *ngIf="proposal.isPendingReview" (click)="onPreviousState()">
@@ -28,7 +38,11 @@
   </ng-container>
 </div>
 <div *ngIf="state.changingTo">
-  <form [formGroup]="stateChangeForm" (ngSubmit)="onSubmit()">
+  <form
+    *ngIf="!proposal.isPendingSpecification"
+    [formGroup]="stateChangeForm"
+    (ngSubmit)="onSubmit()"
+  >
     <div *ngIf="state.isEditingCost">
       <label [htmlFor]="cost">Cost</label>
       <input type="number" class="cost-box" formControlName="cost" #cost />
@@ -51,5 +65,51 @@
       <button [disabled]="!stateChangeForm.valid" type="submit">Submit</button>
     </div>
   </form>
+  <form
+    *ngIf="proposal.isPendingSpecification"
+    [formGroup]="specificationForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div>
+      <label [htmlFor]="finalTitle">Title</label>
+      <input
+        type="text"
+        class="title-box"
+        formControlName="finalTitle"
+        #finalTitle
+      />
+    </div>
+    <div>
+      <label [htmlFor]="finalDescription">Description</label>
+      <input
+        type="text"
+        class="description-box"
+        formControlName="finalDescription"
+        #finalDescription
+      />
+    </div>
+    <div class="actions">
+      <div (click)="onCancel()">Cancel</div>
+      <button [disabled]="!specificationForm.valid" type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
 </div>
-<div [innerHTML]="proposal.currentDescription"></div>
+<ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+  <ng-container
+    *ngIf="
+      proposal.disregardingReason &&
+      (proposal.isNotBacked ||
+        proposal.isNotViable ||
+        ((proposal.isPendingSpecification || proposal.isPendingReview) &&
+          (authUser.data?.isDeveloper ||
+            proposal.user.id === authUser.data?.id)))
+    "
+  >
+    <h3>Dev comment</h3>
+    <p>{{ proposal.disregardingReason }}</p>
+    <div class="horizontal-divider"></div>
+  </ng-container>
+  <div [innerHTML]="proposal.getCurrentDescription(authUser.data)"></div>
+</ng-container>

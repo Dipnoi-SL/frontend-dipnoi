@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Proposal } from '../../../models/proposal.model';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'dipnoi-proposal-section-card',
@@ -15,5 +16,8 @@ export class ProposalSectionCardComponent {
   @Input({ required: true }) proposal!: Proposal;
   @Input({ required: true }) previousProposal?: Proposal;
 
-  constructor(public route: ActivatedRoute) {}
+  constructor(
+    public route: ActivatedRoute,
+    public userService: UserService,
+  ) {}
 }

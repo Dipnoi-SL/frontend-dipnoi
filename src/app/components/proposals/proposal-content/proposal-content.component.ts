@@ -6,7 +6,11 @@ import { NgIconComponent } from '@ng-icons/core';
 import { UserService } from '../../../services/user.service';
 import { ProposalStateEnum } from '../../../constants/enums';
 import { Proposal } from '../../../models/proposal.model';
-import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'dipnoi-proposal-content',
@@ -20,12 +24,17 @@ export class ProposalContentComponent extends StatefulComponent<{
   changingTo: ProposalStateEnum | null;
   isEditingCost: boolean;
   isEditingDisregardingReason: boolean;
+  isSpecifying: boolean;
 }> {
   @Input({ required: true }) proposal!: Proposal;
 
   stateChangeForm = this.formBuilder.group({
     cost: [0],
     disregardingReason: [''],
+  });
+  specificationForm = this.formBuilder.group({
+    finalTitle: ['', Validators.required],
+    finalDescription: ['', Validators.required],
   });
 
   constructor(
@@ -37,6 +46,7 @@ export class ProposalContentComponent extends StatefulComponent<{
       changingTo: null,
       isEditingCost: false,
       isEditingDisregardingReason: false,
+      isSpecifying: false,
     });
   }
 
@@ -57,6 +67,7 @@ export class ProposalContentComponent extends StatefulComponent<{
       changingTo: this.proposal.nextState,
       isEditingCost: this.proposal.isPendingReview,
       isEditingDisregardingReason: false,
+      isSpecifying: this.proposal.isPendingSpecification,
     });
   }
 
@@ -65,6 +76,7 @@ export class ProposalContentComponent extends StatefulComponent<{
       changingTo: this.proposal.previousState,
       isEditingCost: false,
       isEditingDisregardingReason: this.proposal.isPendingReview,
+      isSpecifying: false,
     });
   }
 
@@ -73,6 +85,7 @@ export class ProposalContentComponent extends StatefulComponent<{
       changingTo: ProposalStateEnum.NOT_VIABLE,
       isEditingCost: false,
       isEditingDisregardingReason: true,
+      isSpecifying: false,
     });
   }
 
@@ -81,6 +94,7 @@ export class ProposalContentComponent extends StatefulComponent<{
       changingTo: null,
       isEditingCost: false,
       isEditingDisregardingReason: false,
+      isSpecifying: false,
     });
   }
 
@@ -101,6 +115,15 @@ export class ProposalContentComponent extends StatefulComponent<{
                 : this.stateChangeForm.controls.disregardingReason.value,
           })
           ?.subscribe();
+      } else if (this.proposal.isPendingSpecification) {
+        this.proposalService
+          .createOrUpdateOneSpecification({
+            id: this.proposal.id,
+            finalTitle: this.specificationForm.controls.finalTitle.value,
+            finalDescription:
+              this.specificationForm.controls.finalDescription.value,
+          })
+          ?.subscribe();
       } else {
         this.proposalService
           .createOneTransition({
@@ -109,6 +132,8 @@ export class ProposalContentComponent extends StatefulComponent<{
           })
           ?.subscribe();
       }
+
+      this.onCancel();
     }
   }
 }

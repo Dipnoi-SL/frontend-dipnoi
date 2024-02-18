@@ -10,7 +10,9 @@
   [queryParams]="proposal.selectedQueryParam"
   queryParamsHandling="merge"
 >
-  <div class="column">{{ proposal.currentTitle }}</div>
+  <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+    <div class="column">{{ proposal.getCurrentTitle(authUser.data) }}</div>
+  </ng-container>
   <div class="column">{{ proposal.user.nickname }}</div>
   <div class="column">
     <div *ngFor="let tag of proposal.categories" class="tag">

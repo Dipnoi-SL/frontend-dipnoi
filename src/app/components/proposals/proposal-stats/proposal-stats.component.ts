@@ -5,6 +5,7 @@ import { NgIconComponent } from '@ng-icons/core';
 import { Proposal } from '../../../models/proposal.model';
 import { PollService } from '../../../services/poll.service';
 import { Poll } from '../../../models/poll.model';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'dipnoi-proposal-stats',
@@ -20,6 +21,7 @@ export class ProposalStatsComponent {
   constructor(
     public proposalService: ProposalService,
     public pollService: PollService,
+    public userService: UserService,
   ) {}
 
   onImportanceVote(myImportanceVote: number) {

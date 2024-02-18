@@ -3,9 +3,11 @@
     <h4>Details</h4>
     <div class="box-row">
       <small>Title</small>
-      <small>
-        {{ proposal.currentTitle }}
-      </small>
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <small>
+          {{ proposal.getCurrentTitle(authUser.data) }}
+        </small>
+      </ng-container>
     </div>
     <div class="box-row">
       <small>Author</small>

@@ -1,6 +1,7 @@
 import { RoutePathEnum } from '../app.routes';
 import { ProposalCategoryEnum, ProposalStateEnum } from '../constants/enums';
 import { AbstractEntity } from './abstract-entity.model';
+import { MyUser } from './my-user.model';
 import { User } from './user.model';
 
 export class Proposal extends AbstractEntity {
@@ -33,14 +34,6 @@ export class Proposal extends AbstractEntity {
     super(data);
 
     Object.assign(this, data);
-  }
-
-  get currentTitle() {
-    return this.finalTitle ?? this.initialTitle;
-  }
-
-  get currentDescription() {
-    return this.finalDescription ?? this.initialDescription;
   }
 
   get isInitialPhase() {
@@ -115,18 +108,6 @@ export class Proposal extends AbstractEntity {
       : new Date(this.disregardedAt!);
   }
 
-  isFirstInSection(previousProposal?: Proposal) {
-    if (!previousProposal) {
-      return true;
-    }
-
-    return (
-      this.finalDate.getFullYear() !==
-        previousProposal.finalDate.getFullYear() ||
-      this.finalDate.getMonth() !== previousProposal.finalDate.getMonth()
-    );
-  }
-
   get nextState() {
     return this.state === ProposalStateEnum.INITIAL_PHASE
       ? ProposalStateEnum.PENDING_SPECIFICATION
@@ -157,5 +138,35 @@ export class Proposal extends AbstractEntity {
               : this.state === ProposalStateEnum.IN_DEVELOPMENT
                 ? ProposalStateEnum.SELECTED_FOR_DEVELOPMENT
                 : ProposalStateEnum.IN_DEVELOPMENT;
+  }
+
+  isFirstInSection(previousProposal?: Proposal) {
+    if (!previousProposal) {
+      return true;
+    }
+
+    return (
+      this.finalDate.getFullYear() !==
+        previousProposal.finalDate.getFullYear() ||
+      this.finalDate.getMonth() !== previousProposal.finalDate.getMonth()
+    );
+  }
+
+  getCurrentTitle(authUser: MyUser | null) {
+    return !this.finalTitle ||
+      this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
+      (this.state === ProposalStateEnum.PENDING_REVIEW &&
+        !authUser?.isDeveloper)
+      ? this.initialTitle
+      : this.finalTitle;
+  }
+
+  getCurrentDescription(authUser: MyUser | null) {
+    return !this.finalDescription ||
+      this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
+      (this.state === ProposalStateEnum.PENDING_REVIEW &&
+        !authUser?.isDeveloper)
+      ? this.initialDescription
+      : this.finalDescription;
   }
 }

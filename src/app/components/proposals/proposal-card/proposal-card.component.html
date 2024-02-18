@@ -14,9 +14,13 @@
   <div class="content">
     <div class="summary">
       <div class="header">
-        <h3>
-          {{ proposal.currentTitle }}
-        </h3>
+        <ng-container
+          *ngIf="{ data: userService.authUser$ | async } as authUser"
+        >
+          <h3>
+            {{ proposal.getCurrentTitle(authUser.data) }}
+          </h3>
+        </ng-container>
         <div class="vertical-divider"></div>
         <p>
           {{ proposal.user.nickname }}
@@ -51,9 +55,11 @@
           </small>
         </div>
       </div>
-      <p class="description">
-        {{ proposal.currentDescription }}
-      </p>
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <p class="description">
+          {{ proposal.getCurrentDescription(authUser.data) }}
+        </p>
+      </ng-container>
     </div>
     <div class="vertical-divider"></div>
   </div>
