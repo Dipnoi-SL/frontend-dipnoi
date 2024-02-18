@@ -176,6 +176,8 @@ export class ProposalService {
           tap({
             next: (res) => {
               this._selectedProposal$.next(res);
+
+              this.updateLists(res);
             },
           }),
         );
@@ -196,6 +198,8 @@ export class ProposalService {
           tap({
             next: (res) => {
               this._selectedProposal$.next(res);
+
+              this.updateLists(res);
             },
           }),
         );
@@ -215,6 +219,8 @@ export class ProposalService {
           tap({
             next: (res) => {
               this._selectedProposal$.next(res);
+
+              this.updateLists(res);
             },
           }),
         );
@@ -239,6 +245,8 @@ export class ProposalService {
           tap({
             next: (res) => {
               this._selectedProposal$.next(res);
+
+              this.updateLists(res);
             },
           }),
         );
@@ -264,6 +272,8 @@ export class ProposalService {
           tap({
             next: (res) => {
               this._selectedProposal$.next(res);
+
+              this.updateLists(res);
             },
           }),
         );
@@ -284,6 +294,8 @@ export class ProposalService {
           tap({
             next: (res) => {
               this._selectedProposal$.next(res);
+
+              this.updateLists(res);
             },
           }),
         );
@@ -307,11 +319,45 @@ export class ProposalService {
           tap({
             next: (res) => {
               this._selectedProposal$.next(res);
+
+              this.updateLists(res);
             },
           }),
         );
     }
 
     return;
+  }
+
+  updateLists(res: Proposal) {
+    if (this._proposals$.value) {
+      const proposalIndex = this._proposals$.value.findIndex(
+        (proposal) => proposal.id === res.id,
+      );
+
+      if (proposalIndex >= 0) {
+        this._proposals$.next([
+          ...this._proposals$.value.slice(0, proposalIndex),
+          res,
+          ...this._proposals$.value.slice(proposalIndex + 1),
+        ]);
+      } else {
+        this._proposals$.next([res, ...this._proposals$.value]);
+      }
+    }
+
+    if (this._pinnedProposals$.value) {
+      const proposalIndex = this._pinnedProposals$.value.findIndex(
+        (proposal) => proposal.id === res.id,
+      );
+
+      if (proposalIndex >= 0) {
+        this._pinnedProposals$.next([
+          ...this._pinnedProposals$.value.slice(0, proposalIndex),
+          res,
+          ...this._pinnedProposals$.value.slice(proposalIndex + 1),
+        ]);
+      }
+    }
   }
 }

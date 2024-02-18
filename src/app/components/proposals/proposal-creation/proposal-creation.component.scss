@@ -1,0 +1,51 @@
+.wrapper {
+  width: 60vw;
+  height: 80vh;
+  background-color: grey;
+  display: flex;
+  gap: 40px;
+}
+
+.left-panel {
+  margin: 7px;
+  padding-right: 10px;
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.title-box {
+  width: 100%;
+}
+
+.description-box {
+  width: 100%;
+}
+
+.poll-box {
+  width: 100%;
+}
+
+.right-panel {
+  overflow-y: scroll;
+  margin: 7px;
+  padding: 69px 13px 0px 0px;
+}
+
+.box {
+  padding: 20px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.thumbnail {
+  width: 260px;
+  height: 260px;
+}

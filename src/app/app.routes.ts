@@ -26,6 +26,7 @@ export enum RoutePathEnum {
   SIGN_UP = 'sign-up',
   FORGOT_PASSWORD = 'forgot-password',
   PROPOSAL = 'selected-proposal',
+  CREATION = 'create',
 }
 
 export const routes: Routes = [

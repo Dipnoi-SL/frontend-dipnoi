@@ -3,12 +3,12 @@
   height: 80vh;
   background-color: grey;
   display: flex;
+  gap: 40px;
 }
 
-.content {
+.left-panel {
   margin: 7px;
-  margin-right: 20px;
-  padding-right: 20px;
+  padding-right: 10px;
   flex-grow: 1;
   overflow-y: scroll;
 }
@@ -20,7 +20,7 @@
   flex-wrap: wrap;
 }
 
-.stats {
+.right-panel {
   overflow-y: scroll;
   margin: 7px;
   padding: 69px 13px 0px 0px;

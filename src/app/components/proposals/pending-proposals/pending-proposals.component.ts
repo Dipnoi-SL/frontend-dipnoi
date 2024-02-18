@@ -18,6 +18,8 @@ import { ProposalCardComponent } from '../proposal-card/proposal-card.component'
 import { ProposalService } from '../../../services/proposal.service';
 import { UserService } from '../../../services/user.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RoutePathEnum } from '../../../app.routes';
 
 @Component({
   selector: 'dipnoi-pending-proposals',
@@ -30,6 +32,7 @@ import { Subscription } from 'rxjs';
     ParamsComponent,
     ToggleComponent,
     ProposalCardComponent,
+    RouterLink,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -51,10 +54,12 @@ export class PendingProposalsComponent
   implements OnInit, OnDestroy
 {
   authUser$!: Subscription;
+  proposalCreationQueryParam = { [RoutePathEnum.CREATION]: 'proposal' };
 
   constructor(
     public proposalService: ProposalService,
     public userService: UserService,
+    public route: ActivatedRoute,
   ) {
     super({
       params: {

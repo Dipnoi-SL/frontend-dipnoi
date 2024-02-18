@@ -3,7 +3,14 @@
     <div class="content-header">
       <div class="content-header-section">
         <h1>Pending proposals</h1>
-        <div>Create</div>
+        <div
+          [routerLink]="[]"
+          [relativeTo]="route"
+          [queryParams]="proposalCreationQueryParam"
+          queryParamsHandling="merge"
+        >
+          Create
+        </div>
       </div>
       <div class="content-header-section">
         <ng-container *ngIf="userService.authUser$ | async">

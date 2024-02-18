@@ -5,7 +5,12 @@
   [queryParams]="proposal.selectedQueryParam"
   queryParamsHandling="merge"
 >
-  <div class="thumbnail"></div>
+  <img
+    [ngSrc]="proposal.thumbnailUri"
+    [width]="125"
+    [height]="125"
+    [priority]="true"
+  />
   <div class="content">
     <div class="summary">
       <div class="header">

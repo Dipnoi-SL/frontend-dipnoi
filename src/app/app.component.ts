@@ -15,6 +15,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { AuthService } from './services/auth.service';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
+import { ProposalCreationComponent } from './components/proposals/proposal-creation/proposal-creation.component';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +39,10 @@ export class AppComponent implements OnInit, OnDestroy {
   > = {
     [RoutePathEnum.AUTH]: { component: AuthComponent, ref: null },
     [RoutePathEnum.PROPOSAL]: { component: ProposalDialogComponent, ref: null },
+    [RoutePathEnum.CREATION]: {
+      component: ProposalCreationComponent,
+      ref: null,
+    },
   };
 
   constructor(

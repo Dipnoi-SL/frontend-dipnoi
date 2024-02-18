@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Proposal } from '../../../models/proposal.model';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
@@ -9,7 +9,7 @@ import { UserService } from '../../../services/user.service';
   standalone: true,
   templateUrl: './proposal-card.component.html',
   styleUrl: './proposal-card.component.scss',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProposalCardComponent {

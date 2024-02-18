@@ -73,18 +73,8 @@ export class PollService {
                 this._initialPoll$.next(res);
               } else if (res.isFinal) {
                 this._finalPoll$.next(res);
-              } else if (this._polls$.value) {
-                const pollIndex = this._polls$.value.findIndex(
-                  (poll) => poll.id === res.id,
-                );
-
-                if (pollIndex >= 0) {
-                  this._polls$.next([
-                    ...this._polls$.value.slice(0, pollIndex),
-                    res,
-                    ...this._polls$.value.slice(pollIndex + 1),
-                  ]);
-                }
+              } else {
+                this.updateLists(res);
               }
             },
           }),
@@ -92,5 +82,23 @@ export class PollService {
     }
 
     return;
+  }
+
+  updateLists(res: Poll) {
+    if (this._polls$.value) {
+      const pollIndex = this._polls$.value.findIndex(
+        (poll) => poll.id === res.id,
+      );
+
+      if (pollIndex >= 0) {
+        this._polls$.next([
+          ...this._polls$.value.slice(0, pollIndex),
+          res,
+          ...this._polls$.value.slice(pollIndex + 1),
+        ]);
+      } else {
+        this._polls$.next([res, ...this._polls$.value]);
+      }
+    }
   }
 }
