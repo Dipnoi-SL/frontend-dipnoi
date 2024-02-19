@@ -27,6 +27,9 @@ export class ArchiveComponent extends StatefulComponent<{
     search?: string;
     createdAt?: string;
     resetAt?: string;
+    selectedAt?: string;
+    disregardedAt?: string;
+    completedAt?: string;
     userId?: number;
   };
 }> {
@@ -34,18 +37,30 @@ export class ArchiveComponent extends StatefulComponent<{
     super({
       params: {
         states: [ProposalStateEnum.NOT_BACKED, ProposalStateEnum.NOT_VIABLE],
+        orderBy: ProposalOrderByEnum.DISREGARDED_AT,
+        order: OrderEnum.DESC,
       },
     });
   }
 
-  handleNewParams(newParams: {
-    orderBy?: ProposalOrderByEnum;
-    order?: OrderEnum;
+  handleOnParamsUpdated(params: {
     search?: string;
-    createdAt?: string;
-    resetAt?: string;
-    userId?: number;
+    selectedFilter: number;
+    selectedOrder: number;
   }) {
-    this.updateState({ params: { ...this.state.params, ...newParams } });
+    const newParams: Record<string, unknown> = {
+      ...this.state.params,
+      search: params.search,
+    };
+
+    for (const key of Object.keys(newParams)) {
+      if (newParams[key] === undefined || newParams[key] === '') {
+        delete newParams[key];
+      }
+    }
+
+    this.updateState({
+      params: newParams,
+    });
   }
 }

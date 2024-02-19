@@ -132,7 +132,19 @@
     <div class="box-row">
       <small>Releases</small>
       <small>
-        {{ proposal.createdAt }}
+        {{ proposal.formattedCreatedAt }}
+      </small>
+      <small>
+        {{ proposal.formattedResetAt }}
+      </small>
+      <small>
+        {{ proposal.formattedSelectedAt }}
+      </small>
+      <small>
+        {{ proposal.formattedDisregardedAt }}
+      </small>
+      <small>
+        {{ proposal.formattedCompletedAt }}
       </small>
     </div>
   </div>

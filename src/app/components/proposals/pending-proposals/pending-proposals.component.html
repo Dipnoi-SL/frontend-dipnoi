@@ -25,6 +25,10 @@
         </ng-container>
         <dipnoi-params
           (onParamsUpdated)="handleOnParamsUpdated($event)"
+          [filterOptions]="filterOptions"
+          [orderOptions]="orderOptions"
+          [defaultFilter]="4"
+          [defaultOrder]="0"
         ></dipnoi-params>
       </div>
     </div>

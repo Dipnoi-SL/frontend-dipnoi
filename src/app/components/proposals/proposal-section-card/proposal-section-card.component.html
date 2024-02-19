@@ -1,6 +1,6 @@
 <div *ngIf="proposal.isFirstInSection(previousProposal)" class="section">
   <div class="horizontal-divider section-divider"></div>
-  <p>{{ proposal.finalDate.toLocaleDateString() }}</p>
+  <p>{{ proposal.formattedLastImportantDate }}</p>
   <div class="horizontal-divider section-divider"></div>
 </div>
 <div
@@ -21,6 +21,9 @@
       </small>
     </div>
   </div>
-  <div class="column">{{ proposal.createdAt }}</div>
-  <div class="column">{{ proposal.finalDate.toDateString() }}</div>
+  <div class="column">Posted {{ proposal.formattedCreatedAt }}</div>
+  <div class="column">
+    {{ proposal.isCompleted ? 'Added' : 'Archived' }}
+    {{ proposal.formattedLastImportantDate }}
+  </div>
 </div>

@@ -27,7 +27,7 @@
         </p>
         <div class="vertical-divider"></div>
         <small>
-          {{ proposal.createdAt }}
+          {{ proposal.formattedLastImportantDate }}
         </small>
         <div *ngIf="proposal.isSelectedForDevelopment" class="tag">
           <small>ON HOLD</small>

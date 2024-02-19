@@ -29,11 +29,16 @@ export enum ProposalCategoryEnum {
 
 export enum ProposalOrderByEnum {
   CREATED_AT = 'createdAt',
+  RESET_AT = 'resetAt',
+  SELECTED_AT = 'selectedAt',
+  DISREGARDED_AT = 'disregardedAt',
+  COMPLETED_AT = 'completedAt',
   POPULARITY = 'popularity',
   LAST_DAY_POPULARITY = 'lastDayPopularity',
   COST = 'cost',
   IMPORTANCE = 'importance',
   PRIORITY = 'priority',
+  INTEREST_WEIGHTS_SUM = 'interestWeightsSum',
 }
 
 export enum CommentOrderByEnum {

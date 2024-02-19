@@ -8,7 +8,7 @@ import { provideIcons } from '@ng-icons/core';
 import {
   matAccessibleForwardOutline,
   matAccountCircleOutline,
-  matTuneOutline,
+  matExpandMoreOutline,
   matVisibilityOffOutline,
   matVisibilityOutline,
   matThumbUpOutline,
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
       matAccountCircleOutline,
       matVisibilityOffOutline,
       matVisibilityOutline,
-      matTuneOutline,
+      matExpandMoreOutline,
       matAccessibleForwardOutline,
       matThumbUpOutline,
       matThumbDownOutline,

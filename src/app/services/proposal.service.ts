@@ -42,6 +42,9 @@ export class ProposalService {
     search?: string;
     createdAt?: string;
     resetAt?: string;
+    selectedAt?: string;
+    disregardedAt?: string;
+    completedAt?: string;
     userId?: number;
   }) {
     return this.http
@@ -72,6 +75,9 @@ export class ProposalService {
     search?: string;
     createdAt?: string;
     resetAt?: string;
+    selectedAt?: string;
+    disregardedAt?: string;
+    completedAt?: string;
     userId?: number;
   }) {
     if (this.meta?.hasNextPage) {
@@ -106,6 +112,9 @@ export class ProposalService {
     search?: string;
     createdAt?: string;
     resetAt?: string;
+    selectedAt?: string;
+    disregardedAt?: string;
+    completedAt?: string;
     userId?: number;
   }) {
     return this.http

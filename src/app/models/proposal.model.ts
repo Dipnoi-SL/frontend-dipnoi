@@ -24,6 +24,7 @@ export class Proposal extends AbstractEntity {
   disregardingReason!: string | null;
   categories!: ProposalCategoryEnum[];
   resetAt!: string | null;
+  selectedAt!: string | null;
   completedAt!: string | null;
   disregardedAt!: string | null;
   myImportanceVote?: number | null;
@@ -102,10 +103,72 @@ export class Proposal extends AbstractEntity {
     return { [RoutePathEnum.PROPOSAL]: this.id };
   }
 
-  get finalDate() {
-    return this.state === ProposalStateEnum.COMPLETED
-      ? new Date(this.completedAt!)
-      : new Date(this.disregardedAt!);
+  get lastImportantDate() {
+    return this.completedAt
+      ? new Date(this.completedAt)
+      : this.disregardedAt
+        ? new Date(this.disregardedAt)
+        : this.selectedAt
+          ? new Date(this.selectedAt)
+          : this.resetAt
+            ? new Date(this.resetAt)
+            : new Date(this.createdAt);
+  }
+
+  get formattedCreatedAt() {
+    return new Date(this.createdAt).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  }
+
+  get formattedResetAt() {
+    return this.resetAt
+      ? new Date(this.resetAt).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })
+      : undefined;
+  }
+
+  get formattedSelectedAt() {
+    return this.selectedAt
+      ? new Date(this.selectedAt).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })
+      : undefined;
+  }
+
+  get formattedCompletedAt() {
+    return this.completedAt
+      ? new Date(this.completedAt).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })
+      : undefined;
+  }
+
+  get formattedDisregardedAt() {
+    return this.disregardedAt
+      ? new Date(this.disregardedAt).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })
+      : undefined;
+  }
+
+  get formattedLastImportantDate() {
+    return this.lastImportantDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
   }
 
   get nextState() {
@@ -146,9 +209,10 @@ export class Proposal extends AbstractEntity {
     }
 
     return (
-      this.finalDate.getFullYear() !==
-        previousProposal.finalDate.getFullYear() ||
-      this.finalDate.getMonth() !== previousProposal.finalDate.getMonth()
+      this.lastImportantDate.getFullYear() !==
+        previousProposal.lastImportantDate.getFullYear() ||
+      this.lastImportantDate.getMonth() !==
+        previousProposal.lastImportantDate.getMonth()
     );
   }
 

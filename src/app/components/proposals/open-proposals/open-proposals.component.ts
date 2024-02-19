@@ -27,25 +27,83 @@ export class OpenProposalsComponent extends StatefulComponent<{
     search?: string;
     createdAt?: string;
     resetAt?: string;
+    selectedAt?: string;
+    disregardedAt?: string;
+    completedAt?: string;
     userId?: number;
   };
 }> {
+  filterOptionsData = [
+    {
+      key: 'resetAt',
+      value: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+      text: 'Day',
+    },
+    {
+      key: 'resetAt',
+      value: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
+      text: 'Week',
+    },
+    {
+      key: 'resetAt',
+      value: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7 * 30).toISOString(),
+      text: 'Month',
+    },
+    {
+      key: 'resetAt',
+      value: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7 * 365).toISOString(),
+      text: 'Year',
+    },
+    { key: 'resetAt', text: 'All time' },
+  ];
+  filterOptions = this.filterOptionsData.map((option) => option.text);
+  orderOptionsData = [
+    { key: 'orderBy', value: ProposalOrderByEnum.RESET_AT, text: 'Recent' },
+    {
+      key: 'orderBy',
+      value: ProposalOrderByEnum.POPULARITY,
+      text: 'Top rated',
+    },
+    {
+      key: 'orderBy',
+      value: ProposalOrderByEnum.INTEREST_WEIGHTS_SUM,
+      text: 'Most voted',
+    },
+  ];
+  orderOptions = this.orderOptionsData.map((option) => option.text);
+
   constructor() {
     super({
       params: {
         states: [ProposalStateEnum.FINAL_PHASE, ProposalStateEnum.LAST_CALL],
+        orderBy: ProposalOrderByEnum.RESET_AT,
+        order: OrderEnum.DESC,
       },
     });
   }
 
-  handleNewParams(newParams: {
-    orderBy?: ProposalOrderByEnum;
-    order?: OrderEnum;
+  handleOnParamsUpdated(params: {
     search?: string;
-    createdAt?: string;
-    resetAt?: string;
-    userId?: number;
+    selectedFilter: number;
+    selectedOrder: number;
   }) {
-    this.updateState({ params: { ...this.state.params, ...newParams } });
+    const newParams: Record<string, unknown> = {
+      ...this.state.params,
+      search: params.search,
+      [this.filterOptionsData[params.selectedFilter].key]:
+        this.filterOptionsData[params.selectedFilter].value,
+      [this.orderOptionsData[params.selectedOrder].key]:
+        this.orderOptionsData[params.selectedOrder].value,
+    };
+
+    for (const key of Object.keys(newParams)) {
+      if (newParams[key] === undefined || newParams[key] === '') {
+        delete newParams[key];
+      }
+    }
+
+    this.updateState({
+      params: newParams,
+    });
   }
 }
