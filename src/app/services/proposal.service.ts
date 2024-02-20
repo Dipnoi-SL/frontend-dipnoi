@@ -345,13 +345,33 @@ export class ProposalService {
       );
 
       if (proposalIndex >= 0) {
-        this._proposals$.next([
-          ...this._proposals$.value.slice(0, proposalIndex),
-          res,
-          ...this._proposals$.value.slice(proposalIndex + 1),
-        ]);
-      } else {
-        this._proposals$.next([res, ...this._proposals$.value]);
+        if (
+          (res.isPendingSpecification &&
+            this._proposals$.value.every(
+              (proposal) => proposal.isPendingReview,
+            )) ||
+          (res.isFinalPhase &&
+            this._proposals$.value[proposalIndex].isPendingReview) ||
+          (res.isSelectedForDevelopment &&
+            this._proposals$.value[proposalIndex].isLastCall) ||
+          (res.isCompleted &&
+            !this._proposals$.value[proposalIndex].isCompleted) ||
+          (res.isNotViable &&
+            !this._proposals$.value[proposalIndex].isNotViable) ||
+          (res.isNotBacked &&
+            !this._proposals$.value[proposalIndex].isNotBacked)
+        ) {
+          this._proposals$.next([
+            ...this._proposals$.value.slice(0, proposalIndex),
+            ...this._proposals$.value.slice(proposalIndex + 1),
+          ]);
+        } else {
+          this._proposals$.next([
+            ...this._proposals$.value.slice(0, proposalIndex),
+            res,
+            ...this._proposals$.value.slice(proposalIndex + 1),
+          ]);
+        }
       }
     }
 
@@ -361,11 +381,21 @@ export class ProposalService {
       );
 
       if (proposalIndex >= 0) {
-        this._pinnedProposals$.next([
-          ...this._pinnedProposals$.value.slice(0, proposalIndex),
-          res,
-          ...this._pinnedProposals$.value.slice(proposalIndex + 1),
-        ]);
+        if (
+          res.isPendingReview &&
+          this._pinnedProposals$.value[proposalIndex].isPendingSpecification
+        ) {
+          this._pinnedProposals$.next([
+            ...this._pinnedProposals$.value.slice(0, proposalIndex),
+            ...this._pinnedProposals$.value.slice(proposalIndex + 1),
+          ]);
+        } else {
+          this._pinnedProposals$.next([
+            ...this._pinnedProposals$.value.slice(0, proposalIndex),
+            res,
+            ...this._pinnedProposals$.value.slice(proposalIndex + 1),
+          ]);
+        }
       }
     }
   }

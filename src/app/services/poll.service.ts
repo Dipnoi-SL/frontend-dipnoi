@@ -96,8 +96,6 @@ export class PollService {
           res,
           ...this._polls$.value.slice(pollIndex + 1),
         ]);
-      } else {
-        this._polls$.next([res, ...this._polls$.value]);
       }
     }
   }

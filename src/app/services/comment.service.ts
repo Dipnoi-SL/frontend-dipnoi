@@ -88,7 +88,9 @@ export class CommentService {
           map((res) => new Comment(res)),
           tap({
             next: (res) => {
-              this.updateLists(res);
+              if (this._comments$.value) {
+                this._comments$.next([res, ...this._comments$.value]);
+              }
 
               this.proposalService
                 .readOne({ id: params.proposalId })
@@ -136,8 +138,6 @@ export class CommentService {
           res,
           ...this._comments$.value.slice(commentIndex + 1),
         ]);
-      } else {
-        this._comments$.next([res, ...this._comments$.value]);
       }
     }
   }
