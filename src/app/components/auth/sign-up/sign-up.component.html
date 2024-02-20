@@ -83,4 +83,19 @@
       Something wrong happened
     </p>
   </form>
+  <div class="options">
+    <div class="horizontal-divider"></div>
+    <p>OR</p>
+    <div class="horizontal-divider"></div>
+  </div>
+  <div class="links">
+    <small
+      [routerLink]="[]"
+      [relativeTo]="route"
+      [queryParams]="signInQueryParam"
+      queryParamsHandling="merge"
+    >
+      Sign in here
+    </small>
+  </div>
 </ng-container>

@@ -14,11 +14,13 @@ import {
 import { DialogRef } from '@angular/cdk/dialog';
 import { NgIconComponent } from '@ng-icons/core';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RoutePathEnum } from '../../../app.routes';
 
 @Component({
   selector: 'dipnoi-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgIconComponent],
+  imports: [CommonModule, ReactiveFormsModule, NgIconComponent, RouterLink],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +29,7 @@ export class SignUpComponent extends StatefulComponent<{
   hasErrored: boolean;
   hidePassword: boolean;
 }> {
+  signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
   signUpForm = this.formBuilder.group({
     email: [
       '',
@@ -42,6 +45,7 @@ export class SignUpComponent extends StatefulComponent<{
     public authService: AuthService,
     public formBuilder: NonNullableFormBuilder,
     public dialogRef: DialogRef<AuthComponent>,
+    public route: ActivatedRoute,
   ) {
     super({
       hasErrored: false,

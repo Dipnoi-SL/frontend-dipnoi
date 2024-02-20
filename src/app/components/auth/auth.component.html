@@ -5,29 +5,5 @@
     <dipnoi-forgot-password
       *ngIf="state.view === forgotPasswordPath"
     ></dipnoi-forgot-password>
-    <div class="options">
-      <h3>Or continue with:</h3>
-    </div>
-    <div class="links">
-      <a
-        [routerLink]="[]"
-        [relativeTo]="route"
-        [queryParams]="forgotPasswordQueryParam"
-        queryParamsHandling="merge"
-      >
-        Forgot your password?
-      </a>
-      <small>o</small>
-      <a
-        [routerLink]="[]"
-        [relativeTo]="route"
-        [queryParams]="
-          state.view === signInPath ? signUpQueryParam : signInQueryParam
-        "
-        queryParamsHandling="merge"
-      >
-        {{ state.view === signInPath ? 'Sign up' : 'Sign in' }} here
-      </a>
-    </div>
   </div>
 </ng-container>

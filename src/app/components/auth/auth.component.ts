@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RoutePathEnum } from '../../app.routes';
 import { Subscription } from 'rxjs';
 import { StatefulComponent } from '../../directives/stateful-component.directive';
@@ -21,7 +21,6 @@ import { StatefulComponent } from '../../directives/stateful-component.directive
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    RouterLink,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -35,11 +34,6 @@ export class AuthComponent
   signInPath = RoutePathEnum.SIGN_IN;
   signUpPath = RoutePathEnum.SIGN_UP;
   forgotPasswordPath = RoutePathEnum.FORGOT_PASSWORD;
-  signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
-  signUpQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_UP };
-  forgotPasswordQueryParam = {
-    [RoutePathEnum.AUTH]: RoutePathEnum.FORGOT_PASSWORD,
-  };
 
   constructor(public route: ActivatedRoute) {
     super({});

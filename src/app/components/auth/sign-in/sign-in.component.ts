@@ -6,11 +6,18 @@ import { AuthComponent } from '../auth.component';
 import { DialogRef } from '@angular/cdk/dialog';
 import { NgIconComponent } from '@ng-icons/core';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RoutePathEnum } from '../../../app.routes';
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  SocialAuthService,
+} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'dipnoi-sign-in',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgIconComponent],
+  imports: [CommonModule, ReactiveFormsModule, NgIconComponent, RouterLink],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +26,10 @@ export class SignInComponent extends StatefulComponent<{
   hasErrored: boolean;
   hidePassword: boolean;
 }> {
+  signUpQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_UP };
+  forgotPasswordQueryParam = {
+    [RoutePathEnum.AUTH]: RoutePathEnum.FORGOT_PASSWORD,
+  };
   signInForm = this.formBuilder.group({
     email: [''],
     password: [''],
@@ -28,6 +39,8 @@ export class SignInComponent extends StatefulComponent<{
     public authService: AuthService,
     public formBuilder: NonNullableFormBuilder,
     public dialogRef: DialogRef<AuthComponent>,
+    public route: ActivatedRoute,
+    public socialAuthService: SocialAuthService,
   ) {
     super({
       hasErrored: false,
@@ -53,5 +66,31 @@ export class SignInComponent extends StatefulComponent<{
 
   onHidePassword() {
     this.updateState({ hidePassword: !this.state.hidePassword });
+  }
+
+  onGoogleSignIn() {
+    this.socialAuthService
+      .getAccessToken(GoogleLoginProvider.PROVIDER_ID)
+      .then((accessToken) => {
+        this.authService.googleSignIn({ accessToken }).subscribe({
+          next: () => {
+            this.dialogRef.close();
+          },
+        });
+      });
+  }
+
+  onFacebookSignIn() {
+    this.socialAuthService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((user) => {
+        this.authService
+          .facebookSignIn({ accessToken: user.authToken })
+          .subscribe({
+            next: () => {
+              this.dialogRef.close();
+            },
+          });
+      });
   }
 }

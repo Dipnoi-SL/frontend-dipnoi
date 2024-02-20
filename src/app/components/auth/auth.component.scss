@@ -1,22 +1,5 @@
 .wrapper {
-  padding: 40px;
-  min-width: 300px;
+  padding: 50px;
+  max-width: 480px;
   background-color: grey;
-}
-
-h1 {
-  text-align: center;
-}
-
-.options {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.links {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 20px;
 }

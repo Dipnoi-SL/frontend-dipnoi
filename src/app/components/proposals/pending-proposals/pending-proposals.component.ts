@@ -57,7 +57,7 @@ export class PendingProposalsComponent
   implements OnInit, OnDestroy
 {
   authUser$!: Subscription;
-  proposalCreationQueryParam = { [RoutePathEnum.CREATION]: 'proposal' };
+  proposalCreationQueryParam = { [RoutePathEnum.CREATION]: true };
   filterOptionsData = [
     {
       key: 'createdAt',

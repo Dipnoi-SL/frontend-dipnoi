@@ -4,6 +4,7 @@ import { concatMap, map, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TokenResponse } from '../models/token-response.model';
 import { UserService } from './user.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private userService: UserService,
+    private socialAuthService: SocialAuthService,
   ) {}
 
   signUp(params: { email: string; password: string }) {
@@ -70,6 +72,8 @@ export class AuthService {
   }
 
   signOut() {
+    this.socialAuthService.signOut();
+
     return this.http.delete(`${environment.apiUrl}/auth/sign-out`).pipe(
       tap({
         next: () => {
