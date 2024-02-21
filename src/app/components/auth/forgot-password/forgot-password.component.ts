@@ -2,18 +2,22 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
-import { AuthComponent } from '../auth.component';
-import { DialogRef } from '@angular/cdk/dialog';
+import { RoutePathEnum } from '../../../app.routes';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
 
 @Component({
   selector: 'dipnoi-forgot-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent extends StatefulComponent<{
+  finished: boolean;
+}> {
+  signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
   forgotPasswordForm = this.formBuilder.group({
     email: [''],
   });
@@ -21,17 +25,19 @@ export class ForgotPasswordComponent {
   constructor(
     public authService: AuthService,
     public formBuilder: NonNullableFormBuilder,
-    public dialogRef: DialogRef<AuthComponent>,
-  ) {}
+    public route: ActivatedRoute,
+  ) {
+    super({ finished: false });
+  }
 
-  onSendRecoveryEmail() {
+  onContinue() {
     this.authService
       .requestPasswordReset({
         email: this.forgotPasswordForm.controls.email.value,
       })
       .subscribe({
         next: () => {
-          this.dialogRef.close();
+          this.updateState({ finished: true });
         },
       });
   }

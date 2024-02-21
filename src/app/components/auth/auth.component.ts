@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RoutePathEnum } from '../../app.routes';
 import { Subscription } from 'rxjs';
 import { StatefulComponent } from '../../directives/stateful-component.directive';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ActivateComponent } from './activate/activate.component';
 
 @Component({
   selector: 'dipnoi-auth',
@@ -21,6 +23,8 @@ import { StatefulComponent } from '../../directives/stateful-component.directive
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ActivateComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -34,6 +38,8 @@ export class AuthComponent
   signInPath = RoutePathEnum.SIGN_IN;
   signUpPath = RoutePathEnum.SIGN_UP;
   forgotPasswordPath = RoutePathEnum.FORGOT_PASSWORD;
+  resetPasswordPath = RoutePathEnum.RESET_PASSWORD;
+  activatePath = RoutePathEnum.ACTIVATE;
 
   constructor(public route: ActivatedRoute) {
     super({});

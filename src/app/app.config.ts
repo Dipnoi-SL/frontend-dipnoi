@@ -15,12 +15,17 @@ import {
   matThumbDownOutline,
   matChatOutline,
   matStarOutlineOutline,
+  matDoneOutline,
+  matCloseOutline,
+  matPendingOutline,
 } from '@ng-icons/material-icons/outline';
 import {
   FacebookLoginProvider,
   GoogleLoginProvider,
+  SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
 import { environment } from '../environments/environment';
+import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,6 +41,9 @@ export const appConfig: ApplicationConfig = {
       matThumbDownOutline,
       matChatOutline,
       matStarOutlineOutline,
+      matDoneOutline,
+      matCloseOutline,
+      matPendingOutline,
     }),
     importProvidersFrom(HttpClientModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -62,7 +70,14 @@ export const appConfig: ApplicationConfig = {
         onError: (err: unknown) => {
           console.error(err);
         },
-      },
+      } as SocialAuthServiceConfig,
+    },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptchaSiteKey,
+        theme: 'dark',
+      } as RecaptchaSettings,
     },
   ],
 };

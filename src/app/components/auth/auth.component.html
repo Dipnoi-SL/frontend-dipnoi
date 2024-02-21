@@ -5,5 +5,9 @@
     <dipnoi-forgot-password
       *ngIf="state.view === forgotPasswordPath"
     ></dipnoi-forgot-password>
+    <dipnoi-reset-password
+      *ngIf="state.view === resetPasswordPath"
+    ></dipnoi-reset-password>
+    <dipnoi-activate *ngIf="state.view === activatePath"></dipnoi-activate>
   </div>
 </ng-container>

@@ -18,7 +18,11 @@ export class AuthService {
     private socialAuthService: SocialAuthService,
   ) {}
 
-  signUp(params: { email: string; password: string }) {
+  signUp(params: {
+    email: string;
+    password: string;
+    recaptchaResponse: string;
+  }) {
     return this.http.post(`${environment.apiUrl}/auth/sign-up`, params);
   }
 
