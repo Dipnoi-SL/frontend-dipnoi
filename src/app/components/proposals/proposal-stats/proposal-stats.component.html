@@ -1,0 +1,151 @@
+<div class="wrapper">
+  <div class="box">
+    <h4>Details</h4>
+    <div class="box-row">
+      <small>Title</small>
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <small>
+          {{ proposal.getCurrentTitle(authUser.data) }}
+        </small>
+      </ng-container>
+    </div>
+    <div class="box-row">
+      <small>Author</small>
+      <small>
+        {{ proposal.user.nickname }}
+      </small>
+    </div>
+    <div class="box-row">
+      <small>Labels</small>
+      <small>
+        {{ proposal.categories.join(', ') }}
+      </small>
+    </div>
+  </div>
+  <div
+    *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
+    class="box"
+  >
+    <h4>Priority</h4>
+    <div class="box-row">
+      <ng-icon
+        name="matAccessibleForwardOutline"
+        (click)="onImportanceVote(1)"
+      ></ng-icon>
+      <ng-icon
+        name="matAccessibleForwardOutline"
+        (click)="onImportanceVote(2)"
+      ></ng-icon>
+      <ng-icon
+        name="matAccessibleForwardOutline"
+        (click)="onImportanceVote(3)"
+      ></ng-icon>
+      <ng-icon
+        name="matAccessibleForwardOutline"
+        (click)="onImportanceVote(4)"
+      ></ng-icon>
+      <ng-icon
+        name="matAccessibleForwardOutline"
+        (click)="onImportanceVote(5)"
+      ></ng-icon>
+    </div>
+    <div class="box-row">
+      <small>Votes</small>
+      <small>
+        {{ proposal.importanceWeightsSum }}
+      </small>
+    </div>
+    <div class="box-row">
+      <small>Average</small>
+      <small>{{ proposal.importance }}</small>
+    </div>
+  </div>
+  <ng-container
+    *ngIf="
+      (pollService.finalPoll$ | async) ??
+      (pollService.initialPoll$ | async) as currentPoll
+    "
+  >
+    <div class="box">
+      <h4>Backing</h4>
+      <div class="box-row">
+        <ng-icon
+          name="matAccessibleForwardOutline"
+          (click)="onInterestVote(false, currentPoll)"
+        ></ng-icon>
+        <div class="bar">
+          <div
+            class="bar-fill"
+            [ngStyle]="{
+              width: currentPoll.positiveRatio + '%'
+            }"
+          ></div>
+        </div>
+        <ng-icon
+          name="matAccessibleForwardOutline"
+          (click)="onInterestVote(true, currentPoll)"
+        ></ng-icon>
+      </div>
+      <div class="box-row">
+        <small>Votes</small>
+        <div class="box-column">
+          <small>
+            {{ currentPoll.positiveValue }}
+          </small>
+          <small>
+            {{ currentPoll.negativeValue }}
+          </small>
+        </div>
+      </div>
+      <div class="box-row">
+        <small>Balance</small>
+        <small>
+          {{ currentPoll.positiveValue - currentPoll.negativeValue }}
+        </small>
+      </div>
+      <div class="box-row">
+        <small>Ratio</small>
+        <small>{{ currentPoll.positiveRatio }}%</small>
+      </div>
+    </div>
+  </ng-container>
+  <div class="box">
+    <h4>Status</h4>
+    <div class="box-row">
+      <small>Stage</small>
+      <small>
+        {{ proposal.state }}
+      </small>
+    </div>
+    <div *ngIf="proposal.isNotBacked || proposal.isNotViable" class="box-row">
+      <small>Motive</small>
+      <small>
+        {{ proposal.state }}
+      </small>
+    </div>
+    <div *ngIf="proposal.cost" class="box-row">
+      <small>Cost</small>
+      <small>
+        {{ proposal.cost }}
+      </small>
+    </div>
+    <div class="box-row">
+      <small>Releases</small>
+      <div class="box-column">
+        <small>Created {{ proposal.formattedCreatedAt }}</small>
+        <small *ngIf="proposal.resetAt">
+          Opened {{ proposal.formattedResetAt }}
+        </small>
+        <small *ngIf="proposal.selectedAt">
+          Selected {{ proposal.formattedSelectedAt }}
+        </small>
+        <small *ngIf="proposal.disregardedAt">
+          Archived {{ proposal.formattedDisregardedAt }}
+        </small>
+        <small *ngIf="proposal.completedAt">
+          Implemented {{ proposal.formattedCompletedAt }}
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

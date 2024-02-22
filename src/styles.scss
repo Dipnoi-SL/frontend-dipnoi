@@ -1,0 +1,91 @@
+@import '@angular/cdk/overlay-prebuilt.css';
+
+$maxScreenWidth: 1920px;
+$headerHeight: 56px;
+$footerHeight: 40px;
+$sidenavWidth: 260px;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  cursor: pointer;
+  color: blue;
+}
+
+::-webkit-scrollbar {
+  background: rgba(0, 0, 0, 0);
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.75);
+  -webkit-border-radius: 1ex;
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+
+:focus-visible {
+  outline: none !important;
+}
+
+app-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.success {
+  color: green;
+}
+
+.success-background {
+  background-color: green;
+}
+
+.warning {
+  color: yellow;
+}
+
+.warning-background {
+  background-color: yellow;
+}
+
+.error {
+  color: red;
+}
+
+.error-background {
+  background-color: red;
+}
+
+.horizontal-divider {
+  border-bottom: 1px solid #000;
+  width: 100%;
+}
+
+.vertical-divider {
+  border-right: 1px solid #000;
+  height: 100%;
+}

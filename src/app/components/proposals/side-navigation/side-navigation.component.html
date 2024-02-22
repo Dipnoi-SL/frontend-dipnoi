@@ -1,0 +1,34 @@
+<div class="wrapper">
+  <div
+    *ngFor="let item of navigationFirstSet"
+    [routerLink]="item.path"
+    routerLinkActive="active"
+  >
+    <p>{{ item.title }}</p>
+  </div>
+  <div class="horizontal-divider"></div>
+  <div
+    *ngFor="let item of navigationSecondSet"
+    [routerLink]="item.path"
+    routerLinkActive="active"
+  >
+    <p>{{ item.title }}</p>
+  </div>
+  <ng-container *ngIf="userService.authUser$ | async as authUser">
+    <div
+      *ngIf="authUser.isDeveloper"
+      [routerLink]="pendingReviewItem.path"
+      routerLinkActive="active"
+    >
+      <p>{{ pendingReviewItem.title }}</p>
+    </div>
+  </ng-container>
+  <div class="horizontal-divider"></div>
+  <div
+    *ngFor="let item of navigationThirdSet"
+    [routerLink]="item.path"
+    routerLinkActive="active"
+  >
+    <p>{{ item.title }}</p>
+  </div>
+</div>

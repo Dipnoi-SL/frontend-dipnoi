@@ -1,0 +1,139 @@
+<ng-container *ngIf="state$ | async as state">
+  <ng-container *ngIf="state.finished">
+    <h1 class="text">Activate your account</h1>
+    <p class="text">
+      Success! Your account has been created. To activate it, please click on
+      the confirmation link we have sent to your email address.
+    </p>
+  </ng-container>
+  <ng-container *ngIf="!state.finished">
+    <h1 class="text">Sign up</h1>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+      <div class="row">
+        <input
+          class="input-field"
+          type="text"
+          formControlName="email"
+          required
+        />
+        <p class="floating-label">Email address</p>
+      </div>
+      <div>
+        <small
+          *ngIf="
+            signUpForm.controls.email.hasError('required') &&
+            signUpForm.controls.email.touched
+          "
+          class="error"
+        >
+          Must not be empty
+        </small>
+        <small
+          *ngIf="
+            signUpForm.controls.email.hasError('pattern') &&
+            signUpForm.controls.email.touched
+          "
+          class="error"
+        >
+          Must be a valid email
+        </small>
+      </div>
+      <div class="row">
+        <input
+          class="input-field"
+          [type]="state.hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          required
+        />
+        <p class="floating-label">Password</p>
+        <ng-icon
+          class="suffix"
+          (click)="onHidePassword()"
+          [name]="
+            state.hidePassword
+              ? 'matVisibilityOffOutline'
+              : 'matVisibilityOutline'
+          "
+        ></ng-icon>
+      </div>
+      <div>
+        <small *ngIf="signUpForm.controls.password.untouched">
+          <br />
+          Must contain at least 8 characters
+          <br />
+          Must contain at least one lowercase letter
+          <br />
+          Must contain at least one uppercase letter
+          <br />
+          Must contain at least one number
+          <br />
+          Must contain at least one special character
+        </small>
+        <small
+          *ngIf="
+            signUpForm.controls.password.hasError('required') &&
+            signUpForm.controls.password.touched
+          "
+          class="error"
+        >
+          <br />
+          Must not be empty
+        </small>
+        <small
+          *ngIf="
+            signUpForm.controls.password.hasError('pattern') &&
+            signUpForm.controls.password.touched
+          "
+          class="error"
+        >
+          <br />
+          Must contain at least 8 characters
+          <br />
+          Must contain at least one lowercase letter
+          <br />
+          Must contain at least one uppercase letter
+          <br />
+          Must contain at least one number
+          <br />
+          Must contain at least one special character
+        </small>
+      </div>
+      <re-captcha class="row" formControlName="recaptchaResponse"></re-captcha>
+      <button class="row" [disabled]="!signUpForm.valid" type="submit">
+        Continue
+      </button>
+      <p *ngIf="state.hasErrored" class="row error feedback">
+        Something wrong happened
+      </p>
+    </form>
+    <div class="row options">
+      <div class="horizontal-divider"></div>
+      <p>OR</p>
+      <div class="horizontal-divider"></div>
+    </div>
+    <div class="row google-button" (click)="onGoogleSignUp()">
+      <p>Sign up with Google</p>
+    </div>
+    <div class="row facebook-button" (click)="onFacebookSignUp()">
+      <p>Sign up with Facebook</p>
+    </div>
+    <div class="row links">
+      <small
+        [routerLink]="[]"
+        [relativeTo]="route"
+        [queryParams]="signInQueryParam"
+        queryParamsHandling="merge"
+      >
+        Already have an account? Sign in
+      </small>
+    </div>
+    <div class="row">
+      <small class="text">
+        By continuing I acknowledge that I have read and agree to the
+        <span>Terms of Service</span>
+        and
+        <span>Privacy Policy</span>
+      </small>
+    </div>
+  </ng-container>
+</ng-container>

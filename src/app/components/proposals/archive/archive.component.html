@@ -1,0 +1,14 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="wrapper" #infiniteScrollContainerRef>
+    <div class="content-header">
+      <h1>Archive</h1>
+      <dipnoi-params
+        (onParamsUpdated)="handleOnParamsUpdated($event)"
+      ></dipnoi-params>
+    </div>
+    <dipnoi-proposal-section-list
+      [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+      [params]="state.params"
+    ></dipnoi-proposal-section-list>
+  </div>
+</ng-container>

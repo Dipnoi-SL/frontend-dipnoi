@@ -1,0 +1,54 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="wrapper" #infiniteScrollContainerRef>
+    <div class="content-header">
+      <div class="content-header-section">
+        <h1>Pending proposals</h1>
+        <div
+          [routerLink]="[]"
+          [relativeTo]="route"
+          [queryParams]="proposalCreationQueryParam"
+          queryParamsHandling="merge"
+        >
+          Create
+        </div>
+      </div>
+      <div class="content-header-section">
+        <ng-container *ngIf="userService.authUser$ | async">
+          <ng-container
+            *ngIf="proposalService.pinnedProposals$ | async as pinnedProposals"
+          >
+            <dipnoi-toggle
+              *ngIf="pinnedProposals.length"
+              (onToggleUpdated)="handleOnToggleUpdated($event)"
+            ></dipnoi-toggle>
+          </ng-container>
+        </ng-container>
+        <dipnoi-params
+          (onParamsUpdated)="handleOnParamsUpdated($event)"
+          [filterOptions]="filterOptions"
+          [orderOptions]="orderOptions"
+          [defaultFilter]="4"
+          [defaultOrder]="0"
+        ></dipnoi-params>
+      </div>
+    </div>
+    <ng-container
+      *ngIf="proposalService.pinnedProposals$ | async as pinnedProposals"
+    >
+      <div
+        class="pinned-proposals"
+        *ngIf="state.isPinnedShown && pinnedProposals.length"
+      >
+        <dipnoi-proposal-card
+          *ngFor="let proposal of pinnedProposals"
+          [proposal]="proposal"
+        ></dipnoi-proposal-card>
+        <div class="horizontal-divider"></div>
+      </div>
+    </ng-container>
+    <dipnoi-proposal-list
+      [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+      [params]="state.params"
+    ></dipnoi-proposal-list>
+  </div>
+</ng-container>

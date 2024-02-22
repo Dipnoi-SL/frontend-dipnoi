@@ -1,0 +1,13 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="wrapper">
+    <dipnoi-sign-in *ngIf="state.view === signInPath"></dipnoi-sign-in>
+    <dipnoi-sign-up *ngIf="state.view === signUpPath"></dipnoi-sign-up>
+    <dipnoi-forgot-password
+      *ngIf="state.view === forgotPasswordPath"
+    ></dipnoi-forgot-password>
+    <dipnoi-reset-password
+      *ngIf="state.view === resetPasswordPath"
+    ></dipnoi-reset-password>
+    <dipnoi-activate *ngIf="state.view === activatePath"></dipnoi-activate>
+  </div>
+</ng-container>

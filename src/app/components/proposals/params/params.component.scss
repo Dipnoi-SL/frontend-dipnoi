@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.dropdown-button {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  background-color: grey;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+}

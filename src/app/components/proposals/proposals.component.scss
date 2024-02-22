@@ -1,0 +1,10 @@
+@import '../../../styles.scss';
+
+.wrapper {
+  display: flex;
+  height: calc(100vh - $headerHeight);
+}
+
+.content {
+  width: calc(100vw - 2 * $sidenavWidth - 2px);
+}

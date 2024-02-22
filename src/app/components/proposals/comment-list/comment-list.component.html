@@ -1,0 +1,44 @@
+<ng-container *ngIf="state$ | async as state">
+  <div
+    *ngIf="createCommentForm.controls.commentToCreate"
+    class="creation-container"
+  >
+    <div class="avatar"></div>
+    <form [formGroup]="createCommentForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label [htmlFor]="commentToCreate">Add a comment</label>
+        <input
+          type="text"
+          class="create-comment-box"
+          formControlName="commentToCreate"
+          #commentToCreate
+        />
+      </div>
+      <div *ngIf="createCommentForm.valid" class="actions">
+        <div (click)="onCancel()">Cancel</div>
+        <button [disabled]="!createCommentForm.valid" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <ng-container *ngIf="commentService.comments$ | async as comments">
+    <div
+      class="wrapper"
+      infiniteScroll
+      insufficientItems
+      [existingItems]="comments.length"
+      [containerRef]="infiniteScrollContainerRef"
+      (loadMoreItems)="onScrollEnd()"
+      [scrollWindow]="false"
+      (scrolled)="onScrollEnd()"
+      [infiniteScrollContainer]="infiniteScrollContainerRef"
+      [fromRoot]="true"
+      [infiniteScrollDistance]="0"
+    >
+      <div *ngFor="let comment of comments">
+        <dipnoi-comment [comment]="comment"></dipnoi-comment>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

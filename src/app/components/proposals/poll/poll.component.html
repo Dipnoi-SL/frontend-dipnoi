@@ -1,0 +1,44 @@
+<div class="wrapper">
+  <h3>{{ poll.label }}</h3>
+  <div class="button-row">
+    <div class="vote-button" (click)="onVote(true)">Yes</div>
+    <div class="vote-button" (click)="onVote(null)">Skip</div>
+    <div class="vote-button" (click)="onVote(false)">No</div>
+  </div>
+  <div>
+    <div class="bar-info">
+      <small>Yes</small>
+      <small>{{ poll.positiveValue }}</small>
+    </div>
+    <div class="bar">
+      <div
+        class="bar-fill success-background"
+        [ngStyle]="{ width: poll.positiveRatio + '%' }"
+      ></div>
+    </div>
+  </div>
+  <div>
+    <div class="bar-info">
+      <small>Skip</small>
+      <small>{{ poll.nullValue }}</small>
+    </div>
+    <div class="bar">
+      <div
+        class="bar-fill warning-background"
+        [ngStyle]="{ width: poll.nullRatio + '%' }"
+      ></div>
+    </div>
+  </div>
+  <div>
+    <div class="bar-info">
+      <small>No</small>
+      <small>{{ poll.negativeValue }}</small>
+    </div>
+    <div class="bar">
+      <div
+        class="bar-fill error-background"
+        [ngStyle]="{ width: poll.negativeRatio + '%' }"
+      ></div>
+    </div>
+  </div>
+</div>

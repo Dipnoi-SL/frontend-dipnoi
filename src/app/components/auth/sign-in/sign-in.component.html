@@ -1,0 +1,73 @@
+<ng-container *ngIf="state$ | async as state">
+  <h1 class="text">Sign in</h1>
+  <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+    <div class="row">
+      <input class="input-field" type="text" formControlName="email" required />
+      <p class="floating-label">Email address</p>
+    </div>
+    <div class="row">
+      <input
+        class="input-field"
+        [type]="state.hidePassword ? 'password' : 'text'"
+        formControlName="password"
+        required
+      />
+      <p class="floating-label">Password</p>
+      <ng-icon
+        class="suffix"
+        (click)="onHidePassword()"
+        [name]="
+          state.hidePassword
+            ? 'matVisibilityOffOutline'
+            : 'matVisibilityOutline'
+        "
+      ></ng-icon>
+    </div>
+    <button class="row" [disabled]="!signInForm.valid" type="submit">
+      Sign in
+    </button>
+    <p *ngIf="state.hasErrored" class="row error feedback">
+      Invalid credentials
+    </p>
+  </form>
+  <div class="row options">
+    <div class="horizontal-divider"></div>
+    <p>OR</p>
+    <div class="horizontal-divider"></div>
+  </div>
+  <div class="row google-button" (click)="onGoogleSignIn()">
+    <p>Sign in with Google</p>
+  </div>
+  <div class="row facebook-button" (click)="onFacebookSignIn()">
+    <p>Sign in with Facebook</p>
+  </div>
+  <div class="row links">
+    <small
+      class="left-link"
+      [routerLink]="[]"
+      [relativeTo]="route"
+      [queryParams]="forgotPasswordQueryParam"
+      queryParamsHandling="merge"
+    >
+      Can't sign in?
+    </small>
+    <h3>·</h3>
+    <small
+      class="right-link"
+      [routerLink]="[]"
+      [relativeTo]="route"
+      [queryParams]="signUpQueryParam"
+      queryParamsHandling="merge"
+    >
+      Create account
+    </small>
+  </div>
+  <div class="row">
+    <small>
+      Check out our
+      <span>Terms of Service</span>
+      and
+      <span>Privacy Policy</span>
+    </small>
+  </div>
+</ng-container>

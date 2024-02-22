@@ -1,0 +1,9 @@
+@import '../../../../styles.scss';
+
+.wrapper {
+  width: $sidenavWidth;
+}
+
+.active {
+  background-color: grey;
+}

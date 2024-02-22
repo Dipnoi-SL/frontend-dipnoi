@@ -1,0 +1,21 @@
+<ng-container *ngIf="proposalService.proposals$ | async as proposals">
+  <div
+    class="wrapper"
+    infiniteScroll
+    insufficientItems
+    [existingItems]="proposals.length"
+    [containerRef]="infiniteScrollContainerRef"
+    (loadMoreItems)="onScrollEnd()"
+    [scrollWindow]="false"
+    (scrolled)="onScrollEnd()"
+    [infiniteScrollContainer]="infiniteScrollContainerRef"
+    [fromRoot]="true"
+    [infiniteScrollDistance]="0"
+  >
+    <dipnoi-proposal-section-card
+      *ngFor="let proposal of proposals; let i = index"
+      [proposal]="proposal"
+      [previousProposal]="proposals[i - 1]"
+    ></dipnoi-proposal-section-card>
+  </div>
+</ng-container>
