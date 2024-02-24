@@ -26,6 +26,9 @@ export class ProposalService {
   private _selectedProposal$ = new BehaviorSubject<Proposal | null>(null);
   selectedProposal$ = this._selectedProposal$.asObservable();
 
+  private _spotlightProposal$ = new BehaviorSubject<Proposal | null>(null);
+  spotlightProposal$ = this._spotlightProposal$.asObservable();
+
   meta: PageMeta | null = null;
 
   constructor(
@@ -129,6 +132,30 @@ export class ProposalService {
         tap({
           next: (res) => {
             this._pinnedProposals$.next(res.data);
+          },
+        }),
+      );
+  }
+
+  readOneAsSpotlight() {
+    return this.http
+      .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
+        params: {
+          order: OrderEnum.DESC,
+          orderBy: ProposalOrderByEnum.LAST_DAY_POPULARITY,
+          take: 1,
+          page: 1,
+          states: [ProposalStateEnum.FINAL_PHASE, ProposalStateEnum.LAST_CALL],
+        },
+      })
+      .pipe(
+        map((res) => ({
+          data: res.data.map((proposal) => new Proposal(proposal)),
+          meta: new PageMeta(res.meta),
+        })),
+        tap({
+          next: (res) => {
+            this._spotlightProposal$.next(res.data[0] ?? null);
           },
         }),
       );

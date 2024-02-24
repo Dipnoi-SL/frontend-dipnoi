@@ -7,4 +7,6 @@
 
 .content {
   width: calc(100vw - 2 * $sidenavWidth - 2px);
+  height: calc(100vh - $headerHeight);
+  overflow: hidden;
 }

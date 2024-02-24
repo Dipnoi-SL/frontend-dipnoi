@@ -1,0 +1,12 @@
+<div
+  class="wrapper"
+  [routerLink]="[]"
+  [relativeTo]="route"
+  [queryParams]="comment.selectedProposalQueryParam"
+  queryParamsHandling="merge"
+>
+  <h3>{{ comment.user.nickname }}</h3>
+  <div>
+    <p>{{ comment.body }}</p>
+  </div>
+</div>
