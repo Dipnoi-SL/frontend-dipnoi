@@ -225,12 +225,16 @@ export class Proposal extends AbstractEntity {
       : this.finalTitle;
   }
 
-  getCurrentDescription(authUser: MyUser | null) {
+  getCurrentHtmlDescription(authUser: MyUser | null) {
     return !this.finalDescription ||
       this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
       (this.state === ProposalStateEnum.PENDING_REVIEW &&
         !authUser?.isDeveloper)
       ? this.initialDescription
       : this.finalDescription;
+  }
+
+  getCurrentDescription(authUser: MyUser | null) {
+    return this.getCurrentHtmlDescription(authUser).replace(/<[^>]*>?/gm, ' ');
   }
 }
