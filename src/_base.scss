@@ -1,0 +1,102 @@
+@import 'variables';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+h1 {
+  font-family: $font-family-base;
+  font-size: $font-size-xxxl;
+  line-height: $font-line-height-xxl;
+  font-weight: $font-weight-bold;
+  letter-spacing: $font-letter-spacing-tightest;
+  margin-top: $font-paragraph-spacing-normal;
+  margin-bottom: $font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h2 {
+  font-family: $font-family-base;
+  font-size: $font-size-xxl;
+  line-height: $font-line-height-xl;
+  font-weight: $font-weight-bold;
+  letter-spacing: $font-letter-spacing-tightest;
+  margin-top: $font-paragraph-spacing-normal;
+  margin-bottom: $font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h3 {
+  font-family: $font-family-base;
+  font-size: $font-size-xl;
+  line-height: $font-line-height-lg;
+  font-weight: $font-weight-bold;
+  letter-spacing: $font-letter-spacing-tightest;
+  margin-top: $font-paragraph-spacing-normal;
+  margin-bottom: $font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h4 {
+  font-family: $font-family-base;
+  font-size: $font-size-lg;
+  line-height: $font-line-height-md;
+  font-weight: $font-weight-bold;
+  letter-spacing: $font-letter-spacing-tightest;
+  margin-top: $font-paragraph-spacing-normal;
+  margin-bottom: $font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h5 {
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  line-height: $font-line-height-md;
+  font-weight: $font-weight-normal;
+  letter-spacing: $font-letter-spacing-loose;
+  margin-top: $font-paragraph-spacing-normal;
+  margin-bottom: $font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+p {
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  line-height: $font-line-height-sm;
+  font-weight: $font-weight-normal;
+  letter-spacing: $font-letter-spacing-tight;
+  margin-top: $font-paragraph-spacing-normal;
+  margin-bottom: $font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: left;
+}
+
+small {
+  font-family: $font-family-base;
+  font-size: $font-size-xs;
+  line-height: $font-line-height-xs;
+  font-weight: $font-weight-normal;
+  letter-spacing: $font-letter-spacing-normal;
+  margin-top: $font-paragraph-spacing-normal;
+  margin-bottom: $font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: left;
+}
