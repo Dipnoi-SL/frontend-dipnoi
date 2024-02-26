@@ -168,7 +168,7 @@ export class PendingProposalsComponent
   }
 
   override ngOnDestroy() {
-    this.authUser$.unsubscribe;
+    this.authUser$.unsubscribe();
 
     super.ngOnDestroy();
   }

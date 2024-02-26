@@ -89,3 +89,37 @@ app-root {
   border-right: 1px solid #000;
   height: 100%;
 }
+
+.NgxEditor--Disabled {
+  border: 1px solid white;
+}
+
+.NgxEditor__MenuBar {
+  background-color: blue !important;
+  color: red !important;
+}
+
+.NgxEditor__MenuItem--Active {
+  background-color: yellow !important;
+}
+
+.NgxEditor__MenuItem:hover {
+  background-color: green !important;
+}
+
+.NgxEditor__Dropdown:hover {
+  background-color: green !important;
+}
+
+.NgxEditor__Dropdown--Selected {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+.NgxEditor__Dropdown--Item {
+  background-color: blue !important;
+}
+
+.NgxEditor__Dropdown--Item:hover {
+  background-color: green !important;
+}

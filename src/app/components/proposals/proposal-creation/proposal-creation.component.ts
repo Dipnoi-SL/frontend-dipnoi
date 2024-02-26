@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -13,20 +19,25 @@ import { StatefulComponent } from '../../../directives/stateful-component.direct
 import { ProposalCategoryEnum } from '../../../constants/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePathEnum } from '../../../app.routes';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-proposal-creation',
   standalone: true,
   templateUrl: './proposal-creation.component.html',
   styleUrl: './proposal-creation.component.scss',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxEditorModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalCreationComponent extends StatefulComponent<{
-  thumbnailSrc: string;
-  thumbnail?: File;
-  proposalId?: number;
-}> {
+export class ProposalCreationComponent
+  extends StatefulComponent<{
+    thumbnailSrc: string;
+    thumbnail?: File;
+    proposalId?: number;
+  }>
+  implements OnInit, OnDestroy
+{
   categories = [
     ProposalCategoryEnum.ALGORITHMICS,
     ProposalCategoryEnum.BUG,
@@ -41,6 +52,25 @@ export class ProposalCreationComponent extends StatefulComponent<{
       this.categories.map(() => this.formBuilder.control(false)),
     ),
   });
+  editor$!: Subscription;
+  editor!: Editor;
+  toolbar: Toolbar = [
+    [
+      'bold',
+      'italic',
+      'underline',
+      'strike',
+      'blockquote',
+      'code',
+      'bullet_list',
+      'ordered_list',
+      'image',
+      'text_color',
+      'background_color',
+      'format_clear',
+    ],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+  ];
 
   constructor(
     public formBuilder: NonNullableFormBuilder,
@@ -48,8 +78,17 @@ export class ProposalCreationComponent extends StatefulComponent<{
     public dialogRef: DialogRef<ProposalCreationComponent>,
     public router: Router,
     public route: ActivatedRoute,
+    public changeDetectorRef: ChangeDetectorRef,
   ) {
     super({ thumbnailSrc: '' });
+  }
+
+  ngOnInit() {
+    this.editor = new Editor();
+
+    this.editor$ = this.editor.valueChanges.subscribe(() => {
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   addPollLabelsControl() {
@@ -150,5 +189,13 @@ export class ProposalCreationComponent extends StatefulComponent<{
     }
 
     return null;
+  }
+
+  override ngOnDestroy() {
+    this.editor.destroy();
+
+    this.editor$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

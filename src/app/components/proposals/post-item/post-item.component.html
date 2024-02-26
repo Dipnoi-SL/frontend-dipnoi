@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <small class="info">{{ post.timeCreated }}</small>
+  <img
+    [ngSrc]="post.thumbnailUri"
+    [width]="100"
+    [height]="60"
+    [priority]="true"
+  />
+  <p [ngClass]="{ selected }">{{ post.title }}</p>
+</div>

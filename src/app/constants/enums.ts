@@ -46,3 +46,7 @@ export enum CommentOrderByEnum {
   POPULARITY = 'popularity',
   LAST_DAY_POPULARITY = 'lastDayPopularity',
 }
+
+export enum PostOrderByEnum {
+  CREATED_AT = 'createdAt',
+}

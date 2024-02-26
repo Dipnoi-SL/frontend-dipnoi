@@ -14,13 +14,15 @@
           />
         </div>
         <div>
-          <label [htmlFor]="initialDescription">Description</label>
-          <input
-            type="text"
+          <ngx-editor-menu
+            [editor]="editor"
+            [toolbar]="toolbar"
+          ></ngx-editor-menu>
+          <ngx-editor
             class="description-box"
+            [editor]="editor"
             formControlName="initialDescription"
-            #initialDescription
-          />
+          ></ngx-editor>
         </div>
         <div formArrayName="pollLabels">
           <div

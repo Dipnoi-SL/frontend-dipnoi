@@ -80,13 +80,12 @@
       />
     </div>
     <div>
-      <label [htmlFor]="finalDescription">Description</label>
-      <input
-        type="text"
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+      <ngx-editor
         class="description-box"
+        [editor]="editor"
         formControlName="finalDescription"
-        #finalDescription
-      />
+      ></ngx-editor>
     </div>
     <div class="actions">
       <div (click)="onCancel()">Cancel</div>
@@ -111,5 +110,7 @@
     <p>{{ proposal.disregardingReason }}</p>
     <div class="horizontal-divider"></div>
   </ng-container>
-  <div [innerHTML]="proposal.getCurrentDescription(authUser.data)"></div>
+  <div
+    [innerHTML]="proposal.getCurrentHtmlDescription(authUser.data) | safeHtml"
+  ></div>
 </ng-container>
