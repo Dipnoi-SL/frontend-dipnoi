@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -19,6 +20,7 @@ import { ProposalCategoryEnum } from '../../../constants/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePathEnum } from '../../../app.routes';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-proposal-creation',
@@ -50,6 +52,7 @@ export class ProposalCreationComponent
       this.categories.map(() => this.formBuilder.control(false)),
     ),
   });
+  editor$!: Subscription;
   editor!: Editor;
   toolbar: Toolbar = [
     [
@@ -75,12 +78,17 @@ export class ProposalCreationComponent
     public dialogRef: DialogRef<ProposalCreationComponent>,
     public router: Router,
     public route: ActivatedRoute,
+    public changeDetectorRef: ChangeDetectorRef,
   ) {
     super({ thumbnailSrc: '' });
   }
 
   ngOnInit() {
     this.editor = new Editor();
+
+    this.editor$ = this.editor.valueChanges.subscribe(() => {
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   addPollLabelsControl() {
@@ -185,6 +193,8 @@ export class ProposalCreationComponent
 
   override ngOnDestroy() {
     this.editor.destroy();
+
+    this.editor$.unsubscribe();
 
     super.ngOnDestroy();
   }

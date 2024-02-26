@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProposalService } from '../../../services/proposal.service';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
@@ -11,21 +18,33 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { SafeHtmlPipe } from '../../../pipes/safe-html.pipe';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-proposal-content',
   standalone: true,
   templateUrl: './proposal-content.component.html',
   styleUrl: './proposal-content.component.scss',
-  imports: [CommonModule, NgIconComponent, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    NgIconComponent,
+    ReactiveFormsModule,
+    SafeHtmlPipe,
+    NgxEditorModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalContentComponent extends StatefulComponent<{
-  changingTo: ProposalStateEnum | null;
-  isEditingCost: boolean;
-  isEditingDisregardingReason: boolean;
-  isSpecifying: boolean;
-}> {
+export class ProposalContentComponent
+  extends StatefulComponent<{
+    changingTo: ProposalStateEnum | null;
+    isEditingCost: boolean;
+    isEditingDisregardingReason: boolean;
+    isSpecifying: boolean;
+  }>
+  implements OnInit, OnDestroy
+{
   @Input({ required: true }) proposal!: Proposal;
 
   stateChangeForm = this.formBuilder.group({
@@ -36,17 +55,45 @@ export class ProposalContentComponent extends StatefulComponent<{
     finalTitle: ['', Validators.required],
     finalDescription: ['', Validators.required],
   });
+  editor$!: Subscription;
+  editor!: Editor;
+  toolbar: Toolbar = [
+    [
+      'bold',
+      'italic',
+      'underline',
+      'strike',
+      'blockquote',
+      'code',
+      'bullet_list',
+      'ordered_list',
+      'image',
+      'text_color',
+      'background_color',
+      'format_clear',
+    ],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+  ];
 
   constructor(
     public userService: UserService,
     public proposalService: ProposalService,
     public formBuilder: NonNullableFormBuilder,
+    public changeDetectorRef: ChangeDetectorRef,
   ) {
     super({
       changingTo: null,
       isEditingCost: false,
       isEditingDisregardingReason: false,
       isSpecifying: false,
+    });
+  }
+
+  ngOnInit() {
+    this.editor = new Editor();
+
+    this.editor$ = this.editor.valueChanges.subscribe(() => {
+      this.changeDetectorRef.markForCheck();
     });
   }
 
@@ -135,5 +182,13 @@ export class ProposalContentComponent extends StatefulComponent<{
 
       this.onCancel();
     }
+  }
+
+  override ngOnDestroy() {
+    this.editor.destroy();
+
+    this.editor$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }
