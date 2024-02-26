@@ -226,12 +226,23 @@ export class Proposal extends AbstractEntity {
   }
 
   getCurrentHtmlDescription(authUser: MyUser | null) {
-    return !this.finalDescription ||
+    const html =
+      !this.finalDescription ||
       this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
       (this.state === ProposalStateEnum.PENDING_REVIEW &&
         !authUser?.isDeveloper)
-      ? this.initialDescription
-      : this.finalDescription;
+        ? this.initialDescription
+        : this.finalDescription;
+
+    return html
+      .replace(
+        /(<p|<ul|<ol)/g,
+        '$1' + ' style="margin-bottom: 15px; margin-top: 0px;"',
+      )
+      .replace(
+        /(<h1|<h2|<h3|<h4|<h5|<h6)/g,
+        '$1' + ' style="margin-bottom: 15px; margin-top: 30px;"',
+      );
   }
 
   getCurrentDescription(authUser: MyUser | null) {

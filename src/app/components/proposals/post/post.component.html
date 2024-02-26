@@ -2,5 +2,5 @@
   <img class="thumbnail" [src]="post.thumbnailUri" />
   <h1>{{ post.title }}</h1>
   <small>{{ post.formattedCreatedAt }}</small>
-  <div [innerHTML]="post.body | safeHtml"></div>
+  <div [innerHTML]="post.htmlBody | safeHtml"></div>
 </div>

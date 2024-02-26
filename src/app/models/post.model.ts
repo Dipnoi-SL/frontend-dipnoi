@@ -48,4 +48,16 @@ export class Post extends AbstractEntity {
       day: 'numeric',
     });
   }
+
+  get htmlBody() {
+    return this.body
+      .replace(
+        /(<p|<ul|<ol)/g,
+        '$1' + ' style="margin-bottom: 15px; margin-top: 0px;"',
+      )
+      .replace(
+        /(<h1|<h2|<h3|<h4|<h5|<h6)/g,
+        '$1' + ' style="margin-bottom: 15px; margin-top: 30px;"',
+      );
+  }
 }
