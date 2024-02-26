@@ -69,7 +69,7 @@ export class ProposalCreationComponent
       'background_color',
       'format_clear',
     ],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    [{ heading: ['h3', 'h4', 'h5', 'h6'] }],
   ];
 
   constructor(
