@@ -90,6 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.dialogInfo[queryParam].ref = this.dialog.open(
         this.dialogInfo[queryParam].component,
+        { autoFocus: false },
       );
 
       this.dialogInfo[queryParam].ref?.closed.subscribe(() => {
