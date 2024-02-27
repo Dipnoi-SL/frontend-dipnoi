@@ -3,6 +3,15 @@
     *ngIf="createCommentForm.controls.commentToCreate"
     class="creation-container"
   >
+    <ng-container *ngIf="userService.authUser$ | async as authUser">
+      <img
+        class="avatar"
+        [ngSrc]="authUser.avatarUri"
+        [width]="40"
+        [height]="40"
+        [priority]="true"
+      />
+    </ng-container>
     <div class="avatar"></div>
     <form [formGroup]="createCommentForm" (ngSubmit)="onSubmit()">
       <div>

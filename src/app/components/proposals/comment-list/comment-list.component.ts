@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommentOrderByEnum, OrderEnum } from '../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../directives/insufficient-items.directive';
@@ -31,6 +31,7 @@ import {
     InsufficientItemsDirective,
     CommentComponent,
     ReactiveFormsModule,
+    NgOptimizedImage,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
