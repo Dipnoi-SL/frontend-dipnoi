@@ -1,5 +1,6 @@
+@use '../../../../variables';
 @import '../../../../_components.scss';
 
 .wrapper {
-  width: $sidenavWidth;
+  width: variables.$sidenav-width;
 }

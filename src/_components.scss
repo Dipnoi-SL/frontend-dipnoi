@@ -4,12 +4,6 @@
 $maxScreenWidth: 1920px;
 $headerHeight: 56px;
 $footerHeight: 40px;
-$sidenavWidth: 260px;
-
-a {
-  cursor: pointer;
-  color: blue;
-}
 
 ::-webkit-scrollbar {
   background: rgba(0, 0, 0, 0);
@@ -61,13 +55,28 @@ app-root {
   background-color: red;
 }
 
-.horizontal-divider {
-  border-bottom: 1px solid #000;
+/* Dividers */
+.inset-horizontal-divider {
+  height: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
+  width: 75%;
+}
+
+.full-horizontal-divider {
+  height: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
   width: 100%;
 }
 
-.vertical-divider {
-  border-right: 1px solid #000;
+.inset-vertical-divider {
+  width: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
+  height: 75%;
+}
+
+.full-vertical-divider {
+  width: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
   height: 100%;
 }
 

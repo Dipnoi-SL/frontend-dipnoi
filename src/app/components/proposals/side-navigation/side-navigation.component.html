@@ -1,13 +1,15 @@
-<div class="wrapper">
+<div class="sidenav">
   <div
+    class="sidenav-container"
     *ngFor="let item of navigationFirstSet"
     [routerLink]="item.path"
     routerLinkActive="active"
   >
     <p>{{ item.title }}</p>
   </div>
-  <div class="horizontal-divider"></div>
+  <div class="inset-horizontal-divider"></div>
   <div
+    class="sidenav-container"
     *ngFor="let item of navigationSecondSet"
     [routerLink]="item.path"
     routerLinkActive="active"
@@ -16,6 +18,7 @@
   </div>
   <ng-container *ngIf="userService.authUser$ | async as authUser">
     <div
+      class="sidenav-container"
       *ngIf="authUser.isDeveloper"
       [routerLink]="pendingReviewItem.path"
       routerLinkActive="active"
@@ -23,8 +26,9 @@
       <p>{{ pendingReviewItem.title }}</p>
     </div>
   </ng-container>
-  <div class="horizontal-divider"></div>
+  <div class="inset-horizontal-divider"></div>
   <div
+    class="sidenav-container"
     *ngFor="let item of navigationThirdSet"
     [routerLink]="item.path"
     routerLinkActive="active"

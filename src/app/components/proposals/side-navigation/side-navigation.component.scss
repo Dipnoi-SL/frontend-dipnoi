@@ -1,9 +1,19 @@
-@import '../../../../_components.scss';
+@use '../../../../variables';
+@use '../../../../layouts';
+@use '../../../../components';
 
-.wrapper {
-  width: $sidenavWidth;
+p {
+  color: variables.$text;
 }
 
-.active {
-  background-color: grey;
+.sidenav-container {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 35px;
+  padding-left: 30px;
+  padding-right: 30px;
+  gap: 12px;
 }

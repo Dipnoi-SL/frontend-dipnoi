@@ -1,0 +1,33 @@
+@use 'variables';
+
+/* Left panel*/
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  width: variables.$sidenav-width;
+  height: 100%;
+}
+
+.sidenav {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  width: variables.$sidenav-width;
+  height: 100%;
+  background-color: variables.$surface;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  gap: 20px;
+}
+
+.footer {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  width: variables.$sidenav-width;
+  background-color: variables.$surface;
+  height: fit-content;
+  padding: 30px;
+}

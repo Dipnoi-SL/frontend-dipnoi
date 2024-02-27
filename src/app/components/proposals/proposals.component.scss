@@ -1,3 +1,5 @@
+@use '../../../variables';
+@use '../../../layouts';
 @import '../../../_components.scss';
 
 .wrapper {
@@ -6,7 +8,15 @@
 }
 
 .content {
-  width: calc(100vw - 2 * $sidenavWidth - 2px);
+  width: calc(100vw - 2 * variables.$sidenav-width - 2px);
   height: calc(100vh - $headerHeight);
   overflow: hidden;
+}
+
+p {
+  color: variables.$text;
+}
+
+dipnoi-side-navigation {
+  flex-grow: 1;
 }

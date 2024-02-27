@@ -21,11 +21,11 @@
             {{ proposal.getCurrentTitle(authUser.data) }}
           </h3>
         </ng-container>
-        <div class="vertical-divider"></div>
+        <div class="inset-vertical-divider"></div>
         <p>
           {{ proposal.user.nickname }}
         </p>
-        <div class="vertical-divider"></div>
+        <div class="inset-vertical-divider"></div>
         <small>
           {{ proposal.formattedLastImportantDate }}
         </small>
@@ -61,7 +61,7 @@
         </p>
       </ng-container>
     </div>
-    <div class="vertical-divider"></div>
+    <div class="inset-vertical-divider"></div>
   </div>
   <div class="scores">
     <p *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment">

@@ -57,11 +57,17 @@ $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 
-/* Letter spacing */
+/* Letter spacings */
 $font-letter-spacing-tightest: 0px;
 $font-letter-spacing-tight: 0.25px;
 $font-letter-spacing-normal: 0.4px;
 $font-letter-spacing-loose: 0.5px;
 
-/* Paragraph spacing */
+/* Paragraph spacings */
 $font-paragraph-spacing-normal: 0px;
+
+/* Divider sizes */
+$divider-size-normal: 1px;
+
+/* Component measurements */
+$sidenav-width: 260px;
