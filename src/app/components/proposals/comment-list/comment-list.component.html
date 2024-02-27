@@ -34,7 +34,7 @@
       (scrolled)="onScrollEnd()"
       [infiniteScrollContainer]="infiniteScrollContainerRef"
       [fromRoot]="true"
-      [infiniteScrollDistance]="0"
+      [infiniteScrollDistance]="1"
     >
       <div *ngFor="let comment of comments">
         <dipnoi-comment [comment]="comment"></dipnoi-comment>
