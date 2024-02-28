@@ -11,7 +11,7 @@
       (scrolled)="onScrollEnd()"
       [infiniteScrollContainer]="infiniteScrollContainerRef"
       [fromRoot]="true"
-      [infiniteScrollDistance]="0"
+      [infiniteScrollDistance]="1"
     >
       <div *ngFor="let post of posts; let i = index">
         <dipnoi-post-item

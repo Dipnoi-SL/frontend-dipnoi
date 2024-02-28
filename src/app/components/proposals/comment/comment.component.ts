@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Comment } from '../../../models/comment.model';
 import { CommentService } from '../../../services/comment.service';
 import { NgIconComponent } from '@ng-icons/core';
@@ -9,7 +9,7 @@ import { NgIconComponent } from '@ng-icons/core';
   standalone: true,
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss',
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, NgIconComponent, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentComponent {
