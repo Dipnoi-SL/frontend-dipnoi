@@ -3,21 +3,6 @@
 
 $maxScreenWidth: 1920px;
 
-::-webkit-scrollbar {
-  background: rgba(0, 0, 0, 0);
-  height: 8px;
-  width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.75);
-  -webkit-border-radius: 1ex;
-}
-
-::-webkit-scrollbar-corner {
-  background: rgba(0, 0, 0, 0);
-}
-
 :focus-visible {
   outline: none !important;
 }
