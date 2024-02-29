@@ -2,6 +2,10 @@
 @use '../../../../layouts';
 @use '../../../../components';
 
+p {
+  text-align: left;
+}
+
 .selection-surface p {
   font-weight: variables.$font-weight-bold;
 }
@@ -21,10 +25,6 @@
   border-radius: 12px;
 }
 
-.sidenav-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%; /* Set the height to match the width or adjust based on the aspect ratio */
-  color: variables.$text;
+.p-adjustment {
+  margin-bottom: -3px;
 }
