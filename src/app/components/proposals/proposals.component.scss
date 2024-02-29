@@ -9,7 +9,7 @@
 }
 
 .content {
-  width: calc(100vw - 2 * variables.$sidenav-width - 2px);
+  width: calc(100vw - 2 * variables.$sidenav-width);
   height: calc(100vh - variables.$header-height);
   background-color: variables.$surface;
   overflow: hidden;
