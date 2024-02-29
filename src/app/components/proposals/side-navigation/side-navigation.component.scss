@@ -28,3 +28,7 @@ p {
 .p-adjustment {
   margin-bottom: -3px;
 }
+
+svg {
+  fill: variables.$text;
+}
