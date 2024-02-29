@@ -4,17 +4,19 @@
 
 .wrapper {
   display: flex;
-  height: calc(100vh - $headerHeight);
+  flex-direction: row;
+  height: calc(100vh - variables.$header-height);
 }
 
 .content {
   width: calc(100vw - 2 * variables.$sidenav-width - 2px);
-  height: calc(100vh - $headerHeight);
+  height: calc(100vh - variables.$header-height);
+  background-color: variables.$surface;
   overflow: hidden;
 }
 
 p {
-  color: variables.$text;
+  text-align: left;
 }
 
 dipnoi-side-navigation {

@@ -1,6 +1,3 @@
 @use '../../../../variables';
+@use '../../../../layouts';
 @import '../../../../_components.scss';
-
-.wrapper {
-  width: variables.$sidenav-width;
-}

@@ -14,6 +14,7 @@ body {
 h1 {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-xxxl;
+  color: variables.$text;
   line-height: variables.$font-line-height-xxl;
   font-weight: variables.$font-weight-bold;
   letter-spacing: variables.$font-letter-spacing-tightest;
@@ -27,6 +28,7 @@ h1 {
 h2 {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-xxl;
+  color: variables.$text;
   line-height: variables.$font-line-height-xl;
   font-weight: variables.$font-weight-bold;
   letter-spacing: variables.$font-letter-spacing-tightest;
@@ -40,6 +42,7 @@ h2 {
 h3 {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-xl;
+  color: variables.$text;
   line-height: variables.$font-line-height-lg;
   font-weight: variables.$font-weight-bold;
   letter-spacing: variables.$font-letter-spacing-tightest;
@@ -53,6 +56,7 @@ h3 {
 h4 {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-lg;
+  color: variables.$text;
   line-height: variables.$font-line-height-md;
   font-weight: variables.$font-weight-bold;
   letter-spacing: variables.$font-letter-spacing-tightest;
@@ -66,6 +70,7 @@ h4 {
 h5 {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-md;
+  color: variables.$text;
   line-height: variables.$font-line-height-md;
   font-weight: variables.$font-weight-normal;
   letter-spacing: variables.$font-letter-spacing-loose;
@@ -79,6 +84,7 @@ h5 {
 p {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-sm;
+  color: variables.$text;
   line-height: variables.$font-line-height-sm;
   font-weight: variables.$font-weight-normal;
   letter-spacing: variables.$font-letter-spacing-tight;
@@ -92,6 +98,7 @@ p {
 small {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-xs;
+  color: variables.$text;
   line-height: variables.$font-line-height-xs;
   font-weight: variables.$font-weight-normal;
   letter-spacing: variables.$font-letter-spacing-normal;
@@ -106,4 +113,8 @@ small {
 a {
   cursor: pointer;
   color: blue;
+}
+
+.selection-surface {
+  background-color: variables.$selection-surface-color;
 }

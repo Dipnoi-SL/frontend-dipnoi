@@ -3,8 +3,16 @@
 /* Left panel*/
 .left-panel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: variables.$sidenav-width;
+  height: 100%;
+  background-color: variables.$surface;
+}
+
+.left-panel-content {
+  display: flex;
+  flex-direction: column;
+  width: calc(variables.$sidenav-width) - 1;
   height: 100%;
 }
 
@@ -13,9 +21,8 @@
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  width: variables.$sidenav-width;
+  width: calc(variables.$sidenav-width - 1px);
   height: 100%;
-  background-color: variables.$surface;
   padding-top: 30px;
   padding-bottom: 30px;
   gap: 20px;
@@ -26,8 +33,43 @@
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  width: variables.$sidenav-width;
+  width: calc(variables.$sidenav-width - 1px);
   background-color: variables.$surface;
   height: fit-content;
   padding: 30px;
+}
+
+/* Right panel*/
+.right-panel {
+  display: flex;
+  flex-direction: row;
+  width: variables.$sidenav-width;
+  height: 100%;
+  background-color: variables.$surface;
+}
+
+.right-panel-content {
+  display: flex;
+  flex-direction: column;
+  width: calc(variables.$sidenav-width) - 1;
+  height: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  height: variables.$header-height;
+  background-color: variables.$surface;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(variables.$header-height - 1px);
+  padding-left: 22px;
+  padding-right: 22px;
 }

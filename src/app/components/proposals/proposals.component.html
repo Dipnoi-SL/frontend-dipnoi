@@ -1,15 +1,20 @@
 <div class="wrapper">
   <div class="left-panel">
-    <dipnoi-side-navigation></dipnoi-side-navigation>
-    <div class="full-horizontal-divider"></div>
-    <div class="footer">
-      <p>{{ 'Check out our Terms of Service and Privacy Policy' }}</p>
+    <div class="left-panel-content">
+      <dipnoi-side-navigation></dipnoi-side-navigation>
+      <div class="full-horizontal-divider"></div>
+      <div class="footer">
+        <p>{{ 'Check out our Terms of Service and Privacy Policy' }}</p>
+      </div>
     </div>
+    <div class="full-vertical-divider"></div>
   </div>
-  <div class="full-vertical-divider"></div>
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-  <div class="full-vertical-divider"></div>
+  <div class="right-panel">
+    <div class="full-vertical-divider"></div>
+    <div class="right-panel-content"></div>
+  </div>
   <dipnoi-ads></dipnoi-ads>
 </div>
