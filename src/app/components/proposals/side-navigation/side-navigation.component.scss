@@ -10,6 +10,10 @@ p {
   font-weight: variables.$font-weight-bold;
 }
 
+.sidenav {
+  flex-grow: 1;
+}
+
 .sidenav-element {
   display: flex;
   box-sizing: border-box;
@@ -22,7 +26,7 @@ p {
   padding-left: 18px;
   padding-right: 18px;
   gap: 12px;
-  border-radius: 12px;
+  border-radius: variables.$border-radius-base;
 }
 
 .p-adjustment {
@@ -30,5 +34,5 @@ p {
 }
 
 svg {
-  fill: variables.$text;
+  fill: variables.$text-color;
 }

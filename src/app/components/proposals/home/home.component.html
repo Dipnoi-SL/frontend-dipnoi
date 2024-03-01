@@ -6,28 +6,19 @@
     <div class="content">
       <div class="proposals">
         <div class="header">
-          <div class="inset-horizontal-divider"></div>
+          <div class="full-horizontal-divider"></div>
           <h2 class="subtitle">Daily spotlight</h2>
-          <div class="inset-horizontal-divider"></div>
+          <div class="full-horizontal-divider"></div>
         </div>
-        <div class="proposals-content">
-          <ng-container
-            *ngIf="
-              proposalService.spotlightProposal$ | async as spotlightProposal
-            "
-          >
-            <dipnoi-spotlight-proposal
-              [proposal]="spotlightProposal"
-            ></dipnoi-spotlight-proposal>
-          </ng-container>
-          <ng-container
-            *ngIf="commentService.spotlightComment$ | async as spotlightComment"
-          >
-            <dipnoi-spotlight-comment
-              [comment]="spotlightComment"
-            ></dipnoi-spotlight-comment>
-          </ng-container>
-        </div>
+        <ng-container
+          *ngIf="
+            proposalService.spotlightProposal$ | async as spotlightProposal
+          "
+        >
+          <dipnoi-spotlight-proposal
+            [proposal]="spotlightProposal"
+          ></dipnoi-spotlight-proposal>
+        </ng-container>
       </div>
       <div class="news">
         <div class="header">

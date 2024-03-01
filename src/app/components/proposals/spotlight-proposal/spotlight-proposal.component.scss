@@ -1,12 +1,5 @@
-.wrapper {
-  cursor: pointer;
-  background-color: grey;
-  display: flex;
-  flex-direction: column;
-  height: 556px;
-  padding: 30px;
-  gap: 15px;
-}
+@use '../../../../mixins';
+@use '../../../../variables';
 
 .avatar {
   border-radius: 100%;
@@ -21,15 +14,28 @@
 
 .description {
   flex-grow: 1;
+  @include mixins.text-truncate;
+}
+
+.h3 {
+  height: fit-content;
+  max-height: calc(variables.$font-line-height-lg + variables.$font-size-xl);
+  @include mixins.text-truncate;
+  flex-shrink: 0;
 }
 
 .footer {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 20px;
 }
 
-.line {
+.small {
+  width: fit-content;
+  flex-shrink: 0;
+}
+
+.full-width-divider {
   flex-grow: 1;
-  width: 0px;
 }

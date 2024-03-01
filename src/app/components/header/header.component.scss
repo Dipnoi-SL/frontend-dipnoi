@@ -1,3 +1,7 @@
 @use '../../../variables';
 @use '../../../layouts';
 @use '../../../components.scss';
+
+.header-content {
+  flex-grow: 1;
+}

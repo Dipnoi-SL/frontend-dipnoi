@@ -1,13 +1,21 @@
+@use '../../../../variables';
+
 .wrapper {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .content-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+dipnoi-spotlight-proposal {
+  flex-grow: 1;
 }
 
 .content {
@@ -21,23 +29,24 @@
   min-width: 362px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .header {
   display: flex;
+  flex-direction: row;
+  gap: 20px;
   align-items: center;
 }
 
 .subtitle {
-  text-wrap: nowrap;
-  padding: 0px 20px;
+  width: fit-content;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
-.proposals-content {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  overflow-y: scroll;
+.full-horizontal-divider {
+  background-color: variables.$text-color;
 }
 
 .news {
