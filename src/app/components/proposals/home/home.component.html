@@ -20,6 +20,28 @@
           ></dipnoi-spotlight-proposal>
         </ng-container>
       </div>
+      <div class="news">
+        <div class="header">
+          <div class="full-horizontal-divider"></div>
+          <h2 class="subtitle">News</h2>
+          <div class="full-horizontal-divider"></div>
+        </div>
+        <div class="vertical-card vertical-card-news">
+          <ng-container *ngIf="postService.posts$ | async as posts">
+            <dipnoi-post
+              class="selected-news"
+              [post]="posts[state.selectedPost]"
+            ></dipnoi-post>
+          </ng-container>
+          <div class="full-vertical-divider"></div>
+          <div class="news-list" #infiniteScrollContainerRef>
+            <dipnoi-post-list
+              [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+              (onSelectedUpdated)="onSelectedPostUpdated($event)"
+            ></dipnoi-post-list>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </ng-container>

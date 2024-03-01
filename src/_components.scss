@@ -69,9 +69,9 @@ app-root {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 362px;
+  flex-grow: 1;
+  width: 100%;
   padding: 30px;
-  height: 100%;
   gap: 15px;
   background-color: variables.$card;
   border-radius: variables.$border-radius-base;

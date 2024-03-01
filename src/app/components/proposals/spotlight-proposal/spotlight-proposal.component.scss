@@ -21,11 +21,13 @@
 h3 {
   height: fit-content;
   flex-shrink: 0;
+  flex-grow: 0px;
 }
 
 .footer {
   height: fit-content;
   flex-shrink: 0;
+  flex-grow: 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
