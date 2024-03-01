@@ -14,18 +14,12 @@
 
 .description {
   flex-grow: 1;
-}
-
-.description p {
-  text-overflow: ellipsis;
+  word-break: break-word;
+  overflow: hidden;
 }
 
 h3 {
   height: fit-content;
-  max-height: calc(
-    (variables.$font-line-height-lg + variables.$font-size-xl) * 2
-  );
-  text-overflow: ellipsis;
   flex-shrink: 0;
 }
 
