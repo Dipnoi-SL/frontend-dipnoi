@@ -70,8 +70,8 @@ app-root {
   flex-direction: column;
   box-sizing: border-box;
   width: 362px;
-  height: 100%;
   padding: 30px;
+  margin-bottom: 30px;
   gap: 15px;
   background-color: variables.$card;
   border-radius: variables.$border-radius-base;

@@ -1,6 +1,6 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="wrapper">
-    <div class="content-header">
+    <div>
       <h1>Home</h1>
     </div>
     <div class="content">
@@ -22,9 +22,9 @@
       </div>
       <div class="news">
         <div class="header">
-          <div class="inset-horizontal-divider"></div>
+          <div class="full-horizontal-divider"></div>
           <h2 class="subtitle">News</h2>
-          <div class="inset-horizontal-divider"></div>
+          <div class="full-horizontal-divider"></div>
         </div>
         <div class="news-content">
           <ng-container *ngIf="postService.posts$ | async as posts">

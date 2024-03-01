@@ -68,7 +68,8 @@
 .main-content {
   display: flex;
   box-sizing: border-box;
+  padding: 30px;
+  height: calc(100vh - variables.$header-height);
   flex-direction: row;
   background-color: variables.$surface;
-  padding: 30px;
 }

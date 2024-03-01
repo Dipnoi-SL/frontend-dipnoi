@@ -17,8 +17,8 @@
       <p>{{ proposal.getCurrentDescription(null) }}</p>
     </div>
     <div class="footer">
-      <div class="full-horizontal-divider line"></div>
-      <small>{{ proposal.user.nickname }}</small>
+      <div class="full-horizontal-divider"></div>
+      <p class="bold">{{ proposal.user.nickname }}</p>
       <img
         class="avatar"
         [ngSrc]="proposal.user.avatarUri"

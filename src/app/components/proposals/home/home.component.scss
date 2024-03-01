@@ -8,21 +8,19 @@
   gap: 10px;
 }
 
-.content-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 dipnoi-spotlight-proposal {
   flex-grow: 1;
 }
 
+h1 {
+  flex-shrink: 0;
+}
+
 .content {
   flex-grow: 1;
+  flex-direction: row;
   display: flex;
   gap: 30px;
-  overflow: hidden;
 }
 
 .proposals {
@@ -54,6 +52,7 @@ dipnoi-spotlight-proposal {
   flex-direction: column;
   flex-grow: 1;
   height: 100%;
+  gap: 10px;
 }
 
 .news-content {
