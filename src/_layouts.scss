@@ -1,0 +1,75 @@
+@use 'variables';
+
+/* Left panel*/
+.left-panel {
+  display: flex;
+  flex-direction: row;
+  width: variables.$sidenav-width;
+  background-color: variables.$surface;
+}
+
+.left-panel-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  gap: 15px;
+}
+
+.footer {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  background-color: variables.$surface;
+  height: fit-content;
+  padding: 30px;
+}
+
+/* Right panel*/
+.right-panel {
+  display: flex;
+  flex-direction: row;
+  width: variables.$sidenav-width;
+  background-color: variables.$surface;
+}
+
+.right-panel-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  height: variables.$header-height;
+  background-color: variables.$surface;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+/* Main content*/
+.main-content {
+  display: flex;
+  box-sizing: border-box;
+  padding: 30px;
+  height: 100%;
+  flex-direction: row;
+  background-color: variables.$surface;
+}

@@ -1,30 +1,8 @@
 @use 'variables';
+@use 'mixins';
 @import '@angular/cdk/overlay-prebuilt.css';
 
 $maxScreenWidth: 1920px;
-$headerHeight: 56px;
-$footerHeight: 40px;
-$sidenavWidth: 260px;
-
-a {
-  cursor: pointer;
-  color: blue;
-}
-
-::-webkit-scrollbar {
-  background: rgba(0, 0, 0, 0);
-  height: 8px;
-  width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.75);
-  -webkit-border-radius: 1ex;
-}
-
-::-webkit-scrollbar-corner {
-  background: rgba(0, 0, 0, 0);
-}
 
 :focus-visible {
   outline: none !important;
@@ -61,14 +39,43 @@ app-root {
   background-color: red;
 }
 
-.horizontal-divider {
-  border-bottom: 1px solid #000;
+/* Dividers */
+.inset-horizontal-divider {
+  height: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
+  width: 75%;
+}
+
+.full-horizontal-divider {
+  height: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
   width: 100%;
 }
 
-.vertical-divider {
-  border-right: 1px solid #000;
+.inset-vertical-divider {
+  width: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
+  height: 75%;
+}
+
+.full-vertical-divider {
+  width: variables.$divider-size-normal;
+  background-color: variables.$outline-variant;
   height: 100%;
+}
+
+/* Cards */
+.vertical-card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 362px;
+  padding: 30px;
+  height: 100%;
+  gap: 15px;
+  background-color: variables.$card;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
 }
 
 .NgxEditor--Disabled {

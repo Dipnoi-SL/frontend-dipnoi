@@ -1,5 +1,5 @@
 <div
-  class="wrapper"
+  class="vertical-card"
   [routerLink]="[]"
   [relativeTo]="route"
   [queryParams]="proposal.selectedQueryParam"
@@ -13,12 +13,15 @@
   />
   <div class="content">
     <h3>{{ proposal.getCurrentTitle(null) }}</h3>
-    <div class="description">
-      <p>{{ proposal.getCurrentDescription(null) }}</p>
+
+    <div class="description-container">
+      <p class="description">{{ proposal.getCurrentDescription(null) }}</p>
+      <div class="description-container-gradient"></div>
     </div>
+
     <div class="footer">
-      <div class="horizontal-divider line"></div>
-      <small>{{ proposal.user.nickname }}</small>
+      <div class="full-horizontal-divider"></div>
+      <p class="bold">{{ proposal.user.nickname }}</p>
       <img
         class="avatar"
         [ngSrc]="proposal.user.avatarUri"

@@ -1,9 +1,38 @@
-@import '../../../../_components.scss';
+@use '../../../../variables';
+@use '../../../../layouts';
+@use '../../../../components';
 
-.wrapper {
-  width: $sidenavWidth;
+p {
+  text-align: left;
 }
 
-.active {
-  background-color: grey;
+.selection-surface p {
+  font-weight: variables.$font-weight-bold;
+}
+
+.sidenav {
+  flex-grow: 1;
+}
+
+.sidenav-element {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  width: calc(100% - 24px);
+  height: 45px;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding-left: 18px;
+  padding-right: 18px;
+  gap: 12px;
+  border-radius: variables.$border-radius-base;
+}
+
+.p-adjustment {
+  margin-bottom: -3px;
+}
+
+svg {
+  fill: variables.$text-color;
 }

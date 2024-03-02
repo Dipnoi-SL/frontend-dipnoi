@@ -1,12 +1,46 @@
+@use '../../../variables';
+@use '../../../layouts';
 @import '../../../_components.scss';
 
 .wrapper {
   display: flex;
-  height: calc(100vh - $headerHeight);
+  flex-direction: row;
+  height: calc(100vh - variables.$header-height);
 }
 
-.content {
-  width: calc(100vw - 2 * $sidenavWidth - 2px);
-  height: calc(100vh - $headerHeight);
-  overflow: hidden;
+p {
+  text-align: left;
+}
+
+dipnoi-side-navigation {
+  flex-grow: 1;
+  width: 100%;
+}
+
+footer {
+  width: 100%;
+}
+
+.full-horizontal-divider {
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+.left-panel-content {
+  flex-grow: 1;
+}
+
+.right-panel-content {
+  flex-grow: 1;
+}
+
+.left-panel {
+  flex-shrink: 0;
+}
+
+.right-panel {
+  flex-shrink: 0;
 }
