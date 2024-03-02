@@ -12,20 +12,26 @@
   flex-grow: 1;
 }
 
-.description {
+.description-container {
+  position: relative;
   flex-grow: 1;
-  word-break: break-word;
   overflow: hidden;
 }
 
-h3 {
-  height: fit-content;
-  flex-shrink: 0;
+.description-container-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to top, variables.$card, rgba(0, 0, 0, 0));
+}
+
+.description {
+  position: absolute;
 }
 
 .footer {
-  height: fit-content;
-  flex-shrink: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
