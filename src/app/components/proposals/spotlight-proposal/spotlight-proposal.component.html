@@ -6,6 +6,7 @@
   queryParamsHandling="merge"
 >
   <img
+    class="image"
     [ngSrc]="proposal.thumbnailUri"
     [width]="302"
     [height]="302"
@@ -14,10 +15,7 @@
   <div class="content">
     <h3>{{ proposal.getCurrentTitle(null) }}</h3>
 
-    <div class="description-container">
-      <p class="description">{{ proposal.getCurrentDescription(null) }}</p>
-      <div class="description-container-gradient"></div>
-    </div>
+    <p class="description">{{ proposal.getCurrentDescription(null) }}</p>
 
     <div class="footer">
       <div class="full-horizontal-divider"></div>

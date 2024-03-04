@@ -12,9 +12,10 @@
   flex-grow: 1;
 }
 
-.description-container {
-  position: relative;
+.description {
   flex-grow: 1;
+  height: 1px;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -25,10 +26,6 @@
   right: 0;
   height: 30px;
   background: linear-gradient(to top, variables.$card, rgba(0, 0, 0, 0));
-}
-
-.description {
-  position: absolute;
 }
 
 h3 {
@@ -60,4 +57,8 @@ h3 {
 
 .vertical-card-spotlight {
   height: 100%;
+}
+
+.image {
+  border-radius: variables.$border-radius-base;
 }

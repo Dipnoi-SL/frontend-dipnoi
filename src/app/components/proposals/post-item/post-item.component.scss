@@ -1,20 +1,48 @@
-.wrapper {
-  cursor: pointer;
-  padding: 20px 30px;
+@use '../../../../variables';
+
+.content {
+  box-sizing: border-box;
   display: flex;
-  max-height: 100px;
-  align-items: center;
+  flex-direction: row;
+  padding: 20px 30px;
+  width: 100%;
+  height: variables.$news-list-item-height;
   gap: 15px;
+}
+
+.text-container {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.time-container {
+  display: flex;
+  flex-direction: row;
+  height: 20px;
+  width: 40px;
+  float: right;
+  justify-content: end;
+}
+
+p {
   position: relative;
-  border-bottom: 1px solid black;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  max-height: 100%;
 }
 
-.info {
-  position: absolute;
-  top: 10px;
-  right: 30px;
+.selected-text {
+  font-weight: variables.$font-weight-bold;
 }
 
-.selected {
-  font-weight: 800;
+.selected-container {
+  background-color: variables.$selection-card-color;
+}
+
+.image {
+  border-radius: variables.$border-radius-base;
+  width: 80px;
+  flex-shrink: 0;
+  flex-grow: 0;
 }

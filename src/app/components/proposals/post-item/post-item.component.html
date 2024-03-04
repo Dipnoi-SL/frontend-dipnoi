@@ -1,10 +1,16 @@
-<div class="wrapper">
-  <small class="info">{{ post.timeCreated }}</small>
+<div class="content" [ngClass]="{ 'selected-container': selected }">
   <img
+    class="image"
     [ngSrc]="post.thumbnailUri"
-    [width]="100"
+    [width]="80"
     [height]="60"
     [priority]="true"
   />
-  <p [ngClass]="{ selected }">{{ post.title }}</p>
+  <div class="text-container">
+    <div class="time-container">
+      <small>{{ post.timeCreated }}</small>
+    </div>
+
+    <p [ngClass]="{ 'selected-text': selected }">{{ post.title }}</p>
+  </div>
 </div>
