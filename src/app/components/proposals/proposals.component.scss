@@ -2,11 +2,15 @@
 @use '../../../layouts';
 @import '../../../_components.scss';
 
+:host {
+  flex-grow: 1;
+}
+
 .wrapper {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: calc(100vh - variables.$header-height);
+  height: 100%;
 }
 
 p {

@@ -69,17 +69,31 @@ h1 {
 .vertical-card-news {
   flex-direction: row;
   gap: 0px;
+  height: 0px;
 }
 
 .selected-news {
   box-sizing: border-box;
   flex-grow: 1;
   flex-shrink: 1;
-  overflow-y: scroll;
-  height: 100%;
+  overflow: hidden;
   min-width: variables.$news-cards-width;
-  margin-left: -30px;
-  padding-left: 30px;
+  padding: 30px 0px 30px 30px;
+  position: relative;
+  margin-right: 7px;
+}
+
+.selected-news-fade-fix {
+  bottom: 30px;
+  right: 22px;
+}
+
+.news-list-fade-fix {
+  right: 15px;
+}
+
+.news-list-container {
+  position: relative;
 }
 
 .news-list {
@@ -87,18 +101,14 @@ h1 {
   flex-shrink: 0;
   flex-grow: 0;
   overflow-y: scroll;
-  margin-right: -30px;
-  margin-top: -30px;
-  margin-bottom: -30px;
-  height: calc(100% + 60px);
+  height: 100%;
   border-top-right-radius: variables.$border-radius-base;
   border-bottom-right-radius: variables.$border-radius-base;
+  margin-right: 7px;
 }
 
 .full-vertical-divider {
   flex-shrink: 0;
   flex-grow: 0;
-  height: calc(100% + 60px);
-  margin-top: -30px;
-  margin-bottom: -30px;
+  height: 100%;
 }

@@ -47,14 +47,14 @@
 }
 
 /* Header */
-.header {
+.app-header {
   display: flex;
   flex-direction: column;
   height: variables.$header-height;
   background-color: variables.$surface;
 }
 
-.header-content {
+.app-header-content {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;

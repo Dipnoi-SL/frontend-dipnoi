@@ -27,18 +27,21 @@
           <div class="full-horizontal-divider"></div>
         </div>
         <div class="vertical-card vertical-card-news">
-          <ng-container *ngIf="postService.posts$ | async as posts">
-            <dipnoi-post
-              class="selected-news"
-              [post]="posts[state.selectedPost]"
-            ></dipnoi-post>
-          </ng-container>
+          <div class="selected-news">
+            <ng-container *ngIf="postService.posts$ | async as posts">
+              <dipnoi-post [post]="posts[state.selectedPost]"></dipnoi-post>
+            </ng-container>
+            <div class="fade-bottom selected-news-fade-fix"></div>
+          </div>
           <div class="full-vertical-divider"></div>
-          <div class="news-list" #infiniteScrollContainerRef>
-            <dipnoi-post-list
-              [infiniteScrollContainerRef]="infiniteScrollContainerRef"
-              (onSelectedUpdated)="onSelectedPostUpdated($event)"
-            ></dipnoi-post-list>
+          <div class="news-list-container">
+            <div class="news-list" #infiniteScrollContainerRef>
+              <dipnoi-post-list
+                [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+                (onSelectedUpdated)="onSelectedPostUpdated($event)"
+              ></dipnoi-post-list>
+            </div>
+            <div class="fade-bottom news-list-fade-fix"></div>
           </div>
         </div>
       </div>

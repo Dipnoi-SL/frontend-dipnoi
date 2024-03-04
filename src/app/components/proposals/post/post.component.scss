@@ -4,9 +4,10 @@
   box-sizing: border-box;
   flex-direction: column;
   gap: 15px;
-  padding-right: 30px;
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
+  padding-right: 15px;
 }
 
 .thumbnail {
@@ -25,9 +26,8 @@
 
 .description {
   flex-grow: 1;
-  height: 1px;
   width: 100%;
-  overflow: hidden;
+  padding-bottom: 30px;
 }
 
 .p-color {

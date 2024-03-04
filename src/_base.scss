@@ -3,8 +3,6 @@
 html {
   height: 100%;
   width: 100%;
-  scrollbar-width: thin;
-  scrollbar-color: variables.$scrollbar-color transparent;
   overflow: hidden;
 }
 
@@ -140,10 +138,20 @@ a {
 
 ::-webkit-scrollbar-thumb {
   background-color: variables.$scrollbar-color;
-  border: 1px variables.$outline-variant #8b9198;
+  border: 1px solid variables.$outline-variant;
   border-radius: 100px;
 }
 
 ::-webkit-scrollbar-corner {
   background-color: transparent; /* Makes the corner background invisible */
+}
+
+/* Fade */
+.fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to top, variables.$card, rgba(0, 0, 0, 0));
 }
