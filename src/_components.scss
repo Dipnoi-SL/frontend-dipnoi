@@ -77,6 +77,102 @@ app-root {
   @include mixins.shadow-4;
 }
 
+.horizontal-card {
+  display: flex;
+  flex-direction: row;
+  background-color: variables.$card;
+  cursor: pointer;
+  height: 125px;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
+}
+
+/* Tags */
+.label-black {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: fit-content;
+  background-color: variables.$label-black-color;
+  padding: 0px 16px;
+  border-radius: variables.$border-radius-base;
+  p {
+    color: variables.$text-color;
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
+.label-green {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: fit-content;
+  background-color: variables.$green;
+  padding: 0px 16px;
+  border-radius: variables.$border-radius-base;
+  p {
+    color: variables.$surface;
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
+.label-blue {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: fit-content;
+  background-color: variables.$blue-light;
+  padding: 0px 16px;
+  border-radius: variables.$border-radius-base;
+  p {
+    color: variables.$surface;
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
+.label-orange {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: fit-content;
+  background-color: variables.$orange;
+  padding: 0px 16px;
+  border-radius: variables.$border-radius-base;
+  p {
+    color: variables.$surface;
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
+.label-red {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: fit-content;
+  background-color: variables.$red;
+  padding: 0px 16px;
+  border-radius: variables.$border-radius-base;
+  p {
+    color: variables.$surface;
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
 .NgxEditor--Disabled {
   border: 1px solid white;
 }

@@ -1,11 +1,12 @@
 <div
-  class="wrapper"
+  class="horizontal-card"
   [routerLink]="[]"
   [relativeTo]="route"
   [queryParams]="proposal.selectedQueryParam"
   queryParamsHandling="merge"
 >
   <img
+    class="image"
     [ngSrc]="proposal.thumbnailUri"
     [width]="125"
     [height]="125"
@@ -17,26 +18,26 @@
         <ng-container
           *ngIf="{ data: userService.authUser$ | async } as authUser"
         >
-          <h3>
+          <h5>
             {{ proposal.getCurrentTitle(authUser.data) }}
-          </h3>
+          </h5>
         </ng-container>
-        <div class="inset-vertical-divider"></div>
+        <div class="full-vertical-divider"></div>
         <p>
           {{ proposal.user.nickname }}
         </p>
-        <div class="inset-vertical-divider"></div>
-        <small>
+        <div class="full-vertical-divider"></div>
+        <p>
           {{ proposal.formattedLastImportantDate }}
-        </small>
-        <div *ngIf="proposal.isSelectedForDevelopment" class="tag">
-          <small>ON HOLD</small>
+        </p>
+        <div *ngIf="proposal.isSelectedForDevelopment" class="label-orange">
+          <p>On hold</p>
         </div>
-        <div *ngIf="proposal.isInDevelopment" class="tag">
-          <small>IN DEVELOPMENT</small>
+        <div *ngIf="proposal.isInDevelopment" class="label-green">
+          <p>In development</p>
         </div>
-        <div *ngIf="proposal.isLastCall" class="tag">
-          <small>LAST CALL</small>
+        <div *ngIf="proposal.isLastCall" class="label-red">
+          <p>Last call</p>
         </div>
         <ng-container *ngIf="userService.authUser$ | async as authUser">
           <div
@@ -44,15 +45,15 @@
               proposal.isPendingSpecification &&
               authUser.id === proposal.user.id
             "
-            class="tag"
+            class="label-blue"
           >
-            <small>SELECTED</small>
+            <p>Selected</p>
           </div>
         </ng-container>
-        <div *ngFor="let tag of proposal.categories" class="tag">
-          <small>
+        <div *ngFor="let tag of proposal.categories" class="label-black">
+          <p>
             {{ tag }}
-          </small>
+          </p>
         </div>
       </div>
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
@@ -62,17 +63,22 @@
       </ng-container>
     </div>
     <div class="inset-vertical-divider"></div>
-  </div>
-  <div class="scores">
-    <p *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment">
-      {{ proposal.positiveRatio }}%
-    </p>
-    <p *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment">
-      {{ proposal.totalValue }}
-    </p>
-    <p *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment">
-      {{ proposal.importanceTag }}
-    </p>
-    <p *ngIf="proposal.cost">{{ proposal.cost }}</p>
+
+    <div class="scores">
+      <p
+        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+      >
+        {{ proposal.positiveRatio }}%
+      </p>
+      <p
+        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+      >
+        {{ proposal.totalValue }}
+      </p>
+      <p *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment">
+        {{ proposal.importanceTag }}
+      </p>
+      <p *ngIf="proposal.cost">{{ proposal.cost }}</p>
+    </div>
   </div>
 </div>

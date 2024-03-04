@@ -22,7 +22,7 @@ h1 {
   font-size: variables.$font-size-xxxl;
   color: variables.$text-color;
   line-height: variables.$font-line-height-xxl;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -36,7 +36,7 @@ h2 {
   font-size: variables.$font-size-xxl;
   color: variables.$text-color;
   line-height: variables.$font-line-height-xl;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -50,7 +50,7 @@ h3 {
   font-size: variables.$font-size-xl;
   color: variables.$text-color;
   line-height: variables.$font-line-height-lg;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -64,7 +64,7 @@ h4 {
   font-size: variables.$font-size-lg;
   color: variables.$text-color;
   line-height: variables.$font-line-height-md;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -143,7 +143,7 @@ a {
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: transparent; /* Makes the corner background invisible */
+  background-color: transparent;
 }
 
 /* Fade */
