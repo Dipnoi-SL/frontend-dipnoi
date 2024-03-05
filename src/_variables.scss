@@ -18,14 +18,8 @@ $label-black-color: #181c20;
 /* Interaction colors*/
 $selection-surface-color: #272c2f;
 $selection-card-color: #2c3135;
-$hover-surface-color: rgba(
-  $color: #272c2f,
-  $alpha: 0.5,
-);
-$hover-card-color: rgba(
-  $color: #2c3135,
-  $alpha: 0.5,
-);
+$hover-surface-color: #202427;
+$hover-card-color: #252a2d;
 
 /* Secondary colors */
 $red: #b7151e;
