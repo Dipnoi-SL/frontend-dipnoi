@@ -67,6 +67,7 @@ h1 {
 }
 
 .vertical-card-news {
+  flex-grow: 1;
   flex-direction: row;
   gap: 0px;
   height: 0px;
@@ -85,7 +86,7 @@ h1 {
 
 .selected-news-fade-fix {
   bottom: 30px;
-  right: 22px;
+  right: 16 px;
 }
 
 .news-list-fade-fix {

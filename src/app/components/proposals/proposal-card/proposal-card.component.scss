@@ -1,34 +1,40 @@
 @use '../../../../variables';
 
 .content {
+  box-sizing: border-box;
   display: flex;
-  margin: 15px;
-  gap: 15px;
+  padding: 15px 30px;
+  gap: 30px;
   flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
 }
 
 .summary {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   flex-grow: 1;
-  flex: 1;
+  flex-shrink: 1;
+  height: 100%;
   gap: 10px;
 }
 
 .header {
   display: flex;
+  height: fit-content;
   flex-direction: row;
   align-items: center;
   gap: 12px;
-}
-
-.tag {
-  border: 1px solid black;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .description {
-  height: 60px;
-  line-height: 20px;
+  flex-grow: 1;
+  flex-shrink: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -41,13 +47,20 @@
   flex-grow: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  gap: 5px;
   align-items: center;
+  width: fit-content;
+  height: 100%;
 }
 
 .inset-vertical-divider {
   flex-shrink: 0;
   flex-grow: 0;
+}
+
+.inset-vertical-divider-mod {
+  margin-top: -20px;
+  margin-bottom: -20px;
 }
 
 .full-vertical-divider {

@@ -7,10 +7,9 @@
     [priority]="true"
   />
   <div class="text-container">
+    <p [ngClass]="{ 'selected-text': selected }">{{ post.title }}</p>
     <div class="time-container">
       <small>{{ post.timeCreated }}</small>
     </div>
-
-    <p [ngClass]="{ 'selected-text': selected }">{{ post.title }}</p>
   </div>
 </div>
