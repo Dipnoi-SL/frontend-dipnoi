@@ -39,6 +39,16 @@ app-root {
   background-color: red;
 }
 
+.hover-card:hover {
+  cursor: pointer;
+  background-color: variables.$hover-card-color;
+}
+
+.hover-surface:hover {
+  cursor: pointer;
+  background-color: variables.$hover-surface-color;
+}
+
 /* Dividers */
 .inset-horizontal-divider {
   height: variables.$divider-size-normal;
@@ -81,7 +91,6 @@ app-root {
   display: flex;
   flex-direction: row;
   background-color: variables.$card;
-  cursor: pointer;
   height: 125px;
   border-radius: variables.$border-radius-base;
   @include mixins.shadow-4;
