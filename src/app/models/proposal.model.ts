@@ -88,15 +88,7 @@ export class Proposal extends AbstractEntity {
   }
 
   get importanceTag() {
-    return this.importance > 4
-      ? 'MAX'
-      : this.importance > 3
-        ? 'HIGH'
-        : this.importance > 2
-          ? 'MED'
-          : this.importance > 1
-            ? 'LOW'
-            : 'MIN';
+    return this.importance;
   }
 
   get selectedQueryParam() {

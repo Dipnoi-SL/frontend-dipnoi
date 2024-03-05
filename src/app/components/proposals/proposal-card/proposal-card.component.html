@@ -52,7 +52,7 @@
         </ng-container>
         <div *ngFor="let tag of proposal.categories" class="label-black">
           <p>
-            {{ tag }}
+            {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
           </p>
         </div>
       </div>
