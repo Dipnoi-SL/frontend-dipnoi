@@ -86,7 +86,7 @@ h1 {
 
 .selected-news-fade-fix {
   bottom: 30px;
-  right: 16 px;
+  right: 8px;
 }
 
 .news-list-fade-fix {
@@ -103,8 +103,6 @@ h1 {
   flex-grow: 0;
   overflow-y: scroll;
   height: 100%;
-  border-top-right-radius: variables.$border-radius-base;
-  border-bottom-right-radius: variables.$border-radius-base;
   margin-right: 7px;
 }
 

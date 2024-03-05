@@ -123,27 +123,77 @@ a {
 
 /* Interactions*/
 .selection-surface {
-  background-color: variables.$selection-surface-color;
+  background-color: variables.$selection-surface-color !important;
 }
 
 .selection-card {
+  background-color: variables.$selection-card-color !important;
+}
+
+.hover-card:hover {
+  cursor: pointer;
+  background-color: variables.$hover-card-color;
+
+  .fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$hover-card-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+.hover-card:active {
   background-color: variables.$selection-card-color;
+
+  .fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$selection-card-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+.hover-surface:hover {
+  cursor: pointer;
+  background-color: variables.$hover-surface-color;
+
+  .fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$hover-surface-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+.hover-surface:active {
+  background-color: variables.$selection-surface-color;
+
+  .fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$selection-surface-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
 }
 
 /* Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
-  background-color: transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: variables.$scrollbar-color;
+  background: variables.$scrollbar-color;
   border: 1px solid variables.$outline-variant;
   border-radius: 100px;
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: transparent;
+  background: transparent;
 }
 
 /* Fade */
@@ -153,5 +203,9 @@ a {
   left: 0;
   right: 0;
   height: 30px;
-  background: linear-gradient(to top, variables.$card, rgba(0, 0, 0, 0));
+  background: linear-gradient(
+    to top,
+    rgba($color: variables.$card, $alpha: 1),
+    rgba(0, 0, 0, 0)
+  );
 }

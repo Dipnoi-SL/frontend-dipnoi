@@ -39,16 +39,6 @@ app-root {
   background-color: red;
 }
 
-.hover-card:hover {
-  cursor: pointer;
-  background-color: variables.$hover-card-color;
-}
-
-.hover-surface:hover {
-  cursor: pointer;
-  background-color: variables.$hover-surface-color;
-}
-
 /* Dividers */
 .inset-horizontal-divider {
   height: variables.$divider-size-normal;
