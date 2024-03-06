@@ -31,7 +31,7 @@
             <ng-container *ngIf="postService.posts$ | async as posts">
               <dipnoi-post [post]="posts[state.selectedPost]"></dipnoi-post>
             </ng-container>
-            <div class="fade-bottom selected-news-fade-fix"></div>
+            <div class="card-fade-bottom selected-news-fade-fix"></div>
           </div>
           <div class="full-vertical-divider"></div>
           <div class="news-list-container">
@@ -41,7 +41,7 @@
                 (onSelectedUpdated)="onSelectedPostUpdated($event)"
               ></dipnoi-post-list>
             </div>
-            <div class="fade-bottom news-list-fade-fix"></div>
+            <div class="card-fade-bottom news-list-fade-fix"></div>
           </div>
         </div>
       </div>

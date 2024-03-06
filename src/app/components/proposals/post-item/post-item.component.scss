@@ -19,15 +19,22 @@
 }
 
 .time-container {
+  position: relative;
   display: flex;
   flex-direction: row;
   height: 100%;
-  width: 40px;
+  width: 30px;
   float: right;
   justify-content: end;
   align-items: start;
   flex-shrink: 0;
   flex-grow: 0;
+}
+
+small {
+  position: absolute;
+  right: -15px;
+  top: -5px;
 }
 
 p {

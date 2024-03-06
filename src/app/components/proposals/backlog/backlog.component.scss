@@ -1,10 +1,18 @@
 .wrapper {
   height: 100%;
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .content-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.list-wrapper {
+  height: 0px;
+  flex-grow: 1;
+  overflow-y: scroll;
 }

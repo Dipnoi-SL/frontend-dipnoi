@@ -30,13 +30,13 @@
         <p>
           {{ proposal.formattedLastImportantDate }}
         </p>
-        <div *ngIf="proposal.isSelectedForDevelopment" class="label-orange">
+        <div *ngIf="proposal.isSelectedForDevelopment" class="tag tag-orange">
           <p>On hold</p>
         </div>
-        <div *ngIf="proposal.isInDevelopment" class="label-green">
+        <div *ngIf="proposal.isInDevelopment" class="tag tag-green">
           <p>In development</p>
         </div>
-        <div *ngIf="proposal.isLastCall" class="label-red">
+        <div *ngIf="proposal.isLastCall" class="tag tag-red">
           <p>Last call</p>
         </div>
         <ng-container *ngIf="userService.authUser$ | async as authUser">
@@ -45,12 +45,12 @@
               proposal.isPendingSpecification &&
               authUser.id === proposal.user.id
             "
-            class="label-blue"
+            class="tag tag-blue"
           >
             <p>Selected</p>
           </div>
         </ng-container>
-        <div *ngFor="let tag of proposal.categories" class="label-black">
+        <div *ngFor="let tag of proposal.categories" class="tag tag-black">
           <p>
             {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
           </p>
@@ -65,20 +65,35 @@
     <div class="full-vertical-divider inset-vertical-divider-mod"></div>
 
     <div class="scores">
-      <p
+      <div
         *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        class="score-row"
       >
-        {{ proposal.positiveRatio }}%
-      </p>
-      <p
+        <p>{{ proposal.positiveRatio }}%</p>
+        <h4>A</h4>
+      </div>
+      <div
         *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        class="score-row"
       >
-        {{ proposal.totalValue }}
-      </p>
-      <p *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment">
-        {{ proposal.importanceTag }}
-      </p>
-      <p *ngIf="proposal.cost">{{ proposal.cost }}</p>
+        <p>
+          {{ proposal.prettyTotalValue }}
+        </p>
+        <h4>B</h4>
+      </div>
+      <div
+        *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
+        class="score-row"
+      >
+        <p>
+          {{ proposal.prettyImportance }}
+        </p>
+        <h4>C</h4>
+      </div>
+      <div *ngIf="proposal.cost" class="score-row">
+        <p>{{ proposal.prettyCost }}</p>
+        <h4>D</h4>
+      </div>
     </div>
   </div>
 </div>

@@ -3,7 +3,6 @@
 html {
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 
 /* Font tags */
@@ -134,7 +133,7 @@ a {
   cursor: pointer;
   background-color: variables.$hover-card-color;
 
-  .fade-bottom {
+  .card-fade-bottom {
     background: linear-gradient(
       to top,
       variables.$hover-card-color,
@@ -146,7 +145,7 @@ a {
 .hover-card:active {
   background-color: variables.$selection-card-color;
 
-  .fade-bottom {
+  .card-fade-bottom {
     background: linear-gradient(
       to top,
       variables.$selection-card-color,
@@ -159,7 +158,7 @@ a {
   cursor: pointer;
   background-color: variables.$hover-surface-color;
 
-  .fade-bottom {
+  .card-fade-bottom {
     background: linear-gradient(
       to top,
       variables.$hover-surface-color,
@@ -171,7 +170,7 @@ a {
 .hover-surface:active {
   background-color: variables.$selection-surface-color;
 
-  .fade-bottom {
+  .card-fade-bottom {
     background: linear-gradient(
       to top,
       variables.$selection-surface-color,
@@ -197,7 +196,7 @@ a {
 }
 
 /* Fade */
-.fade-bottom {
+.card-fade-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -206,6 +205,19 @@ a {
   background: linear-gradient(
     to top,
     rgba($color: variables.$card, $alpha: 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.surface-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(
+    to top,
+    rgba($color: variables.$surface, $alpha: 1),
     rgba(0, 0, 0, 0)
   );
 }
