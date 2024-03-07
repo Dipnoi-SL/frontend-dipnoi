@@ -80,8 +80,10 @@ app-root {
 .horizontal-card {
   display: flex;
   flex-direction: row;
+  box-sizing: border-box;
   background-color: variables.$card;
   height: 125px;
+  width: 100%;
   border-radius: variables.$border-radius-base;
   @include mixins.shadow-4;
 }

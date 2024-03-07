@@ -27,7 +27,9 @@
             "styles": [
               "src/_components.scss",
               "src/_variables.scss",
-              "src/_base.scss"
+              "src/_base.scss",
+              "src/_layouts.scss",
+              "src/_mixins.scss"
             ],
             "scripts": []
           },
@@ -78,7 +80,9 @@
             "styles": [
               "src/_components.scss",
               "src/_variables.scss",
-              "src/_base.scss"
+              "src/_base.scss",
+              "src/_layouts.scss",
+              "src/_mixins.scss"
             ],
             "scripts": []
           }

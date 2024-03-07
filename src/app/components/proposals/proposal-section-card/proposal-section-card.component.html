@@ -1,29 +1,33 @@
-<div *ngIf="proposal.isFirstInSection(previousProposal)" class="section">
-  <div class="inset-horizontal-divider section-divider"></div>
-  <p>{{ proposal.formattedLastImportantDate }}</p>
-  <div class="inset-horizontal-divider section-divider"></div>
-</div>
-<div
-  class="wrapper hover-card"
-  [routerLink]="[]"
-  [relativeTo]="route"
-  [queryParams]="proposal.selectedQueryParam"
-  queryParamsHandling="merge"
->
-  <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
-    <div class="column">{{ proposal.getCurrentTitle(authUser.data) }}</div>
-  </ng-container>
-  <div class="column">{{ proposal.user.nickname }}</div>
-  <div class="column">
-    <div *ngFor="let tag of proposal.categories" class="tag">
-      <small>
-        {{ tag }}
-      </small>
-    </div>
+<div class="wrapper">
+  <div *ngIf="proposal.isFirstInSection(previousProposal)" class="section">
+    <div class="full-horizontal-divider section-divider"></div>
+    <h5 class="date">
+      {{ proposal.lastImportantDate | date: 'MMMM, y' | uppercase }}
+    </h5>
+    <div class="full-horizontal-divider section-divider"></div>
   </div>
-  <div class="column">Created {{ proposal.formattedCreatedAt }}</div>
-  <div class="column">
-    {{ proposal.isCompleted ? 'Implemented' : 'Archived' }}
-    {{ proposal.formattedLastImportantDate }}
+  <div
+    class="horizontal-card hover-card"
+    [routerLink]="[]"
+    [relativeTo]="route"
+    [queryParams]="proposal.selectedQueryParam"
+    queryParamsHandling="merge"
+  >
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+      <h5 class="h5-title">{{ proposal.getCurrentTitle(authUser.data) }}</h5>
+    </ng-container>
+    <h5 class="h5-user">{{ proposal.user.nickname }}</h5>
+    <div class="tags">
+      <div *ngFor="let tag of proposal.categories" class="label-black">
+        <h5>
+          {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
+        </h5>
+      </div>
+    </div>
+    <h5 class="h5-date-created">Created {{ proposal.formattedCreatedAt }}</h5>
+    <h5 class="h5-date-finalized">
+      {{ proposal.isCompleted ? 'Implemented' : 'Archived' }}
+      {{ proposal.formattedLastImportantDate }}
+    </h5>
   </div>
 </div>

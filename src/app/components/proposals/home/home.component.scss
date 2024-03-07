@@ -1,15 +1,16 @@
 @use '../../../../variables';
+
 :host {
   flex-grow: 1;
   height: 100%;
 }
 
-.wrapper {
-  height: 100%;
-  width: 100%;
+.central-frame-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+  height: 100%;
+  width: 100%;
 }
 
 dipnoi-spotlight-proposal {
