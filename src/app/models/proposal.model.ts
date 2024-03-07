@@ -81,14 +81,50 @@ export class Proposal extends AbstractEntity {
     return this.positiveValue + this.negativeValue;
   }
 
+  get prettyTotalValue() {
+    const millions = Math.floor(this.totalValue / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.totalValue / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.round(this.totalValue);
+  }
+
+  get prettyCost() {
+    if (this.cost === null) {
+      return null;
+    }
+
+    const millions = Math.floor(this.cost / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.cost / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return this.cost;
+  }
+
+  get prettyImportance() {
+    return this.importance.toFixed(2).toString().replace('.', ',');
+  }
+
   get positiveRatio() {
     return this.totalValue
       ? Math.round((100 * this.positiveValue) / this.totalValue)
       : 0;
-  }
-
-  get importanceTag() {
-    return this.importance;
   }
 
   get selectedQueryParam() {

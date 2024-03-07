@@ -89,88 +89,59 @@ app-root {
 }
 
 /* Tags */
-.label-black {
+.tag {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 18px;
+  height: 20px;
   width: fit-content;
-  background-color: variables.$label-black-color;
-  padding: 0px 16px;
+  padding: 0px 12px;
   border-radius: variables.$border-radius-base;
+
+  p {
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
+.tag-black {
+  background-color: variables.$tag-black-color;
+
   p {
     color: variables.$text-color;
-    font-weight: variables.$font-weight-medium;
   }
 }
 
-.label-green {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 18px;
-  width: fit-content;
+.tag-green {
   background-color: variables.$green;
-  padding: 0px 16px;
-  border-radius: variables.$border-radius-base;
+
   p {
     color: variables.$surface;
-    font-weight: variables.$font-weight-medium;
   }
 }
 
-.label-blue {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 18px;
-  width: fit-content;
+.tag-blue {
   background-color: variables.$blue-light;
-  padding: 0px 16px;
-  border-radius: variables.$border-radius-base;
+
   p {
     color: variables.$surface;
-    font-weight: variables.$font-weight-medium;
   }
 }
 
-.label-orange {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 18px;
-  width: fit-content;
+.tag-orange {
   background-color: variables.$orange;
-  padding: 0px 16px;
-  border-radius: variables.$border-radius-base;
+
   p {
     color: variables.$surface;
-    font-weight: variables.$font-weight-medium;
   }
 }
 
-.label-red {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 18px;
-  width: fit-content;
+.tag-red {
   background-color: variables.$red;
-  padding: 0px 16px;
-  border-radius: variables.$border-radius-base;
+
   p {
     color: variables.$surface;
-    font-weight: variables.$font-weight-medium;
   }
 }
 
