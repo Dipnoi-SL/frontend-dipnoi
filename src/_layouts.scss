@@ -30,7 +30,7 @@
   justify-content: center;
   align-items: center;
   background-color: variables.$surface;
-  height: variables.$header-height;
+  height: calc(variables.$header-height - 1px);
 }
 
 /* Right panel*/

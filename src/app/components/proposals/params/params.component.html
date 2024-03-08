@@ -42,6 +42,14 @@
         </div>
       </div>
     </div>
-    <input type="text" [(ngModel)]="search" (keydown)="debounceSearch()" />
+    <div class="search-bar">
+      <input
+        class="text-field"
+        type="text"
+        [(ngModel)]="search"
+        (keydown)="debounceSearch()"
+        placeholder="Search"
+      />
+    </div>
   </div>
 </ng-container>
