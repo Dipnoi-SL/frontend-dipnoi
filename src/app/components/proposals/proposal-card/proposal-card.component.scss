@@ -49,6 +49,8 @@
   flex-grow: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  justify-content: space-evenly;
   margin-top: -15px;
   margin-bottom: -15px;
   height: calc(100% + 30px);
@@ -59,6 +61,22 @@
   flex-direction: row;
   align-items: center;
   gap: 10px;
+}
+
+.p-score-text {
+  width: 40px;
+  height: fit-content;
+  text-align: end;
+  font-weight: variables.$font-weight-medium;
+}
+
+.score-icon-container {
+  display: flex;
+  flex-direction: row;
+  width: 40px;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
 }
 
 .inset-vertical-divider {

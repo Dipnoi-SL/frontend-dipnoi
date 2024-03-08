@@ -69,30 +69,30 @@
         *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
         class="score-row"
       >
-        <p>{{ proposal.positiveRatio }}%</p>
-        <h4>A</h4>
+        <p class="p-score-text">{{ proposal.positiveRatio }}%</p>
+        <h4 class="score-icon-container">A</h4>
       </div>
       <div
         *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
         class="score-row"
       >
-        <p>
+        <p class="p-score-text">
           {{ proposal.prettyTotalValue }}
         </p>
-        <h4>B</h4>
+        <h4 class="score-icon-container">B</h4>
       </div>
       <div
         *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
         class="score-row"
       >
-        <p>
+        <p class="p-score-text">
           {{ proposal.prettyImportance }}
         </p>
-        <h4>C</h4>
+        <h4 class="score-icon-container">C</h4>
       </div>
       <div *ngIf="proposal.cost" class="score-row">
-        <p>{{ proposal.prettyCost }}</p>
-        <h4>D</h4>
+        <p class="p-score-text">{{ proposal.prettyCost }}</p>
+        <h4 class="score-icon-container">D</h4>
       </div>
     </div>
   </div>
