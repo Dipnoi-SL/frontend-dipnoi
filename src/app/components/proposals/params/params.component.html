@@ -1,5 +1,5 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="wrapper">
+  <div class="search-tools-panel">
     <div *ngIf="orderOptions" class="dropdown" (click)="toggleOrderDropdown()">
       <div class="dropdown-button">
         <p>{{ orderOptions[state.params.selectedOrder] }}</p>

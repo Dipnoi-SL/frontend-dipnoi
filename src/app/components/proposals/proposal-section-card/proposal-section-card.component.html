@@ -18,7 +18,7 @@
     </ng-container>
     <h5 class="h5-user">{{ proposal.user.nickname }}</h5>
     <div class="tags">
-      <div *ngFor="let tag of proposal.categories" class="label-black">
+      <div *ngFor="let tag of proposal.categories" class="tag tag-black">
         <h5>
           {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
         </h5>

@@ -97,7 +97,7 @@ app-root {
   align-items: center;
   height: 18px;
   width: fit-content;
-  padding: 0px 12px;
+  padding: 0px 15px;
   border-radius: variables.$border-radius-base;
 
   p {
@@ -143,6 +143,22 @@ app-root {
   p {
     color: variables.$surface;
   }
+}
+
+/* Buttons */
+.dropdown-button {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  padding: 0 15px;
+  width: fit-content;
+  height: 34px;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: variables.$card;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
 }
 
 .NgxEditor--Disabled {

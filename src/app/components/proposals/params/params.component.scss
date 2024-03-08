@@ -1,11 +1,9 @@
-.wrapper {
+:host {
   display: flex;
-  gap: 30px;
-}
-
-.dropdown-button {
-  display: flex;
-  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+  justify-content: end;
 }
 
 .dropdown {

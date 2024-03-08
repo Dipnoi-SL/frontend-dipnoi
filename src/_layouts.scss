@@ -91,3 +91,12 @@
   flex-direction: column;
   gap: 10px;
 }
+
+/* Search, ordering and filtering panel */
+.search-tools-panel {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: fit-content;
+  gap: 30px;
+}
