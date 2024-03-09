@@ -3,19 +3,21 @@
     <div *ngIf="orderOptions" class="dropdown" (click)="toggleOrderDropdown()">
       <div class="dropdown-button">
         <p>{{ orderOptions[state.params.selectedOrder] }}</p>
-        <ng-icon name="matExpandMoreOutline"></ng-icon>
+        <img class="score-icon" src="../../../../assets/icons/dropdown.svg" />
       </div>
       <div
-        class="dropdown-content"
+        class="dropdown-base"
         [style.display]="state.isOrderDropdownOpen ? 'block' : 'none'"
       >
         <div
           *ngFor="let option of orderOptions; let i = index"
           (click)="onOrderChange(i)"
         >
-          <p>
-            {{ option }}
-          </p>
+          <div class="dropdown-option">
+            <p>
+              {{ option }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -26,23 +28,29 @@
     >
       <div class="dropdown-button">
         <p>{{ filterOptions[state.params.selectedFilter] }}</p>
-        <ng-icon name="matExpandMoreOutline"></ng-icon>
+        <img class="score-icon" src="../../../../assets/icons/dropdown.svg" />
       </div>
       <div
-        class="dropdown-content"
+        class="dropdown-base"
         [style.display]="state.isFilterDropdownOpen ? 'block' : 'none'"
       >
         <div
           *ngFor="let option of filterOptions; let i = index"
           (click)="onFilterChange(i)"
         >
-          <p>
-            {{ option }}
-          </p>
+          <div class="dropdown-option">
+            <p>
+              {{ option }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
     <div class="search-bar">
+      <img
+        class="score-icon"
+        src="../../../../assets/icons/magnifying-glass.svg"
+      />
       <input
         class="text-field"
         type="text"

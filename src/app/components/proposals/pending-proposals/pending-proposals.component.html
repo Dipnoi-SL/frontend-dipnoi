@@ -4,11 +4,13 @@
       <div class="content-header-section">
         <h1>Pending proposals</h1>
         <div
+          class="button-base"
           [routerLink]="[]"
           [relativeTo]="route"
           [queryParams]="proposalCreationQueryParam"
           queryParamsHandling="merge"
         >
+          <img class="score-icon" src="../../../../assets/icons/add.svg" />
           Create
         </div>
       </div>
