@@ -1,5 +1,5 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="central-frame-content" #infiniteScrollContainerRef>
+  <div class="central-frame-content">
     <div class="central-frame-content-header">
       <div class="content-header-section">
         <h1>Pending proposals</h1>
@@ -52,9 +52,12 @@
         <div class="inset-horizontal-divider single-divider"></div>
       </div>
     </ng-container>
-    <dipnoi-proposal-list
-      [infiniteScrollContainerRef]="infiniteScrollContainerRef"
-      [params]="state.params"
-    ></dipnoi-proposal-list>
+    <div class="list-wrapper" #infiniteScrollContainerRef>
+      <dipnoi-proposal-list
+        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        [params]="state.params"
+      ></dipnoi-proposal-list>
+    </div>
+    <div class="surface-fade-bottom wrapper-fade-fix"></div>
   </div>
 </ng-container>

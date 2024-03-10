@@ -204,8 +204,10 @@ app-root {
 
 /* Dropdown menus */
 .dropdown-base {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: end;
   height: fit-content;
   width: fit-content;
   background-color: variables.$card;
@@ -213,7 +215,7 @@ app-root {
   position: absolute;
   z-index: 1;
   top: calc(100% + 5px);
-  left: 0;
+  right: 0;
 
   @include mixins.shadow-4;
 }
@@ -222,9 +224,23 @@ app-root {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: right;
   box-sizing: border-box;
   padding: 0px 15px;
   height: 34px;
+  width: 100%;
+}
+
+/* Infinite list wrapper */
+
+.list-wrapper {
+  height: 0px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  margin-right: 7px;
+}
+
+.dropdown-option-text {
   width: max-content;
 }
 
