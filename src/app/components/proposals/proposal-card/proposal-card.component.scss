@@ -88,6 +88,15 @@
   flex-shrink: 0;
 }
 
+.position-adjustment {
+  transform: translateY(-1px);
+}
+
+.tag {
+  gap: 5px;
+  padding-left: 11px;
+}
+
 .inset-vertical-divider {
   flex-shrink: 0;
   flex-grow: 0;

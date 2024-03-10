@@ -10,28 +10,32 @@
           [queryParams]="proposalCreationQueryParam"
           queryParamsHandling="merge"
         >
-          <img class="score-icon" src="../../../../assets/icons/add.svg" />
+          <img src="../../../../assets/icons/add.svg" />
           Create
         </div>
       </div>
-      <div class="content-header-section">
-        <ng-container *ngIf="userService.authUser$ | async">
-          <ng-container
-            *ngIf="proposalService.pinnedProposals$ | async as pinnedProposals"
-          >
-            <dipnoi-toggle
-              *ngIf="pinnedProposals.length"
-              (onToggleUpdated)="handleOnToggleUpdated($event)"
-            ></dipnoi-toggle>
+      <div class="wrapper">
+        <div class="search-tools-panel">
+          <ng-container *ngIf="userService.authUser$ | async">
+            <ng-container
+              *ngIf="
+                proposalService.pinnedProposals$ | async as pinnedProposals
+              "
+            >
+              <dipnoi-toggle
+                *ngIf="pinnedProposals.length"
+                (onToggleUpdated)="handleOnToggleUpdated($event)"
+              ></dipnoi-toggle>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <dipnoi-params
-          (onParamsUpdated)="handleOnParamsUpdated($event)"
-          [filterOptions]="filterOptions"
-          [orderOptions]="orderOptions"
-          [defaultFilter]="4"
-          [defaultOrder]="0"
-        ></dipnoi-params>
+          <dipnoi-params
+            (onParamsUpdated)="handleOnParamsUpdated($event)"
+            [filterOptions]="filterOptions"
+            [orderOptions]="orderOptions"
+            [defaultFilter]="4"
+            [defaultOrder]="0"
+          ></dipnoi-params>
+        </div>
       </div>
     </div>
     <ng-container
@@ -45,7 +49,7 @@
           *ngFor="let proposal of pinnedProposals"
           [proposal]="proposal"
         ></dipnoi-proposal-card>
-        <div class="inset-horizontal-divider"></div>
+        <div class="inset-horizontal-divider single-divider"></div>
       </div>
     </ng-container>
     <dipnoi-proposal-list
