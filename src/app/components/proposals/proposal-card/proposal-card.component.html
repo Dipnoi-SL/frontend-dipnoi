@@ -75,7 +75,31 @@
       >
         <p class="p-score-text">{{ proposal.positiveRatio }}%</p>
         <div class="score-icon-container">
-          <img class="score-icon" src="../../../../assets/icons/euro.svg" />
+          <img
+            *ngIf="proposal.positiveRatio < 20"
+            class="score-icon"
+            src="../../../../assets/icons/battery-red.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 20 && proposal.positiveRatio < 40"
+            class="score-icon"
+            src="../../../../assets/icons/battery-orange.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 40 && proposal.positiveRatio < 60"
+            class="score-icon"
+            src="../../../../assets/icons/battery-yellow.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 60 && proposal.positiveRatio < 80"
+            class="score-icon"
+            src="../../../../assets/icons/battery-olive.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 80"
+            class="score-icon"
+            src="../../../../assets/icons/battery-green.svg"
+          />
         </div>
       </div>
       <div
@@ -86,7 +110,7 @@
           {{ proposal.prettyTotalValue }}
         </p>
         <div class="score-icon-container">
-          <img class="score-icon" src="../../../../assets/icons/euro.svg" />
+          <img class="score-icon" src="../../../../assets/icons/thumbs.svg" />
         </div>
       </div>
       <div
@@ -97,7 +121,31 @@
           {{ proposal.prettyImportance }}
         </p>
         <div class="score-icon-container">
-          <img class="score-icon" src="../../../../assets/icons/euro.svg" />
+          <img
+            *ngIf="proposal.importance < 1"
+            class="score-icon"
+            src="../../../../assets/icons/chevron-down-double.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 1 && proposal.importance < 2"
+            class="score-icon"
+            src="../../../../assets/icons/chevron-down-single.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 2 && proposal.importance < 3"
+            class="score-icon"
+            src="../../../../assets/icons/equal.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 3 && proposal.importance < 4"
+            class="score-icon"
+            src="../../../../assets/icons/chevron-up-single.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 4"
+            class="score-icon"
+            src="../../../../assets/icons/chevron-up-double.svg"
+          />
         </div>
       </div>
       <div *ngIf="proposal.cost" class="score-row">
