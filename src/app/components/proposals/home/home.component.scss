@@ -1,11 +1,18 @@
 @use '../../../../variables';
 
-.wrapper {
+:host {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.central-frame-content {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0px 30px;
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 dipnoi-spotlight-proposal {
@@ -18,15 +25,17 @@ h1 {
 
 .content {
   flex-grow: 1;
+  width: 100%;
   flex-direction: row;
   display: flex;
   gap: 30px;
 }
 
 .proposals {
-  min-width: 362px;
+  width: variables.$news-cards-width;
   height: 100%;
-  flex-grow: 1;
+  flex-shrink: 0;
+  flex-grow: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -54,25 +63,54 @@ h1 {
 .news {
   display: flex;
   flex-direction: column;
+  flex-shrink: 1;
   flex-grow: 1;
   height: 100%;
   gap: 10px;
 }
 
-.news-content {
+.vertical-card-news {
   flex-grow: 1;
-  border: 1px solid black;
-  display: flex;
-  overflow: hidden;
+  flex-direction: row;
+  gap: 0px;
+  height: 0px;
 }
 
 .selected-news {
+  box-sizing: border-box;
   flex-grow: 1;
-  border-right: 1px solid black;
-  overflow-y: scroll;
+  flex-shrink: 1;
+  overflow: hidden;
+  min-width: variables.$news-cards-width;
+  padding: 30px 0px 30px 30px;
+  position: relative;
+  margin-right: 7px;
+}
+
+.selected-news-fade-fix {
+  bottom: 30px;
+  right: 8px;
+}
+
+.news-list-fade-fix {
+  right: 15px;
+}
+
+.news-list-container {
+  position: relative;
 }
 
 .news-list {
-  min-width: 392px;
+  width: variables.$news-cards-width;
+  flex-shrink: 0;
+  flex-grow: 0;
   overflow-y: scroll;
+  height: 100%;
+  margin-right: 7px;
+}
+
+.full-vertical-divider {
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 100%;
 }

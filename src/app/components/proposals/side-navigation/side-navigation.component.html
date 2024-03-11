@@ -1,6 +1,6 @@
 <div class="sidenav">
   <div
-    class="sidenav-element"
+    class="sidenav-element hover-surface"
     [routerLink]="homeItem.path"
     routerLinkActive="selection-surface"
   >
@@ -20,7 +20,7 @@
     <p class="p-adjustment">{{ homeItem.title }}</p>
   </div>
   <div
-    class="sidenav-element"
+    class="sidenav-element hover-surface"
     [routerLink]="backlogItem.path"
     routerLinkActive="selection-surface"
   >
@@ -40,7 +40,7 @@
   </div>
   <div class="inset-horizontal-divider"></div>
   <div
-    class="sidenav-element"
+    class="sidenav-element hover-surface"
     [routerLink]="openProposalsItem.path"
     routerLinkActive="selection-surface"
   >
@@ -60,7 +60,7 @@
     <p>{{ openProposalsItem.title }}</p>
   </div>
   <div
-    class="sidenav-element"
+    class="sidenav-element hover-surface"
     [routerLink]="pendingProposalsItem.path"
     routerLinkActive="selection-surface"
   >
@@ -80,7 +80,7 @@
   </div>
   <ng-container *ngIf="userService.authUser$ | async as authUser">
     <div
-      class="sidenav-element"
+      class="sidenav-element hover-surface"
       *ngIf="authUser.isDeveloper"
       [routerLink]="pendingReviewItem.path"
       routerLinkActive="selection-surface"
@@ -102,7 +102,7 @@
   </ng-container>
   <div class="inset-horizontal-divider"></div>
   <div
-    class="sidenav-element"
+    class="sidenav-element hover-surface"
     [routerLink]="changelogItem.path"
     routerLinkActive="selection-surface"
   >
@@ -122,7 +122,7 @@
     <p>{{ changelogItem.title }}</p>
   </div>
   <div
-    class="sidenav-element"
+    class="sidenav-element hover-surface"
     [routerLink]="archiveItem.path"
     routerLinkActive="selection-surface"
   >

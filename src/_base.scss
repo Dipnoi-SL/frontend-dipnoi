@@ -2,14 +2,13 @@
 
 html {
   height: 100%;
-  scrollbar-color: variables.$scrollbar-color #00000000;
-  scrollbar-width: auto;
-  overflow: hidden;
+  width: 100%;
 }
 
 /* Font tags */
 body {
   height: 100%;
+  width: 100%;
 }
 
 body {
@@ -22,7 +21,7 @@ h1 {
   font-size: variables.$font-size-xxxl;
   color: variables.$text-color;
   line-height: variables.$font-line-height-xxl;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -36,7 +35,7 @@ h2 {
   font-size: variables.$font-size-xxl;
   color: variables.$text-color;
   line-height: variables.$font-line-height-xl;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -50,7 +49,7 @@ h3 {
   font-size: variables.$font-size-xl;
   color: variables.$text-color;
   line-height: variables.$font-line-height-lg;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -64,7 +63,7 @@ h4 {
   font-size: variables.$font-size-lg;
   color: variables.$text-color;
   line-height: variables.$font-line-height-md;
-  font-weight: variables.$font-weight-bold;
+  font-weight: variables.$font-weight-medium;
   letter-spacing: variables.$font-letter-spacing-tightest;
   margin-top: variables.$font-paragraph-spacing-normal;
   margin-bottom: variables.$font-paragraph-spacing-normal;
@@ -104,7 +103,7 @@ p {
 small {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-xs;
-  color: variables.$text-color;
+  color: variables.$outline;
   line-height: variables.$font-line-height-xs;
   font-weight: variables.$font-weight-normal;
   letter-spacing: variables.$font-letter-spacing-normal;
@@ -123,22 +122,126 @@ a {
 
 /* Interactions*/
 .selection-surface {
+  background-color: variables.$selection-surface-color !important;
+}
+
+.selection-card {
+  background-color: variables.$selection-card-color !important;
+}
+
+.hover-card:hover {
+  cursor: pointer;
+  background-color: variables.$hover-card-color;
+
+  .card-fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$hover-card-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+.hover-card:active {
+  background-color: variables.$selection-card-color;
+
+  .card-fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$selection-card-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+.hover-surface:hover {
+  cursor: pointer;
+  background-color: variables.$hover-surface-color;
+
+  .card-fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$hover-surface-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+.hover-surface:active {
   background-color: variables.$selection-surface-color;
+
+  .card-fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$selection-surface-color,
+      rgba(0, 0, 0, 0)
+    );
+  }
 }
 
 /* Scrollbars */
 ::-webkit-scrollbar {
-  background: #00000000;
-  height: 8px;
   width: 8px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: variables.$scrollbar-color;
-  -webkit-border-radius: 100px;
-  width: 8px;
+  border: 1px solid variables.$outline-variant;
+  border-radius: 100px;
 }
 
 ::-webkit-scrollbar-corner {
-  background: #00000000;
+  background: transparent;
+}
+
+/* Fade */
+.card-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(
+    to top,
+    rgba($color: variables.$card, $alpha: 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.surface-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(
+    to top,
+    rgba($color: variables.$surface, $alpha: 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+/*Input text field*/
+.text-field {
+  width: 100%;
+  height: fit-content;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+}
+
+.text-field::placeholder {
+  color: #888; /* Example placeholder text color, adjust as needed */
+  opacity: 1; /* Ensures the placeholder color is not semi-transparent */
 }

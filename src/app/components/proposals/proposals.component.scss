@@ -2,10 +2,15 @@
 @use '../../../layouts';
 @import '../../../_components.scss';
 
+:host {
+  flex-grow: 1;
+}
+
 .wrapper {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - variables.$header-height);
+  width: 100%;
+  height: 100%;
 }
 
 p {
@@ -25,7 +30,7 @@ footer {
   flex-shrink: 0;
 }
 
-.main-content {
+.central-frame {
   flex-grow: 1;
 }
 

@@ -1,11 +1,12 @@
 <div
-  class="vertical-card"
+  class="vertical-card vertical-card-spotlight hover-card"
   [routerLink]="[]"
   [relativeTo]="route"
   [queryParams]="proposal.selectedQueryParam"
   queryParamsHandling="merge"
 >
   <img
+    class="image"
     [ngSrc]="proposal.thumbnailUri"
     [width]="302"
     [height]="302"
@@ -16,10 +17,10 @@
 
     <div class="description-container">
       <p class="description">{{ proposal.getCurrentDescription(null) }}</p>
-      <div class="description-container-gradient"></div>
+      <div class="card-fade-bottom"></div>
     </div>
 
-    <div class="footer">
+    <div class="card-footer">
       <div class="full-horizontal-divider"></div>
       <p class="bold">{{ proposal.user.nickname }}</p>
       <img

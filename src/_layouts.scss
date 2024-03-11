@@ -1,4 +1,5 @@
 @use 'variables';
+@use 'mixins';
 
 /* Left panel*/
 .left-panel {
@@ -27,10 +28,10 @@
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: variables.$surface;
-  height: fit-content;
-  padding: 30px;
+  height: calc(variables.$header-height - 1px);
 }
 
 /* Right panel*/
@@ -47,14 +48,14 @@
 }
 
 /* Header */
-.header {
+.app-header {
   display: flex;
   flex-direction: column;
   height: variables.$header-height;
   background-color: variables.$surface;
 }
 
-.header-content {
+.app-header-content {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
@@ -65,11 +66,90 @@
 }
 
 /* Main content*/
-.main-content {
+.central-frame {
   display: flex;
   box-sizing: border-box;
-  padding: 30px;
+  padding: 30px 0px;
   height: 100%;
   flex-direction: row;
   background-color: variables.$surface;
+}
+
+.central-frame-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  width: 100%;
+}
+
+.central-frame-content-header {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: fit-content;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0px 30px;
+}
+
+/* Search, ordering and filtering panel */
+.search-tools-panel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  gap: 30px;
+}
+
+.dialog {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  width: 80vw;
+  height: 90vh;
+  gap: 50px;
+  padding: 30px;
+  background-color: variables.$surface;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
+}
+
+.dialog-main-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+}
+
+.dialog-main-content {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  gap: 40px;
+}
+
+.dialog-side-panel {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 100%;
+  width: 300px;
+}
+
+.dialog-side-content {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 20px;
 }

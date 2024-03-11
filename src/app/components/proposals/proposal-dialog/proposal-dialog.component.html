@@ -1,5 +1,5 @@
-<div class="wrapper">
-  <div class="left-panel" #infiniteScrollContainerRef>
+<div class="dialog">
+  <div class="dialog-main-container" #infiniteScrollContainerRef>
     <ng-container
       *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
     >
@@ -28,7 +28,7 @@
       [proposalId]="proposalId"
     ></dipnoi-comment-list>
   </div>
-  <div class="right-panel">
+  <div class="dialog-side-panel">
     <ng-container
       *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
     >

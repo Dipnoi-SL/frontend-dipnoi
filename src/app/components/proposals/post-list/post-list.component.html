@@ -1,7 +1,7 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="postService.posts$ | async as posts">
     <div
-      class="wrapper"
+      class="news-list-content"
       infiniteScroll
       insufficientItems
       [existingItems]="posts.length"
@@ -19,6 +19,7 @@
           [post]="post"
           [selected]="i === state.selectedPost"
         ></dipnoi-post-item>
+        <div class="full-horizontal-divider"></div>
       </div>
     </div>
   </ng-container>

@@ -1,11 +1,12 @@
 <div
-  class="wrapper"
+  class="horizontal-card hover-card"
   [routerLink]="[]"
   [relativeTo]="route"
   [queryParams]="proposal.selectedQueryParam"
   queryParamsHandling="merge"
 >
   <img
+    class="image"
     [ngSrc]="proposal.thumbnailUri"
     [width]="125"
     [height]="125"
@@ -17,26 +18,26 @@
         <ng-container
           *ngIf="{ data: userService.authUser$ | async } as authUser"
         >
-          <h3>
+          <h5>
             {{ proposal.getCurrentTitle(authUser.data) }}
-          </h3>
+          </h5>
         </ng-container>
         <div class="inset-vertical-divider"></div>
         <p>
           {{ proposal.user.nickname }}
         </p>
         <div class="inset-vertical-divider"></div>
-        <small>
+        <p>
           {{ proposal.formattedLastImportantDate }}
-        </small>
-        <div *ngIf="proposal.isSelectedForDevelopment" class="tag">
-          <small>ON HOLD</small>
+        </p>
+        <div *ngIf="proposal.isSelectedForDevelopment" class="tag tag-orange">
+          <p>On hold</p>
         </div>
-        <div *ngIf="proposal.isInDevelopment" class="tag">
-          <small>IN DEVELOPMENT</small>
+        <div *ngIf="proposal.isInDevelopment" class="tag tag-green">
+          <p>In development</p>
         </div>
-        <div *ngIf="proposal.isLastCall" class="tag">
-          <small>LAST CALL</small>
+        <div *ngIf="proposal.isLastCall" class="tag tag-red">
+          <p>Last call</p>
         </div>
         <ng-container *ngIf="userService.authUser$ | async as authUser">
           <div
@@ -44,15 +45,19 @@
               proposal.isPendingSpecification &&
               authUser.id === proposal.user.id
             "
-            class="tag"
+            class="tag tag-blue tag-selected"
           >
-            <small>SELECTED</small>
+            <img
+              class="score-icon position-adjustment"
+              src="../../../../assets/icons/arrow-up.svg"
+            />
+            <p>Selected</p>
           </div>
         </ng-container>
-        <div *ngFor="let tag of proposal.categories" class="tag">
-          <small>
-            {{ tag }}
-          </small>
+        <div *ngFor="let tag of proposal.categories" class="tag tag-black">
+          <p>
+            {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
+          </p>
         </div>
       </div>
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
@@ -61,18 +66,46 @@
         </p>
       </ng-container>
     </div>
-    <div class="inset-vertical-divider"></div>
-  </div>
-  <div class="scores">
-    <p *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment">
-      {{ proposal.positiveRatio }}%
-    </p>
-    <p *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment">
-      {{ proposal.totalValue }}
-    </p>
-    <p *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment">
-      {{ proposal.importanceTag }}
-    </p>
-    <p *ngIf="proposal.cost">{{ proposal.cost }}</p>
+    <div class="full-vertical-divider inset-vertical-divider-mod"></div>
+
+    <div class="scores">
+      <div
+        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        class="score-row"
+      >
+        <p class="p-score-text">{{ proposal.positiveRatio }}%</p>
+        <div class="score-icon-container">
+          <img class="score-icon" src="../../../../assets/icons/euro.svg" />
+        </div>
+      </div>
+      <div
+        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        class="score-row"
+      >
+        <p class="p-score-text">
+          {{ proposal.prettyTotalValue }}
+        </p>
+        <div class="score-icon-container">
+          <img class="score-icon" src="../../../../assets/icons/euro.svg" />
+        </div>
+      </div>
+      <div
+        *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
+        class="score-row"
+      >
+        <p class="p-score-text">
+          {{ proposal.prettyImportance }}
+        </p>
+        <div class="score-icon-container">
+          <img class="score-icon" src="../../../../assets/icons/euro.svg" />
+        </div>
+      </div>
+      <div *ngIf="proposal.cost" class="score-row">
+        <p class="p-score-text">{{ proposal.prettyCost }}</p>
+        <div class="score-icon-container">
+          <img class="score-icon" src="../../../../assets/icons/euro.svg" />
+        </div>
+      </div>
+    </div>
   </div>
 </div>

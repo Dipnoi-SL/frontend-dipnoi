@@ -1,37 +1,41 @@
-.wrapper {
-  cursor: pointer;
-  background-color: grey;
-  display: flex;
-  height: 125px;
-}
+@use '../../../../variables';
 
 .content {
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  margin: 15px 0px 15px 15px;
-  gap: 15px;
+  padding: 15px 30px;
+  gap: 30px;
   flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
 }
 
 .summary {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+  gap: 10px;
 }
 
 .header {
   display: flex;
+  height: fit-content;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
-}
-
-.tag {
-  border: 1px solid black;
+  gap: 12px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .description {
-  height: 60px;
-  line-height: 20px;
+  height: 0px;
+  flex-grow: 1;
+  flex-shrink: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -40,9 +44,82 @@
 }
 
 .scores {
-  min-width: 100px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  flex-grow: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   justify-content: space-evenly;
+  margin-top: -15px;
+  margin-bottom: -15px;
+  height: calc(100% + 30px);
+}
+
+.score-row {
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: 10px;
+}
+
+.p-score-text {
+  width: 40px;
+  height: 40px;
+  height: fit-content;
+  text-align: end;
+  font-weight: variables.$font-weight-medium;
+}
+
+.score-icon-container {
+  display: flex;
+  flex-direction: row;
+  width: 40px;
+  height: 40px;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-icon {
+  width: fit-content;
+  height: fit-content;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.position-adjustment {
+  transform: translateY(-1px);
+}
+
+.tag {
+  gap: 5px;
+}
+
+.tag-selected {
+  padding-left: 11px;
+}
+
+.inset-vertical-divider {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.inset-vertical-divider-mod {
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+
+.full-vertical-divider {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.image {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+h5 {
+  font-weight: variables.$font-weight-medium;
 }

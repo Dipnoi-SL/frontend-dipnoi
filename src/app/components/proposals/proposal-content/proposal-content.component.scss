@@ -1,27 +1,48 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+
 .header {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
 }
 
 .cost-box {
-  width: 100px;
+  width: 170px;
+  height: fit-content;
 }
 
 .disregarding-box {
   width: 100%;
+  height: fit-content;
 }
 
 .title-box {
   width: 100%;
+  height: fit-content;
 }
 
 .description-box {
   width: 100%;
+  height: fit-content;
 }
 
 .actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  gap: 40px;
 }

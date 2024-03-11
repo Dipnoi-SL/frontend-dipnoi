@@ -1,11 +1,11 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="wrapper">
-    <ng-icon name="matAccessibleForwardOutline"></ng-icon>
-    <div class="toggle-container" (click)="onToggle()">
+  <div class="dropdown-button hover-card" (click)="onToggle()">
+    <img src="../../../../assets/icons/arrow-up-var-2.svg" />
+    <div class="toggle-container">
       <div class="circle" [ngClass]="{ hidden: state.isToggled }"></div>
       <div class="line"></div>
       <div class="circle" [ngClass]="{ hidden: !state.isToggled }"></div>
     </div>
-    <ng-icon name="matAccessibleForwardOutline"></ng-icon>
+    <img src="../../../../assets/icons/arrow-up-var-1.svg" />
   </div>
 </ng-container>

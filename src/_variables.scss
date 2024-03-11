@@ -13,11 +13,13 @@ $text-color: #c1c7ce;
 $scrollbar-color: #101214;
 $bar-progress-color: #313539;
 $text-field-color: #171a1c;
-$label-black-color: #181c20;
+$tag-black-color: #181c20;
 
 /* Interaction colors*/
 $selection-surface-color: #272c2f;
 $selection-card-color: #2c3135;
+$hover-surface-color: #202427;
+$hover-card-color: #252a2d;
 
 /* Secondary colors */
 $red: #b7151e;
@@ -72,6 +74,8 @@ $divider-size-normal: 1px;
 /* Component measurements */
 $sidenav-width: 260px;
 $header-height: 60px;
+$news-cards-width: 362px;
+$news-list-item-height: 100px;
 
 /* Border radius */
 $border-radius-base: 12px;

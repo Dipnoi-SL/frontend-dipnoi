@@ -69,13 +69,187 @@ app-root {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 362px;
-  padding: 30px;
   height: 100%;
+  width: 100%;
   gap: 15px;
   background-color: variables.$card;
   border-radius: variables.$border-radius-base;
   @include mixins.shadow-4;
+}
+
+.horizontal-card {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  background-color: variables.$card;
+  height: 125px;
+  width: 100%;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
+}
+
+/* Tags */
+.tag {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 18px;
+  width: fit-content;
+  padding: 0px 15px;
+  border-radius: variables.$border-radius-base;
+
+  p {
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
+.tag-black {
+  background-color: variables.$tag-black-color;
+
+  p {
+    color: variables.$text-color;
+  }
+}
+
+.tag-green {
+  background-color: variables.$green;
+
+  p {
+    color: variables.$surface;
+  }
+}
+
+.tag-blue {
+  background-color: variables.$blue-light;
+
+  p {
+    color: variables.$surface;
+  }
+}
+
+.tag-orange {
+  background-color: variables.$orange;
+
+  p {
+    color: variables.$surface;
+  }
+}
+
+.tag-red {
+  background-color: variables.$red;
+
+  p {
+    color: variables.$surface;
+  }
+}
+
+.tag-card {
+  background-color: variables.$card;
+
+  p {
+    color: variables.$outline;
+  }
+}
+
+/* Text input*/
+.search-bar {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  padding: 0px 15px;
+  width: 213px;
+  height: 34px;
+  gap: 15px;
+  align-items: center;
+  background-color: variables.$card;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
+}
+
+/* Buttons */
+.button-base {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 26px;
+  gap: 7px;
+  width: 90px;
+  background-color: variables.$card;
+  border-radius: variables.$border-radius-base;
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-medium;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: justify;
+  @include mixins.shadow-4;
+}
+
+.dropdown-button {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  padding: 0 15px;
+  width: fit-content;
+  height: 34px;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: variables.$card;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
+}
+
+/* Dropdown menus */
+.dropdown-base {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  height: fit-content;
+  width: fit-content;
+  background-color: variables.$card;
+  border-radius: variables.$border-radius-base;
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  @include mixins.shadow-4;
+}
+
+.dropdown-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0px 15px;
+  height: 34px;
+  width: 100%;
+}
+
+/* Infinite list wrapper */
+
+.list-wrapper {
+  height: 0px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  margin-right: 7px;
+}
+
+.dropdown-option-text {
+  width: max-content;
 }
 
 .NgxEditor--Disabled {
