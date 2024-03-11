@@ -1,28 +1,6 @@
-.wrapper {
-  width: 75vw;
-  height: 90vh;
-  background-color: grey;
-  display: flex;
-  gap: 40px;
-}
-
-.left-panel {
-  margin: 7px;
-  padding-right: 10px;
-  flex-grow: 1;
-  overflow-y: scroll;
-}
-
 .poll-section {
   display: flex;
   justify-content: space-around;
   overflow-wrap: break-word;
   flex-wrap: wrap;
-}
-
-.right-panel {
-  overflow-y: scroll;
-  margin: 7px;
-  padding: 69px 13px 0px 0px;
-  min-width: 280px;
 }

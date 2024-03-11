@@ -1,21 +1,27 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 280px;
-  gap: 20px;
-}
+@use '../../../../variables';
 
-.box {
+.vertical-card {
+  height: fit-content;
   padding: 20px;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
   gap: 20px;
 }
 
 .box-row {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+}
+
+.p-category {
+  width: 75px;
+  flex-shrink: 0;
+  font-weight: variables.$font-weight-medium;
+}
+
+.p-value {
+  flex-grow: 1;
+  text-align: left;
 }
 
 .box-column {

@@ -1,30 +1,30 @@
-<div class="wrapper">
-  <div class="box">
+<div class="dialog-side-content">
+  <div class="vertical-card">
     <h4>Details</h4>
     <div class="box-row">
-      <small>Title</small>
+      <p class="p-category">Title</p>
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
-        <small>
+        <p class="p-value">
           {{ proposal.getCurrentTitle(authUser.data) }}
-        </small>
+        </p>
       </ng-container>
     </div>
     <div class="box-row">
-      <small>Author</small>
-      <small>
+      <p class="p-category">Author</p>
+      <p class="p-value">
         {{ proposal.user.nickname }}
-      </small>
+      </p>
     </div>
     <div class="box-row">
-      <small>Labels</small>
-      <small>
+      <p class="p-category">Labels</p>
+      <p class="p-value">
         {{ proposal.categories.join(', ') }}
-      </small>
+      </p>
     </div>
   </div>
   <div
     *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
-    class="box"
+    class="vertical-card"
   >
     <h4>Priority</h4>
     <div class="box-row">
@@ -50,14 +50,14 @@
       ></ng-icon>
     </div>
     <div class="box-row">
-      <small>Votes</small>
-      <small>
+      <p class="p-category">Votes</p>
+      <p class="p-value">
         {{ proposal.importanceWeightsSum }}
-      </small>
+      </p>
     </div>
     <div class="box-row">
-      <small>Average</small>
-      <small>{{ proposal.importance }}</small>
+      <p class="p-category">Average</p>
+      <p class="p-value">{{ proposal.importance }}</p>
     </div>
   </div>
   <ng-container
@@ -66,7 +66,7 @@
       (pollService.initialPoll$ | async) as currentPoll
     "
   >
-    <div class="box">
+    <div class="vertical-card">
       <h4>Backing</h4>
       <div class="box-row">
         <ng-icon
@@ -87,64 +87,64 @@
         ></ng-icon>
       </div>
       <div class="box-row">
-        <small>Votes</small>
+        <p class="p-category">Votes</p>
         <div class="box-column">
-          <small>
+          <p class="p-value">
             {{ currentPoll.positiveValue }}
-          </small>
-          <small>
+          </p>
+          <p class="p-value">
             {{ currentPoll.negativeValue }}
-          </small>
+          </p>
         </div>
       </div>
       <div class="box-row">
-        <small>Balance</small>
-        <small>
+        <p class="p-category">Balance</p>
+        <p class="p-value">
           {{ currentPoll.positiveValue - currentPoll.negativeValue }}
-        </small>
+        </p>
       </div>
       <div class="box-row">
-        <small>Ratio</small>
-        <small>{{ currentPoll.positiveRatio }}%</small>
+        <p class="p-category">Ratio</p>
+        <p class="p-value">{{ currentPoll.positiveRatio }}%</p>
       </div>
     </div>
   </ng-container>
-  <div class="box">
+  <div class="vertical-card">
     <h4>Status</h4>
     <div class="box-row">
-      <small>Stage</small>
-      <small>
+      <p class="p-category">Stage</p>
+      <p class="p-value">
         {{ proposal.state }}
-      </small>
+      </p>
     </div>
     <div *ngIf="proposal.isNotBacked || proposal.isNotViable" class="box-row">
-      <small>Motive</small>
-      <small>
+      <p class="p-category">Motive</p>
+      <p class="p-value">
         {{ proposal.state }}
-      </small>
+      </p>
     </div>
     <div *ngIf="proposal.cost" class="box-row">
-      <small>Cost</small>
-      <small>
+      <p class="p-category">Cost</p>
+      <p class="p-value">
         {{ proposal.cost }}
-      </small>
+      </p>
     </div>
     <div class="box-row">
-      <small>Releases</small>
+      <p class="p-category">Releases</p>
       <div class="box-column">
-        <small>Created {{ proposal.formattedCreatedAt }}</small>
-        <small *ngIf="proposal.resetAt">
+        <p class="p-value">Created {{ proposal.formattedCreatedAt }}</p>
+        <p class="p-value" *ngIf="proposal.resetAt">
           Opened {{ proposal.formattedResetAt }}
-        </small>
-        <small *ngIf="proposal.selectedAt">
+        </p>
+        <p class="p-value" *ngIf="proposal.selectedAt">
           Selected {{ proposal.formattedSelectedAt }}
-        </small>
-        <small *ngIf="proposal.disregardedAt">
+        </p>
+        <p class="p-value" *ngIf="proposal.disregardedAt">
           Archived {{ proposal.formattedDisregardedAt }}
-        </small>
-        <small *ngIf="proposal.completedAt">
+        </p>
+        <p class="p-value" *ngIf="proposal.completedAt">
           Implemented {{ proposal.formattedCompletedAt }}
-        </small>
+        </p>
       </div>
     </div>
   </div>

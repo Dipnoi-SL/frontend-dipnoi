@@ -1,116 +1,133 @@
-<div class="header">
-  <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
-    <h1>
-      {{ proposal.getCurrentTitle(authUser.data) }}
-    </h1>
-  </ng-container>
-  <ng-icon name="matChatOutline"></ng-icon>
-  <ng-icon name="matStarOutlineOutline" (click)="onFollow()"></ng-icon>
-  <ng-container *ngIf="userService.authUser$ | async as authUser">
-    <div
-      *ngIf="
-        proposal.isPendingSpecification && proposal.user.id === authUser.id
-      "
-      (click)="onNextState()"
-    >
-      Specify
-    </div>
-    <ng-container *ngIf="authUser.isDeveloper">
-      <div *ngIf="proposal.isPendingReview" (click)="onNextState()">Accept</div>
-      <div *ngIf="proposal.isPendingReview" (click)="onPreviousState()">
-        Request edit
-      </div>
-      <div *ngIf="proposal.isPendingReview" (click)="onDisregard()">Deny</div>
-      <div *ngIf="proposal.isFinalPhase" (click)="onNextState()">Last call</div>
-      <div *ngIf="proposal.isLastCall" (click)="onPreviousState()">
-        Return to open
-      </div>
-      <div *ngIf="proposal.isLastCall" (click)="onNextState()">
-        Select for development
-      </div>
-      <div *ngIf="proposal.isSelectedForDevelopment" (click)="onNextState()">
-        Start development
-      </div>
-      <div *ngIf="proposal.isInDevelopment" (click)="onNextState()">
-        Complete
-      </div>
+<div class="dialog-main-content">
+  <div class="header">
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+      <h2>
+        {{ proposal.getCurrentTitle(authUser.data) }}
+      </h2>
     </ng-container>
-  </ng-container>
+    <img src="../../../../assets/icons/comment.svg" />
+    <img src="../../../../assets/icons/star.svg" (click)="onFollow()" />
+    <ng-container *ngIf="userService.authUser$ | async as authUser">
+      <div
+        *ngIf="
+          proposal.isPendingSpecification && proposal.user.id === authUser.id
+        "
+        (click)="onNextState()"
+      >
+        <div class="tag tag-card"><p>Specify</p></div>
+      </div>
+      <ng-container *ngIf="authUser.isDeveloper">
+        <div *ngIf="proposal.isPendingReview" (click)="onNextState()">
+          <div class="tag tag-card"><p>Accept</p></div>
+        </div>
+        <div *ngIf="proposal.isPendingReview" (click)="onPreviousState()">
+          <div class="tag tag-card"><p>Request edit</p></div>
+        </div>
+        <div *ngIf="proposal.isPendingReview" (click)="onDisregard()">
+          <div class="tag tag-card"><p>Deny</p></div>
+        </div>
+        <div *ngIf="proposal.isFinalPhase" (click)="onNextState()">
+          <div class="tag tag-card"><p>Last call</p></div>
+        </div>
+        <div *ngIf="proposal.isLastCall" (click)="onPreviousState()">
+          <div class="tag tag-card"><p>Return to open</p></div>
+        </div>
+        <div *ngIf="proposal.isLastCall" (click)="onNextState()">
+          <div class="tag tag-card"><p>Select development</p></div>
+        </div>
+        <div *ngIf="proposal.isSelectedForDevelopment" (click)="onNextState()">
+          <div class="tag tag-card"><p>Start development</p></div>
+        </div>
+        <div *ngIf="proposal.isInDevelopment" (click)="onNextState()">
+          <div class="tag tag-card"><p>Complete</p></div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="state.changingTo">
+    <form
+      *ngIf="!proposal.isPendingSpecification"
+      [formGroup]="stateChangeForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div *ngIf="state.isEditingCost">
+        <label [htmlFor]="cost">Cost</label>
+        <input type="number" class="cost-box" formControlName="cost" #cost />
+      </div>
+      <div *ngIf="state.isEditingDisregardingReason">
+        <label [htmlFor]="disregardingReason">Disregarding reason</label>
+        <input
+          type="text"
+          class="disregarding-box"
+          formControlName="disregardingReason"
+          #disregardingReason
+        />
+      </div>
+      <p>
+        Please keep in mind that an email will be sent to all followers whenever
+        the state of the proposal is updated.
+      </p>
+      <div class="actions">
+        <div (click)="onCancel()">Cancel</div>
+        <button [disabled]="!stateChangeForm.valid" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <form
+      *ngIf="proposal.isPendingSpecification"
+      [formGroup]="specificationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div>
+        <label [htmlFor]="finalTitle">Title</label>
+        <input
+          type="text"
+          class="title-box"
+          formControlName="finalTitle"
+          #finalTitle
+        />
+      </div>
+      <div>
+        <ngx-editor-menu
+          [editor]="editor"
+          [toolbar]="toolbar"
+        ></ngx-editor-menu>
+        <ngx-editor
+          class="description-box"
+          [editor]="editor"
+          formControlName="finalDescription"
+        ></ngx-editor>
+      </div>
+      <div class="actions">
+        <div (click)="onCancel()">Cancel</div>
+        <button [disabled]="!specificationForm.valid" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="body">
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+      <ng-container
+        *ngIf="
+          proposal.disregardingReason &&
+          (proposal.isNotBacked ||
+            proposal.isNotViable ||
+            ((proposal.isPendingSpecification || proposal.isPendingReview) &&
+              (authUser.data?.isDeveloper ||
+                proposal.user.id === authUser.data?.id)))
+        "
+      >
+        <h3>Dev comment</h3>
+        <p>{{ proposal.disregardingReason }}</p>
+        <div class="inset-horizontal-divider"></div>
+      </ng-container>
+      <div
+        [innerHTML]="
+          proposal.getCurrentHtmlDescription(authUser.data) | safeHtml
+        "
+      ></div>
+    </ng-container>
+  </div>
 </div>
-<div *ngIf="state.changingTo">
-  <form
-    *ngIf="!proposal.isPendingSpecification"
-    [formGroup]="stateChangeForm"
-    (ngSubmit)="onSubmit()"
-  >
-    <div *ngIf="state.isEditingCost">
-      <label [htmlFor]="cost">Cost</label>
-      <input type="number" class="cost-box" formControlName="cost" #cost />
-    </div>
-    <div *ngIf="state.isEditingDisregardingReason">
-      <label [htmlFor]="disregardingReason">Disregarding reason</label>
-      <input
-        type="text"
-        class="disregarding-box"
-        formControlName="disregardingReason"
-        #disregardingReason
-      />
-    </div>
-    <p>
-      Please keep in mind that an email will be sent to all followers whenever
-      the state of the proposal is updated.
-    </p>
-    <div class="actions">
-      <div (click)="onCancel()">Cancel</div>
-      <button [disabled]="!stateChangeForm.valid" type="submit">Submit</button>
-    </div>
-  </form>
-  <form
-    *ngIf="proposal.isPendingSpecification"
-    [formGroup]="specificationForm"
-    (ngSubmit)="onSubmit()"
-  >
-    <div>
-      <label [htmlFor]="finalTitle">Title</label>
-      <input
-        type="text"
-        class="title-box"
-        formControlName="finalTitle"
-        #finalTitle
-      />
-    </div>
-    <div>
-      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-      <ngx-editor
-        class="description-box"
-        [editor]="editor"
-        formControlName="finalDescription"
-      ></ngx-editor>
-    </div>
-    <div class="actions">
-      <div (click)="onCancel()">Cancel</div>
-      <button [disabled]="!specificationForm.valid" type="submit">
-        Submit
-      </button>
-    </div>
-  </form>
-</div>
-<ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
-  <ng-container
-    *ngIf="
-      proposal.disregardingReason &&
-      (proposal.isNotBacked ||
-        proposal.isNotViable ||
-        ((proposal.isPendingSpecification || proposal.isPendingReview) &&
-          (authUser.data?.isDeveloper ||
-            proposal.user.id === authUser.data?.id)))
-    "
-  >
-    <h3>Dev comment</h3>
-    <p>{{ proposal.disregardingReason }}</p>
-    <div class="inset-horizontal-divider"></div>
-  </ng-container>
-  <div
-    [innerHTML]="proposal.getCurrentHtmlDescription(authUser.data) | safeHtml"
-  ></div>
-</ng-container>

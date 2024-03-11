@@ -1,4 +1,5 @@
 @use 'variables';
+@use 'mixins';
 
 /* Left panel*/
 .left-panel {
@@ -101,4 +102,54 @@
   width: fit-content;
   height: fit-content;
   gap: 30px;
+}
+
+.dialog {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  width: 80vw;
+  height: 90vh;
+  gap: 50px;
+  padding: 30px;
+  background-color: variables.$surface;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
+}
+
+.dialog-main-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+}
+
+.dialog-main-content {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  gap: 40px;
+}
+
+.dialog-side-panel {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 100%;
+  width: 300px;
+}
+
+.dialog-side-content {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 20px;
 }

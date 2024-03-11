@@ -146,6 +146,14 @@ app-root {
   }
 }
 
+.tag-card {
+  background-color: variables.$card;
+
+  p {
+    color: variables.$outline;
+  }
+}
+
 /* Text input*/
 .search-bar {
   display: flex;
@@ -215,8 +223,8 @@ app-root {
   position: absolute;
   z-index: 1;
   top: calc(100% + 5px);
-  right: 0;
-
+  left: 50%;
+  transform: translateX(-50%);
   @include mixins.shadow-4;
 }
 
