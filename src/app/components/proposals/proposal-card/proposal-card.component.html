@@ -18,18 +18,22 @@
         <ng-container
           *ngIf="{ data: userService.authUser$ | async } as authUser"
         >
-          <h5>
+          <h5 class="title">
             {{ proposal.getCurrentTitle(authUser.data) }}
           </h5>
         </ng-container>
-        <div class="inset-vertical-divider"></div>
-        <p>
-          {{ proposal.user.nickname }}
-        </p>
-        <div class="inset-vertical-divider"></div>
-        <p>
-          {{ proposal.formattedLastImportantDate }}
-        </p>
+        <div class="header-section">
+          <div class="inset-vertical-divider"></div>
+          <p>
+            {{ proposal.user.nickname }}
+          </p>
+        </div>
+        <div class="header-section">
+          <div class="inset-vertical-divider"></div>
+          <p>
+            {{ proposal.formattedLastImportantDate }}
+          </p>
+        </div>
         <div *ngIf="proposal.isSelectedForDevelopment" class="tag tag-orange">
           <p>On hold</p>
         </div>
@@ -73,7 +77,21 @@
         *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
         class="score-row"
       >
-        <p class="p-score-text">{{ proposal.positiveRatio }}%</p>
+        <p
+          class="p-score-text"
+          [ngClass]="{
+            'text-red': proposal.positiveRatio < 20,
+            'text-orange':
+              proposal.positiveRatio >= 20 && proposal.positiveRatio < 40,
+            'text-yellow':
+              proposal.positiveRatio >= 40 && proposal.positiveRatio < 60,
+            'text-olive':
+              proposal.positiveRatio >= 60 && proposal.positiveRatio < 80,
+            'text-green': proposal.positiveRatio >= 80
+          }"
+        >
+          {{ proposal.positiveRatio }}%
+        </p>
         <div class="score-icon-container">
           <img
             *ngIf="proposal.positiveRatio < 20"
@@ -117,7 +135,16 @@
         *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
         class="score-row"
       >
-        <p class="p-score-text">
+        <p
+          class="p-score-text"
+          [ngClass]="{
+            'text-red': proposal.importance < 1,
+            'text-orange': proposal.importance >= 1 && proposal.importance < 2,
+            'text-yellow': proposal.importance >= 2 && proposal.importance < 3,
+            'text-olive': proposal.importance >= 3 && proposal.importance < 4,
+            'text-green': proposal.importance >= 4
+          }"
+        >
           {{ proposal.prettyImportance }}
         </p>
         <div class="score-icon-container">
@@ -149,7 +176,7 @@
         </div>
       </div>
       <div *ngIf="proposal.cost" class="score-row">
-        <p class="p-score-text">{{ proposal.prettyCost }}</p>
+        <p class="p-score-text text-yellow">{{ proposal.prettyCost }}</p>
         <div class="score-icon-container">
           <img class="score-icon" src="../../../../assets/icons/euro.svg" />
         </div>
