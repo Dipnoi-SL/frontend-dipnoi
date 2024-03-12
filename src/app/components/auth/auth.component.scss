@@ -1,5 +1,8 @@
-.wrapper {
-  padding: 50px;
-  width: 380px;
-  background-color: grey;
+.dialog {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  width: 460px;
+  height: 745px;
+  padding: 40px;
 }
