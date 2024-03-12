@@ -50,12 +50,14 @@
 }
 
 .tags {
-  width: 220px;
+  flex-basis: 220px;
+  flex-shrink: 1;
   overflow: hidden;
   flex-wrap: wrap;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   height: 20px;
   gap: 5px;
 }
@@ -66,6 +68,7 @@
 
 .h5-title {
   width: 240px;
+  flex-shrink: 0;
   height: fit-content;
   white-space: nowrap;
   overflow: hidden;
@@ -74,17 +77,20 @@
 
 .h5-user {
   width: 130px;
+  flex-shrink: 0;
   height: fit-content;
 }
 
 .h5-date-created {
   width: 165px;
+  flex-shrink: 0;
   height: fit-content;
   text-align: end;
 }
 
 .h5-date-finalized {
   width: 205px;
+  flex-shrink: 0;
   height: fit-content;
   text-align: end;
 }

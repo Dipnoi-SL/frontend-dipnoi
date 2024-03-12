@@ -22,7 +22,15 @@
   flex-grow: 0;
   height: fit-content;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
+}
+
+.title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+  overflow: hidden;
 }
 
 .description {
