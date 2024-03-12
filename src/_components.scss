@@ -88,6 +88,27 @@ app-root {
   @include mixins.shadow-4;
 }
 
+/* Text colors */
+.text-red {
+  color: variables.$red;
+}
+
+.text-orange {
+  color: variables.$orange;
+}
+
+.text-yellow {
+  color: variables.$yellow;
+}
+
+.text-olive {
+  color: variables.$olive;
+}
+
+.text-green {
+  color: variables.$green;
+}
+
 /* Tags */
 .tag {
   box-sizing: border-box;
