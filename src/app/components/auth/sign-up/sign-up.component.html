@@ -2,7 +2,9 @@
   <ng-container *ngIf="state$ | async as state">
     <ng-container *ngIf="state.finished">
       <div class="header">
+        <!-- 
         <img class="image" src="../../../assets/icons/Logo1.png" />
+      -->
         <h3>Activate your account</h3>
         <p>
           Success! Your account has been created. To activate it, please click
@@ -89,12 +91,11 @@
             </small>
           </div>
         </div>
-        <!-- 
+
         <re-captcha
           class="row"
           formControlName="recaptchaResponse"
         ></re-captcha>
--->
         <button
           class="button-base button-base-blue"
           [disabled]="!signUpForm.valid"

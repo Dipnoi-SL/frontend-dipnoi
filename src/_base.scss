@@ -125,6 +125,7 @@ small {
 }
 
 .hyperlink {
+  display: inline-block;
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-sm;
   color: variables.$hyperlink-color;
@@ -256,6 +257,7 @@ a {
   height: fit-content;
   box-sizing: border-box;
   padding: 13px 14px;
+  align-items: center;
   background-color: variables.$text-field-color;
   border: solid 1px variables.$outline-variant;
   border-radius: variables.$border-radius-base;
