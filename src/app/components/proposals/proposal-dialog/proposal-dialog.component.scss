@@ -4,3 +4,22 @@
   overflow-wrap: break-word;
   flex-wrap: wrap;
 }
+
+.dialog-main-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+}
+
+.dialog-side-panel {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 100%;
+  width: 300px;
+}

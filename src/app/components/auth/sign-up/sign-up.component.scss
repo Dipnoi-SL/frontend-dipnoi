@@ -1,74 +1,136 @@
-form {
+@use '../../../../variables';
+
+.dialog-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.input-field {
-  border: 1px solid black;
+  box-sizing: border-box;
+  height: 100%;
   width: 100%;
-  height: 48px;
+  gap: 30px;
 }
 
-.floating-label {
-  padding: 0px 4px;
-  background-color: white;
-  position: absolute;
-  pointer-events: none;
-  line-height: 0px;
-  left: 16px;
-  top: 50%;
-  transition: 0.2s ease all;
-  opacity: 0.5;
-}
-
-input:focus ~ .floating-label,
-input:valid ~ .floating-label {
-  top: 0px;
-  bottom: 10px;
-  left: 16px;
-  font-size: 14px;
-  opacity: 1;
-  height: 1px;
-}
-
-.suffix {
-  position: absolute;
-  right: 16px;
-}
-
-.row {
-  position: relative;
-  width: 100%;
+.header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
   align-items: center;
+  height: fit-content;
+  width: 100%;
+  p {
+    text-align: center;
+  }
 }
 
-.feedback {
+.image {
+  width: 100px;
+  height: 94px;
+}
+
+input:focus ~ .text-field-label,
+input:valid ~ .text-field-label {
+  top: -1px;
+  height: 1px;
+  font-size: variables.$font-size-xs;
+}
+
+.error {
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  width: 100%;
+  height: max-content;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
+  padding: 0px 12px;
+  small {
+    margin-top: 5px;
+    color: variables.$red;
+  }
 }
 
-.options {
-  margin-top: 20px;
+.text-and-error {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 100%;
+  align-items: center;
   gap: 20px;
 }
 
-.google-button {
-  background-color: #e6533a;
+.button-base {
+  width: 100%;
+  height: 50px;
+  box-shadow: none;
 }
 
-.facebook-button {
+.button-base-blue {
+  background-color: variables.$blue-light;
+  color: variables.$surface;
+}
+
+.button-base-google {
+  background-color: #e6533a;
+  color: #fff;
+}
+
+.button-base-facebook {
   background-color: #1976d2;
+  color: #fff;
+}
+
+.suffix {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: fit-content;
+  flex-shrink: 0;
+  flex-grow: 0;
+  color: variables.$text-color;
+}
+
+.grow {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.separation {
+  display: flex;
+  height: fit-content;
+  width: 75%;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  h5 {
+    color: variables.$outline-variant;
+  }
+}
+
+.separation-text {
+  width: fit-content;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.full-horizontal-divider {
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .links {
-  margin-top: 20px;
-  gap: 10px;
-}
-
-.text {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  gap: 20px;
+  p {
+    color: variables.$outline;
+    text-align: center;
+  }
 }

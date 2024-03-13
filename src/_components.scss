@@ -32,7 +32,7 @@ app-root {
 }
 
 .error {
-  color: red;
+  color: variables.$red;
 }
 
 .error-background {
@@ -176,7 +176,7 @@ app-root {
 }
 
 /* Text input*/
-.search-bar {
+.searchbar {
   display: flex;
   box-sizing: border-box;
   flex-direction: row;
@@ -188,6 +188,24 @@ app-root {
   background-color: variables.$card;
   border-radius: variables.$border-radius-base;
   @include mixins.shadow-4;
+}
+
+.text-field-searchbar {
+  width: 100%;
+  height: fit-content;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
 }
 
 /* Buttons */
@@ -213,6 +231,7 @@ app-root {
   font-variant-ligatures: normal;
   font-kerning: normal;
   text-align: justify;
+  border: none;
   @include mixins.shadow-4;
 }
 

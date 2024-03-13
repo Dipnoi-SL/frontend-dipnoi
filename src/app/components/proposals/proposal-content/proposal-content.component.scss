@@ -46,3 +46,11 @@
   overflow-y: scroll;
   gap: 40px;
 }
+.dialog-main-content {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  gap: 40px;
+}

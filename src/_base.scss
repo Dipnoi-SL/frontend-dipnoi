@@ -1,5 +1,6 @@
 @use 'variables';
 
+/* Main */
 html,
 body,
 app-root {
@@ -11,12 +12,20 @@ app-root {
   overflow: hidden;
 }
 
-/* Font tags */
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+/* Idk */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s !important;
+}
+
+/* Fonts */
 h1 {
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-xxxl;
@@ -113,6 +122,21 @@ small {
   font-variant-ligatures: normal;
   font-kerning: normal;
   text-align: left;
+}
+
+.hyperlink {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$hyperlink-color;
+  text-decoration: underline;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: justify;
 }
 
 /* Cursors */
@@ -224,12 +248,25 @@ a {
 }
 
 /*Input text field*/
-.text-field {
+.text-field-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
   width: 100%;
   height: fit-content;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  background-color: variables.$text-field-color;
+  border: solid 1px variables.$outline-variant;
+  border-radius: variables.$border-radius-base;
+}
+
+.text-field-base {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: fit-content;
+  background-color: inherit;
   border: none;
-  padding: 0px;
-  background-color: transparent;
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-sm;
   color: variables.$text-color;
@@ -242,7 +279,14 @@ a {
   font-kerning: normal;
 }
 
-.text-field::placeholder {
-  color: #888; /* Example placeholder text color, adjust as needed */
-  opacity: 1; /* Ensures the placeholder color is not semi-transparent */
+.text-field-label {
+  background-color: variables.$surface;
+  padding: 0px 4px;
+  position: absolute;
+  pointer-events: none;
+  line-height: 0px;
+  left: 12px;
+  top: 50%;
+  transition: 0.2s ease all;
+  color: variables.$outline;
 }

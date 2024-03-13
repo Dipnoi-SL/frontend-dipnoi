@@ -1,3 +1,5 @@
+@use '../../../../variables';
+
 :host {
   display: flex;
   flex-direction: row;
@@ -10,7 +12,12 @@
   position: relative;
 }
 
-.text-field {
+.text-field-searchbar {
   flex-grow: 1;
   flex-shrink: 0;
+}
+
+.text-field-searchbar::placeholder {
+  color: variables.$outline;
+  opacity: 1;
 }
