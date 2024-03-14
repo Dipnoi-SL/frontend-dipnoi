@@ -131,6 +131,7 @@ small {
 }
 
 .hyperlink {
+  cursor: pointer;
   display: inline-block;
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-sm;

@@ -75,22 +75,8 @@ input:valid ~ .text-field-label {
   box-shadow: none;
 }
 
-.button-base-blue {
-  background-color: variables.$blue-light;
-  color: variables.$surface;
-}
-
-.button-base-google {
-  background-color: #e6533a;
-  color: #fff;
-}
-
-.button-base-facebook {
-  background-color: #1976d2;
-  color: #fff;
-}
-
 .suffix {
+  cursor: pointer;
   display: flex;
   align-items: center;
   height: 100%;

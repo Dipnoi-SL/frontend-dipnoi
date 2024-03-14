@@ -235,6 +235,66 @@ app-root {
   @include mixins.shadow-4;
 }
 
+.button-base:hover {
+  cursor: pointer;
+}
+
+.button-base-trans {
+  background-color: transparent;
+}
+
+.button-base-green {
+  background-color: variables.$green;
+  color: variables.$surface;
+}
+
+.button-base-green:hover {
+  background-color: variables.$hover-green-color;
+}
+
+.button-base-green:active {
+  background-color: variables.$selection-green-color;
+}
+
+.button-base-blue {
+  background-color: variables.$blue-light;
+  color: variables.$surface;
+}
+
+.button-base-blue:hover {
+  background-color: variables.$hover-blue-light-color;
+}
+
+.button-base-blue:active {
+  background-color: variables.$selection-blue-light-color;
+}
+
+.button-base-google {
+  background-color: variables.$google;
+  color: white;
+}
+
+.button-base-google:hover {
+  background-color: variables.$hover-google-color;
+}
+
+.button-base-google:active {
+  background-color: variables.$selection-google-color;
+}
+
+.button-base-facebook {
+  background-color: variables.$facebook;
+  color: white;
+}
+
+.button-base-facebook:hover {
+  background-color: variables.$hover-facebook-color;
+}
+
+.button-base-facebook:active {
+  background-color: variables.$selection-facebook-color;
+}
+
 .dropdown-button {
   display: flex;
   box-sizing: border-box;

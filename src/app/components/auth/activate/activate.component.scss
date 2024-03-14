@@ -84,12 +84,3 @@ input:valid ~ .text-field-label {
   height: 50px;
   box-shadow: none;
 }
-
-.button-base-blue {
-  background-color: variables.$blue-light;
-  color: variables.$surface;
-}
-
-.button-base-trans {
-  background-color: transparent;
-}
