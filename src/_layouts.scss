@@ -61,7 +61,6 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
-  padding-left: 22px;
   padding-right: 22px;
 }
 
@@ -115,41 +114,4 @@
   background-color: variables.$surface;
   border-radius: variables.$border-radius-base;
   @include mixins.shadow-4;
-}
-
-.dialog-main-container {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  flex-grow: 1;
-  flex-shrink: 1;
-  height: 100%;
-}
-
-.dialog-main-content {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  gap: 40px;
-}
-
-.dialog-side-panel {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 100%;
-  width: 300px;
-}
-
-.dialog-side-content {
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  gap: 20px;
 }

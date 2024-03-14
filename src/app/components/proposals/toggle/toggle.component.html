@@ -2,9 +2,12 @@
   <div class="dropdown-button hover-card" (click)="onToggle()">
     <img src="../../../../assets/icons/arrow-up-var-2.svg" />
     <div class="toggle-container">
-      <div class="circle" [ngClass]="{ hidden: state.isToggled }"></div>
+      <div
+        class="circle-on circle-off"
+        [ngClass]="{ hidden: state.isToggled }"
+      ></div>
       <div class="line"></div>
-      <div class="circle" [ngClass]="{ hidden: !state.isToggled }"></div>
+      <div class="circle-on" [ngClass]="{ hidden: !state.isToggled }"></div>
     </div>
     <img src="../../../../assets/icons/arrow-up-var-1.svg" />
   </div>

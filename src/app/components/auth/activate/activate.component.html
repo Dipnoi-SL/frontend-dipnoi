@@ -1,87 +1,134 @@
-<ng-container *ngIf="state$ | async as state">
-  <ng-container *ngIf="state.finished">
-    <h1 class="text">Account activated</h1>
-    <p class="text">Success! Your account has been activated.</p>
-  </ng-container>
-  <ng-container *ngIf="!state.finished">
-    <h1 class="text">Choose a display name</h1>
-    <p class="text">
-      Select a unique display name that other players will use to refer to you
-      within the community.
-    </p>
-    <form [formGroup]="activateForm" (ngSubmit)="onFinish()">
-      <div class="row">
-        <input
-          class="input-field"
-          type="text"
-          formControlName="nickname"
-          required
-        />
-        <p class="floating-label">Display name</p>
-        <ng-icon
-          *ngIf="activateForm.controls.nickname.pending"
-          class="suffix"
-          name="matPendingOutline"
-        ></ng-icon>
-        <ng-icon
-          *ngIf="activateForm.controls.nickname.valid"
-          class="suffix"
-          name="matDoneOutline"
-        ></ng-icon>
-        <ng-icon
-          *ngIf="activateForm.controls.nickname.invalid"
-          class="suffix"
-          name="matCloseOutline"
-        ></ng-icon>
+<div class="dialog-content">
+  <ng-container *ngIf="state$ | async as state">
+    <ng-container *ngIf="state.finished">
+      <div class="header">
+        <!--
+  <img class="image" src="../../../assets/icons/Logo1.png" />
+  -->
+        <h3>Account activated</h3>
+        <p>Success! Your account has been activated.</p>
       </div>
-      <div>
-        <small *ngIf="activateForm.controls.nickname.untouched">
-          <br />
-          Must contain at least 3 characters
-          <br />
-          Must contain no more than 15 characters
-          <br />
-          Can only contain letters, numbers, hyphens and underscores
-        </small>
-        <small
-          *ngIf="
-            activateForm.controls.nickname.hasError('required') &&
-            activateForm.controls.nickname.touched
-          "
-          class="error"
-        >
-          <br />
-          Must not be empty
-        </small>
-        <small
-          *ngIf="
-            activateForm.controls.nickname.hasError('pattern') &&
-            activateForm.controls.nickname.touched
-          "
-          class="error"
-        >
-          <br />
-          Must contain at least 3 characters
-          <br />
-          Must contain no more than 15 characters
-          <br />
-          Can only contain letters, numbers, hyphens and underscores
-        </small>
+    </ng-container>
+    <ng-container *ngIf="!state.finished">
+      <div class="header">
+        <!--
+  <img class="image" src="../../../assets/icons/Logo1.png" />
+  -->
+        <h3>Choose a display name</h3>
+        <p>
+          Select a unique display name that other players will use to refer to
+          you within the community.
+        </p>
       </div>
-      <button class="row" [disabled]="!activateForm.valid" type="submit">
-        Finish
-      </button>
-    </form>
-    <div class="row links">
-      <small
-        class="text"
-        [routerLink]="[]"
-        [relativeTo]="route"
-        [queryParams]="signUpQueryParam"
-        queryParamsHandling="merge"
+
+      <form
+        class="main-content"
+        [formGroup]="activateForm"
+        (ngSubmit)="onFinish()"
       >
-        Back
-      </small>
-    </div>
+        <div class="text-and-error">
+          <div
+            class="text-field-container"
+            [ngClass]="{
+              'text-field-error':
+                activateForm.controls.nickname.dirty &&
+                activateForm.controls.nickname.invalid &&
+                !state.typing
+            }"
+          >
+            <input
+              class="text-field-base"
+              type="text"
+              formControlName="nickname"
+              required
+            />
+            <p class="text-field-label">Display name</p>
+            <ng-icon
+              *ngIf="
+                (activateForm.controls.nickname.dirty &&
+                  activateForm.controls.nickname.pending) ||
+                state.typing
+              "
+              class="suffix pending"
+              name="matPendingOutline"
+            ></ng-icon>
+            <ng-icon
+              *ngIf="
+                activateForm.controls.nickname.dirty &&
+                activateForm.controls.nickname.valid &&
+                !state.typing
+              "
+              class="suffix done"
+              name="matDoneOutline"
+            ></ng-icon>
+            <ng-icon
+              *ngIf="
+                activateForm.controls.nickname.dirty &&
+                activateForm.controls.nickname.invalid &&
+                !state.typing
+              "
+              class="suffix cross"
+              name="matCloseOutline"
+            ></ng-icon>
+          </div>
+
+          <div
+            *ngIf="activateForm.controls.nickname.dirty && !state.typing"
+            class="error"
+          >
+            <small *ngIf="activateForm.controls.nickname.hasError('required')">
+              Must not be empty
+            </small>
+            <small *ngIf="activateForm.controls.nickname.hasError('minlength')">
+              Must contain at least 3 characters
+            </small>
+            <small
+              *ngIf="
+                activateForm.controls.nickname.hasError('maxlength') &&
+                !activateForm.controls.nickname.hasError('minlength')
+              "
+            >
+              Must not contain more than 15 characters
+            </small>
+            <small
+              *ngIf="
+                activateForm.controls.nickname.hasError('pattern') &&
+                !activateForm.controls.nickname.hasError('minlength') &&
+                !activateForm.controls.nickname.hasError('maxlength')
+              "
+            >
+              Can only contain letters, numbers, hyphens and underscores
+            </small>
+            <small
+              *ngIf="
+                activateForm.controls.nickname.hasError('existingnickname') &&
+                !activateForm.controls.nickname.hasError('minlength') &&
+                !activateForm.controls.nickname.hasError('maxlength') &&
+                !activateForm.controls.nickname.hasError('pattern')
+              "
+            >
+              Display name not available
+            </small>
+          </div>
+        </div>
+        <button
+          class="button-base button-base-blue"
+          [disabled]="!activateForm.valid"
+          type="submit"
+        >
+          Finish
+        </button>
+
+        <button
+          class="button-base button-base-trans"
+          [routerLink]="[]"
+          [relativeTo]="route"
+          [queryParams]="signUpQueryParam"
+          queryParamsHandling="merge"
+        >
+          Back
+        </button>
+      </form>
+    </ng-container>
   </ng-container>
-</ng-container>
+</div>

@@ -32,7 +32,7 @@ app-root {
 }
 
 .error {
-  color: red;
+  color: variables.$red;
 }
 
 .error-background {
@@ -176,7 +176,7 @@ app-root {
 }
 
 /* Text input*/
-.search-bar {
+.searchbar {
   display: flex;
   box-sizing: border-box;
   flex-direction: row;
@@ -188,6 +188,24 @@ app-root {
   background-color: variables.$card;
   border-radius: variables.$border-radius-base;
   @include mixins.shadow-4;
+}
+
+.text-field-searchbar {
+  width: 100%;
+  height: fit-content;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
 }
 
 /* Buttons */
@@ -213,7 +231,68 @@ app-root {
   font-variant-ligatures: normal;
   font-kerning: normal;
   text-align: justify;
+  border: none;
   @include mixins.shadow-4;
+}
+
+.button-base:hover {
+  cursor: pointer;
+}
+
+.button-base-trans {
+  background-color: transparent;
+}
+
+.button-base-green {
+  background-color: variables.$green;
+  color: variables.$surface;
+}
+
+.button-base-green:hover {
+  background-color: variables.$hover-green-color;
+}
+
+.button-base-green:active {
+  background-color: variables.$selection-green-color;
+}
+
+.button-base-blue {
+  background-color: variables.$blue-light;
+  color: variables.$surface;
+}
+
+.button-base-blue:hover {
+  background-color: variables.$hover-blue-light-color;
+}
+
+.button-base-blue:active {
+  background-color: variables.$selection-blue-light-color;
+}
+
+.button-base-google {
+  background-color: variables.$google;
+  color: white;
+}
+
+.button-base-google:hover {
+  background-color: variables.$hover-google-color;
+}
+
+.button-base-google:active {
+  background-color: variables.$selection-google-color;
+}
+
+.button-base-facebook {
+  background-color: variables.$facebook;
+  color: white;
+}
+
+.button-base-facebook:hover {
+  background-color: variables.$hover-facebook-color;
+}
+
+.button-base-facebook:active {
+  background-color: variables.$selection-facebook-color;
 }
 
 .dropdown-button {

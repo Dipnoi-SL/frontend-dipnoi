@@ -79,13 +79,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: fit-content;
   gap: 10px;
 }
 
 .p-score-text {
-  width: 40px;
-  height: 40px;
-  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  width: 35px;
+  height: 30px;
   text-align: end;
   font-weight: variables.$font-weight-medium;
 }
@@ -93,9 +97,8 @@
 .score-icon-container {
   display: flex;
   flex-direction: row;
-  width: 40px;
-  height: 40px;
-  height: fit-content;
+  width: 35px;
+  height: 30px;
   justify-content: center;
   align-items: center;
 }

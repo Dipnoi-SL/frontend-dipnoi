@@ -23,7 +23,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent extends StatefulComponent<{
-  hasErrored: boolean;
   hidePassword: boolean;
 }> {
   signUpQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_UP };
@@ -43,7 +42,6 @@ export class SignInComponent extends StatefulComponent<{
     public socialAuthService: SocialAuthService,
   ) {
     super({
-      hasErrored: false,
       hidePassword: true,
     });
   }
@@ -59,7 +57,7 @@ export class SignInComponent extends StatefulComponent<{
           this.dialogRef.close();
         },
         error: () => {
-          this.updateState({ hasErrored: true });
+          // TODO: Open error toast
         },
       });
   }
