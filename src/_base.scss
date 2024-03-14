@@ -25,6 +25,12 @@ input:-webkit-autofill:focus {
     color 0s 600000s !important;
 }
 
+/* Modal overlay */
+.cdk-overlay-dark-backdrop,
+.cdk-overlay-backdrop-showing {
+  background-color: rgba(0, 0, 0, 0.7) !important; // Darken the backdrop
+}
+
 /* Fonts */
 h1 {
   font-family: variables.$font-family-base;
