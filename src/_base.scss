@@ -299,3 +299,11 @@ a {
   transition: 0.2s ease all;
   color: variables.$outline;
 }
+
+.text-field-error {
+  border-color: variables.$red;
+
+  .text-field-label {
+    color: variables.$red;
+  }
+}

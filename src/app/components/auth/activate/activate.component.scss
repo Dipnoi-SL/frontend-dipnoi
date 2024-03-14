@@ -70,6 +70,18 @@ input:valid ~ .text-field-label {
   color: variables.$text-color;
 }
 
+.pending {
+  color: variables.$yellow;
+}
+
+.cross {
+  color: variables.$red;
+}
+
+.done {
+  color: variables.$green;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;

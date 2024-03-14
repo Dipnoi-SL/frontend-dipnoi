@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -9,6 +14,7 @@ import { AuthService } from '../../../services/auth.service';
 import { AuthComponent } from '../auth.component';
 import {
   EMAIL_VALIDATION_REGEXP,
+  PASSWORD_VALIDATION_MIN_LENGTH,
   PASSWORD_VALIDATION_REGEXP,
 } from '../../../constants/literals';
 import { DialogRef } from '@angular/cdk/dialog';
@@ -22,6 +28,7 @@ import {
   SocialAuthService,
 } from '@abacritt/angularx-social-login';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-sign-up',
@@ -38,12 +45,17 @@ import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
   styleUrl: './sign-up.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignUpComponent extends StatefulComponent<{
-  hasErrored: boolean;
-  hidePassword: boolean;
-  finished: boolean;
-}> {
+export class SignUpComponent
+  extends StatefulComponent<{
+    typing: boolean;
+    hidePassword: boolean;
+    finished: boolean;
+  }>
+  implements OnInit, OnDestroy
+{
   signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
+  typing$!: Subscription;
+  typingTimeout!: NodeJS.Timeout;
   signUpForm = this.formBuilder.group({
     email: [
       '',
@@ -51,7 +63,11 @@ export class SignUpComponent extends StatefulComponent<{
     ],
     password: [
       '',
-      [Validators.required, Validators.pattern(PASSWORD_VALIDATION_REGEXP)],
+      [
+        Validators.required,
+        Validators.minLength(PASSWORD_VALIDATION_MIN_LENGTH),
+        Validators.pattern(PASSWORD_VALIDATION_REGEXP),
+      ],
     ],
     recaptchaResponse: [null as string | null, Validators.required],
   });
@@ -65,9 +81,21 @@ export class SignUpComponent extends StatefulComponent<{
     public router: Router,
   ) {
     super({
-      hasErrored: false,
+      typing: false,
       hidePassword: true,
       finished: false,
+    });
+  }
+
+  ngOnInit() {
+    this.typing$ = this.signUpForm.valueChanges.subscribe(() => {
+      this.updateState({ typing: true });
+
+      clearTimeout(this.typingTimeout);
+
+      this.typingTimeout = setTimeout(() => {
+        this.updateState({ typing: false });
+      }, 500);
     });
   }
 
@@ -81,9 +109,6 @@ export class SignUpComponent extends StatefulComponent<{
       .subscribe({
         next: () => {
           this.updateState({ finished: true });
-        },
-        error: () => {
-          this.updateState({ hasErrored: true });
         },
       });
   }
@@ -124,5 +149,11 @@ export class SignUpComponent extends StatefulComponent<{
             },
           });
       });
+  }
+
+  override ngOnDestroy() {
+    this.typing$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

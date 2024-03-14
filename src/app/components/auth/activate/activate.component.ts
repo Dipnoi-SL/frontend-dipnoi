@@ -18,7 +18,11 @@ import { RoutePathEnum } from '../../../app.routes';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { Subscription, finalize, map, switchMap, timer } from 'rxjs';
-import { NICKNAME_VALIDATION_REGEXP } from '../../../constants/literals';
+import {
+  NICKNAME_VALIDATION_MAX_LENGTH,
+  NICKNAME_VALIDATION_MIN_LENGTH,
+  NICKNAME_VALIDATION_REGEXP,
+} from '../../../constants/literals';
 import { UserService } from '../../../services/user.service';
 import { NgIconComponent } from '@ng-icons/core';
 
@@ -32,6 +36,7 @@ import { NgIconComponent } from '@ng-icons/core';
 })
 export class ActivateComponent
   extends StatefulComponent<{
+    typing: boolean;
     finished: boolean;
     activationToken: string;
   }>
@@ -39,11 +44,18 @@ export class ActivateComponent
 {
   queryParams$!: Subscription;
   statusChanges$!: Subscription;
+  typing$!: Subscription;
+  typingTimeout!: NodeJS.Timeout;
   signUpQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_UP };
   activateForm = this.formBuilder.group({
     nickname: [
       '',
-      [Validators.required, Validators.pattern(NICKNAME_VALIDATION_REGEXP)],
+      [
+        Validators.required,
+        Validators.minLength(NICKNAME_VALIDATION_MIN_LENGTH),
+        Validators.maxLength(NICKNAME_VALIDATION_MAX_LENGTH),
+        Validators.pattern(NICKNAME_VALIDATION_REGEXP),
+      ],
       this.validateNickname.bind(this),
     ],
   });
@@ -56,7 +68,7 @@ export class ActivateComponent
     public router: Router,
     public changeDetectorRef: ChangeDetectorRef,
   ) {
-    super({ finished: false, activationToken: '' });
+    super({ typing: false, finished: false, activationToken: '' });
   }
 
   ngOnInit() {
@@ -70,6 +82,16 @@ export class ActivateComponent
           queryParamsHandling: 'merge',
         });
       }
+    });
+
+    this.typing$ = this.activateForm.valueChanges.subscribe(() => {
+      this.updateState({ typing: true });
+
+      clearTimeout(this.typingTimeout);
+
+      this.typingTimeout = setTimeout(() => {
+        this.updateState({ typing: false });
+      }, 500);
     });
   }
 
@@ -108,7 +130,7 @@ export class ActivateComponent
           .pipe(
             map((nicknameExistance) => {
               if (nicknameExistance.exists) {
-                return { existingNickname: true } as ValidationErrors;
+                return { existingnickname: true } as ValidationErrors;
               }
 
               return null;
@@ -122,6 +144,8 @@ export class ActivateComponent
   }
 
   override ngOnDestroy() {
+    this.typing$.unsubscribe();
+
     this.queryParams$.unsubscribe();
 
     super.ngOnDestroy();

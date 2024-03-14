@@ -27,7 +27,15 @@
         (ngSubmit)="onFinish()"
       >
         <div class="text-and-error">
-          <div class="text-field-container">
+          <div
+            class="text-field-container"
+            [ngClass]="{
+              'text-field-error':
+                activateForm.controls.nickname.dirty &&
+                activateForm.controls.nickname.invalid &&
+                !state.typing
+            }"
+          >
             <input
               class="text-field-base"
               type="text"
@@ -36,42 +44,70 @@
             />
             <p class="text-field-label">Display name</p>
             <ng-icon
-              *ngIf="activateForm.controls.nickname.pending"
-              class="suffix"
+              *ngIf="
+                (activateForm.controls.nickname.dirty &&
+                  activateForm.controls.nickname.pending) ||
+                state.typing
+              "
+              class="suffix pending"
               name="matPendingOutline"
             ></ng-icon>
             <ng-icon
-              *ngIf="activateForm.controls.nickname.valid"
-              class="suffix"
+              *ngIf="
+                activateForm.controls.nickname.dirty &&
+                activateForm.controls.nickname.valid &&
+                !state.typing
+              "
+              class="suffix done"
               name="matDoneOutline"
             ></ng-icon>
             <ng-icon
-              *ngIf="activateForm.controls.nickname.invalid"
-              class="suffix"
+              *ngIf="
+                activateForm.controls.nickname.dirty &&
+                activateForm.controls.nickname.invalid &&
+                !state.typing
+              "
+              class="suffix cross"
               name="matCloseOutline"
             ></ng-icon>
           </div>
 
-          <div class="error">
-            <small *ngIf="activateForm.controls.nickname.untouched">
+          <div
+            *ngIf="activateForm.controls.nickname.dirty && !state.typing"
+            class="error"
+          >
+            <small *ngIf="activateForm.controls.nickname.hasError('required')">
+              Must not be empty
+            </small>
+            <small *ngIf="activateForm.controls.nickname.hasError('minlength')">
               Must contain at least 3 characters
             </small>
             <small
               *ngIf="
-                activateForm.controls.nickname.hasError('required') &&
-                activateForm.controls.nickname.touched
+                activateForm.controls.nickname.hasError('maxlength') &&
+                !activateForm.controls.nickname.hasError('minlength')
               "
             >
-              <br />
-              Must not be empty
+              Must not contain more than 15 characters
             </small>
             <small
               *ngIf="
                 activateForm.controls.nickname.hasError('pattern') &&
-                activateForm.controls.nickname.touched
+                !activateForm.controls.nickname.hasError('minlength') &&
+                !activateForm.controls.nickname.hasError('maxlength')
               "
             >
               Can only contain letters, numbers, hyphens and underscores
+            </small>
+            <small
+              *ngIf="
+                activateForm.controls.nickname.hasError('existingnickname') &&
+                !activateForm.controls.nickname.hasError('minlength') &&
+                !activateForm.controls.nickname.hasError('maxlength') &&
+                !activateForm.controls.nickname.hasError('pattern')
+              "
+            >
+              Display name not available
             </small>
           </div>
         </div>

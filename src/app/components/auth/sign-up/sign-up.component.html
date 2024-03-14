@@ -25,7 +25,15 @@
         (ngSubmit)="onSignUp()"
       >
         <div class="text-and-error">
-          <div class="text-field-container">
+          <div
+            class="text-field-container"
+            [ngClass]="{
+              'text-field-error':
+                signUpForm.controls.email.dirty &&
+                signUpForm.controls.email.invalid &&
+                !state.typing
+            }"
+          >
             <input
               class="text-field-base"
               type="text"
@@ -34,27 +42,28 @@
             />
             <p class="text-field-label">Email address</p>
           </div>
-          <div class="error">
-            <small
-              *ngIf="
-                signUpForm.controls.email.hasError('required') &&
-                signUpForm.controls.email.touched
-              "
-            >
+          <div
+            *ngIf="signUpForm.controls.email.dirty && !state.typing"
+            class="error"
+          >
+            <small *ngIf="signUpForm.controls.email.hasError('required')">
               Must not be empty
             </small>
-            <small
-              *ngIf="
-                signUpForm.controls.email.hasError('pattern') &&
-                signUpForm.controls.email.touched
-              "
-            >
+            <small *ngIf="signUpForm.controls.email.hasError('pattern')">
               Must be a valid email
             </small>
           </div>
         </div>
         <div class="text-and-error">
-          <div class="text-field-container grow">
+          <div
+            class="text-field-container grow"
+            [ngClass]="{
+              'text-field-error':
+                signUpForm.controls.password.dirty &&
+                signUpForm.controls.password.invalid &&
+                !state.typing
+            }"
+          >
             <input
               class="text-field-base"
               [type]="state.hidePassword ? 'password' : 'text'"
@@ -72,22 +81,23 @@
               "
             ></ng-icon>
           </div>
-          <div class="error">
-            <small
-              *ngIf="
-                signUpForm.controls.password.hasError('required') &&
-                signUpForm.controls.password.touched
-              "
-            >
+          <div
+            *ngIf="signUpForm.controls.password.dirty && !state.typing"
+            class="error"
+          >
+            <small *ngIf="signUpForm.controls.password.hasError('required')">
               Must not be empty
+            </small>
+            <small *ngIf="signUpForm.controls.password.hasError('minlength')">
+              Must contain at least 8 characters
             </small>
             <small
               *ngIf="
                 signUpForm.controls.password.hasError('pattern') &&
-                signUpForm.controls.password.touched
+                !signUpForm.controls.password.hasError('minlength')
               "
             >
-              Must contain at least one special character
+              Must contain at least one letter and one number
             </small>
           </div>
         </div>

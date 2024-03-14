@@ -38,28 +38,6 @@ input:valid ~ .text-field-label {
   font-size: variables.$font-size-xs;
 }
 
-.error {
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  height: max-content;
-  flex-direction: column;
-  flex-wrap: wrap;
-  overflow: hidden;
-  padding: 0px 12px;
-  small {
-    margin-top: 5px;
-    color: variables.$red;
-  }
-}
-
-.text-and-error {
-  display: flex;
-  width: 100%;
-  height: fit-content;
-  flex-direction: column;
-}
-
 .main-content {
   display: flex;
   flex-direction: column;
@@ -84,11 +62,6 @@ input:valid ~ .text-field-label {
   flex-shrink: 0;
   flex-grow: 0;
   color: variables.$text-color;
-}
-
-.grow {
-  flex-grow: 1;
-  flex-shrink: 1;
 }
 
 .separation {
