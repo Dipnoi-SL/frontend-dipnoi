@@ -253,7 +253,7 @@ app-root {
 }
 
 .button-base-green:active {
-  background-color: variables.$selection-green-color;
+  background-color: variables.$highlight-green-color;
 }
 
 .button-base-blue {
@@ -266,7 +266,7 @@ app-root {
 }
 
 .button-base-blue:active {
-  background-color: variables.$selection-blue-light-color;
+  background-color: variables.$highlight-blue-light-color;
 }
 
 .button-base-google {
@@ -279,7 +279,7 @@ app-root {
 }
 
 .button-base-google:active {
-  background-color: variables.$selection-google-color;
+  background-color: variables.$highlight-google-color;
 }
 
 .button-base-facebook {
@@ -292,7 +292,7 @@ app-root {
 }
 
 .button-base-facebook:active {
-  background-color: variables.$selection-facebook-color;
+  background-color: variables.$highlight-facebook-color;
 }
 
 .dropdown-button {

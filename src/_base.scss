@@ -155,11 +155,11 @@ a {
 
 /* Interactions*/
 .selection-surface {
-  background-color: variables.$selection-surface-color !important;
+  background-color: variables.$hover-surface-color !important;
 }
 
 .selection-card {
-  background-color: variables.$selection-card-color !important;
+  background-color: variables.$hover-card-color !important;
 }
 
 .hover-card:hover {
@@ -176,12 +176,12 @@ a {
 }
 
 .hover-card:active {
-  background-color: variables.$selection-card-color;
+  background-color: variables.$highlight-card-color;
 
   .card-fade-bottom {
     background: linear-gradient(
       to top,
-      variables.$selection-card-color,
+      variables.$highlight-card-color,
       rgba(0, 0, 0, 0)
     );
   }
@@ -201,12 +201,12 @@ a {
 }
 
 .hover-surface:active {
-  background-color: variables.$selection-surface-color;
+  background-color: variables.$highlight-surface-color;
 
   .card-fade-bottom {
     background: linear-gradient(
       to top,
-      variables.$selection-surface-color,
+      variables.$highlight-surface-color,
       rgba(0, 0, 0, 0)
     );
   }
