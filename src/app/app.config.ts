@@ -18,8 +18,8 @@ import {
   matDoneOutline,
   matCloseOutline,
   matPendingOutline,
+  matInfoOutline,
 } from '@ng-icons/material-icons/outline';
-
 import {
   matHome,
   matViewList,
@@ -29,7 +29,6 @@ import {
   matEmojiObjects,
   matHelp,
 } from '@ng-icons/material-icons/baseline';
-
 import {
   FacebookLoginProvider,
   GoogleLoginProvider,
@@ -62,6 +61,7 @@ export const appConfig: ApplicationConfig = {
       matGavel,
       matEmojiObjects,
       matHelp,
+      matInfoOutline,
     }),
     importProvidersFrom(HttpClientModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

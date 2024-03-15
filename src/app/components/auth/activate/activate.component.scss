@@ -61,6 +61,7 @@ input:valid ~ .text-field-label {
 }
 
 .suffix {
+  cursor: pointer;
   display: flex;
   align-items: center;
   height: 100%;
