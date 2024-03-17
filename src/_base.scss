@@ -17,7 +17,7 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-/* Idk */
+/* Autofill text field stuff */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition:
@@ -299,6 +299,13 @@ a {
   top: 50%;
   transition: 0.2s ease all;
   color: variables.$outline;
+}
+
+input:focus ~ .text-field-label,
+input:valid ~ .text-field-label {
+  top: -1px;
+  height: 1px;
+  font-size: variables.$font-size-xs;
 }
 
 .text-field-error {

@@ -1,25 +1,27 @@
 <ng-container *ngIf="state$ | async as state">
-  <form [formGroup]="creationForm" (ngSubmit)="onSubmit()">
-    <div class="wrapper">
-      <div class="left-panel">
-        <h1>Proposal creation</h1>
+  <form class="dialog" [formGroup]="creationForm" (ngSubmit)="onSubmit()">
+    <h2>Proposal creation</h2>
+    <div class="dialog-main-container">
+      <div class="dialog-main-content">
         <h3>Details</h3>
-        <div>
-          <label [htmlFor]="initialTitle">Title</label>
+        <div class="text-field-container">
           <input
+            class="text-field-base"
             type="text"
-            class="title-box"
             formControlName="initialTitle"
-            #initialTitle
+            required
           />
+          <p class="text-field-label">Title</p>
         </div>
-        <div>
+        <div class="text-field-container description-input">
           <ngx-editor-menu
+            class="editor-menu"
             [editor]="editor"
             [toolbar]="toolbar"
           ></ngx-editor-menu>
+          <div class="full-horizontal-divider"></div>
           <ngx-editor
-            class="description-box"
+            class="text-field-base editor-menu"
             [editor]="editor"
             formControlName="initialDescription"
           ></ngx-editor>
@@ -31,21 +33,25 @@
               let i = index
             "
           >
-            <input
-              type="text"
-              class="poll-box"
-              [formControlName]="i"
-              placeholder="Poll question"
-            />
-            <div (click)="removePollLabelsControl(i)">Remove</div>
+            <div class="text-field-container">
+              <input
+                type="text"
+                class="text-field-base"
+                [formControlName]="i"
+                placeholder="Poll question"
+              />
+              <p class="text-field-label">Title</p>
+              <div (click)="removePollLabelsControl(i)">Remove</div>
+            </div>
           </div>
         </div>
         <div (click)="addPollLabelsControl()">Add poll</div>
       </div>
-      <div class="right-panel">
-        <div>
-          <label [htmlFor]="thumbnail">Thumbnail</label>
+      <div class="dialog-side-panel">
+        <div class="section">
+          <h3>Thumbnail</h3>
           <input
+            class="text-field-container"
             type="file"
             accept=".png, .jpg, .jpeg"
             formControlName="thumbnail"
@@ -58,15 +64,37 @@
             [src]="state.thumbnailSrc"
           />
         </div>
-        <div class="box" formArrayName="categories">
-          <div *ngFor="let category of categories; let i = index">
-            <input type="checkbox" [formControlName]="i" />
-            {{ category }}
+        <div class="section">
+          <h3>Categories</h3>
+          <div
+            class="text-field-container categories-list"
+            formArrayName="categories"
+          >
+            <div *ngFor="let category of categories; let i = index">
+              <label class="tag tag-blue">
+                <input class="checkbox" type="checkbox" [formControlName]="i" />
+                <span class="custom-checkbox"></span>
+                <p>
+                  {{
+                    category.charAt(0).toUpperCase() +
+                      category.slice(1).toLowerCase()
+                  }}
+                </p>
+              </label>
+            </div>
           </div>
         </div>
         <div class="actions">
-          <div (click)="onCancel()">Cancel</div>
-          <button [disabled]="!creationForm.valid" type="submit">Submit</button>
+          <button class="button-base button-base-trans" (click)="onCancel()">
+            Cancel
+          </button>
+          <button
+            class="button-base button-base-blue"
+            [disabled]="!creationForm.valid"
+            type="submit"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>

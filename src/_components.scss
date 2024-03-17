@@ -357,20 +357,35 @@ app-root {
 }
 
 .NgxEditor__MenuBar {
-  background-color: blue !important;
-  color: red !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  background-color: inherit !important;
+  color: variables.$text-color !important;
+  justify-content: space-between !important;
 }
 
 .NgxEditor__MenuItem--Active {
-  background-color: yellow !important;
+  background-color: variables.$highlight-text-field-color !important;
+  color: inherit !important;
+  border: none;
+  border-radius: variables.$border-radius-small !important;
 }
 
 .NgxEditor__MenuItem:hover {
-  background-color: green !important;
+  background-color: variables.$hover-text-field-color !important;
+  border-radius: variables.$border-radius-small !important;
 }
 
-.NgxEditor__Dropdown:hover {
-  background-color: green !important;
+.NgxEditor__Dropdown--DropdownMenu {
+  border: solid 1px variables.$outline-variant !important;
+  background-color: variables.$text-field-color !important;
+  border-radius: variables.$border-radius-base !important;
+  overflow: hidden !important;
+}
+
+.NgxEditor__Dropdown--Item:hover {
+  background-color: variables.$hover-text-field-color !important;
 }
 
 .NgxEditor__Dropdown--Selected {
@@ -379,11 +394,35 @@ app-root {
 }
 
 .NgxEditor__Dropdown--Item {
-  background-color: blue !important;
+  background-color: inherit !important;
 }
 
 .NgxEditor__Dropdown--Item:hover {
-  background-color: green !important;
+  background-color: variables.$hover-text-field-color !important;
+}
+
+.NgxEditor__Dropdown:hover {
+  background-color: inherit !important;
+}
+
+.NgxEditor--Disabled {
+  border: none;
+}
+
+.NgxEditor__Seperator {
+  border-left: solid 1px variables.$outline-variant !important;
+  margin-left: 6px !important;
+}
+
+.NgxEditor__Dropdown--Text {
+  padding: 0px 8px !important;
+}
+
+.NgxEditor__Popup {
+  border: solid 1px variables.$outline-variant !important;
+  background-color: variables.$text-field-color !important;
+  border-radius: variables.$border-radius-base !important;
+  overflow: hidden !important;
 }
 
 /* Tooltip */
