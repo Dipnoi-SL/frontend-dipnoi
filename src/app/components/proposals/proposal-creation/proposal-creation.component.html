@@ -1,6 +1,6 @@
 <ng-container *ngIf="state$ | async as state">
   <form class="dialog" [formGroup]="creationForm" (ngSubmit)="onSubmit()">
-    <h2 class="dialog-title">Proposal creation</h2>
+    <h2>Proposal creation</h2>
     <div class="dialog-main-container">
       <div class="dialog-main-content">
         <div class="main-content-scrollable-container">
@@ -88,7 +88,7 @@
 
             <div class="text-field-container thumbnail">
               <input
-                class="upload-action input-opacity"
+                class="upload-action input-opacity hover-surface"
                 type="file"
                 accept=".png, .jpg, .jpeg"
                 formControlName="thumbnail"
@@ -108,7 +108,7 @@
             <div class="categories-container text-field-container">
               <div class="categories-list" formArrayName="categories">
                 <div *ngFor="let category of categories; let i = index">
-                  <label class="tag tag-blue">
+                  <label class="tag tag-blue hover-blue">
                     <input
                       class="checkbox"
                       type="checkbox"

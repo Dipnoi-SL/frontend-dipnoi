@@ -212,6 +212,11 @@ a {
   }
 }
 
+.hover-blue:hover {
+  cursor: pointer;
+  background-color: variables.$hover-blue-light-color;
+}
+
 /* Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
