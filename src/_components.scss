@@ -352,8 +352,42 @@ app-root {
   width: max-content;
 }
 
+.NgxEditor {
+  width: 100% !important;
+  height: fit-content !important;
+  background-color: inherit !important;
+  border: none !important;
+}
+
+.NgxEditor__Content {
+  height: fit-content !important;
+  width: 100% !important;
+  padding: 0px !important;
+  background-color: inherit !important;
+  border: none !important;
+  font-family: variables.$font-family-base !important;
+  font-size: variables.$font-size-sm !important;
+  color: variables.$text-color !important;
+  line-height: variables.$font-line-height-sm !important;
+  font-weight: variables.$font-weight-normal !important;
+  letter-spacing: variables.$font-letter-spacing-tight !important;
+  margin-top: variables.$font-paragraph-spacing-normal !important;
+  margin-bottom: variables.$font-paragraph-spacing-normal !important;
+  font-variant-ligatures: normal !important;
+  font-kerning: normal !important;
+
+  p {
+    box-sizing: border-box !important;
+    overflow-wrap: break-word !important;
+    margin: 0px !important;
+    width: 100% !important;
+    height: fit-content !important;
+    padding: 1px 2px !important;
+  }
+}
+
 .NgxEditor--Disabled {
-  border: 1px solid white;
+  border: 1px solid white !important;
 }
 
 .NgxEditor__MenuBar {
@@ -368,11 +402,12 @@ app-root {
 .NgxEditor__MenuItem--Active {
   background-color: variables.$highlight-text-field-color !important;
   color: inherit !important;
-  border: none;
+  border: none !important;
   border-radius: variables.$border-radius-small !important;
 }
 
 .NgxEditor__MenuItem:hover {
+  cursor: pointer !important;
   background-color: variables.$hover-text-field-color !important;
   border-radius: variables.$border-radius-small !important;
 }
@@ -385,16 +420,20 @@ app-root {
 }
 
 .NgxEditor__Dropdown--Item:hover {
+  cursor: pointer;
   background-color: variables.$hover-text-field-color !important;
 }
 
 .NgxEditor__Dropdown--Selected {
-  background-color: inherit !important;
+  background-color: variables.$highlight-text-field-color !important;
   color: inherit !important;
+  border: none !important;
+  border-radius: variables.$border-radius-small !important;
 }
 
 .NgxEditor__Dropdown--Item {
   background-color: inherit !important;
+  text-align: center !important;
 }
 
 .NgxEditor__Dropdown--Item:hover {
@@ -402,11 +441,13 @@ app-root {
 }
 
 .NgxEditor__Dropdown:hover {
-  background-color: inherit !important;
+  cursor: pointer;
+  background-color: variables.$hover-text-field-color !important;
+  border-radius: variables.$border-radius-small !important;
 }
 
 .NgxEditor--Disabled {
-  border: none;
+  border: none !important;
 }
 
 .NgxEditor__Seperator {
@@ -423,6 +464,10 @@ app-root {
   background-color: variables.$text-field-color !important;
   border-radius: variables.$border-radius-base !important;
   overflow: hidden !important;
+  cursor: default !important;
+}
+.NgxEditor__Color {
+  cursor: pointer !important;
 }
 
 /* Tooltip */

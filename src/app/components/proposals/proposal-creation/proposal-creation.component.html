@@ -11,7 +11,7 @@
             formControlName="initialTitle"
             required
           />
-          <p class="text-field-label">Title</p>
+          <p class="text-field-label text-field-label-focused">Title</p>
         </div>
         <div class="text-field-container description-input">
           <ngx-editor-menu
@@ -26,15 +26,14 @@
             [editor]="editor"
             formControlName="initialDescription"
             placeholder=""
-          >
-            <p class="text-field-label-description">Description</p>
-          </ngx-editor>
+          ></ngx-editor>
+          <p class="text-field-label text-field-label-focused">Description</p>
         </div>
         <div class="text-field-container" (click)="addPollLabelsControl()">
           <img class="icon-gap" src="../../../assets/icons/add-green.svg" />
           <div class="full-vertical-divider trim"></div>
           <input type="text" class="text-field-base" />
-          <p class="text-field-label">Poll question</p>
+          <p class="text-field-label text-field-label-focused">Poll question</p>
           <div class="full-vertical-divider"></div>
           <p>Yes / Skip / No</p>
         </div>
@@ -42,7 +41,7 @@
           <img class="icon-gap" src="../../../assets/icons/subtract.svg" />
           <div class="full-vertical-divider trim"></div>
           <input type="text" class="text-field-base" />
-          <p class="text-field-label">Poll question</p>
+          <p class="text-field-label text-field-label-focused">Poll question</p>
           <div class="full-vertical-divider"></div>
           <p>Yes / Skip / No</p>
         </div>
@@ -61,7 +60,7 @@
                 placeholder="Poll question"
               />
 
-              <p class="text-field-label">Title</p>
+              <p class="text-field-label text-field-label-focused">Title</p>
               <div (click)="removePollLabelsControl(i)">Remove</div>
             </div>
           </div>

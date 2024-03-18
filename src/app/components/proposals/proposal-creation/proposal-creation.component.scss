@@ -182,53 +182,10 @@ h3 {
   flex-wrap: wrap;
 }
 
-::ng-deep {
-  .NgxEditor {
-    width: 100% !important;
-    height: fit-content !important;
-    background-color: inherit !important;
-    border: none !important;
-  }
-}
-
-::ng-deep {
-  .NgxEditor__Content {
-    height: fit-content !important;
-    width: 100% !important;
-    padding: 0px !important;
-    background-color: inherit !important;
-    border: none !important;
-    font-family: variables.$font-family-base !important;
-    font-size: variables.$font-size-sm !important;
-    color: variables.$text-color !important;
-    line-height: variables.$font-line-height-sm !important;
-    font-weight: variables.$font-weight-normal !important;
-    letter-spacing: variables.$font-letter-spacing-tight !important;
-    margin-top: variables.$font-paragraph-spacing-normal !important;
-    margin-bottom: variables.$font-paragraph-spacing-normal !important;
-    font-variant-ligatures: normal !important;
-    font-kerning: normal !important;
-    p {
-      box-sizing: border-box !important;
-      overflow-wrap: break-word !important;
-      margin: 0px !important;
-      width: 100% !important;
-      height: fit-content !important;
-      padding: 1px 2px !important;
-    }
-  }
-}
-
-.text-field-label-description {
-  background-color: variables.$surface;
-  padding: 0px 2px 2px 2px;
-  position: absolute;
-  pointer-events: none;
-  line-height: 0px;
-  left: 0px;
-  top: 50%;
-  transition: 0.2s ease all;
-  color: variables.$outline;
+.text-field-label-focused {
+  top: -1px;
+  height: 1px;
+  font-size: variables.$font-size-xs;
 }
 
 .full-vertical-divider {
