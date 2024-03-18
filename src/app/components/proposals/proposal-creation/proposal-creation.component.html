@@ -20,11 +20,31 @@
             [toolbar]="toolbar"
           ></ngx-editor-menu>
           <div class="full-horizontal-divider"></div>
+
           <ngx-editor
-            class="text-field-base editor-menu"
+            class="editor-menu"
             [editor]="editor"
             formControlName="initialDescription"
-          ></ngx-editor>
+            placeholder=""
+          >
+            <p class="text-field-label-description">Description</p>
+          </ngx-editor>
+        </div>
+        <div class="text-field-container" (click)="addPollLabelsControl()">
+          <img class="icon-gap" src="../../../assets/icons/add-green.svg" />
+          <div class="full-vertical-divider trim"></div>
+          <input type="text" class="text-field-base" />
+          <p class="text-field-label">Poll question</p>
+          <div class="full-vertical-divider"></div>
+          <p>Yes / Skip / No</p>
+        </div>
+        <div class="text-field-container" (click)="addPollLabelsControl()">
+          <img class="icon-gap" src="../../../assets/icons/subtract.svg" />
+          <div class="full-vertical-divider trim"></div>
+          <input type="text" class="text-field-base" />
+          <p class="text-field-label">Poll question</p>
+          <div class="full-vertical-divider"></div>
+          <p>Yes / Skip / No</p>
         </div>
         <div formArrayName="pollLabels">
           <div
@@ -40,31 +60,35 @@
                 [formControlName]="i"
                 placeholder="Poll question"
               />
+
               <p class="text-field-label">Title</p>
               <div (click)="removePollLabelsControl(i)">Remove</div>
             </div>
           </div>
         </div>
-        <div (click)="addPollLabelsControl()">Add poll</div>
       </div>
       <div class="dialog-side-panel">
         <div class="section">
           <h3>Thumbnail</h3>
-          <input
-            class="text-field-container"
-            type="file"
-            accept=".png, .jpg, .jpeg"
-            formControlName="thumbnail"
-            (change)="onFileChange($event)"
-            #thumbnail
-          />
-          <img
-            *ngIf="state.thumbnailSrc"
-            class="thumbnail"
-            [src]="state.thumbnailSrc"
-          />
+
+          <div class="text-field-container thumbnail">
+            <input
+              class="upload-action input-opacity"
+              type="file"
+              accept=".png, .jpg, .jpeg"
+              formControlName="thumbnail"
+              (change)="onFileChange($event)"
+              #thumbnail
+            />
+            <img
+              *ngIf="state.thumbnailSrc"
+              class="upload"
+              [src]="state.thumbnailSrc"
+            />
+            <img class="icon" src="../../../assets/icons/add-image.svg" />
+          </div>
         </div>
-        <div class="section">
+        <div class="section categories">
           <h3>Categories</h3>
           <div
             class="text-field-container categories-list"

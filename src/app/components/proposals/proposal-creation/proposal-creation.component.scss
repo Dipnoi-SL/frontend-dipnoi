@@ -1,8 +1,16 @@
 @use '../../../../variables';
 
 .dialog {
+  display: flex;
   flex-direction: column;
   gap: 40px;
+}
+
+h2 {
+  width: 100%;
+  height: fit-content;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 h3 {
@@ -16,6 +24,7 @@ h3 {
   box-sizing: border-box;
   flex-grow: 1;
   flex-shrink: 1;
+  height: 1px;
   width: 100%;
   gap: 50px;
 }
@@ -30,7 +39,6 @@ h3 {
 }
 
 .dialog-side-panel {
-  position: relative;
   display: flex;
   flex-direction: column;
   flex-grow: 0;
@@ -40,7 +48,38 @@ h3 {
   gap: 40px;
 }
 
+.categories {
+  flex-grow: 1 !important;
+  flex-shrink: 1 !important;
+  height: 1px !important;
+}
+
+.upload-action {
+  position: absolute;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  border-radius: variables.$border-radius-base;
+}
+
+.icon {
+  position: absolute;
+  z-index: 1;
+  height: fit-content;
+  width: fit-content;
+  border-radius: variables.$border-radius-base;
+}
+
+.upload {
+  position: absolute;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  border-radius: variables.$border-radius-base;
+}
+
 .section {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-grow: 0;
@@ -66,6 +105,7 @@ h3 {
 .description-input {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 13px;
 }
 
@@ -113,8 +153,6 @@ h3 {
 }
 
 .actions {
-  position: absolute;
-  bottom: 0;
   display: flex;
   flex-direction: row;
   gap: 15px;
@@ -129,8 +167,12 @@ h3 {
 }
 
 .thumbnail {
+  justify-content: center;
+  align-items: center;
   width: 100%;
   aspect-ratio: 1 / 1;
+  padding: 0px;
+  border-radius: variables.$border-radius-base;
 }
 
 .poll-section {
@@ -138,4 +180,77 @@ h3 {
   justify-content: space-around;
   overflow-wrap: break-word;
   flex-wrap: wrap;
+}
+
+::ng-deep {
+  .NgxEditor {
+    width: 100% !important;
+    height: fit-content !important;
+    background-color: inherit !important;
+    border: none !important;
+  }
+}
+
+::ng-deep {
+  .NgxEditor__Content {
+    height: fit-content !important;
+    width: 100% !important;
+    padding: 0px !important;
+    background-color: inherit !important;
+    border: none !important;
+    font-family: variables.$font-family-base !important;
+    font-size: variables.$font-size-sm !important;
+    color: variables.$text-color !important;
+    line-height: variables.$font-line-height-sm !important;
+    font-weight: variables.$font-weight-normal !important;
+    letter-spacing: variables.$font-letter-spacing-tight !important;
+    margin-top: variables.$font-paragraph-spacing-normal !important;
+    margin-bottom: variables.$font-paragraph-spacing-normal !important;
+    font-variant-ligatures: normal !important;
+    font-kerning: normal !important;
+    p {
+      box-sizing: border-box !important;
+      overflow-wrap: break-word !important;
+      margin: 0px !important;
+      width: 100% !important;
+      height: fit-content !important;
+      padding: 1px 2px !important;
+    }
+  }
+}
+
+.text-field-label-description {
+  background-color: variables.$surface;
+  padding: 0px 2px 2px 2px;
+  position: absolute;
+  pointer-events: none;
+  line-height: 0px;
+  left: 0px;
+  top: 50%;
+  transition: 0.2s ease all;
+  color: variables.$outline;
+}
+
+.full-vertical-divider {
+  margin: -13px 0px;
+  height: calc(100% + 26px);
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.trim {
+  margin: -5px 0px -13px 0px;
+  height: calc(100% + 18px);
+}
+
+.text-field-container {
+  gap: 14px;
+}
+
+.icon-gap {
+  padding: 0px 8px 0px 6px;
+}
+
+.input-opacity {
+  opacity: 0;
 }
