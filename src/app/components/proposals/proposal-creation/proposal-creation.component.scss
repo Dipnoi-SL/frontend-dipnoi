@@ -25,7 +25,7 @@ h3 {
   box-sizing: border-box;
   flex-grow: 1;
   flex-shrink: 1;
-  height: 1px;
+  height: 0px;
   width: 100%;
   gap: 20px;
 }
@@ -33,11 +33,11 @@ h3 {
 .main-content-scrollable-container {
   overflow-y: scroll;
   margin-right: 7px;
-  padding: 0px 15px 10px 0px;
+  padding: 0px 15px 30px 0px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: calc(100% - 10px);
+  height: calc(100% - 30px);
 }
 
 .side-panel-scrollable-container {
@@ -59,6 +59,8 @@ h3 {
   flex-grow: 1;
   flex-shrink: 1;
   height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .dialog-side-panel {
@@ -126,7 +128,6 @@ h3 {
 .description-input {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 13px;
 }
 
@@ -198,9 +199,8 @@ h3 {
 
 .poll-section {
   display: flex;
-  justify-content: space-around;
-  overflow-wrap: break-word;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .text-field-label-focused {
@@ -225,8 +225,26 @@ h3 {
   gap: 14px;
 }
 
+.poll-container {
+  padding-left: 48px;
+}
+
 .icon-gap {
-  padding: 0px 8px 0px 6px;
+  padding: 0px 6px 0px 6px;
+}
+
+.icon-container {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: variables.$border-radius-base;
+  border-bottom-left-radius: variables.$border-radius-base;
 }
 
 .input-opacity {

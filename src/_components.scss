@@ -396,7 +396,7 @@ app-root {
   flex-wrap: wrap !important;
   background-color: inherit !important;
   color: variables.$text-color !important;
-  justify-content: space-between !important;
+  justify-content: space-evenly !important;
 }
 
 .NgxEditor__MenuItem--Active {
