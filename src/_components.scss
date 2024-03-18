@@ -466,8 +466,13 @@ app-root {
   overflow: hidden !important;
   cursor: default !important;
 }
+
 .NgxEditor__Color {
   cursor: pointer !important;
+}
+
+.NgxEditor__Placeholder {
+  visibility: hidden;
 }
 
 /* Tooltip */
