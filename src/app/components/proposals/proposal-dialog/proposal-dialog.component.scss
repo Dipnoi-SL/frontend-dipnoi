@@ -1,5 +1,8 @@
 .dialog {
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-left: 30px;
 }
 
 .poll-section {
@@ -11,19 +14,53 @@
 
 .dialog-main-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   box-sizing: border-box;
   flex-grow: 1;
   flex-shrink: 1;
+  height: 0px;
+  width: 100%;
+  gap: 20px;
+}
+
+.main-content-scrollable-container {
+  overflow-y: scroll;
+  margin-right: 7px;
+  padding: 0px 15px 30px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: calc(100% - 30px);
+}
+
+.side-panel-scrollable-container {
+  overflow-y: scroll;
+  margin-right: 7px;
+  padding: 0px 15px 30px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: calc(100% - 30px);
+  box-sizing: border-box;
+}
+
+.fade-fix {
+  right: 15px;
+}
+
+.dialog-main-content {
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 1;
   height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .dialog-side-panel {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  flex-grow: 0;
-  flex-shrink: 0;
+  position: relative;
   height: 100%;
   width: 280px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
