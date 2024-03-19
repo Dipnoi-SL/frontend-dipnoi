@@ -11,6 +11,7 @@
   flex-direction: row;
   width: 100%;
   height: fit-content;
+  gap: 30px;
 }
 
 .p-category {
@@ -20,25 +21,43 @@
 }
 
 .p-value {
-  flex-grow: 1;
+  width: fit-content;
   text-align: left;
+}
+
+.value-icon {
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  align-items: center;
+}
+
+.row-icon {
+  justify-content: space-between;
+  align-items: center;
+  height: 26px;
 }
 
 .box-column {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  height: fit-content;
+  width: 100%;
 }
 
 .bar {
-  height: 8px;
+  flex-grow: 1;
+  height: 9px;
   width: 160px;
-  background-color: white;
+  background-color: variables.$bar-progress-color;
+  border-radius: variables.$border-radius-base;
 }
 
 .bar-fill {
-  height: 100%;
-  background-color: green;
+  height: 9px;
+  background-color: variables.$green;
+  border-top-left-radius: variables.$border-radius-base;
+  border-bottom-left-radius: variables.$border-radius-base;
 }
 
 .dialog-side-content {
@@ -48,4 +67,37 @@
   height: 100%;
   width: 100%;
   gap: 20px;
+}
+
+.bar-row {
+  align-items: center;
+  gap: 20px;
+  height: 24px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+  }
+}
+
+.icon-container-priority {
+  width: 20px;
+  height: fit-content;
+}
+
+.adjustment-vector-up {
+  padding-bottom: 1px;
+}
+
+.adjustment-vector-down {
+  padding-top: 1px;
 }

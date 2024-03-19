@@ -129,6 +129,7 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 13px;
+  min-height: calc(250px - 70px);
 }
 
 .tag {

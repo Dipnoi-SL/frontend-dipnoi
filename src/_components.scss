@@ -417,6 +417,7 @@ app-root {
   background-color: variables.$text-field-color !important;
   border-radius: variables.$border-radius-base !important;
   overflow: hidden !important;
+  top: 35px !important;
 }
 
 .NgxEditor__Dropdown--Item:hover {
@@ -428,7 +429,7 @@ app-root {
   background-color: variables.$highlight-text-field-color !important;
   color: inherit !important;
   border: none !important;
-  border-radius: variables.$border-radius-small !important;
+  border-radius: variables.$border-radius-base !important;
 }
 
 .NgxEditor__Dropdown--Item {
@@ -456,7 +457,8 @@ app-root {
 }
 
 .NgxEditor__Dropdown--Text {
-  padding: 0px 8px !important;
+  box-sizing: border-box !important;
+  padding: 0px 15px !important;
 }
 
 .NgxEditor__Popup {
@@ -465,6 +467,7 @@ app-root {
   border-radius: variables.$border-radius-base !important;
   overflow: hidden !important;
   cursor: default !important;
+  top: 35px !important;
 }
 
 .NgxEditor__Color {
