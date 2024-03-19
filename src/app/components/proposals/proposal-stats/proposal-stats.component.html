@@ -33,7 +33,6 @@
         <img
           class="image"
           src="../../../assets/icons/prio-5.svg"
-          name="matAccessibleForwardOutline"
           (click)="onImportanceVote(5)"
         />
       </div>
@@ -42,7 +41,6 @@
         <img
           class="image"
           src="../../../assets/icons/prio-4.svg"
-          name="matAccessibleForwardOutline"
           (click)="onImportanceVote(4)"
         />
       </div>
@@ -51,7 +49,6 @@
         <img
           class="image"
           src="../../../assets/icons/prio-3.svg"
-          name="matAccessibleForwardOutline"
           (click)="onImportanceVote(3)"
         />
       </div>
@@ -60,7 +57,6 @@
         <img
           class="image"
           src="../../../assets/icons/prio-2.svg"
-          name="matAccessibleForwardOutline"
           (click)="onImportanceVote(2)"
         />
       </div>
@@ -69,7 +65,6 @@
         <img
           class="image"
           src="../../../assets/icons/prio-1.svg"
-          name="matAccessibleForwardOutline"
           (click)="onImportanceVote(1)"
         />
       </div>
@@ -85,7 +80,41 @@
       <p class="p-category">Average</p>
       <div class="value-icon">
         <p class="p-value">{{ proposal.importance }}</p>
-        <img class="image" src="../../../assets/icons/prio-1.svg" />
+        <img
+          *ngIf="proposal.importance < 1"
+          class="score-icon"
+          width="11"
+          height="10"
+          src="../../../../assets/icons/chevron-down-double.svg"
+        />
+        <img
+          *ngIf="proposal.importance >= 1 && proposal.importance < 2"
+          class="score-icon"
+          width="12"
+          height="8"
+          src="../../../../assets/icons/chevron-down-single.svg"
+        />
+        <img
+          *ngIf="proposal.importance >= 2 && proposal.importance < 3"
+          class="score-icon"
+          width="12"
+          height="6"
+          src="../../../../assets/icons/equal.svg"
+        />
+        <img
+          *ngIf="proposal.importance >= 3 && proposal.importance < 4"
+          class="score-icon"
+          width="12"
+          height="8"
+          src="../../../../assets/icons/chevron-up-single.svg"
+        />
+        <img
+          *ngIf="proposal.importance >= 4"
+          class="score-icon"
+          width="11"
+          height="10"
+          src="../../../../assets/icons/chevron-up-double.svg"
+        />
       </div>
     </div>
   </div>
@@ -96,13 +125,25 @@
     "
   >
     <div class="vertical-card">
-      <h4>Backing</h4>
+      <div class="backing-title">
+        <h4>Backing</h4>
+        <img
+          *ngIf="
+            proposal.isSelectedForDevelopment ||
+            proposal.isInDevelopment ||
+            proposal.isCompleted ||
+            proposal.isNotBacked ||
+            proposal.isNotViable
+          "
+          class="image"
+          src="../../../assets/icons/vector-up.svg"
+        />
+      </div>
       <div class="box-row bar-row">
         <div class="icon-container adjustment-vector-up">
           <img
             class="image"
             src="../../../assets/icons/vector-up.svg"
-            name="matAccessibleForwardOutline"
             (click)="onInterestVote(true, currentPoll)"
           />
         </div>
@@ -118,7 +159,6 @@
           <img
             class="image"
             src="../../../assets/icons/vector-down.svg"
-            name="matAccessibleForwardOutline"
             (click)="onInterestVote(true, currentPoll)"
           />
         </div>
@@ -144,9 +184,18 @@
         <p class="p-category">Balance</p>
         <div class="value-icon">
           <p class="p-value">
-            {{ currentPoll.positiveValue - currentPoll.negativeValue }}
+            {{ currentPoll.balance }}
           </p>
-          <img class="image" src="../../../assets/icons/vector-up.svg" />
+          <img
+            *ngIf="currentPoll.positiveValue >= currentPoll.negativeValue"
+            class="image"
+            src="../../../assets/icons/vector-up.svg"
+          />
+          <img
+            *ngIf="currentPoll.positiveValue < currentPoll.negativeValue"
+            class="image"
+            src="../../../assets/icons/vector-down.svg"
+          />
         </div>
       </div>
       <div class="box-row">
