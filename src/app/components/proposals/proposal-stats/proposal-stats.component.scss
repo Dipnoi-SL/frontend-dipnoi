@@ -33,10 +33,11 @@
 }
 
 .row-icon {
+  box-sizing: border-box;
   height: 35px;
-  justify-content: center;
+  gap: 0px;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
 }
 
 .box-column {

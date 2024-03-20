@@ -232,7 +232,6 @@ app-root {
   font-kerning: normal;
   text-align: justify;
   border: none;
-  @include mixins.shadow-4;
 }
 
 .button-base:hover {

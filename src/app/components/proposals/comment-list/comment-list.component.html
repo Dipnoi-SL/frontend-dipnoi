@@ -1,39 +1,48 @@
 <ng-container *ngIf="state$ | async as state">
-  <div
-    *ngIf="createCommentForm.controls.commentToCreate"
-    class="creation-container"
-  >
-    <ng-container *ngIf="userService.authUser$ | async as authUser">
-      <img
-        class="avatar"
-        [ngSrc]="authUser.avatarUri"
-        [width]="40"
-        [height]="40"
-        [priority]="true"
-      />
-    </ng-container>
-    <div class="avatar"></div>
-    <form [formGroup]="createCommentForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label [htmlFor]="commentToCreate">Add a comment</label>
-        <input
-          type="text"
-          class="create-comment-box"
-          formControlName="commentToCreate"
-          #commentToCreate
+  <div *ngIf="createCommentForm.controls.commentToCreate">
+    <div class="comment-field">
+      <ng-container *ngIf="userService.authUser$ | async as authUser">
+        <img
+          class="avatar"
+          [ngSrc]="authUser.avatarUri"
+          [width]="40"
+          [height]="40"
+          [priority]="true"
         />
-      </div>
-      <div *ngIf="createCommentForm.valid" class="actions">
-        <div (click)="onCancel()">Cancel</div>
-        <button [disabled]="!createCommentForm.valid" type="submit">
-          Submit
-        </button>
-      </div>
-    </form>
+      </ng-container>
+      <form
+        class="comment-field-buttons"
+        [formGroup]="createCommentForm"
+        (ngSubmit)="onSubmit()"
+        style="width: 100%"
+      >
+        <div class="text-field-container">
+          <input
+            type="text"
+            class="text-field-base"
+            formControlName="commentToCreate"
+            #commentToCreate
+            placeholder="Add comment..."
+          />
+        </div>
+        <div *ngIf="createCommentForm.valid" class="actions">
+          <button class="button-base button-base-trans" (click)="onCancel()">
+            Cancel
+          </button>
+          <button
+            class="button-base button-base-blue"
+            [disabled]="!createCommentForm.valid"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
   <ng-container *ngIf="commentService.comments$ | async as comments">
     <div
-      class="wrapper"
+      class="comment-section"
       infiniteScroll
       insufficientItems
       [existingItems]="comments.length"

@@ -35,3 +35,7 @@
 .wrapper-fade-fix {
   right: 15px;
 }
+
+.button-base {
+  @include mixins.shadow-4;
+}

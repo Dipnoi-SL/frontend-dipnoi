@@ -306,6 +306,10 @@ a {
   color: variables.$outline;
 }
 
+.text-field-base::placeholder {
+  color: variables.$outline;
+}
+
 input:focus ~ .text-field-label,
 input:valid ~ .text-field-label {
   top: -1px;
