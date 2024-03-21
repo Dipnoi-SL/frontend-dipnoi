@@ -1,32 +1,69 @@
-.wrapper {
+@use '../../../../variables';
+
+.poll {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 13px;
   width: 222px;
+  height: fit-content;
 }
 
 .button-row {
   display: flex;
+  flex-direction: row;
   gap: 3px;
+  width: 100%;
+  height: fit-content;
 }
 
-.vote-button {
+.button-base {
+  height: 34px;
+  width: auto;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.button-label {
+  color: variables.$outline;
+}
+
+.left {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.center {
+  border-radius: 0px;
+}
+
+.right {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.bar-container {
   display: flex;
-  width: 72px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0px;
+  height: fit-content;
+  width: 100%;
 }
 
 .bar-info {
+  box-sizing: border-box;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  padding: 0px 3px;
+  height: fit-content;
+  width: 100%;
 }
 
 .bar {
-  height: 8px;
   width: 100%;
-  background-color: white;
 }
 
-.bar-fill {
-  height: 100%;
+h5 {
+  box-sizing: border-box;
+  padding: 0px 11px;
 }

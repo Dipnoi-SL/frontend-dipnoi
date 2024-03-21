@@ -1,11 +1,17 @@
-<div class="wrapper">
-  <h3>{{ poll.label }}</h3>
+<div class="poll">
+  <h5>{{ poll.label }}</h5>
   <div class="button-row">
-    <div class="vote-button" (click)="onVote(true)">Yes</div>
-    <div class="vote-button" (click)="onVote(null)">Skip</div>
-    <div class="vote-button" (click)="onVote(false)">No</div>
+    <div class="button-base left" (click)="onVote(true)">
+      <p class="button-label">Yes</p>
+    </div>
+    <div class="button-base center" (click)="onVote(null)">
+      <p class="button-label">Skip</p>
+    </div>
+    <div class="button-base right" (click)="onVote(false)">
+      <p class="button-label">No</p>
+    </div>
   </div>
-  <div>
+  <div class="bar-container">
     <div class="bar-info">
       <small>Yes</small>
       <small>{{ poll.positiveValue }}</small>
@@ -17,7 +23,7 @@
       ></div>
     </div>
   </div>
-  <div>
+  <div class="bar-container">
     <div class="bar-info">
       <small>Skip</small>
       <small>{{ poll.nullValue }}</small>
@@ -29,7 +35,7 @@
       ></div>
     </div>
   </div>
-  <div>
+  <div class="bar-container">
     <div class="bar-info">
       <small>No</small>
       <small>{{ poll.negativeValue }}</small>

@@ -47,21 +47,6 @@
   width: 100%;
 }
 
-.bar {
-  flex-grow: 1;
-  height: 9px;
-  width: 160px;
-  background-color: variables.$bar-progress-color;
-  border-radius: variables.$border-radius-base;
-}
-
-.bar-fill {
-  height: 9px;
-  background-color: variables.$green;
-  border-top-left-radius: variables.$border-radius-base;
-  border-bottom-left-radius: variables.$border-radius-base;
-}
-
 .dialog-side-content {
   display: flex;
   box-sizing: border-box;

@@ -16,19 +16,19 @@ app-root {
 }
 
 .success {
-  color: green;
+  color: variables.$green;
 }
 
 .success-background {
-  background-color: green;
+  background-color: variables.$green;
 }
 
 .warning {
-  color: yellow;
+  color: variables.$yellow;
 }
 
 .warning-background {
-  background-color: yellow;
+  background-color: variables.$yellow;
 }
 
 .error {
@@ -36,7 +36,7 @@ app-root {
 }
 
 .error-background {
-  background-color: red;
+  background-color: variables.$red;
 }
 
 /* Dividers */
@@ -500,4 +500,19 @@ app-root {
 
 .tooltip:hover .tooltip-text {
   visibility: visible;
+}
+
+/* Progression bars */
+.bar {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 8px;
+  background-color: variables.$bar-progress-color;
+  border-radius: variables.$border-radius-base;
+}
+
+.bar-fill {
+  height: 8px;
+  border-top-left-radius: variables.$border-radius-base;
+  border-bottom-left-radius: variables.$border-radius-base;
 }
