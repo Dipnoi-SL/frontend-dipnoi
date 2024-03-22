@@ -38,5 +38,7 @@
 }
 
 .button-base {
+  width: fit-content;
+  padding: 0px 15px;
   @include mixins.shadow-4;
 }
