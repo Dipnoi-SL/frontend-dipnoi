@@ -7,13 +7,19 @@
         <ng-icon name="matAccountCircleOutline"></ng-icon>
       </div>
       <div
-        class="dropdown-content"
+        class="dropdown-base"
         [style.display]="state.isDropdownOpen ? 'block' : 'none'"
       >
-        <div *ngFor="let item of navigationItems" [routerLink]="item.path">
-          {{ item.title }}
+        <div
+          class="dropdown-option hover-card"
+          *ngFor="let item of navigationItems"
+          [routerLink]="item.path"
+        >
+          <p class="dropwdown-option-text">{{ item.title }}</p>
         </div>
-        <div (click)="onSignOut()">Sign out</div>
+        <div class="dropdown-option hover-card" (click)="onSignOut()">
+          <p class="dropwdown-option-text">Sign out</p>
+        </div>
       </div>
     </div>
   </ng-container>
@@ -24,7 +30,7 @@
       [queryParams]="signInQueryParam"
       queryParamsHandling="merge"
     >
-      <h5>Sign in</h5>
+      <p>Sign in</p>
     </div>
   </ng-template>
 </ng-container>

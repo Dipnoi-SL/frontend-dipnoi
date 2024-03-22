@@ -107,27 +107,25 @@
       </div>
     </form>
   </div>
-  <div class="body">
-    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
-      <ng-container
-        *ngIf="
-          proposal.disregardingReason &&
-          (proposal.isNotBacked ||
-            proposal.isNotViable ||
-            ((proposal.isPendingSpecification || proposal.isPendingReview) &&
-              (authUser.data?.isDeveloper ||
-                proposal.user.id === authUser.data?.id)))
-        "
-      >
-        <h3>Dev comment</h3>
-        <p>{{ proposal.disregardingReason }}</p>
-        <div class="inset-horizontal-divider"></div>
-      </ng-container>
-      <div
-        [innerHTML]="
-          proposal.getCurrentHtmlDescription(authUser.data) | safeHtml
-        "
-      ></div>
+
+  <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+    <ng-container
+      *ngIf="
+        proposal.disregardingReason &&
+        (proposal.isNotBacked ||
+          proposal.isNotViable ||
+          ((proposal.isPendingSpecification || proposal.isPendingReview) &&
+            (authUser.data?.isDeveloper ||
+              proposal.user.id === authUser.data?.id)))
+      "
+    >
+      <h3>Dev comment</h3>
+      <p>{{ proposal.disregardingReason }}</p>
+      <div class="inset-horizontal-divider"></div>
     </ng-container>
-  </div>
+    <div
+      class="margin"
+      [innerHTML]="proposal.getCurrentHtmlDescription(authUser.data) | safeHtml"
+    ></div>
+  </ng-container>
 </div>
