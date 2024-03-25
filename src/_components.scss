@@ -16,19 +16,19 @@ app-root {
 }
 
 .success {
-  color: green;
+  color: variables.$green;
 }
 
 .success-background {
-  background-color: green;
+  background-color: variables.$green;
 }
 
 .warning {
-  color: yellow;
+  color: variables.$yellow;
 }
 
 .warning-background {
-  background-color: yellow;
+  background-color: variables.$yellow;
 }
 
 .error {
@@ -36,7 +36,7 @@ app-root {
 }
 
 .error-background {
-  background-color: red;
+  background-color: variables.$red;
 }
 
 /* Dividers */
@@ -232,7 +232,6 @@ app-root {
   font-kerning: normal;
   text-align: justify;
   border: none;
-  @include mixins.shadow-4;
 }
 
 .button-base:hover {
@@ -325,6 +324,7 @@ app-root {
   top: calc(100% + 5px);
   left: 50%;
   transform: translateX(-50%);
+  border: solid 1px variables.$outline-variant;
   @include mixins.shadow-4;
 }
 
@@ -345,6 +345,7 @@ app-root {
   height: 0px;
   flex-grow: 1;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin-right: 7px;
 }
 
@@ -352,64 +353,177 @@ app-root {
   width: max-content;
 }
 
-.NgxEditor--Disabled {
-  border: 1px solid white;
-}
-
-.NgxEditor__MenuBar {
-  background-color: blue !important;
-  color: red !important;
-}
-
-.NgxEditor__MenuItem--Active {
-  background-color: yellow !important;
-}
-
-.NgxEditor__MenuItem:hover {
-  background-color: green !important;
-}
-
-.NgxEditor__Dropdown:hover {
-  background-color: green !important;
-}
-
-.NgxEditor__Dropdown--Selected {
+.NgxEditor {
+  width: 100% !important;
+  height: fit-content !important;
   background-color: inherit !important;
-  color: inherit !important;
+  border: none !important;
 }
 
-.NgxEditor__Dropdown--Item {
-  background-color: blue !important;
-}
+.NgxEditor__Content {
+  height: fit-content !important;
+  width: 100% !important;
+  padding: 0px !important;
+  background-color: inherit !important;
+  border: none !important;
+  font-family: variables.$font-family-base !important;
+  font-size: variables.$font-size-sm !important;
+  color: variables.$text-color !important;
+  line-height: variables.$font-line-height-sm !important;
+  font-weight: variables.$font-weight-normal !important;
+  letter-spacing: variables.$font-letter-spacing-tight !important;
+  margin-top: variables.$font-paragraph-spacing-normal !important;
+  margin-bottom: variables.$font-paragraph-spacing-normal !important;
+  font-variant-ligatures: normal !important;
+  font-kerning: normal !important;
 
-.NgxEditor__Dropdown--Item:hover {
-  background-color: green !important;
-}
-
-/* Tooltip */
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltip-text {
-  visibility: hidden;
-  width: 250px;
-  padding: 10px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-
-  ul {
-    margin: 0px;
-    padding-left: 17px;
-    text-align: left;
+  p {
+    box-sizing: border-box !important;
+    overflow-wrap: break-word !important;
+    margin: 0px !important;
+    width: 100% !important;
+    height: fit-content !important;
+    padding: 1px 2px !important;
   }
 }
 
-.tooltip:hover .tooltip-text {
-  visibility: visible;
+.NgxEditor--Disabled {
+  border: 1px solid white !important;
+}
+
+.NgxEditor__MenuBar {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  background-color: inherit !important;
+  color: variables.$text-color !important;
+  justify-content: space-evenly !important;
+}
+
+.NgxEditor__MenuItem--Active {
+  background-color: variables.$highlight-text-field-color !important;
+  color: inherit !important;
+  border: none !important;
+  border-radius: variables.$border-radius-small !important;
+}
+
+.NgxEditor__MenuItem:hover {
+  cursor: pointer !important;
+  background-color: variables.$hover-text-field-color !important;
+  border-radius: variables.$border-radius-small !important;
+}
+
+.NgxEditor__Dropdown--DropdownMenu {
+  border: solid 1px variables.$outline-variant !important;
+  background-color: variables.$text-field-color !important;
+  border-radius: variables.$border-radius-base !important;
+  overflow: hidden !important;
+  top: 35px !important;
+}
+
+.NgxEditor__Dropdown--Item:hover {
+  cursor: pointer;
+  background-color: variables.$hover-text-field-color !important;
+}
+
+.NgxEditor__Dropdown--Selected {
+  background-color: variables.$highlight-text-field-color !important;
+  color: inherit !important;
+  border: none !important;
+  border-radius: variables.$border-radius-base !important;
+}
+
+.NgxEditor__Dropdown--Item {
+  background-color: inherit !important;
+  text-align: center !important;
+}
+
+.NgxEditor__Dropdown--Item:hover {
+  background-color: variables.$hover-text-field-color !important;
+}
+
+.NgxEditor__Dropdown:hover {
+  cursor: pointer;
+  background-color: variables.$hover-text-field-color !important;
+  border-radius: variables.$border-radius-small !important;
+}
+
+.NgxEditor--Disabled {
+  border: none !important;
+}
+
+.NgxEditor__Seperator {
+  border-left: solid 1px variables.$outline-variant !important;
+  margin-left: 6px !important;
+}
+
+.NgxEditor__Dropdown--Text {
+  box-sizing: border-box !important;
+  padding: 0px 15px !important;
+}
+
+.NgxEditor__Popup {
+  border: solid 1px variables.$outline-variant !important;
+  background-color: variables.$text-field-color !important;
+  border-radius: variables.$border-radius-base !important;
+  overflow: hidden !important;
+  cursor: default !important;
+  top: 35px !important;
+}
+
+.NgxEditor__Color {
+  cursor: pointer !important;
+}
+
+.tooltip-element {
+  position: relative;
+  display: inline-block;
+
+  /* Tooltip */
+  .tooltip-container {
+    position: absolute;
+    box-sizing: border-box;
+    left: 50%;
+    top: calc(100% + 5px);
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: 250px;
+    padding: 15px;
+    background-color: variables.$card;
+    border-radius: variables.$border-radius-base;
+    border: solid 1px variables.$outline-variant;
+    visibility: hidden;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      box-sizing: border-box;
+      color: variables.$outline;
+      margin: 0px;
+      padding-left: 18px;
+    }
+  }
+
+  &:hover .tooltip-container {
+    visibility: visible;
+  }
+}
+
+/* Progression bars */
+.bar {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 8px;
+  background-color: variables.$bar-progress-color;
+  border-radius: variables.$border-radius-base;
+}
+
+.bar-fill {
+  height: 8px;
+  border-top-left-radius: variables.$border-radius-base;
+  border-bottom-left-radius: variables.$border-radius-base;
 }

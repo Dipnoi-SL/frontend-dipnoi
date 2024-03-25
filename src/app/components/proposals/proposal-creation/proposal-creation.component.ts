@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -38,6 +40,8 @@ export class ProposalCreationComponent
   }>
   implements OnInit, OnDestroy
 {
+  @ViewChild('pollSection', { static: false }) pollSectionRef!: ElementRef;
+
   categories = [
     ProposalCategoryEnum.ALGORITHMICS,
     ProposalCategoryEnum.BUG,
@@ -95,6 +99,13 @@ export class ProposalCreationComponent
     this.creationForm.controls.pollLabels.push(
       this.formBuilder.control('', Validators.required),
     );
+
+    requestAnimationFrame(() => {
+      const newInput: HTMLElement[] =
+        this.pollSectionRef.nativeElement.querySelectorAll('input');
+
+      newInput[newInput.length - 1]?.focus();
+    });
   }
 
   removePollLabelsControl(index: number) {

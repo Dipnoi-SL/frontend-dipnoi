@@ -17,7 +17,7 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-/* Idk */
+/* Autofill text field stuff */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition:
@@ -212,6 +212,11 @@ a {
   }
 }
 
+.hover-blue:hover {
+  cursor: pointer;
+  background-color: variables.$hover-blue-light-color;
+}
+
 /* Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
@@ -299,6 +304,17 @@ a {
   top: 50%;
   transition: 0.2s ease all;
   color: variables.$outline;
+}
+
+.text-field-base::placeholder {
+  color: variables.$outline;
+}
+
+input:focus ~ .text-field-label,
+input:valid ~ .text-field-label {
+  top: -1px;
+  height: 1px;
+  font-size: variables.$font-size-xs;
 }
 
 .text-field-error {

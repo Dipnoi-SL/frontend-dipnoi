@@ -21,6 +21,8 @@ $highlight-surface-color: #303335; // $surface with 0.1 opacity white on top
 $hover-surface-color: #202325; // $surface with 0.03 opacity white on top
 $highlight-card-color: #35383a; // $card with 0.1 opacity white on top
 $hover-card-color: #25292b; // $card with 0.03 opacity white on top
+$highlight-text-field-color: #303335; // $text-field-color with 0.1 opacity white on top
+$hover-text-field-color: #202325; // $text-field-color with 0.03 opacity white on top
 $highlight-green-color: #69bb5b; // $green with 0.2 opacity white on top
 $hover-green-color: #4eaf3e; // $green with 0.06 opacity white on top
 $highlight-blue-light-color: #61c1ff; // $blue-light with 0.2 opacity white on top
@@ -88,3 +90,4 @@ $news-list-item-height: 100px;
 
 /* Border radius */
 $border-radius-base: 12px;
+$border-radius-small: 8px;

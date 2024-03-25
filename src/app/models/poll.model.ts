@@ -43,4 +43,8 @@ export class Poll extends AbstractEntity {
       ? Math.round((100 * this.negativeValue) / this.totalValue)
       : 0;
   }
+
+  get balance() {
+    return Math.abs(this.positiveValue - this.negativeValue);
+  }
 }
