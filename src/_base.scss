@@ -277,6 +277,8 @@ a {
 }
 
 .text-field-base {
+  box-sizing: border-box;
+  min-width: 0px;
   flex-grow: 1;
   flex-shrink: 1;
   height: fit-content;
@@ -312,6 +314,12 @@ a {
 
 input:focus ~ .text-field-label,
 input:valid ~ .text-field-label {
+  top: -1px;
+  height: 1px;
+  font-size: variables.$font-size-xs;
+}
+
+.text-field-label-focused {
   top: -1px;
   height: 1px;
   font-size: variables.$font-size-xs;
