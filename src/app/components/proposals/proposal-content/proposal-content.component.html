@@ -46,62 +46,93 @@
   </div>
   <div *ngIf="state.changingTo">
     <form
+      class="actions-container"
       *ngIf="!proposal.isPendingSpecification"
       [formGroup]="stateChangeForm"
       (ngSubmit)="onSubmit()"
     >
-      <div *ngIf="state.isEditingCost">
-        <label [htmlFor]="cost">Cost</label>
-        <input type="number" class="cost-box" formControlName="cost" #cost />
-      </div>
-      <div *ngIf="state.isEditingDisregardingReason">
-        <label [htmlFor]="disregardingReason">Disregarding reason</label>
+      <div class="text-field-container cost" *ngIf="state.isEditingCost">
         <input
+          class="text-field-base"
           type="text"
-          class="disregarding-box"
+          formControlName="cost"
+          #cost
+          required
+        />
+        <div class="full-vertical-divider"></div>
+        <p class="currency-label">€</p>
+        <p class="text-field-label">Cost</p>
+      </div>
+
+      <div
+        class="text-field-container"
+        *ngIf="state.isEditingDisregardingReason"
+      >
+        <input
+          class="text-field-base"
+          type="text"
           formControlName="disregardingReason"
           #disregardingReason
+          required
         />
+
+        <p class="text-field-label">Disregarding reason</p>
       </div>
-      <p>
-        Please keep in mind that an email will be sent to all followers whenever
-        the state of the proposal is updated.
-      </p>
+
       <div class="actions">
-        <div (click)="onCancel()">Cancel</div>
-        <button [disabled]="!stateChangeForm.valid" type="submit">
+        <button class="button-base button-base-trans" (click)="onCancel()">
+          Cancel
+        </button>
+        <button
+          class="button-base button-base-blue"
+          [disabled]="!stateChangeForm.valid"
+          type="submit"
+        >
           Submit
         </button>
       </div>
     </form>
     <form
+      class="actions-container"
       *ngIf="proposal.isPendingSpecification"
       [formGroup]="specificationForm"
       (ngSubmit)="onSubmit()"
     >
-      <div>
-        <label [htmlFor]="finalTitle">Title</label>
+      <div class="text-field-container">
         <input
+          class="text-field-base"
           type="text"
-          class="title-box"
           formControlName="finalTitle"
-          #finalTitle
+          placeholder="Type Here..."
+          required
         />
+        <p class="text-field-label text-field-label-focused">Title</p>
       </div>
-      <div>
+
+      <div class="text-field-container description-input">
         <ngx-editor-menu
+          class="editor-menu"
           [editor]="editor"
           [toolbar]="toolbar"
         ></ngx-editor-menu>
+        <div class="full-horizontal-divider"></div>
+
         <ngx-editor
-          class="description-box"
+          class="editor-menu"
           [editor]="editor"
           formControlName="finalDescription"
         ></ngx-editor>
+        <p class="text-field-label text-field-label-focused">Description</p>
       </div>
       <div class="actions">
-        <div (click)="onCancel()">Cancel</div>
-        <button [disabled]="!specificationForm.valid" type="submit">
+        <button class="button-base button-base-trans" (click)="onCancel()">
+          Cancel
+        </button>
+        <button
+          class="button-base button-base-blue"
+          [disabled]="!specificationForm.valid"
+          type="submit"
+        >
           Submit
         </button>
       </div>

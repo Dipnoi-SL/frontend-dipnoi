@@ -397,7 +397,32 @@ app-root {
   flex-wrap: wrap !important;
   background-color: inherit !important;
   color: variables.$text-color !important;
-  justify-content: space-evenly !important;
+  justify-content: space-between !important;
+}
+
+.NgxEditor__Placeholder:before {
+  font-family: variables.$font-family-base !important;
+  font-size: variables.$font-size-sm !important;
+  line-height: variables.$font-line-height-sm !important;
+  font-weight: variables.$font-weight-normal !important;
+  letter-spacing: variables.$font-letter-spacing-tight !important;
+  margin-top: variables.$font-paragraph-spacing-normal !important;
+  margin-bottom: variables.$font-paragraph-spacing-normal !important;
+  font-variant-ligatures: normal !important;
+  font-kerning: normal !important;
+  color: variables.$outline !important;
+}
+
+.description-input {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 13px !important;
+  min-height: calc(250px - 70px) !important;
+}
+
+.editor-menu {
+  width: 100%;
+  height: fit-content;
 }
 
 .NgxEditor__MenuItem--Active {
