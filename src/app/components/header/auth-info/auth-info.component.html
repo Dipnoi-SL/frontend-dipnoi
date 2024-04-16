@@ -3,7 +3,7 @@
     *ngIf="userService.authUser$ | async as authUser; else elseAuthUser"
   >
     <div class="dropdown" (click)="toggleDropdown()">
-      <div class="dropdown-button">
+      <div class="dropdown-button hover-card">
         <ng-icon name="matAccountCircleOutline"></ng-icon>
       </div>
       <div
@@ -25,12 +25,13 @@
   </ng-container>
   <ng-template #elseAuthUser>
     <div
+      class="button-base button-base-blue"
       [routerLink]="[]"
       [relativeTo]="route"
       [queryParams]="signInQueryParam"
       queryParamsHandling="merge"
     >
-      <p>Sign in</p>
+      Sign in
     </div>
   </ng-template>
 </ng-container>
