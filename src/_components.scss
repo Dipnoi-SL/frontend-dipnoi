@@ -1,6 +1,6 @@
 @use 'variables';
 @use 'mixins';
-@import '@angular/cdk/overlay-prebuilt.css';
+@use '@angular/cdk/overlay-prebuilt';
 
 $maxScreenWidth: 1920px;
 

@@ -3,8 +3,12 @@
     *ngIf="userService.authUser$ | async as authUser; else elseAuthUser"
   >
     <div class="secondary-navigation">
-      <div class="profile-button">
-        <h2>MY PROFILE</h2>
+      <div
+        class="profile-button hover-surface"
+        [routerLink]="profileItem.path"
+        routerLinkActive="selection-surface"
+      >
+        <h2>{{ profileItem.title }}</h2>
       </div>
       <div class="full-vertical-divider"></div>
       <div class="dropdown" (click)="toggleDropdown()">

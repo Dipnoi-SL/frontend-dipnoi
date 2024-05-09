@@ -1,6 +1,7 @@
 @use '../../../variables';
 @use '../../../layouts';
-@import '../../../_components.scss';
+@use '../../../mixins';
+@use '../../../components';
 
 :host {
   flex-grow: 1;

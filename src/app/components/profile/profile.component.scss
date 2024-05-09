@@ -13,25 +13,9 @@
   height: 100%;
 }
 
-p {
-  text-align: left;
-}
-
-dipnoi-side-navigation {
-  flex-grow: 1;
-  width: 100%;
-}
-
-footer {
-  width: 100%;
-}
-
-.full-horizontal-divider {
-  flex-shrink: 0;
-}
-
 .central-frame {
   flex-grow: 1;
+  flex-direction: column;
 }
 
 .left-panel-content {

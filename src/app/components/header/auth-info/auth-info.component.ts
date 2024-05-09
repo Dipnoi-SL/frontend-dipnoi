@@ -4,7 +4,7 @@ import {
   HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
 import { RoutePathEnum } from '../../../app.routes';
@@ -14,7 +14,7 @@ import { StatefulComponent } from '../../../directives/stateful-component.direct
 @Component({
   selector: 'dipnoi-auth-info',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgIconComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, NgIconComponent],
   templateUrl: './auth-info.component.html',
   styleUrl: './auth-info.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +24,10 @@ export class AuthInfoComponent extends StatefulComponent<{
 }> {
   signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
   navigationItems = [{ title: 'Settings', path: RoutePathEnum.SETTINGS }];
+  profileItem = {
+    title: 'My Profile',
+    path: RoutePathEnum.PROFILE,
+  };
 
   constructor(
     public authService: AuthService,
