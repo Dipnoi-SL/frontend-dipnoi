@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <div class="left-panel">
+    <div class="left-panel-content"></div>
+    <div class="full-vertical-divider"></div>
+  </div>
+  <div class="central-frame">
+    <div class="central-frame-content-header">
+      <dipnoi-params
+        (onParamsUpdated)="handleOnParamsUpdated($event)"
+        [filterOptions]="filterOptions"
+        [orderOptions]="orderOptions"
+        [defaultFilter]="4"
+        [defaultOrder]="0"
+      ></dipnoi-params>
+    </div>
+    <div class="library-content">
+      <ngrepeatmyballs class="game">
+        <div class="game-cover"></div>
+        <div class="game-panel">
+          <p class="bold">lapatateta</p>
+        </div>
+      </ngrepeatmyballs>
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="full-vertical-divider"></div>
+    <div class="right-panel-content"></div>
+  </div>
+</div>

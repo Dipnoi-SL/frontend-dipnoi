@@ -1,0 +1,90 @@
+@use '../../../variables';
+@use '../../../layouts';
+@import '../../../_components.scss';
+
+:host {
+  flex-grow: 1;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.central-frame {
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.left-panel-content {
+  flex-grow: 1;
+}
+
+.right-panel-content {
+  flex-grow: 1;
+}
+
+.left-panel {
+  flex-shrink: 0;
+}
+
+.right-panel {
+  flex-shrink: 0;
+}
+
+.library-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  width: 100%;
+  justify-content: space-between;
+  column-gap: 15px;
+
+  > * {
+    margin-right: 15px;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: fit-content;
+  height: fit-content;
+  @include mixins.shadow-4;
+}
+
+.game-cover {
+  background-color: #ffffff;
+  width: 150px;
+  height: 240px;
+}
+
+.game-panel {
+  background-color: variables.$card;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 60px;
+}
+
+.bold {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  font-weight: variables.$font-weight-medium;
+  text-align: center;
+}
