@@ -1,6 +1,7 @@
 @use '../../../variables';
 @use '../../../layouts';
 @use '../../../components.scss';
+@use '../../../mixins.scss';
 
 .logo {
   display: flex;
@@ -44,7 +45,20 @@
 }
 
 .add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 30px;
   height: 30px;
-  background-color: #09f809;
+  border-radius: 100px;
+  background-color: variables.$card;
+  @include mixins.shadow-4;
+}
+
+.image {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 11px;
+  height: 10px;
 }

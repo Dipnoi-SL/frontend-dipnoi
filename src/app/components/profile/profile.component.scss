@@ -17,6 +17,7 @@
 .central-frame {
   flex-grow: 1;
   flex-direction: column;
+  padding: 0px;
 }
 
 .left-panel-content {
@@ -35,62 +36,84 @@
   flex-shrink: 0;
 }
 
-.library-content {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex-grow: 1;
-  width: 100%;
-  justify-content: space-between;
-  column-gap: 15px;
-  padding: 0px 30px;
-
-  > * {
-    margin-right: 15px;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.game {
+.profile-content {
   display: flex;
   flex-direction: column;
-  gap: 0px;
-  width: fit-content;
-  height: fit-content;
-  border-radius: variables.$border-radius-base;
-  @include mixins.shadow-4;
+  flex-grow: 1;
+  width: 100%;
 }
 
-.game-cover {
+.profile-banner {
+  width: 100%;
+  height: 300px;
   background-color: #ffffff;
-  width: 150px;
-  height: 240px;
-  border-top-left-radius: variables.$border-radius-base;
-  border-top-right-radius: variables.$border-radius-base;
 }
 
-.game-panel {
-  background-color: variables.$card;
+.profile-functions {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.profile-ppic {
+  position: relative;
+  border: variables.$outline-variant solid 1px;
+  top: -81px;
+  left: calc((512px / 2) - 80px);
+  display: flex;
+  flex-direction: row;
+  background-color: #ff0000;
+  width: 160px;
+  height: 160px;
+  border-radius: 100px;
+}
+
+.profile-stats {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 100%;
+  width: 512px;
+}
+
+.profile-history {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 99px;
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.post-history {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  width: 150px;
-  height: 60px;
-  border-radius: variables.$border-radius-base;
+  padding: 30px;
+  gap: 10px;
 }
 
-.bold {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  font-weight: variables.$font-weight-medium;
-  text-align: center;
+.horizontal-card {
+  align-items: center;
+  justify-content: space-evenly;
+  height: 56px;
+  gap: 20px;
+  padding: 0px 30px;
 }

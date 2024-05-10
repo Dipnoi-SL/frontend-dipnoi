@@ -37,6 +37,7 @@
 
 .library-content {
   display: flex;
+  box-sizing: border-box;
   flex-direction: row;
   flex-wrap: wrap;
   flex-grow: 1;
