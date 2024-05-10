@@ -25,7 +25,7 @@ export class AuthInfoComponent extends StatefulComponent<{
   signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
   navigationItems = [{ title: 'Settings', path: RoutePathEnum.SETTINGS }];
   profileItem = {
-    title: 'My Profile',
+    title: 'MY PROFILE',
     path: RoutePathEnum.PROFILE,
   };
 

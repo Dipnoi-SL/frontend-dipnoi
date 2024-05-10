@@ -4,12 +4,8 @@
       <img src="../../../assets/icons/Full Logo2.png" />
     </div>
     <div class="navigation">
-      <div
-        class="library-button hover-surface"
-        [routerLink]="libraryItem.path"
-        routerLinkActive="selection-surface"
-      >
-        <h2>{{ libraryItem.title }}</h2>
+      <div class="library-button" [routerLink]="libraryItem.path">
+        <h3>{{ libraryItem.title }}</h3>
       </div>
       <div class="full-vertical-divider"></div>
       <div class="game-icon"></div>

@@ -21,7 +21,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent {
   libraryItem = {
-    title: 'Library',
+    title: 'LIBRARY',
     path: RoutePathEnum.LIBRARY,
   };
 }
