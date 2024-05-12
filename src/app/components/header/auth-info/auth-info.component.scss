@@ -1,3 +1,5 @@
+@use '../../../../variables';
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -7,4 +9,22 @@
   position: absolute;
   z-index: 1;
   right: 0;
+}
+
+.profile-button {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.secondary-navigation {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 40px;
+  gap: 30px;
+  padding: 0px 30px;
+  align-items: center;
 }

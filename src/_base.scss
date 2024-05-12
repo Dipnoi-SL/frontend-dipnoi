@@ -60,6 +60,10 @@ input:-webkit-autofill:focus {
     color 0s 600000s !important;
 }
 
+input:autofill {
+  background: inherit;
+}
+
 /* Modal overlay */
 .cdk-overlay-dark-backdrop,
 .cdk-overlay-backdrop-showing {

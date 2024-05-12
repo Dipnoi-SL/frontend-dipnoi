@@ -7,6 +7,8 @@ import { PendingProposalsComponent } from './components/proposals/pending-propos
 import { ChangelogComponent } from './components/proposals/changelog/changelog.component';
 import { ArchiveComponent } from './components/proposals/archive/archive.component';
 import { PendingReviewComponent } from './components/proposals/pending-review/pending-review.component';
+import { LibraryComponent } from './components/library/library.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export enum RoutePathEnum {
   ABOUT_US = '/about-us',
@@ -29,6 +31,8 @@ export enum RoutePathEnum {
   ACTIVATE = 'activate',
   PROPOSAL = 'selected-proposal',
   CREATION = 'create',
+  LIBRARY = '/library',
+  PROFILE = '/profile',
 }
 
 export const routes: Routes = [
@@ -71,7 +75,15 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'library',
+    component: LibraryComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  {
     path: '**',
-    redirectTo: RoutePathEnum.PROPOSALS,
+    redirectTo: RoutePathEnum.LIBRARY,
   },
 ];

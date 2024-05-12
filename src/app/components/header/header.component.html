@@ -1,6 +1,19 @@
 <div class="app-header">
   <div class="app-header-content">
-    <img src="../../../assets/icons/Full Logo2.png" />
+    <div class="logo">
+      <img src="../../../assets/icons/Full Logo2.png" />
+    </div>
+    <div class="navigation">
+      <div class="library-button" [routerLink]="libraryItem.path">
+        <h3>{{ libraryItem.title }}</h3>
+      </div>
+      <div class="full-vertical-divider"></div>
+      <div class="game-icon"></div>
+
+      <div class="add-button">
+        <img class="icon-gap" src="../../../assets/icons/add-green.svg" />
+      </div>
+    </div>
     <dipnoi-auth-info></dipnoi-auth-info>
   </div>
   <div class="full-horizontal-divider"></div>

@@ -2,23 +2,29 @@
   <ng-container
     *ngIf="userService.authUser$ | async as authUser; else elseAuthUser"
   >
-    <div class="dropdown" (click)="toggleDropdown()">
-      <div class="dropdown-button hover-card">
-        <ng-icon name="matAccountCircleOutline"></ng-icon>
+    <div class="secondary-navigation">
+      <div class="profile-button" [routerLink]="profileItem.path">
+        <h3>{{ profileItem.title }}</h3>
       </div>
-      <div
-        class="dropdown-base"
-        [style.display]="state.isDropdownOpen ? 'block' : 'none'"
-      >
-        <div
-          class="dropdown-option hover-card"
-          *ngFor="let item of navigationItems"
-          [routerLink]="item.path"
-        >
-          <p class="dropwdown-option-text">{{ item.title }}</p>
+      <div class="full-vertical-divider"></div>
+      <div class="dropdown" (click)="toggleDropdown()">
+        <div class="dropdown-button hover-card">
+          <ng-icon name="matAccountCircleOutline"></ng-icon>
         </div>
-        <div class="dropdown-option hover-card" (click)="onSignOut()">
-          <p class="dropwdown-option-text">Sign out</p>
+        <div
+          class="dropdown-base"
+          [style.display]="state.isDropdownOpen ? 'block' : 'none'"
+        >
+          <div
+            class="dropdown-option hover-card"
+            *ngFor="let item of navigationItems"
+            [routerLink]="item.path"
+          >
+            <p class="dropwdown-option-text">{{ item.title }}</p>
+          </div>
+          <div class="dropdown-option hover-card" (click)="onSignOut()">
+            <p class="dropwdown-option-text">Sign out</p>
+          </div>
         </div>
       </div>
     </div>
