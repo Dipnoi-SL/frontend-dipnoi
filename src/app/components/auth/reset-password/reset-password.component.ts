@@ -19,6 +19,7 @@ import {
   PASSWORD_VALIDATION_MIN_LENGTH,
   PASSWORD_VALIDATION_REGEXP,
 } from '../../../constants/literals';
+import { RoutePathEnum } from '../../../app.routes';
 
 @Component({
   selector: 'dipnoi-reset-password',
@@ -67,12 +68,14 @@ export class ResetPasswordComponent
 
   ngOnInit() {
     this.queryParams$ = this.route.queryParams.subscribe((queryParams) => {
-      if (queryParams['resetToken']) {
-        this.updateState({ resetToken: queryParams['resetToken'] });
+      if (queryParams[RoutePathEnum.RESET_TOKEN]) {
+        this.updateState({
+          resetToken: queryParams[RoutePathEnum.RESET_TOKEN],
+        });
 
         this.router.navigate([], {
           relativeTo: this.route,
-          queryParams: { ['resetToken']: null },
+          queryParams: { [RoutePathEnum.RESET_TOKEN]: null },
           queryParamsHandling: 'merge',
         });
       }

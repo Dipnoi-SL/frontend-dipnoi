@@ -1,0 +1,23 @@
+@use '../../../../../variables';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+  justify-content: end;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.text-field-searchbar {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.text-field-searchbar::placeholder {
+  color: variables.$outline;
+  opacity: 1;
+}

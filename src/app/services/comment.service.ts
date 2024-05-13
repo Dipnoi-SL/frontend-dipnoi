@@ -8,6 +8,7 @@ import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
 import { UserService } from './user.service';
 import { ProposalService } from './proposal.service';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,10 +26,10 @@ export class CommentService {
     private http: HttpClient,
     private userService: UserService,
     private proposalService: ProposalService,
+    private gameService: GameService,
   ) {}
 
   readMany(params: {
-    proposalId?: number;
     take?: number;
     page?: number;
     orderBy?: CommentOrderByEnum;
@@ -36,7 +37,10 @@ export class CommentService {
   }) {
     return this.http
       .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
-        params,
+        params: {
+          ...params,
+          proposalId: this.proposalService.getSelectedProposalId()!,
+        },
       })
       .pipe(
         map((res) => ({
@@ -54,7 +58,6 @@ export class CommentService {
   }
 
   readManyMore(params: {
-    proposalId?: number;
     take?: number;
     page?: number;
     orderBy?: CommentOrderByEnum;
@@ -63,7 +66,11 @@ export class CommentService {
     if (this.meta?.hasNextPage) {
       return this.http
         .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
-          params: { ...params, page: this.meta.page + 1 },
+          params: {
+            ...params,
+            proposalId: this.proposalService.getSelectedProposalId()!,
+            page: this.meta.page + 1,
+          },
         })
         .pipe(
           map((res) => ({
@@ -91,6 +98,7 @@ export class CommentService {
           orderBy: CommentOrderByEnum.LAST_DAY_POPULARITY,
           take: 1,
           page: 1,
+          gameId: this.gameService.getSelectedGameId()!,
         },
       })
       .pipe(
@@ -106,10 +114,13 @@ export class CommentService {
       );
   }
 
-  createOne(params: { proposalId: number; body: string }) {
+  createOne(params: { body: string }) {
     if (this.userService.isActive) {
       return this.http
-        .post<Comment>(`${environment.apiUrl}/comments`, params)
+        .post<Comment>(`${environment.apiUrl}/comments`, {
+          ...params,
+          proposalId: this.proposalService.getSelectedProposalId()!,
+        })
         .pipe(
           map((res) => new Comment(res)),
           tap({
@@ -119,7 +130,7 @@ export class CommentService {
               }
 
               this.proposalService
-                .readOne({ id: params.proposalId })
+                .readOne({ id: this.proposalService.getSelectedProposalId()! })
                 .subscribe();
             },
           }),

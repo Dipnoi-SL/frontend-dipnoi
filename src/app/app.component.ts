@@ -10,12 +10,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { RoutePathEnum } from './app.routes';
-import { ProposalDialogComponent } from './components/proposals/proposal-dialog/proposal-dialog.component';
+import { ProposalDialogComponent } from './components/game/proposals/proposal-dialog/proposal-dialog.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { AuthService } from './services/auth.service';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
-import { ProposalCreationComponent } from './components/proposals/proposal-creation/proposal-creation.component';
+import { ProposalCreationComponent } from './components/game/proposals/proposal-creation/proposal-creation.component';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +38,10 @@ export class AppComponent implements OnInit, OnDestroy {
     { component: ComponentType<any>; ref: DialogRef<Component> | null }
   > = {
     [RoutePathEnum.AUTH]: { component: AuthComponent, ref: null },
-    [RoutePathEnum.PROPOSAL]: { component: ProposalDialogComponent, ref: null },
+    [RoutePathEnum.SELECTED_PROPOSAL]: {
+      component: ProposalDialogComponent,
+      ref: null,
+    },
     [RoutePathEnum.CREATION]: {
       component: ProposalCreationComponent,
       ref: null,

@@ -23,10 +23,10 @@ export class AuthInfoComponent extends StatefulComponent<{
   isDropdownOpen: boolean;
 }> {
   signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
-  navigationItems = [{ title: 'Settings', path: RoutePathEnum.SETTINGS }];
+  navigationItems = [{ title: 'Settings', path: `/${RoutePathEnum.SETTINGS}` }];
   profileItem = {
     title: 'MY PROFILE',
-    path: RoutePathEnum.PROFILE,
+    path: `/${RoutePathEnum.PROFILE}`,
   };
 
   constructor(

@@ -4,6 +4,7 @@ export class Post extends AbstractEntity {
   title!: string;
   body!: string;
   thumbnailUri!: string;
+  gameId!: number;
 
   constructor(data: Post) {
     super(data);

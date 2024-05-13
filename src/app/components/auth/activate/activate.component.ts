@@ -73,12 +73,14 @@ export class ActivateComponent
 
   ngOnInit() {
     this.queryParams$ = this.route.queryParams.subscribe((queryParams) => {
-      if (queryParams['activationToken']) {
-        this.updateState({ activationToken: queryParams['activationToken'] });
+      if (queryParams[RoutePathEnum.ACTIVATION_TOKEN]) {
+        this.updateState({
+          activationToken: queryParams[RoutePathEnum.ACTIVATION_TOKEN],
+        });
 
         this.router.navigate([], {
           relativeTo: this.route,
-          queryParams: { ['activationToken']: null },
+          queryParams: { [RoutePathEnum.ACTIVATION_TOKEN]: null },
           queryParamsHandling: 'merge',
         });
       }

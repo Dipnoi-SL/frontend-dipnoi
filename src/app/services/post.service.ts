@@ -6,6 +6,7 @@ import { PostOrderByEnum, OrderEnum } from '../constants/enums';
 import { Page } from '../models/page.model';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,10 @@ export class PostService {
 
   meta: PageMeta | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private gameService: GameService,
+  ) {}
 
   readMany(params: {
     take?: number;
@@ -26,7 +30,7 @@ export class PostService {
   }) {
     return this.http
       .get<Page<Post>>(`${environment.apiUrl}/posts`, {
-        params,
+        params: { ...params, gameId: this.gameService.getSelectedGameId()! },
       })
       .pipe(
         map((res) => ({
@@ -52,7 +56,11 @@ export class PostService {
     if (this.meta?.hasNextPage) {
       return this.http
         .get<Page<Post>>(`${environment.apiUrl}/posts`, {
-          params: { ...params, page: this.meta.page + 1 },
+          params: {
+            ...params,
+            gameId: this.gameService.getSelectedGameId()!,
+            page: this.meta.page + 1,
+          },
         })
         .pipe(
           map((res) => ({

@@ -12,6 +12,7 @@ import {
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { PageMeta } from '../models/page-meta.model';
 import { UserService } from './user.service';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,10 +31,12 @@ export class ProposalService {
   spotlightProposal$ = this._spotlightProposal$.asObservable();
 
   meta: PageMeta | null = null;
+  preselectedProposalId?: number;
 
   constructor(
     private http: HttpClient,
     private userService: UserService,
+    private gameService: GameService,
   ) {}
 
   readMany(params: {
@@ -52,7 +55,7 @@ export class ProposalService {
   }) {
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params,
+        params: { ...params, gameId: this.gameService.getSelectedGameId()! },
       })
       .pipe(
         map((res) => ({
@@ -86,7 +89,11 @@ export class ProposalService {
     if (this.meta?.hasNextPage) {
       return this.http
         .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-          params: { ...params, page: this.meta.page + 1 },
+          params: {
+            ...params,
+            gameId: this.gameService.getSelectedGameId()!,
+            page: this.meta.page + 1,
+          },
         })
         .pipe(
           map((res) => ({
@@ -122,7 +129,7 @@ export class ProposalService {
   }) {
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params,
+        params: { ...params, gameId: this.gameService.getSelectedGameId()! },
       })
       .pipe(
         map((res) => ({
@@ -146,6 +153,7 @@ export class ProposalService {
           take: 1,
           page: 1,
           states: [ProposalStateEnum.FINAL_PHASE, ProposalStateEnum.LAST_CALL],
+          gameId: this.gameService.getSelectedGameId()!,
         },
       })
       .pipe(
@@ -162,6 +170,10 @@ export class ProposalService {
   }
 
   readOne(params: { id: number }) {
+    if (!this._selectedProposal$.value) {
+      this.preselectedProposalId = params.id;
+    }
+
     return this.http
       .get<Proposal>(`${environment.apiUrl}/proposals/${params.id}`)
       .pipe(
@@ -182,7 +194,10 @@ export class ProposalService {
   }) {
     if (this.userService.isActive) {
       return this.http
-        .post<Proposal>(`${environment.apiUrl}/proposals`, params)
+        .post<Proposal>(`${environment.apiUrl}/proposals`, {
+          ...params,
+          gameId: this.gameService.getSelectedGameId(),
+        })
         .pipe(
           map((res) => new Proposal(res)),
           tap({
@@ -196,7 +211,7 @@ export class ProposalService {
     return;
   }
 
-  createOrUpdateOneThumbnail(params: { id: number; thumbnail: File }) {
+  createOrUpdateOneThumbnail(params: { thumbnail: File }) {
     if (this.userService.isActive) {
       const formData = new FormData();
 
@@ -204,7 +219,7 @@ export class ProposalService {
 
       return this.http
         .put<Proposal>(
-          `${environment.apiUrl}/proposals/${params.id}/thumbnail`,
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/thumbnail`,
           formData,
         )
         .pipe(
@@ -222,11 +237,11 @@ export class ProposalService {
     return;
   }
 
-  createOneFollow(params: { id: number }) {
+  createOneFollow() {
     if (this.userService.isActive) {
       return this.http
         .post<Proposal>(
-          `${environment.apiUrl}/proposals/${params.id}/follows`,
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/follows`,
           {},
         )
         .pipe(
@@ -244,11 +259,11 @@ export class ProposalService {
     return;
   }
 
-  deleteOneFollow(params: { id: number }) {
+  deleteOneFollow() {
     if (this.userService.isActive) {
       return this.http
         .delete<Proposal>(
-          `${environment.apiUrl}/proposals/${params.id}/follows`,
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/follows`,
         )
         .pipe(
           map((res) => new Proposal(res)),
@@ -266,14 +281,13 @@ export class ProposalService {
   }
 
   createOrUpdateOneSpecification(params: {
-    id: number;
     finalTitle: string;
     finalDescription: string;
   }) {
     if (this.userService.isActive) {
       return this.http
         .put<Proposal>(
-          `${environment.apiUrl}/proposals/${params.id}/specifications`,
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/specifications`,
           params,
         )
         .pipe(
@@ -291,16 +305,36 @@ export class ProposalService {
     return;
   }
 
-  createOrUpdateOneReview(params: {
-    id: number;
+  createOrUpdateOneApproval(params: { cost: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .put<Proposal>(
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/approvals`,
+          params,
+        )
+        .pipe(
+          map((res) => new Proposal(res)),
+          tap({
+            next: (res) => {
+              this._selectedProposal$.next(res);
+
+              this.updateLists(res);
+            },
+          }),
+        );
+    }
+
+    return;
+  }
+
+  createOrUpdateOneRejection(params: {
     state: ProposalStateEnum;
-    cost?: number;
-    disregardingReason?: string;
+    disregardingReason: string;
   }) {
     if (this.userService.isActive) {
       return this.http
         .put<Proposal>(
-          `${environment.apiUrl}/proposals/${params.id}/reviews`,
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/rejections`,
           params,
         )
         .pipe(
@@ -318,11 +352,11 @@ export class ProposalService {
     return;
   }
 
-  createOneTransition(params: { id: number; state: ProposalStateEnum }) {
+  createOneTransition(params: { state: ProposalStateEnum }) {
     if (this.userService.isActive) {
       return this.http
         .post<Proposal>(
-          `${environment.apiUrl}/proposals/${params.id}/transitions`,
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/transitions`,
           params,
         )
         .pipe(
@@ -340,14 +374,11 @@ export class ProposalService {
     return;
   }
 
-  createOrUpdateOneImportanceVote(params: {
-    id: number;
-    myImportanceVote: number | null;
-  }) {
+  createOrUpdateOneImportanceVote(params: { myImportanceVote: number | null }) {
     if (this.userService.isActive) {
       return this.http
         .put<Proposal>(
-          `${environment.apiUrl}/proposals/${params.id}/importance-votes`,
+          `${environment.apiUrl}/proposals/${this._selectedProposal$.value?.id}/importance-votes`,
           params,
         )
         .pipe(
@@ -425,5 +456,9 @@ export class ProposalService {
         }
       }
     }
+  }
+
+  getSelectedProposalId() {
+    return this._selectedProposal$.value?.id ?? this.preselectedProposalId;
   }
 }

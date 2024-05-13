@@ -18,6 +18,6 @@ export class Comment extends AbstractEntity {
   }
 
   get selectedProposalQueryParam() {
-    return { [RoutePathEnum.PROPOSAL]: this.proposalId };
+    return { [RoutePathEnum.SELECTED_PROPOSAL]: this.proposalId };
   }
 }
