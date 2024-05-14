@@ -39,7 +39,7 @@ export class LibraryComponent extends StatefulComponent<{
   constructor() {
     super({
       params: {
-        take: 20,
+        take: 50,
         orderBy: GameOrderByEnum.NAME,
         order: OrderEnum.ASC,
       },
