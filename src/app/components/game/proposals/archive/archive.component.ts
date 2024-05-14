@@ -6,7 +6,7 @@ import {
   ProposalStateEnum,
 } from '../../../../constants/enums';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
-import { ParamsComponent } from '../params/params.component';
+import { ParamsComponent } from '../../../common/params/params.component';
 import { ProposalSectionListComponent } from '../proposal-section-list/proposal-section-list.component';
 
 @Component({

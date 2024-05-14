@@ -12,7 +12,7 @@ import {
   ProposalStateEnum,
 } from '../../../../constants/enums';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
-import { ParamsComponent } from '../params/params.component';
+import { ParamsComponent } from '../../../common/params/params.component';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { ProposalCardComponent } from '../proposal-card/proposal-card.component';
 import { ProposalService } from '../../../../services/proposal.service';

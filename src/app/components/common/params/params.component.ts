@@ -8,7 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StatefulComponent } from '../../../../directives/stateful-component.directive';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { FormsModule } from '@angular/forms';
 import { NgIconComponent } from '@ng-icons/core';
 

@@ -1,0 +1,40 @@
+@use '../../../../mixins';
+@use '../../../../variables';
+
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: fit-content;
+  height: fit-content;
+  border-radius: variables.$border-radius-base;
+  @include mixins.shadow-4;
+}
+
+.game-cover {
+  border-top-left-radius: variables.$border-radius-base;
+  border-top-right-radius: variables.$border-radius-base;
+}
+
+.game-panel {
+  background-color: variables.$card;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 60px;
+  border-radius: variables.$border-radius-base;
+}
+
+.bold {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  font-weight: variables.$font-weight-medium;
+  text-align: center;
+}

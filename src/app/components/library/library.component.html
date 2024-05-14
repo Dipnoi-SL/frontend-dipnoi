@@ -8,20 +8,17 @@
       <div class="central-frame-content-header">
         <dipnoi-params
           (onParamsUpdated)="handleOnParamsUpdated($event)"
-          [filterOptions]="filterOptions"
           [orderOptions]="orderOptions"
-          [defaultFilter]="4"
           [defaultOrder]="0"
         ></dipnoi-params>
       </div>
-      <div class="library-content">
-        <div class="game">
-          <div class="game-cover"></div>
-          <div class="game-panel">
-            <p class="bold">lapatateta vermelleta ai que boniqueta</p>
-          </div>
-        </div>
+      <div class="list-wrapper" #infiniteScrollContainerRef>
+        <dipnoi-game-list
+          [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+          [params]="state.params"
+        ></dipnoi-game-list>
       </div>
+      <div class="surface-fade-bottom wrapper-fade-fix"></div>
     </div>
   </div>
   <div class="right-panel">

@@ -7,7 +7,7 @@ import {
   ProposalStateEnum,
 } from '../../../../constants/enums';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
-import { ParamsComponent } from '../params/params.component';
+import { ParamsComponent } from '../../../common/params/params.component';
 
 @Component({
   selector: 'dipnoi-pending-review',

@@ -1,64 +1,71 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ParamsComponent } from '../game/proposals/params/params.component';
+import { ParamsComponent } from '../common/params/params.component';
+import { GameOrderByEnum, OrderEnum } from '../../constants/enums';
+import { StatefulComponent } from '../../directives/stateful-component.directive';
+import { GameListComponent } from './game-list/game-list.component';
 
 @Component({
   selector: 'dipnoi-library',
   standalone: true,
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss',
-  imports: [CommonModule, ParamsComponent],
+  imports: [CommonModule, ParamsComponent, GameListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LibraryComponent {
-  filterOptionsData = [
-    {
-      key: 'selectedAt',
-      value: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-      text: 'Day',
-    },
-    {
-      key: 'selectedAt',
-      value: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
-      text: 'Week',
-    },
-    {
-      key: 'selectedAt',
-      value: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7 * 30).toISOString(),
-      text: 'Month',
-    },
-    {
-      key: 'selectedAt',
-      value: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7 * 365).toISOString(),
-      text: 'Year',
-    },
-    { key: 'selectedAt', text: 'All time' },
-  ];
-  filterOptions = this.filterOptionsData.map((option) => option.text);
+export class LibraryComponent extends StatefulComponent<{
+  params: {
+    take?: number;
+    page?: number;
+    orderBy?: GameOrderByEnum;
+    order?: OrderEnum;
+    search?: string;
+  };
+}> {
   orderOptionsData = [
     {
       key: 'orderBy',
-      value: 'ProposalOrderByEnum.SELECTED_AT',
-      text: 'Recent',
+      value: GameOrderByEnum.NAME,
+      text: 'Name',
     },
     {
       key: 'orderBy',
-      value: 'ProposalOrderByEnum.IMPORTANCE',
-      text: 'Top importance',
-    },
-    {
-      key: 'orderBy',
-      value: 'ProposalOrderByEnum.COST',
-      text: 'Most cost',
+      value: GameOrderByEnum.NUM_VOTES,
+      text: 'Interaction',
     },
   ];
   orderOptions = this.orderOptionsData.map((option) => option.text);
+
+  constructor() {
+    super({
+      params: {
+        take: 20,
+        orderBy: GameOrderByEnum.NAME,
+        order: OrderEnum.ASC,
+      },
+    });
+  }
 
   handleOnParamsUpdated(params: {
     search?: string;
     selectedFilter: number;
     selectedOrder: number;
   }) {
-    console.log(params);
+    const newParams: Record<string, unknown> = {
+      ...this.state.params,
+      search: params.search,
+      [this.orderOptionsData[params.selectedOrder].key]:
+        this.orderOptionsData[params.selectedOrder].value,
+    };
+
+    for (const key of Object.keys(newParams)) {
+      if (newParams[key] === undefined || newParams[key] === '') {
+        delete newParams[key];
+      }
+    }
+
+    this.updateState({
+      params: newParams,
+    });
   }
 }
