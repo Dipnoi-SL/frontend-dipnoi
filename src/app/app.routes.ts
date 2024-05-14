@@ -3,8 +3,6 @@ import { LibraryComponent } from './components/library/library.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { GameComponent } from './components/game/game.component';
 import { RequestsComponent } from './components/game/requests/requests.component';
-import { GameActiveGuard } from './guards/game-active.guard';
-import { inject } from '@angular/core';
 import { ProposalsComponent } from './components/game/proposals/proposals.component';
 import { HomeComponent } from './components/game/proposals/home/home.component';
 import { BacklogComponent } from './components/game/proposals/backlog/backlog.component';
@@ -53,7 +51,6 @@ export const routes: Routes = [
       {
         path: RoutePathEnum.PROPOSALS,
         component: ProposalsComponent,
-        canActivate: [() => inject(GameActiveGuard).canActivate()],
         children: [
           {
             path: RoutePathEnum.HOME,
@@ -88,6 +85,10 @@ export const routes: Routes = [
             redirectTo: RoutePathEnum.HOME,
           },
         ],
+      },
+      {
+        path: '**',
+        redirectTo: RoutePathEnum.PROPOSALS,
       },
     ],
   },

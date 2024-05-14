@@ -34,24 +34,21 @@ import { ProposalContentComponent } from '../proposal-content/proposal-content.c
 })
 export class ProposalDialogComponent implements OnInit, OnDestroy {
   authUser$!: Subscription;
-  proposalId!: number;
 
   constructor(
     public userService: UserService,
     public proposalService: ProposalService,
     public pollService: PollService,
     public route: ActivatedRoute,
-  ) {
-    this.proposalId = parseInt(
-      this.route.snapshot.queryParams[RoutePathEnum.SELECTED_PROPOSAL],
-    );
-  }
+  ) {}
 
   ngOnInit() {
     this.authUser$ = this.userService.authUser$.subscribe(() => {
       this.proposalService
         .readOne({
-          id: this.proposalId,
+          id: parseInt(
+            this.route.snapshot.queryParams[RoutePathEnum.SELECTED_PROPOSAL],
+          ),
         })
         .subscribe();
 

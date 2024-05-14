@@ -39,7 +39,7 @@ export class CommentService {
       .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
         params: {
           ...params,
-          proposalId: this.proposalService.getSelectedProposalId()!,
+          proposalId: this.proposalService.selectedProposalId!,
         },
       })
       .pipe(
@@ -68,7 +68,7 @@ export class CommentService {
         .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
           params: {
             ...params,
-            proposalId: this.proposalService.getSelectedProposalId()!,
+            proposalId: this.proposalService.selectedProposalId!,
             page: this.meta.page + 1,
           },
         })
@@ -98,7 +98,7 @@ export class CommentService {
           orderBy: CommentOrderByEnum.LAST_DAY_POPULARITY,
           take: 1,
           page: 1,
-          gameId: this.gameService.getSelectedGameId()!,
+          gameId: this.gameService.selectedGameId!,
         },
       })
       .pipe(
@@ -119,7 +119,7 @@ export class CommentService {
       return this.http
         .post<Comment>(`${environment.apiUrl}/comments`, {
           ...params,
-          proposalId: this.proposalService.getSelectedProposalId()!,
+          proposalId: this.proposalService.selectedProposalId!,
         })
         .pipe(
           map((res) => new Comment(res)),
@@ -130,7 +130,7 @@ export class CommentService {
               }
 
               this.proposalService
-                .readOne({ id: this.proposalService.getSelectedProposalId()! })
+                .readOne({ id: this.proposalService.selectedProposalId! })
                 .subscribe();
             },
           }),

@@ -31,7 +31,7 @@ export class ProposalService {
   spotlightProposal$ = this._spotlightProposal$.asObservable();
 
   meta: PageMeta | null = null;
-  preselectedProposalId?: number;
+  selectedProposalId?: number;
 
   constructor(
     private http: HttpClient,
@@ -55,7 +55,7 @@ export class ProposalService {
   }) {
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params: { ...params, gameId: this.gameService.getSelectedGameId()! },
+        params: { ...params, gameId: this.gameService.selectedGameId! },
       })
       .pipe(
         map((res) => ({
@@ -91,7 +91,7 @@ export class ProposalService {
         .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
           params: {
             ...params,
-            gameId: this.gameService.getSelectedGameId()!,
+            gameId: this.gameService.selectedGameId!,
             page: this.meta.page + 1,
           },
         })
@@ -129,7 +129,7 @@ export class ProposalService {
   }) {
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params: { ...params, gameId: this.gameService.getSelectedGameId()! },
+        params: { ...params, gameId: this.gameService.selectedGameId! },
       })
       .pipe(
         map((res) => ({
@@ -153,7 +153,7 @@ export class ProposalService {
           take: 1,
           page: 1,
           states: [ProposalStateEnum.FINAL_PHASE, ProposalStateEnum.LAST_CALL],
-          gameId: this.gameService.getSelectedGameId()!,
+          gameId: this.gameService.selectedGameId!,
         },
       })
       .pipe(
@@ -170,12 +170,12 @@ export class ProposalService {
   }
 
   readOne(params: { id: number }) {
-    if (!this._selectedProposal$.value) {
-      this.preselectedProposalId = params.id;
-    }
+    this.selectedProposalId = params.id;
 
     return this.http
-      .get<Proposal>(`${environment.apiUrl}/proposals/${params.id}`)
+      .get<Proposal>(
+        `${environment.apiUrl}/proposals/${this.selectedProposalId}`,
+      )
       .pipe(
         map((res) => new Proposal(res)),
         tap({
@@ -196,7 +196,7 @@ export class ProposalService {
       return this.http
         .post<Proposal>(`${environment.apiUrl}/proposals`, {
           ...params,
-          gameId: this.gameService.getSelectedGameId(),
+          gameId: this.gameService.selectedGameId,
         })
         .pipe(
           map((res) => new Proposal(res)),
@@ -456,9 +456,5 @@ export class ProposalService {
         }
       }
     }
-  }
-
-  getSelectedProposalId() {
-    return this._selectedProposal$.value?.id ?? this.preselectedProposalId;
   }
 }

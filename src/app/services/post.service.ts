@@ -30,7 +30,7 @@ export class PostService {
   }) {
     return this.http
       .get<Page<Post>>(`${environment.apiUrl}/posts`, {
-        params: { ...params, gameId: this.gameService.getSelectedGameId()! },
+        params: { ...params, gameId: this.gameService.selectedGameId! },
       })
       .pipe(
         map((res) => ({
@@ -58,7 +58,7 @@ export class PostService {
         .get<Page<Post>>(`${environment.apiUrl}/posts`, {
           params: {
             ...params,
-            gameId: this.gameService.getSelectedGameId()!,
+            gameId: this.gameService.selectedGameId!,
             page: this.meta.page + 1,
           },
         })

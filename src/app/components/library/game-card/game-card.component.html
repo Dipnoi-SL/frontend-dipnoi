@@ -1,4 +1,4 @@
-<div class="game hover-card" [routerLink]="[]" [relativeTo]="route">
+<div class="game hover-card" [routerLink]="path">
   <div class="game-cover"></div>
   <img
     class="game-cover"
@@ -8,6 +8,6 @@
     [priority]="true"
   />
   <div class="game-panel">
-    <p class="bold">lapatateta vermelleta ai que boniqueta</p>
+    <p class="bold">{{ game.name }}</p>
   </div>
 </div>

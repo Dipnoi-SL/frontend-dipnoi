@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { RoutePathEnum } from '../../app.routes';
 import { GameService } from '../../services/game.service';
 
@@ -13,20 +13,30 @@ import { GameService } from '../../services/game.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameComponent {
-  gameId!: number;
-
   constructor(
     public gameService: GameService,
     public route: ActivatedRoute,
-  ) {
-    this.gameId = parseInt(this.route.snapshot.params[RoutePathEnum.GAME_ID]);
-  }
+    public router: Router,
+  ) {}
 
   ngOnInit() {
     this.gameService
       .readOne({
-        id: this.gameId,
+        id: parseInt(this.route.snapshot.params[RoutePathEnum.GAME_ID]),
       })
-      .subscribe();
+      .subscribe({
+        next: (game) => {
+          if (!game.active) {
+            this.router.navigate(
+              [
+                RoutePathEnum.GAMES,
+                this.gameService.selectedGameId,
+                RoutePathEnum.REQUESTS,
+              ],
+              { replaceUrl: true },
+            );
+          }
+        },
+      });
   }
 }

@@ -28,7 +28,7 @@ export class PollService {
   readMany() {
     return this.http
       .get<Poll[]>(`${environment.apiUrl}/polls`, {
-        params: { proposalId: this.proposalService.getSelectedProposalId()! },
+        params: { proposalId: this.proposalService.selectedProposalId! },
       })
       .pipe(
         map((res) => res.map((poll) => new Poll(poll))),

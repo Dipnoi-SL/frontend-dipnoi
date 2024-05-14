@@ -19,7 +19,7 @@ export class GameService {
   selectedGame$ = this._selectedGame$.asObservable();
 
   meta: PageMeta | null = null;
-  preselectedGameId?: number;
+  selectedGameId?: number;
 
   constructor(
     private http: HttpClient,
@@ -83,25 +83,25 @@ export class GameService {
   }
 
   readOne(params: { id: number }) {
-    if (!this._selectedGame$.value) {
-      this.preselectedGameId = params.id;
-    }
+    this.selectedGameId = params.id;
 
-    return this.http.get<Game>(`${environment.apiUrl}/games/${params.id}`).pipe(
-      map((res) => new Game(res)),
-      tap({
-        next: (res) => {
-          this._selectedGame$.next(res);
-        },
-      }),
-    );
+    return this.http
+      .get<Game>(`${environment.apiUrl}/games/${this.selectedGameId}`)
+      .pipe(
+        map((res) => new Game(res)),
+        tap({
+          next: (res) => {
+            this._selectedGame$.next(res);
+          },
+        }),
+      );
   }
 
   createOrUpdateOneRequest() {
     if (this.userService.isActive) {
       return this.http
         .put<Game>(
-          `${environment.apiUrl}/games/${this._selectedGame$.value?.id}/requests`,
+          `${environment.apiUrl}/games/${this.selectedGameId}/requests`,
           {},
         )
         .pipe(
@@ -115,9 +115,5 @@ export class GameService {
     }
 
     return;
-  }
-
-  getSelectedGameId() {
-    return this._selectedGame$.value?.id ?? this.preselectedGameId;
   }
 }
