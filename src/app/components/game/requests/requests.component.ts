@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GameService } from '../../../services/game.service';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
 
 @Component({
   selector: 'dipnoi-requests',
@@ -9,4 +11,18 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RequestsComponent {}
+export class RequestsComponent extends StatefulComponent<{
+  finished: boolean;
+}> {
+  constructor(public gameService: GameService) {
+    super({ finished: false });
+  }
+
+  onSendRequest() {
+    this.gameService.createOrUpdateOneRequest()?.subscribe({
+      next: () => {
+        this.updateState({ finished: true });
+      },
+    });
+  }
+}

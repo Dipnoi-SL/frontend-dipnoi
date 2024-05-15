@@ -1,5 +1,5 @@
-<div class="dialog-content">
-  <ng-container *ngIf="state$ | async as state">
+<ng-container *ngIf="state$ | async as state">
+  <div class="dialog-content">
     <ng-container *ngIf="state.finished">
       <div class="header">
         <!-- 
@@ -166,5 +166,5 @@
         </p>
       </div>
     </ng-container>
-  </ng-container>
-</div>
+  </div>
+</ng-container>
