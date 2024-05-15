@@ -14,51 +14,6 @@
   align-items: center;
 }
 
-.navigation {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex-grow: 1;
-  flex-shrink: 1;
-  height: 40px;
-  gap: 30px;
-  padding: 0px 30px;
-  align-items: center;
-}
-
-.library-button {
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-  width: fit-content;
-  height: fit-content;
-}
-
 .app-header-content {
   flex-grow: 1;
-}
-
-.game-icon {
-  width: 40px;
-  height: 40px;
-  background-color: #ffffff;
-}
-
-.add-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 100px;
-  background-color: variables.$card;
-  @include mixins.shadow-4;
-}
-
-.image {
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 11px;
-  height: 10px;
 }

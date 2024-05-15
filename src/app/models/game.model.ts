@@ -1,8 +1,10 @@
+import { RoutePathEnum } from '../app.routes';
 import { AbstractEntity } from './abstract-entity.model';
 
 export class Game extends AbstractEntity {
   name!: string;
   thumbnailUri!: string;
+  iconUri!: string;
   active!: boolean;
   myRequest?: boolean | null;
 
@@ -10,5 +12,9 @@ export class Game extends AbstractEntity {
     super(data);
 
     Object.assign(this, data);
+  }
+
+  get selectedGameRoutePath() {
+    return `/${RoutePathEnum.GAMES}/${this.id}`;
   }
 }

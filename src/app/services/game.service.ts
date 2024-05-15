@@ -15,10 +15,17 @@ export class GameService {
   private _games$ = new BehaviorSubject<Game[] | null>(null);
   games$ = this._games$.asObservable();
 
+  private _dropdownGames$ = new BehaviorSubject<Game[] | null>(null);
+  dropdownGames$ = this._dropdownGames$.asObservable();
+
+  private _navigationGames$ = new BehaviorSubject<Game[] | null>(null);
+  navigationGames$ = this._navigationGames$.asObservable();
+
   private _selectedGame$ = new BehaviorSubject<Game | null>(null);
   selectedGame$ = this._selectedGame$.asObservable();
 
   meta: PageMeta | null = null;
+  dropdownMeta: PageMeta | null = null;
   selectedGameId?: number;
 
   constructor(
@@ -109,6 +116,129 @@ export class GameService {
           tap({
             next: (res) => {
               this._selectedGame$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
+  }
+
+  readManyAsDropdown(params: {
+    take?: number;
+    page?: number;
+    orderBy?: GameOrderByEnum;
+    order?: OrderEnum;
+    search?: string;
+  }) {
+    return this.http
+      .get<Page<Game>>(`${environment.apiUrl}/games`, {
+        params,
+      })
+      .pipe(
+        map((res) => ({
+          data: res.data.map((game) => new Game(game)),
+          meta: new PageMeta(res.meta),
+        })),
+        tap({
+          next: (res) => {
+            this._dropdownGames$.next(res.data);
+
+            this.dropdownMeta = res.meta;
+          },
+        }),
+      );
+  }
+
+  readManyMoreAsDropdown(params: {
+    take?: number;
+    page?: number;
+    orderBy?: GameOrderByEnum;
+    order?: OrderEnum;
+    search?: string;
+  }) {
+    if (this.meta?.hasNextPage) {
+      return this.http
+        .get<Page<Game>>(`${environment.apiUrl}/games`, {
+          params: { ...params, page: this.meta.page + 1 },
+        })
+        .pipe(
+          map((res) => ({
+            data: res.data.map((game) => new Game(game)),
+            meta: new PageMeta(res.meta),
+          })),
+          tap({
+            next: (res) => {
+              this._dropdownGames$.next(
+                this._dropdownGames$.value!.concat(res.data),
+              );
+
+              this.dropdownMeta = res.meta;
+            },
+          }),
+        );
+    }
+
+    return;
+  }
+
+  readManyAsNavigation() {
+    return this.http
+      .get<Game[]>(`${environment.apiUrl}/games/navigations`)
+      .pipe(
+        map((res) => res.map((game) => new Game(game))),
+        tap({
+          next: (res) => {
+            this._navigationGames$.next(res);
+          },
+        }),
+      );
+  }
+
+  createOneNavigation(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .post<Game>(`${environment.apiUrl}/games/${params.id}/navigations`, {})
+        .pipe(
+          map((res) => new Game(res)),
+          tap({
+            next: (res) => {
+              if (!this._navigationGames$.value) {
+                this._navigationGames$.next([res]);
+              } else {
+                this._navigationGames$.value.concat([res]);
+              }
+            },
+          }),
+        );
+    }
+
+    return;
+  }
+
+  deleteOneNavigation(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .delete<Game>(
+          `${environment.apiUrl}/games/${params.id}/navigations`,
+          {},
+        )
+        .pipe(
+          map((res) => new Game(res)),
+          tap({
+            next: (res) => {
+              if (this._navigationGames$.value) {
+                const gameIndex = this._navigationGames$.value.findIndex(
+                  (game) => game.id === res.id,
+                );
+
+                if (gameIndex) {
+                  this._navigationGames$.next([
+                    ...this._navigationGames$.value.slice(0, gameIndex),
+                    ...this._navigationGames$.value.slice(gameIndex + 1),
+                  ]);
+                }
+              }
             },
           }),
         );

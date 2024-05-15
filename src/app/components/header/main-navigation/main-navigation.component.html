@@ -1,0 +1,20 @@
+<div class="library-button" [routerLink]="libraryItem.path">
+  <h3>{{ libraryItem.title }}</h3>
+</div>
+<ng-container *ngIf="userService.authUser$ | async as authUser">
+  <div class="full-vertical-divider"></div>
+  <ng-container *ngIf="gameService.navigationGames$ | async as navigationGames">
+    <img
+      *ngFor="let game of navigationGames"
+      class="game hover-card"
+      [routerLink]="game.selectedGameRoutePath"
+      [ngSrc]="game.iconUri"
+      [width]="40"
+      [height]="40"
+      [priority]="true"
+    />
+  </ng-container>
+  <div class="add-button">
+    <img class="icon-gap" src="../../../assets/icons/add-green.svg" />
+  </div>
+</ng-container>
