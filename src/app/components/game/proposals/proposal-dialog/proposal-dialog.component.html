@@ -11,7 +11,6 @@
           <dipnoi-proposal-content
             [proposal]="selectedProposal"
           ></dipnoi-proposal-content>
-          <div class="inset-horizontal-divider"></div>
           <ng-container
             *ngIf="
               selectedProposal.isInitialPhase ||
@@ -26,7 +25,7 @@
                   [poll]="poll"
                 ></dipnoi-poll>
               </div>
-              <div *ngIf="polls.length" class="horizontal-divider"></div>
+              <div *ngIf="polls.length" class="inset-horizontal-divider"></div>
             </ng-container>
           </ng-container>
           <h2>Comments ({{ selectedProposal.numComments }})</h2>

@@ -8,6 +8,7 @@
   width: fit-content;
   height: fit-content;
   border-radius: variables.$border-radius-base;
+  background-color: variables.$card;
   @include mixins.shadow-4;
 }
 
@@ -25,6 +26,7 @@
   justify-content: center;
   width: 150px;
   height: 60px;
+  background-color: inherit;
   border-radius: variables.$border-radius-base;
 }
 

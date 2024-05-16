@@ -217,7 +217,7 @@ a {
 
 .hover-card:hover {
   cursor: pointer;
-  background-color: variables.$hover-card-color;
+  background-color: variables.$hover-card-color !important;
 
   .card-fade-bottom {
     background: linear-gradient(

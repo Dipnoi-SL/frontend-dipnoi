@@ -82,3 +82,8 @@
 .cost {
   width: 155px;
 }
+
+.inset-horizontal-divider {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
