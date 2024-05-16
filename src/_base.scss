@@ -200,6 +200,10 @@ li {
   text-align: justify;
 }
 
+.disabled-text {
+  color: variables.$outline;
+}
+
 /* Cursors */
 a {
   cursor: pointer;

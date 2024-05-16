@@ -157,10 +157,10 @@ export class GameService {
     order?: OrderEnum;
     search?: string;
   }) {
-    if (this.meta?.hasNextPage) {
+    if (this.dropdownMeta?.hasNextPage) {
       return this.http
         .get<Page<Game>>(`${environment.apiUrl}/games`, {
-          params: { ...params, page: this.meta.page + 1 },
+          params: { ...params, page: this.dropdownMeta.page + 1 },
         })
         .pipe(
           map((res) => ({
@@ -206,7 +206,11 @@ export class GameService {
               if (!this._navigationGames$.value) {
                 this._navigationGames$.next([res]);
               } else {
-                this._navigationGames$.value.concat([res]);
+                this._navigationGames$.next(
+                  this._navigationGames$.value
+                    .concat([res])
+                    .sort((a, b) => a.name.localeCompare(b.name)),
+                );
               }
             },
           }),
