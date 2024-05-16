@@ -24,6 +24,7 @@
 }
 
 .add-button {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -33,4 +34,25 @@
   border-radius: 100px;
   background-color: variables.$card;
   @include mixins.shadow-4;
+}
+
+.searchbar {
+  padding: 0px;
+  width: 150px;
+  background-color: inherit;
+  border-radius: none;
+  box-shadow: none;
+}
+
+.text-field-searchbar {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.dropdown-option {
+  justify-content: left;
+  gap: 15px;
 }
