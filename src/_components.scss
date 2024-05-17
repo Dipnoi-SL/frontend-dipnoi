@@ -176,7 +176,7 @@ $maxScreenWidth: 1920px;
   padding: 0px 15px;
   width: 213px;
   height: 34px;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
   background-color: variables.$card;
   border-radius: variables.$border-radius-base;
@@ -202,6 +202,11 @@ $maxScreenWidth: 1920px;
   margin-bottom: variables.$font-paragraph-spacing-normal;
   font-variant-ligatures: normal;
   font-kerning: normal;
+}
+
+.text-field-searchbar::placeholder {
+  color: variables.$outline;
+  opacity: 1;
 }
 
 /* Buttons */
@@ -321,6 +326,7 @@ $maxScreenWidth: 1920px;
   left: 50%;
   transform: translateX(-50%);
   border: solid 1px variables.$outline-variant;
+
   @include mixins.shadow-4;
 }
 
@@ -332,6 +338,7 @@ $maxScreenWidth: 1920px;
   box-sizing: border-box;
   padding: 0px 15px;
   height: 34px;
+
   width: 100%;
 }
 
@@ -347,6 +354,7 @@ $maxScreenWidth: 1920px;
 
 .dropdown-option-text {
   width: max-content;
+  text-align: left;
 }
 
 .NgxEditor {

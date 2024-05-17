@@ -15,11 +15,11 @@
     />
   </ng-container>
   <button
-    class="add-button dropdown hover-card"
+    class="add-button dropdown hover"
     (click)="toggleAddDropdown($event)"
     [disabled]="!authUser.active"
   >
-    <img class="icon-gap" src="../../../assets/icons/add-green.svg" />
+    <img src="../../../assets/icons/bookmark.svg" />
     <div
       class="dropdown-base"
       [style.display]="state.isAddDropdownOpen ? undefined : 'none'"
@@ -49,6 +49,9 @@
               }"
               (click)="onAddNavigationGame(navigationGames, game)"
             >
+              <div>
+                <img src="../../../../assets/icons/add-green.svg" />
+              </div>
               <p class="dropdown-option-text">
                 {{ game.name }}
               </p>

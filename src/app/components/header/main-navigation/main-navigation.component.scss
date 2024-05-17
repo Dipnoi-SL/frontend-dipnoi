@@ -27,24 +27,21 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 100px;
+  width: fit-content;
+  height: fit-content;
+  padding: 0px;
   border: none;
   background-color: variables.$card;
   @include mixins.shadow-4;
 }
 
 .searchbar {
-  padding: 0px;
-  width: 150px;
+  width: 300px;
   background-color: inherit;
-  border-radius: none;
   box-shadow: none;
 }
-.text-field-searchbar {
+
+.dropdown-option-text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
@@ -53,7 +50,7 @@
 }
 
 .dropdown-option {
-  width: 150px;
+  width: 300px;
   justify-content: left;
   gap: 15px;
 }
