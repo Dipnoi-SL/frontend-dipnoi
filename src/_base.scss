@@ -217,8 +217,20 @@ li {
   text-align: justify;
 }
 
-.disabled-text {
-  color: variables.$outline;
+.disabled {
+  opacity: 0.5 !important;
+}
+
+.disabled:hover {
+  cursor: not-allowed !important;
+}
+
+button:disabled {
+  opacity: 0.5 !important;
+}
+
+button:disabled:hover {
+  cursor: not-allowed !important;
 }
 
 /* Cursors */

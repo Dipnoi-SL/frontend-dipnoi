@@ -9,35 +9,35 @@
           [height]="40"
           [priority]="true"
         />
+        <form
+          class="comment-field-buttons"
+          [formGroup]="createCommentForm"
+          (ngSubmit)="onSubmit()"
+          style="width: 100%"
+        >
+          <div class="text-field-container">
+            <input
+              type="text"
+              class="text-field-base"
+              formControlName="commentToCreate"
+              #commentToCreate
+              placeholder="Add comment..."
+            />
+          </div>
+          <div *ngIf="createCommentForm.valid" class="actions">
+            <button class="button-base button-base-trans" (click)="onCancel()">
+              Cancel
+            </button>
+            <button
+              class="button-base button-base-blue"
+              [disabled]="!createCommentForm.valid || !authUser.active"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </ng-container>
-      <form
-        class="comment-field-buttons"
-        [formGroup]="createCommentForm"
-        (ngSubmit)="onSubmit()"
-        style="width: 100%"
-      >
-        <div class="text-field-container">
-          <input
-            type="text"
-            class="text-field-base"
-            formControlName="commentToCreate"
-            #commentToCreate
-            placeholder="Add comment..."
-          />
-        </div>
-        <div *ngIf="createCommentForm.valid" class="actions">
-          <button class="button-base button-base-trans" (click)="onCancel()">
-            Cancel
-          </button>
-          <button
-            class="button-base button-base-blue"
-            [disabled]="!createCommentForm.valid"
-            type="submit"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
     </div>
   </div>
   <ng-container *ngIf="commentService.comments$ | async as comments">

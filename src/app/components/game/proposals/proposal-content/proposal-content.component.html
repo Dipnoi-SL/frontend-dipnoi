@@ -4,9 +4,13 @@
       <h2>
         {{ proposal.getCurrentTitle(authUser.data) }}
       </h2>
+      <img src="../../../../../assets/icons/comment.svg" />
+      <img
+        src="../../../../../assets/icons/star.svg"
+        (click)="onFollow()"
+        [ngClass]="{ disabled: !authUser.data?.active }"
+      />
     </ng-container>
-    <img src="../../../../../assets/icons/comment.svg" />
-    <img src="../../../../../assets/icons/star.svg" (click)="onFollow()" />
     <ng-container *ngIf="userService.authUser$ | async as authUser">
       <div
         *ngIf="

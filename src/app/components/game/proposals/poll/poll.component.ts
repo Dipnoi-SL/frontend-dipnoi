@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PollService } from '../../../../services/poll.service';
 import { Poll } from '../../../../models/poll.model';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'dipnoi-poll',
@@ -14,7 +15,10 @@ import { Poll } from '../../../../models/poll.model';
 export class PollComponent {
   @Input({ required: true }) poll!: Poll;
 
-  constructor(public pollService: PollService) {}
+  constructor(
+    public userService: UserService,
+    public pollService: PollService,
+  ) {}
 
   onVote(myInterestVote: boolean | null) {
     if (myInterestVote !== this.poll.myInterestVote) {

@@ -32,6 +32,7 @@
   width: 30px;
   height: 30px;
   border-radius: 100px;
+  border: none;
   background-color: variables.$card;
   @include mixins.shadow-4;
 }

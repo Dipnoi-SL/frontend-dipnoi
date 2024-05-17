@@ -1,15 +1,29 @@
 <div class="poll">
   <h5>{{ poll.label }}</h5>
   <div class="button-row">
-    <div class="button-base left" (click)="onVote(true)">
-      <p class="button-label">Yes</p>
-    </div>
-    <div class="button-base center" (click)="onVote(null)">
-      <p class="button-label">Skip</p>
-    </div>
-    <div class="button-base right" (click)="onVote(false)">
-      <p class="button-label">No</p>
-    </div>
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+      <div
+        class="button-base left"
+        (click)="onVote(true)"
+        [ngClass]="{ disabled: !authUser.data?.active }"
+      >
+        <p class="button-label">Yes</p>
+      </div>
+      <div
+        class="button-base center"
+        (click)="onVote(null)"
+        [ngClass]="{ disabled: !authUser.data?.active }"
+      >
+        <p class="button-label">Skip</p>
+      </div>
+      <div
+        class="button-base right"
+        (click)="onVote(false)"
+        [ngClass]="{ disabled: !authUser.data?.active }"
+      >
+        <p class="button-label">No</p>
+      </div>
+    </ng-container>
   </div>
   <div class="bar-container">
     <div class="bar-info">
