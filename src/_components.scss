@@ -180,14 +180,17 @@ $maxScreenWidth: 1920px;
   align-items: center;
   background-color: variables.$card;
   border-radius: variables.$border-radius-base;
+
   @include mixins.shadow-4;
 }
 
 .text-field-searchbar {
-  width: 100%;
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 0;
   height: fit-content;
   border: none;
-  padding: 0px;
   background-color: transparent;
   font-family: variables.$font-family-base;
   font-size: variables.$font-size-sm;

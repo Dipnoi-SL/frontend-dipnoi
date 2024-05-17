@@ -43,7 +43,6 @@
   border-radius: none;
   box-shadow: none;
 }
-
 .text-field-searchbar {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -53,6 +52,7 @@
 }
 
 .dropdown-option {
+  width: 150px;
   justify-content: left;
   gap: 15px;
 }
