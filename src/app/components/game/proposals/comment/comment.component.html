@@ -9,21 +9,25 @@
   <div class="info-container">
     <div class="header">
       <h5>{{ comment.user.nickname }}</h5>
-      <small>{{ comment.createdAt }}</small>
+      <small>{{ comment.formattedCreatedAt }}</small>
     </div>
     <p>{{ comment.body }}</p>
     <div class="actions">
-      <img
-        class="thumb-up-adjustment"
-        src="../../../assets/icons/thumb-up.svg"
-        (click)="onVote(true)"
-      />
-      <small>{{ comment.positiveValue }}</small>
-      <img
-        class="thumb-down-adjustment"
-        src="../../../assets/icons/thumb-down.svg"
-        (click)="onVote(false)"
-      />
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <img
+          class="thumb-up-adjustment"
+          src="../../../assets/icons/thumb-up.svg"
+          (click)="onVote(true)"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+        />
+        <small>{{ comment.positiveValue }}</small>
+        <img
+          class="thumb-down-adjustment"
+          src="../../../assets/icons/thumb-down.svg"
+          (click)="onVote(false)"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+        />
+      </ng-container>
     </div>
   </div>
 </div>

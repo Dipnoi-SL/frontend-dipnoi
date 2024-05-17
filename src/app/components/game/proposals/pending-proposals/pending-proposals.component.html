@@ -3,16 +3,21 @@
     <div class="central-frame-content-header">
       <div class="content-header-section">
         <h1>Pending proposals</h1>
-        <div
-          class="button-base button-base-green"
-          [routerLink]="[]"
-          [relativeTo]="route"
-          [queryParams]="proposalCreationQueryParam"
-          queryParamsHandling="merge"
+        <ng-container
+          *ngIf="{ data: userService.authUser$ | async } as authUser"
         >
-          <img src="../../../../../assets/icons/add.svg" />
-          Create
-        </div>
+          <button
+            class="button-base button-base-green"
+            [routerLink]="[]"
+            [relativeTo]="route"
+            [queryParams]="proposalCreationQueryParam"
+            queryParamsHandling="merge"
+            [disabled]="!authUser.data?.active"
+          >
+            <img src="../../../../../assets/icons/add.svg" />
+            Create
+          </button>
+        </ng-container>
       </div>
       <div class="wrapper">
         <div class="search-tools-panel">

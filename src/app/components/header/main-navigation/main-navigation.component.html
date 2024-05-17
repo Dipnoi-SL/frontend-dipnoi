@@ -14,7 +14,11 @@
       [priority]="true"
     />
   </ng-container>
-  <div class="add-button dropdown" (click)="toggleAddDropdown($event)">
+  <button
+    class="add-button dropdown hover-card"
+    (click)="toggleAddDropdown($event)"
+    [disabled]="!authUser.active"
+  >
     <img class="icon-gap" src="../../../assets/icons/add-green.svg" />
     <div
       class="dropdown-base"
@@ -40,16 +44,12 @@
               *ngFor="let game of dropdownGames"
               class="dropdown-option"
               [ngClass]="{
-                'hover-card': !isNavigationGame(navigationGames, game)
+                'hover-card': !isNavigationGame(navigationGames, game),
+                disabled: isNavigationGame(navigationGames, game)
               }"
               (click)="onAddNavigationGame(navigationGames, game)"
             >
-              <p
-                class="dropdown-option-text"
-                [ngClass]="{
-                  'disabled-text': isNavigationGame(navigationGames, game)
-                }"
-              >
+              <p class="dropdown-option-text">
                 {{ game.name }}
               </p>
             </div>
@@ -60,5 +60,5 @@
         </ng-container>
       </ng-container>
     </div>
-  </div>
+  </button>
 </ng-container>

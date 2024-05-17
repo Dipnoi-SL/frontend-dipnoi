@@ -28,22 +28,22 @@
   overflow-y: scroll;
   overflow-x: hidden;
   margin-right: 7px;
-  padding: 0px 15px 30px 0px;
+  padding: 0px 15px 0px 0px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: calc(100% - 30px);
+  height: 100%;
 }
 
 .side-panel-scrollable-container {
   overflow-y: scroll;
   overflow-x: hidden;
   margin-right: 7px;
-  padding: 0px 15px 30px 0px;
+  padding: 0px 15px 0px 0px;
   display: flex;
   flex-direction: column;
   gap: 40px;
-  height: calc(100% - 30px);
+  height: 100%;
   box-sizing: border-box;
 }
 

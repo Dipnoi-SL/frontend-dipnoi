@@ -1,5 +1,9 @@
 @use '../../../../../variables';
 
+:host {
+  padding-bottom: 30px;
+}
+
 .vertical-card {
   height: fit-content;
   padding: 20px;

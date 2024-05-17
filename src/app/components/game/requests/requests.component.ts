@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameService } from '../../../services/game.service';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'dipnoi-requests',
@@ -14,7 +15,10 @@ import { StatefulComponent } from '../../../directives/stateful-component.direct
 export class RequestsComponent extends StatefulComponent<{
   finished: boolean;
 }> {
-  constructor(public gameService: GameService) {
+  constructor(
+    public userService: UserService,
+    public gameService: GameService,
+  ) {
     super({ finished: false });
   }
 

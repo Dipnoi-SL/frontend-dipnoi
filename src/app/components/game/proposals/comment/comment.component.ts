@@ -3,6 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Comment } from '../../../../models/comment.model';
 import { CommentService } from '../../../../services/comment.service';
 import { NgIconComponent } from '@ng-icons/core';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'dipnoi-comment',
@@ -15,7 +16,10 @@ import { NgIconComponent } from '@ng-icons/core';
 export class CommentComponent {
   @Input({ required: true }) comment!: Comment;
 
-  constructor(public commentService: CommentService) {}
+  constructor(
+    public userService: UserService,
+    public commentService: CommentService,
+  ) {}
 
   onVote(myFeedback: boolean) {
     if (myFeedback === this.comment.myFeedback) {
