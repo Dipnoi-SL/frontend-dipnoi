@@ -236,7 +236,7 @@ export class GameService {
                   (game) => game.id === res.id,
                 );
 
-                if (gameIndex) {
+                if (gameIndex >= 0) {
                   this._navigationGames$.next([
                     ...this._navigationGames$.value.slice(0, gameIndex),
                     ...this._navigationGames$.value.slice(gameIndex + 1),

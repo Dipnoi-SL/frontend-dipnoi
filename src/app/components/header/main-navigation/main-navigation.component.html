@@ -4,15 +4,17 @@
 <ng-container *ngIf="userService.authUser$ | async as authUser">
   <div class="full-vertical-divider"></div>
   <ng-container *ngIf="gameService.navigationGames$ | async as navigationGames">
-    <img
-      *ngFor="let game of navigationGames"
-      class="game hover-card"
-      [routerLink]="game.selectedGameRoutePath"
-      [ngSrc]="game.iconUri"
-      [width]="40"
-      [height]="40"
-      [priority]="true"
-    />
+    <ng-container *ngIf="authUser.active">
+      <img
+        *ngFor="let game of navigationGames"
+        class="game hover-card"
+        [routerLink]="game.selectedGameRoutePath"
+        [ngSrc]="game.iconUri"
+        [width]="40"
+        [height]="40"
+        [priority]="true"
+      />
+    </ng-container>
   </ng-container>
   <button
     class="add-button dropdown hover"
@@ -42,22 +44,23 @@
           <ng-container *ngIf="dropdownGames.length">
             <div
               *ngFor="let game of dropdownGames"
-              class="dropdown-option"
-              [ngClass]="{
-                'hover-card': !isNavigationGame(navigationGames, game),
-                disabled: isNavigationGame(navigationGames, game)
-              }"
-              (click)="onAddNavigationGame(navigationGames, game)"
+              class="dropdown-option hover-card"
+              (click)="onAddOrDeleteNavigationGame(navigationGames, game)"
             >
-              <div>
-                <img src="../../../../assets/icons/add-green.svg" />
-              </div>
+              <img
+                *ngIf="!isNavigationGame(navigationGames, game)"
+                src="../../../../assets/icons/add-green.svg"
+              />
+              <img
+                *ngIf="isNavigationGame(navigationGames, game)"
+                src="../../../../assets/icons/subtract.svg"
+              />
               <p class="dropdown-option-text">
                 {{ game.name }}
               </p>
             </div>
           </ng-container>
-          <div *ngIf="!dropdownGames.length" class="dropdown-option">
+          <div *ngIf="!dropdownGames.length" class="dropdown-option disabled">
             <p class="dropdown-option-text">No results found</p>
           </div>
         </ng-container>

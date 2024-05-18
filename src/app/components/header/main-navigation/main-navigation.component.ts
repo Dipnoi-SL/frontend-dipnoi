@@ -121,9 +121,11 @@ export class MainNavigationComponent
     return false;
   }
 
-  onAddNavigationGame(navigationGames: Game[], game: Game) {
+  onAddOrDeleteNavigationGame(navigationGames: Game[], game: Game) {
     if (!this.isNavigationGame(navigationGames, game)) {
       this.gameService.createOneNavigation({ id: game.id })?.subscribe();
+    } else {
+      this.gameService.deleteOneNavigation({ id: game.id })?.subscribe();
     }
   }
 }

@@ -3,7 +3,7 @@ import {
   Component,
   HostListener,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
@@ -14,7 +14,13 @@ import { StatefulComponent } from '../../../directives/stateful-component.direct
 @Component({
   selector: 'dipnoi-auth-info',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, NgIconComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    NgIconComponent,
+    NgOptimizedImage,
+  ],
   templateUrl: './auth-info.component.html',
   styleUrl: './auth-info.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

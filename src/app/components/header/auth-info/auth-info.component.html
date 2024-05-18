@@ -8,9 +8,16 @@
       </div>
       <div class="full-vertical-divider"></div>
       <div class="dropdown" (click)="toggleDropdown()">
-        <div class="dropdown-button hover-card">
+        <!-- <div class="dropdown-button hover-card">
           <ng-icon name="matAccountCircleOutline"></ng-icon>
-        </div>
+        </div> -->
+        <img
+          class="dropdown-button"
+          [ngSrc]="authUser.avatarUri"
+          [width]="40"
+          [height]="40"
+          [priority]="true"
+        />
         <div
           class="dropdown-base"
           [style.display]="state.isDropdownOpen ? 'block' : 'none'"
