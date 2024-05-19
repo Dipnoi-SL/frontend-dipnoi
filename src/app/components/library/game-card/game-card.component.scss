@@ -1,15 +1,8 @@
-@use '../../../../mixins';
 @use '../../../../variables';
 
-.game {
-  display: flex;
-  flex-direction: column;
+.vertical-card {
   gap: 0px;
   width: fit-content;
-  height: fit-content;
-  border-radius: variables.$border-radius-base;
-  background-color: variables.$card;
-  @include mixins.shadow-4;
 }
 
 .game-cover {
@@ -26,7 +19,6 @@
   justify-content: center;
   width: 150px;
   height: 60px;
-  background-color: inherit;
   border-radius: variables.$border-radius-base;
 }
 

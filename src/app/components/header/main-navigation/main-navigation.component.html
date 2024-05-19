@@ -7,21 +7,21 @@
     <ng-container *ngIf="authUser.active">
       <img
         *ngFor="let game of navigationGames"
-        class="game hover-card"
+        class="game"
         [routerLink]="game.selectedGameRoutePath"
         [ngSrc]="game.iconUri"
-        [width]="40"
-        [height]="40"
+        [width]="45"
+        [height]="45"
         [priority]="true"
       />
     </ng-container>
   </ng-container>
   <button
-    class="add-button dropdown hover"
+    class="card-button add-button hover-card"
     (click)="toggleAddDropdown($event)"
     [disabled]="!authUser.active"
   >
-    <img src="../../../assets/icons/bookmark.svg" />
+    <img src="../../../assets/icons/add-green.svg" />
     <div
       class="dropdown-base"
       [style.display]="state.isAddDropdownOpen ? undefined : 'none'"

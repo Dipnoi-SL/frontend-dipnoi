@@ -6,10 +6,12 @@
 }
 
 .dropdown-button {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0px;
   border-radius: 100%;
+  cursor: pointer;
+  border: 1px solid variables.$outline;
 }
 
 .dropdown-content {
@@ -24,13 +26,14 @@
   gap: 0px;
   width: fit-content;
   height: fit-content;
+  cursor: pointer;
 }
 
 .secondary-navigation {
   display: flex;
   flex-direction: row;
   width: fit-content;
-  height: 40px;
+  height: 45px;
   gap: 30px;
   padding: 0px 30px;
   align-items: center;

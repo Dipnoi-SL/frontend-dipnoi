@@ -4,12 +4,16 @@
       <h2>
         {{ proposal.getCurrentTitle(authUser.data) }}
       </h2>
-      <img src="../../../../../assets/icons/comment.svg" />
-      <img
-        src="../../../../../assets/icons/star.svg"
+      <div class="icon-button">
+        <img src="../../../../../assets/icons/comment.svg" />
+      </div>
+      <div
+        class="icon-button"
         (click)="onFollow()"
         [ngClass]="{ disabled: !authUser.data?.active }"
-      />
+      >
+        <img src="../../../../../assets/icons/star.svg" />
+      </div>
     </ng-container>
     <ng-container *ngIf="userService.authUser$ | async as authUser">
       <div
@@ -18,32 +22,32 @@
         "
         (click)="onNextState()"
       >
-        <div class="tag tag-card"><p>Specify</p></div>
+        <div class="tag tag-card hover-card"><p>Specify</p></div>
       </div>
       <ng-container *ngIf="authUser.isDeveloper">
         <div *ngIf="proposal.isPendingReview" (click)="onNextState()">
-          <div class="tag tag-card"><p>Accept</p></div>
+          <div class="tag tag-card hover-card"><p>Accept</p></div>
         </div>
         <div *ngIf="proposal.isPendingReview" (click)="onPreviousState()">
-          <div class="tag tag-card"><p>Request edit</p></div>
+          <div class="tag tag-card hover-card"><p>Request edit</p></div>
         </div>
         <div *ngIf="proposal.isPendingReview" (click)="onDisregard()">
-          <div class="tag tag-card"><p>Deny</p></div>
+          <div class="tag tag-card hover-card"><p>Deny</p></div>
         </div>
         <div *ngIf="proposal.isFinalPhase" (click)="onNextState()">
-          <div class="tag tag-card"><p>Last call</p></div>
+          <div class="tag tag-card hover-card"><p>Last call</p></div>
         </div>
         <div *ngIf="proposal.isLastCall" (click)="onPreviousState()">
-          <div class="tag tag-card"><p>Return to open</p></div>
+          <div class="tag tag-card hover-card"><p>Return to open</p></div>
         </div>
         <div *ngIf="proposal.isLastCall" (click)="onNextState()">
-          <div class="tag tag-card"><p>Select development</p></div>
+          <div class="tag tag-card hover-card"><p>Select development</p></div>
         </div>
         <div *ngIf="proposal.isSelectedForDevelopment" (click)="onNextState()">
-          <div class="tag tag-card"><p>Start development</p></div>
+          <div class="tag tag-card hover-card"><p>Start development</p></div>
         </div>
         <div *ngIf="proposal.isInDevelopment" (click)="onNextState()">
-          <div class="tag tag-card"><p>Complete</p></div>
+          <div class="tag tag-card hover-card"><p>Complete</p></div>
         </div>
       </ng-container>
     </ng-container>

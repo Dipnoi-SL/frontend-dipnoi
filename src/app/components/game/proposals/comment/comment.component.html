@@ -14,19 +14,27 @@
     <p>{{ comment.body }}</p>
     <div class="actions">
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
-        <img
-          class="thumb-up-adjustment"
-          src="../../../assets/icons/thumb-up.svg"
+        <div
+          class="icon-button"
           (click)="onVote(true)"
           [ngClass]="{ disabled: !authUser.data?.active }"
-        />
+        >
+          <img
+            class="thumb-up-adjustment"
+            src="../../../assets/icons/thumb-up.svg"
+          />
+        </div>
         <small>{{ comment.positiveValue }}</small>
-        <img
-          class="thumb-down-adjustment"
-          src="../../../assets/icons/thumb-down.svg"
+        <div
+          class="icon-button"
           (click)="onVote(false)"
           [ngClass]="{ disabled: !authUser.data?.active }"
-        />
+        >
+          <img
+            class="thumb-down-adjustment"
+            src="../../../assets/icons/thumb-down.svg"
+          />
+        </div>
       </ng-container>
     </div>
   </div>

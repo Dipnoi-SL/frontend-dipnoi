@@ -81,6 +81,15 @@ $maxScreenWidth: 1920px;
   @include mixins.shadow-4;
 }
 
+.card-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: variables.$card;
+  @include mixins.shadow-4;
+}
+
 /* Text colors */
 .text-red {
   color: variables.$red;

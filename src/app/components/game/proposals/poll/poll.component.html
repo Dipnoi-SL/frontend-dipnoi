@@ -3,21 +3,21 @@
   <div class="button-row">
     <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
       <div
-        class="button-base left"
+        class="button-base left hover-card"
         (click)="onVote(true)"
         [ngClass]="{ disabled: !authUser.data?.active }"
       >
         <p class="button-label">Yes</p>
       </div>
       <div
-        class="button-base center"
+        class="button-base center hover-card"
         (click)="onVote(null)"
         [ngClass]="{ disabled: !authUser.data?.active }"
       >
         <p class="button-label">Skip</p>
       </div>
       <div
-        class="button-base right"
+        class="button-base right hover-card"
         (click)="onVote(false)"
         [ngClass]="{ disabled: !authUser.data?.active }"
       >

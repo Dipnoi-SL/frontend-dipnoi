@@ -257,50 +257,50 @@ a {
       to top,
       variables.$hover-card-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-card:active {
-  background-color: variables.$highlight-card-color;
+  background-color: variables.$highlight-card-color !important;
 
   .card-fade-bottom {
     background: linear-gradient(
       to top,
       variables.$highlight-card-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-surface:hover {
   cursor: pointer;
-  background-color: variables.$hover-surface-color;
+  background-color: variables.$hover-surface-color !important;
 
-  .card-fade-bottom {
+  .card-surface-bottom {
     background: linear-gradient(
       to top,
       variables.$hover-surface-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-surface:active {
-  background-color: variables.$highlight-surface-color;
+  background-color: variables.$highlight-surface-color !important;
 
-  .card-fade-bottom {
+  .card-surface-bottom {
     background: linear-gradient(
       to top,
       variables.$highlight-surface-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-blue:hover {
   cursor: pointer;
-  background-color: variables.$hover-blue-light-color;
+  background-color: variables.$hover-blue-light-color !important;
 }
 
 /* Scrollbars */
