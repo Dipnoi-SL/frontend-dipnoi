@@ -1,0 +1,56 @@
+@use '../../../../variables';
+@use '../../../../layouts';
+@use '../../../../components.scss';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 45px;
+  gap: 30px;
+  padding: 0px 30px;
+  align-items: center;
+}
+
+.library-button {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.game {
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.add-button {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 100%;
+}
+
+.searchbar {
+  width: 300px;
+  box-shadow: none;
+}
+
+.dropdown-option-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.dropdown-option {
+  width: 300px;
+  justify-content: left;
+  gap: 15px;
+}

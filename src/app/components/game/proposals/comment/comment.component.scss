@@ -1,0 +1,59 @@
+@use '../../../../../variables';
+
+.comment-container {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  width: 100%;
+  gap: 20px;
+}
+
+.avatar {
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  height: fit-content;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  gap: 10px;
+  h5 {
+    font-weight: variables.$font-weight-medium;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 5px;
+}
+
+.thumb-up-adjustment {
+  padding-bottom: 3px;
+}
+
+.thumb-down-adjustment {
+  padding-top: 3px;
+}
+
+.icon-button {
+  border-radius: 100%;
+  cursor: pointer;
+}

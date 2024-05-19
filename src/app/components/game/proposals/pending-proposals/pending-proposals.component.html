@@ -1,0 +1,68 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="central-frame-content">
+    <div class="central-frame-content-header">
+      <div class="content-header-section">
+        <h1>Pending proposals</h1>
+        <ng-container
+          *ngIf="{ data: userService.authUser$ | async } as authUser"
+        >
+          <button
+            class="button-base button-base-green"
+            [routerLink]="[]"
+            [relativeTo]="route"
+            [queryParams]="proposalCreationQueryParam"
+            queryParamsHandling="merge"
+            [disabled]="!authUser.data?.active"
+          >
+            <img src="../../../../../assets/icons/add.svg" />
+            Create
+          </button>
+        </ng-container>
+      </div>
+      <div class="wrapper">
+        <div class="search-tools-panel">
+          <ng-container *ngIf="userService.authUser$ | async">
+            <ng-container
+              *ngIf="
+                proposalService.pinnedProposals$ | async as pinnedProposals
+              "
+            >
+              <dipnoi-toggle
+                *ngIf="pinnedProposals.length"
+                (onToggleUpdated)="handleOnToggleUpdated($event)"
+              ></dipnoi-toggle>
+            </ng-container>
+          </ng-container>
+          <dipnoi-params
+            (onParamsUpdated)="handleOnParamsUpdated($event)"
+            [filterOptions]="filterOptions"
+            [orderOptions]="orderOptions"
+            [defaultFilter]="4"
+            [defaultOrder]="0"
+          ></dipnoi-params>
+        </div>
+      </div>
+    </div>
+    <ng-container
+      *ngIf="proposalService.pinnedProposals$ | async as pinnedProposals"
+    >
+      <div
+        class="pinned-proposals"
+        *ngIf="state.isPinnedShown && pinnedProposals.length"
+      >
+        <dipnoi-proposal-card
+          *ngFor="let proposal of pinnedProposals"
+          [proposal]="proposal"
+        ></dipnoi-proposal-card>
+        <div class="inset-horizontal-divider single-divider"></div>
+      </div>
+    </ng-container>
+    <div class="list-wrapper" #infiniteScrollContainerRef>
+      <dipnoi-proposal-list
+        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        [params]="state.params"
+      ></dipnoi-proposal-list>
+    </div>
+    <div class="surface-fade-bottom wrapper-fade-fix"></div>
+  </div>
+</ng-container>

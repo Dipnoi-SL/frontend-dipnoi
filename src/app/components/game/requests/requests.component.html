@@ -1,0 +1,37 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="wrapper">
+    <div class="left-panel">
+      <div class="left-panel-content"></div>
+      <div class="full-vertical-divider"></div>
+    </div>
+    <div class="central-frame">
+      <div class="central-frame-content">
+        <div class="requests-content">
+          <h1 *ngIf="!state.finished" class="central-text">
+            This game is not currently active.
+          </h1>
+          <h1 *ngIf="!state.finished" class="central-text">
+            Make its development team know that you are interested!
+          </h1>
+          <ng-container
+            *ngIf="{ data: userService.authUser$ | async } as authUser"
+          >
+            <button
+              *ngIf="!state.finished"
+              class="button-base button-base-blue"
+              [disabled]="!authUser.data?.active"
+              (click)="onSendRequest()"
+            >
+              Sure
+            </button>
+          </ng-container>
+          <h1 *ngIf="state.finished">Thank you for your help!</h1>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="full-vertical-divider"></div>
+      <div class="right-panel-content"></div>
+    </div>
+  </div>
+</ng-container>

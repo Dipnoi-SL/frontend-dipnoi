@@ -1,0 +1,13 @@
+<div class="vertical-card hover-card" [routerLink]="game.selectedGameRoutePath">
+  <div class="game-cover"></div>
+  <img
+    class="game-cover"
+    [ngSrc]="game.thumbnailUri"
+    [width]="150"
+    [height]="240"
+    [priority]="true"
+  />
+  <div class="game-panel">
+    <p class="bold">{{ game.name }}</p>
+  </div>
+</div>

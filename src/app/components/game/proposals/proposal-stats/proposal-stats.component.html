@@ -1,0 +1,276 @@
+<ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+  <div class="dialog-side-content">
+    <div class="vertical-card">
+      <h4>Details</h4>
+      <div class="box-row">
+        <p class="p-category">Title</p>
+        <ng-container
+          *ngIf="{ data: userService.authUser$ | async } as authUser"
+        >
+          <p class="p-value">
+            {{ proposal.getCurrentTitle(authUser.data) }}
+          </p>
+        </ng-container>
+      </div>
+      <div class="box-row">
+        <p class="p-category">Author</p>
+        <p class="p-value">
+          {{ proposal.user.nickname }}
+        </p>
+      </div>
+      <div class="box-row">
+        <p class="p-category">Labels</p>
+        <p class="p-value">
+          {{ proposal.categories.join(', ') }}
+        </p>
+      </div>
+    </div>
+    <div
+      *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
+      class="vertical-card"
+    >
+      <h4>Priority</h4>
+
+      <div class="box-row row-icon">
+        <div
+          class="icon-button"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+          (click)="onImportanceVote(5)"
+        >
+          <div class="icon-container icon-container-priority">
+            <img class="image" src="../../../assets/icons/prio-5.svg" />
+          </div>
+        </div>
+        <div
+          class="icon-button"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+          (click)="onImportanceVote(4)"
+        >
+          <div class="icon-container icon-container-priority">
+            <img class="image" src="../../../assets/icons/prio-4.svg" />
+          </div>
+        </div>
+        <div
+          class="icon-button"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+          (click)="onImportanceVote(3)"
+        >
+          <div class="icon-container icon-container-priority">
+            <img class="image" src="../../../assets/icons/prio-3.svg" />
+          </div>
+        </div>
+        <div
+          class="icon-button"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+          (click)="onImportanceVote(2)"
+        >
+          <div class="icon-container icon-container-priority">
+            <img class="image" src="../../../assets/icons/prio-2.svg" />
+          </div>
+        </div>
+        <div
+          class="icon-button"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+          (click)="onImportanceVote(1)"
+        >
+          <div class="icon-container icon-container-priority">
+            <img class="image" src="../../../assets/icons/prio-1.svg" />
+          </div>
+        </div>
+      </div>
+      <div class="box-row">
+        <p class="p-category">Votes</p>
+
+        <p class="p-value">
+          {{ proposal.importanceWeightsSum }}
+        </p>
+      </div>
+      <div class="box-row">
+        <p class="p-category">Average</p>
+        <div class="value-icon">
+          <p class="p-value">{{ proposal.importance }}</p>
+          <img
+            *ngIf="proposal.importance < 1"
+            class="score-icon"
+            width="11"
+            height="10"
+            src="../../../../../assets/icons/chevron-down-double.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 1 && proposal.importance < 2"
+            class="score-icon"
+            width="12"
+            height="8"
+            src="../../../../../assets/icons/chevron-down-single.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 2 && proposal.importance < 3"
+            class="score-icon"
+            width="12"
+            height="6"
+            src="../../../../../assets/icons/equal.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 3 && proposal.importance < 4"
+            class="score-icon"
+            width="12"
+            height="8"
+            src="../../../../../assets/icons/chevron-up-single.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 4"
+            class="score-icon"
+            width="11"
+            height="10"
+            src="../../../../../assets/icons/chevron-up-double.svg"
+          />
+        </div>
+      </div>
+    </div>
+    <ng-container
+      *ngIf="
+        (pollService.finalPoll$ | async) ??
+        (pollService.initialPoll$ | async) as currentPoll
+      "
+    >
+      <div class="vertical-card">
+        <div class="backing-title">
+          <h4>Backing</h4>
+          <img
+            *ngIf="
+              proposal.isSelectedForDevelopment ||
+              proposal.isInDevelopment ||
+              proposal.isCompleted ||
+              proposal.isNotBacked ||
+              proposal.isNotViable
+            "
+            class="image"
+            src="../../../assets/icons/vector-up.svg"
+          />
+        </div>
+        <div class="box-row bar-row">
+          <div
+            class="icon-button"
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active ||
+                proposal.isSelectedForDevelopment ||
+                proposal.isInDevelopment ||
+                proposal.isCompleted ||
+                proposal.isNotBacked ||
+                proposal.isNotViable
+            }"
+            (click)="onInterestVote(true, currentPoll)"
+          >
+            <div class="icon-container adjustment-vector-up">
+              <img class="image" src="../../../assets/icons/vector-up.svg" />
+            </div>
+          </div>
+          <div class="bar">
+            <div
+              class="bar-fill success-background"
+              [ngStyle]="{
+                width: currentPoll.positiveRatio + '%'
+              }"
+            ></div>
+          </div>
+          <div
+            class="icon-button"
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active ||
+                proposal.isSelectedForDevelopment ||
+                proposal.isInDevelopment ||
+                proposal.isCompleted ||
+                proposal.isNotBacked ||
+                proposal.isNotViable
+            }"
+            (click)="onInterestVote(false, currentPoll)"
+          >
+            <div class="icon-container adjustment-vector-down">
+              <img class="image" src="../../../assets/icons/vector-down.svg" />
+            </div>
+          </div>
+        </div>
+        <div class="box-row">
+          <p class="p-category">Votes</p>
+          <div class="box-column">
+            <div class="value-icon">
+              <p class="p-value">
+                {{ currentPoll.positiveValue }}
+              </p>
+              <img class="image" src="../../../assets/icons/vector-up.svg" />
+            </div>
+            <div class="value-icon">
+              <p class="p-value">
+                {{ currentPoll.negativeValue }}
+              </p>
+              <img class="image" src="../../../assets/icons/vector-down.svg" />
+            </div>
+          </div>
+        </div>
+        <div class="box-row">
+          <p class="p-category">Balance</p>
+          <div class="value-icon">
+            <p class="p-value">
+              {{ currentPoll.balance }}
+            </p>
+            <img
+              *ngIf="currentPoll.positiveValue >= currentPoll.negativeValue"
+              class="image"
+              src="../../../assets/icons/vector-up.svg"
+            />
+            <img
+              *ngIf="currentPoll.positiveValue < currentPoll.negativeValue"
+              class="image"
+              src="../../../assets/icons/vector-down.svg"
+            />
+          </div>
+        </div>
+        <div class="box-row">
+          <p class="p-category">Ratio</p>
+          <p class="p-value">{{ currentPoll.positiveRatio }}%</p>
+        </div>
+      </div>
+    </ng-container>
+    <div class="vertical-card">
+      <h4>Status</h4>
+      <div class="box-row">
+        <p class="p-category">Stage</p>
+        <p class="p-value">
+          {{ proposal.state }}
+        </p>
+      </div>
+      <div *ngIf="proposal.isNotBacked || proposal.isNotViable" class="box-row">
+        <p class="p-category">Motive</p>
+        <p class="p-value">
+          {{ proposal.state }}
+        </p>
+      </div>
+      <div *ngIf="proposal.cost" class="box-row">
+        <p class="p-category">Cost</p>
+        <p class="p-value">
+          {{ proposal.cost }}
+        </p>
+      </div>
+      <div class="box-row">
+        <p class="p-category">Releases</p>
+        <div class="box-column">
+          <p class="p-value">Created {{ proposal.formattedCreatedAt }}</p>
+          <p class="p-value" *ngIf="proposal.resetAt">
+            Opened {{ proposal.formattedResetAt }}
+          </p>
+          <p class="p-value" *ngIf="proposal.selectedAt">
+            Selected {{ proposal.formattedSelectedAt }}
+          </p>
+          <p class="p-value" *ngIf="proposal.disregardedAt">
+            Archived {{ proposal.formattedDisregardedAt }}
+          </p>
+          <p class="p-value" *ngIf="proposal.completedAt">
+            Implemented {{ proposal.formattedCompletedAt }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

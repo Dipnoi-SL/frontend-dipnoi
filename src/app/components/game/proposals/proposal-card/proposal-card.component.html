@@ -1,0 +1,189 @@
+<div
+  class="horizontal-card hover-card"
+  [routerLink]="[]"
+  [relativeTo]="route"
+  [queryParams]="proposal.selectedQueryParam"
+  queryParamsHandling="merge"
+>
+  <img
+    class="image"
+    [ngSrc]="proposal.thumbnailUri"
+    [width]="125"
+    [height]="125"
+    [priority]="true"
+  />
+  <div class="content">
+    <div class="summary">
+      <div class="header">
+        <ng-container
+          *ngIf="{ data: userService.authUser$ | async } as authUser"
+        >
+          <h5 class="title">
+            {{ proposal.getCurrentTitle(authUser.data) }}
+          </h5>
+        </ng-container>
+        <div class="header-section">
+          <div class="inset-vertical-divider"></div>
+          <p>
+            {{ proposal.user.nickname }}
+          </p>
+        </div>
+        <div class="header-section">
+          <div class="inset-vertical-divider"></div>
+          <p>
+            {{ proposal.formattedLastImportantDate }}
+          </p>
+        </div>
+        <div *ngIf="proposal.isSelectedForDevelopment" class="tag tag-orange">
+          <p>On hold</p>
+        </div>
+        <div *ngIf="proposal.isInDevelopment" class="tag tag-green">
+          <p>In development</p>
+        </div>
+        <div *ngIf="proposal.isLastCall" class="tag tag-red">
+          <p>Last call</p>
+        </div>
+        <ng-container *ngIf="userService.authUser$ | async as authUser">
+          <div
+            *ngIf="
+              proposal.isPendingSpecification &&
+              authUser.id === proposal.user.id
+            "
+            class="tag tag-blue tag-selected"
+          >
+            <img
+              class="score-icon position-adjustment"
+              src="../../../../../assets/icons/arrow-up.svg"
+            />
+            <p>Selected</p>
+          </div>
+        </ng-container>
+        <div *ngFor="let tag of proposal.categories" class="tag tag-black">
+          <p>
+            {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
+          </p>
+        </div>
+      </div>
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <p class="description">
+          {{ proposal.getCurrentDescription(authUser.data) }}
+        </p>
+      </ng-container>
+    </div>
+    <div class="full-vertical-divider inset-vertical-divider-mod"></div>
+
+    <div class="scores">
+      <div
+        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        class="score-row"
+      >
+        <p
+          class="p-score-text"
+          [ngClass]="{
+            'text-red': proposal.positiveRatio < 20,
+            'text-orange':
+              proposal.positiveRatio >= 20 && proposal.positiveRatio < 40,
+            'text-yellow':
+              proposal.positiveRatio >= 40 && proposal.positiveRatio < 60,
+            'text-olive':
+              proposal.positiveRatio >= 60 && proposal.positiveRatio < 80,
+            'text-green': proposal.positiveRatio >= 80
+          }"
+        >
+          {{ proposal.positiveRatio }}%
+        </p>
+        <div class="score-icon-container">
+          <img
+            *ngIf="proposal.positiveRatio < 20"
+            class="score-icon"
+            src="../../../../../assets/icons/battery-red.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 20 && proposal.positiveRatio < 40"
+            class="score-icon"
+            src="../../../../../assets/icons/battery-orange.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 40 && proposal.positiveRatio < 60"
+            class="score-icon"
+            src="../../../../../assets/icons/battery-yellow.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 60 && proposal.positiveRatio < 80"
+            class="score-icon"
+            src="../../../../../assets/icons/battery-olive.svg"
+          />
+          <img
+            *ngIf="proposal.positiveRatio >= 80"
+            class="score-icon"
+            src="../../../../../assets/icons/battery-green.svg"
+          />
+        </div>
+      </div>
+      <div
+        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        class="score-row"
+      >
+        <p class="p-score-text">
+          {{ proposal.prettyTotalValue }}
+        </p>
+        <div class="score-icon-container">
+          <img
+            class="score-icon"
+            src="../../../../../assets/icons/thumbs.svg"
+          />
+        </div>
+      </div>
+      <div
+        *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
+        class="score-row"
+      >
+        <p
+          class="p-score-text"
+          [ngClass]="{
+            'text-red': proposal.importance < 1,
+            'text-orange': proposal.importance >= 1 && proposal.importance < 2,
+            'text-yellow': proposal.importance >= 2 && proposal.importance < 3,
+            'text-olive': proposal.importance >= 3 && proposal.importance < 4,
+            'text-green': proposal.importance >= 4
+          }"
+        >
+          {{ proposal.prettyImportance }}
+        </p>
+        <div class="score-icon-container">
+          <img
+            *ngIf="proposal.importance < 1"
+            class="score-icon"
+            src="../../../../../assets/icons/chevron-down-double.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 1 && proposal.importance < 2"
+            class="score-icon"
+            src="../../../../../assets/icons/chevron-down-single.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 2 && proposal.importance < 3"
+            class="score-icon"
+            src="../../../../../assets/icons/equal.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 3 && proposal.importance < 4"
+            class="score-icon"
+            src="../../../../../assets/icons/chevron-up-single.svg"
+          />
+          <img
+            *ngIf="proposal.importance >= 4"
+            class="score-icon"
+            src="../../../../../assets/icons/chevron-up-double.svg"
+          />
+        </div>
+      </div>
+      <div *ngIf="proposal.cost" class="score-row">
+        <p class="p-score-text text-yellow">{{ proposal.prettyCost }}</p>
+        <div class="score-icon-container">
+          <img class="score-icon" src="../../../../../assets/icons/euro.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

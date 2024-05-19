@@ -18,6 +18,14 @@ export class Comment extends AbstractEntity {
   }
 
   get selectedProposalQueryParam() {
-    return { [RoutePathEnum.PROPOSAL]: this.proposalId };
+    return { [RoutePathEnum.SELECTED_PROPOSAL]: this.proposalId };
+  }
+
+  get formattedCreatedAt() {
+    return new Date(this.createdAt).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
   }
 }

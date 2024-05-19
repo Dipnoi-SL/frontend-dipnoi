@@ -1,0 +1,41 @@
+<div class="comment-container">
+  <img
+    class="avatar"
+    [ngSrc]="comment.user.avatarUri"
+    [width]="40"
+    [height]="40"
+    [priority]="true"
+  />
+  <div class="info-container">
+    <div class="header">
+      <h5>{{ comment.user.nickname }}</h5>
+      <small>{{ comment.formattedCreatedAt }}</small>
+    </div>
+    <p>{{ comment.body }}</p>
+    <div class="actions">
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <div
+          class="icon-button"
+          (click)="onVote(true)"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+        >
+          <img
+            class="thumb-up-adjustment"
+            src="../../../assets/icons/thumb-up.svg"
+          />
+        </div>
+        <small>{{ comment.positiveValue }}</small>
+        <div
+          class="icon-button"
+          (click)="onVote(false)"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+        >
+          <img
+            class="thumb-down-adjustment"
+            src="../../../assets/icons/thumb-down.svg"
+          />
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

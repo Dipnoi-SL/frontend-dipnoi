@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Poll } from '../models/poll.model';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { UserService } from './user.service';
+import { ProposalService } from './proposal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,11 +22,14 @@ export class PollService {
   constructor(
     private http: HttpClient,
     private userService: UserService,
+    private proposalService: ProposalService,
   ) {}
 
-  readMany(params: { proposalId: number }) {
+  readMany() {
     return this.http
-      .get<Poll[]>(`${environment.apiUrl}/polls`, { params })
+      .get<Poll[]>(`${environment.apiUrl}/polls`, {
+        params: { proposalId: this.proposalService.selectedProposalId! },
+      })
       .pipe(
         map((res) => res.map((poll) => new Poll(poll))),
         tap({

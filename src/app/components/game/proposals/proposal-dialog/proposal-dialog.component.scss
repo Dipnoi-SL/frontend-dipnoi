@@ -1,0 +1,75 @@
+.dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-left: 30px;
+}
+
+.poll-section {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: end;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
+}
+
+.dialog-main-container {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 0px;
+  width: 100%;
+  gap: 20px;
+}
+
+.main-content-scrollable-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-right: 7px;
+  padding: 0px 15px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.side-panel-scrollable-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-right: 7px;
+  padding: 0px 15px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.fade-fix {
+  right: 15px;
+}
+
+.dialog-main-content {
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.dialog-side-panel {
+  position: relative;
+  height: 100%;
+  width: 310px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.inset-horizontal-divider {
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-self: center;
+}

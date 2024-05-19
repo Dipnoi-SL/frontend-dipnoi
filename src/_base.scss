@@ -13,34 +13,51 @@ app-root {
 }
 
 /* For Mobile */
-@media screen and (max-width: 540px) {
+@media screen {
   app-root {
     zoom: 0.53;
   }
 }
 
 /* For Tablets */
-@media screen and (min-width: 540px) and (max-width: 780px) {
+@media screen and (min-width: 640px) {
   app-root {
     zoom: 0.53;
   }
 }
 
 /* For Laptop */
-@media screen and (min-width: 780px) and (max-width: 1280px) {
+@media screen and (min-width: 768px) {
   app-root {
     zoom: 0.53;
   }
 }
 
 /* For Laptop L */
-@media screen and (min-width: 1280px) and (max-width: 1920px) {
+@media screen and (min-width: 1280px) {
   app-root {
     zoom: 0.75;
   }
 }
 
-/* For PC */
+@media screen and (min-width: 1366px) {
+  app-root {
+    zoom: 0.8;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  app-root {
+    zoom: 0.85;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  app-root {
+    zoom: 0.9;
+  }
+}
+
 @media screen and (min-width: 1920px) {
   app-root {
     zoom: 1;
@@ -169,6 +186,20 @@ small {
   text-align: left;
 }
 
+li {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: justify;
+}
+
 .hyperlink {
   cursor: pointer;
   display: inline-block;
@@ -184,6 +215,22 @@ small {
   font-variant-ligatures: normal;
   font-kerning: normal;
   text-align: justify;
+}
+
+.disabled {
+  opacity: 0.5 !important;
+}
+
+.disabled:hover {
+  cursor: not-allowed !important;
+}
+
+button:disabled {
+  opacity: 0.5 !important;
+}
+
+button:disabled:hover {
+  cursor: not-allowed !important;
 }
 
 /* Cursors */
@@ -203,57 +250,57 @@ a {
 
 .hover-card:hover {
   cursor: pointer;
-  background-color: variables.$hover-card-color;
+  background-color: variables.$hover-card-color !important;
 
   .card-fade-bottom {
     background: linear-gradient(
       to top,
       variables.$hover-card-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-card:active {
-  background-color: variables.$highlight-card-color;
+  background-color: variables.$highlight-card-color !important;
 
   .card-fade-bottom {
     background: linear-gradient(
       to top,
       variables.$highlight-card-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-surface:hover {
   cursor: pointer;
-  background-color: variables.$hover-surface-color;
+  background-color: variables.$hover-surface-color !important;
 
-  .card-fade-bottom {
+  .card-surface-bottom {
     background: linear-gradient(
       to top,
       variables.$hover-surface-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-surface:active {
-  background-color: variables.$highlight-surface-color;
+  background-color: variables.$highlight-surface-color !important;
 
-  .card-fade-bottom {
+  .card-surface-bottom {
     background: linear-gradient(
       to top,
       variables.$highlight-surface-color,
       rgba(0, 0, 0, 0)
-    );
+    ) !important;
   }
 }
 
 .hover-blue:hover {
   cursor: pointer;
-  background-color: variables.$hover-blue-light-color;
+  background-color: variables.$hover-blue-light-color !important;
 }
 
 /* Scrollbars */

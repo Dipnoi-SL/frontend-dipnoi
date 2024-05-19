@@ -30,6 +30,7 @@ export class Proposal extends AbstractEntity {
   myImportanceVote?: number | null;
   followed!: boolean;
   user!: User;
+  gameId!: number;
 
   constructor(data: Proposal) {
     super(data);
@@ -128,7 +129,7 @@ export class Proposal extends AbstractEntity {
   }
 
   get selectedQueryParam() {
-    return { [RoutePathEnum.PROPOSAL]: this.id };
+    return { [RoutePathEnum.SELECTED_PROPOSAL]: this.id };
   }
 
   get lastImportantDate() {
