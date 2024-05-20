@@ -217,6 +217,11 @@ li {
   text-align: justify;
 }
 
+@font-face {
+  font-family: 'eric';
+  src: url('../src/assets/fonts/ComicRunes.otf') format('truetype');
+}
+
 .disabled {
   opacity: 0.5 !important;
 }

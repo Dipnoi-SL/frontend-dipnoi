@@ -1,8 +1,10 @@
+@use '../../../variables';
+
 .dialog {
   display: flex;
   box-sizing: border-box;
   flex-direction: row;
-  width: 460px;
+  width: variables.$auth-dialog-width;
   height: fit-content;
   padding: 40px;
 }
