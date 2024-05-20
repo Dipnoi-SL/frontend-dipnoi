@@ -67,3 +67,19 @@ h5 {
   box-sizing: border-box;
   padding: 0px 11px;
 }
+
+.selected-label {
+  color: variables.$surface;
+}
+
+.selected-green {
+  background-color: variables.$green;
+}
+
+.selected-yellow {
+  background-color: variables.$yellow;
+}
+
+.selected-red {
+  background-color: variables.$red;
+}
