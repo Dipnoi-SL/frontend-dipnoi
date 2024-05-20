@@ -12,7 +12,11 @@
         (click)="onFollow()"
         [ngClass]="{ disabled: !authUser.data?.active }"
       >
-        <img src="../../../../../assets/icons/star.svg" />
+        <img
+          *ngIf="proposal.followed"
+          src="../../../assets/icons/star-colored.svg"
+        />
+        <img *ngIf="!proposal.followed" src="../../../assets/icons/star.svg" />
       </div>
     </ng-container>
     <ng-container *ngIf="userService.authUser$ | async as authUser">

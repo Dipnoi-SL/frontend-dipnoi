@@ -20,6 +20,12 @@
           [ngClass]="{ disabled: !authUser.data?.active }"
         >
           <img
+            *ngIf="!!comment.myFeedback"
+            class="thumb-up-adjustment"
+            src="../../../assets/icons/thumb-up-colored.svg"
+          />
+          <img
+            *ngIf="!comment.myFeedback"
             class="thumb-up-adjustment"
             src="../../../assets/icons/thumb-up.svg"
           />
@@ -31,6 +37,12 @@
           [ngClass]="{ disabled: !authUser.data?.active }"
         >
           <img
+            *ngIf="comment.myFeedback === false"
+            class="thumb-down-adjustment"
+            src="../../../assets/icons/thumb-down-colored.svg"
+          />
+          <img
+            *ngIf="comment.myFeedback !== false"
             class="thumb-down-adjustment"
             src="../../../assets/icons/thumb-down.svg"
           />

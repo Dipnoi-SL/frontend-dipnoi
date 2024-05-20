@@ -5,23 +5,50 @@
       <div
         class="button-base left hover-card"
         (click)="onVote(true)"
-        [ngClass]="{ disabled: !authUser.data?.active }"
+        [ngClass]="{
+          disabled: !authUser.data?.active,
+          'selected-green': !!poll.myInterestVote,
+          'hover-card': !poll.myInterestVote
+        }"
       >
-        <p class="button-label">Yes</p>
+        <p
+          class="button-label"
+          [ngClass]="{ 'selected-label': !!poll.myInterestVote }"
+        >
+          Yes
+        </p>
       </div>
       <div
         class="button-base center hover-card"
         (click)="onVote(null)"
-        [ngClass]="{ disabled: !authUser.data?.active }"
+        [ngClass]="{
+          disabled: !authUser.data?.active,
+          'selected-yellow': poll.myInterestVote === null,
+          'hover-card': poll.myInterestVote !== null
+        }"
       >
-        <p class="button-label">Skip</p>
+        <p
+          class="button-label"
+          [ngClass]="{ 'selected-label': poll.myInterestVote === null }"
+        >
+          Skip
+        </p>
       </div>
       <div
         class="button-base right hover-card"
         (click)="onVote(false)"
-        [ngClass]="{ disabled: !authUser.data?.active }"
+        [ngClass]="{
+          disabled: !authUser.data?.active,
+          'selected-red': poll.myInterestVote === false,
+          'hover-card': poll.myInterestVote !== false
+        }"
       >
-        <p class="button-label">No</p>
+        <p
+          class="button-label"
+          [ngClass]="{ 'selected-label': poll.myInterestVote === false }"
+        >
+          No
+        </p>
       </div>
     </ng-container>
   </div>
