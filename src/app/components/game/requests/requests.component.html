@@ -7,11 +7,13 @@
     <div class="central-frame">
       <div class="central-frame-content">
         <div class="requests-content">
-          <h3 *ngIf="!state.finished" class="central-text">
-            Game not available on Runa Forge yet.
-            <br />
-            Let them know you're interested!
-          </h3>
+          <ng-container *ngIf="gameService.selectedGame$ | async as game">
+            <h3 *ngIf="!state.finished" class="central-text">
+              Game not available on Runa Forge.
+              <br />
+              Let the {{ game.name }} team know you're interested!
+            </h3>
+          </ng-container>
           <ng-container
             *ngIf="{ data: userService.authUser$ | async } as authUser"
           >
@@ -24,12 +26,6 @@
                 (click)="onSendRequest()"
               >
                 Vote
-              </button>
-              <button
-                *ngIf="!state.finished"
-                class="button-base button-base-trans"
-              >
-                Back
               </button>
             </div>
           </ng-container>
