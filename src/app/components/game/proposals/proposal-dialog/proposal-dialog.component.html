@@ -9,6 +9,7 @@
           *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
         >
           <dipnoi-proposal-content
+            [commentSectionRef]="commentSection"
             [proposal]="selectedProposal"
           ></dipnoi-proposal-content>
           <ng-container
@@ -25,10 +26,10 @@
                   [poll]="poll"
                 ></dipnoi-poll>
               </div>
-              <div *ngIf="polls.length" class="inset-horizontal-divider"></div>
             </ng-container>
           </ng-container>
-          <h2>Comments ({{ selectedProposal.numComments }})</h2>
+          <div class="inset-horizontal-divider"></div>
+          <h2 #commentSection>Comments ({{ selectedProposal.numComments }})</h2>
         </ng-container>
         <dipnoi-comment-list
           [infiniteScrollContainerRef]="infiniteScrollContainerRef"

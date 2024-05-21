@@ -3,15 +3,17 @@
 .poll {
   display: flex;
   flex-direction: column;
-  gap: 13px;
-  width: 222px;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
   height: fit-content;
 }
 
 .button-row {
   display: flex;
   flex-direction: row;
-  gap: 3px;
+  align-items: center;
+  gap: 40px;
   width: 100%;
   height: fit-content;
 }

@@ -18,6 +18,24 @@
           Yes
         </p>
       </div>
+
+      <div class="bar-container">
+        <div class="bar-info">
+          <small>Yes</small>
+          <small>{{ poll.prettyPositiveValue }}</small>
+        </div>
+        <div class="bar">
+          <div
+            class="bar-fill success-background"
+            [ngStyle]="{ width: poll.positiveRatio + '%' }"
+          ></div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="button-row">
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
       <div
         class="button-base center hover-card"
         (click)="onVote(null)"
@@ -34,6 +52,23 @@
           Skip
         </p>
       </div>
+      <div class="bar-container">
+        <div class="bar-info">
+          <small>Skip</small>
+          <small>{{ poll.prettyNullValue }}</small>
+        </div>
+        <div class="bar">
+          <div
+            class="bar-fill warning-background"
+            [ngStyle]="{ width: poll.nullRatio + '%' }"
+          ></div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="button-row">
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
       <div
         class="button-base right hover-card"
         (click)="onVote(false)"
@@ -50,42 +85,19 @@
           No
         </p>
       </div>
+
+      <div class="bar-container">
+        <div class="bar-info">
+          <small>No</small>
+          <small>{{ poll.prettyNegativeValue }}</small>
+        </div>
+        <div class="bar">
+          <div
+            class="bar-fill error-background"
+            [ngStyle]="{ width: poll.negativeRatio + '%' }"
+          ></div>
+        </div>
+      </div>
     </ng-container>
-  </div>
-  <div class="bar-container">
-    <div class="bar-info">
-      <small>Yes</small>
-      <small>{{ poll.positiveValue }}</small>
-    </div>
-    <div class="bar">
-      <div
-        class="bar-fill success-background"
-        [ngStyle]="{ width: poll.positiveRatio + '%' }"
-      ></div>
-    </div>
-  </div>
-  <div class="bar-container">
-    <div class="bar-info">
-      <small>Skip</small>
-      <small>{{ poll.nullValue }}</small>
-    </div>
-    <div class="bar">
-      <div
-        class="bar-fill warning-background"
-        [ngStyle]="{ width: poll.nullRatio + '%' }"
-      ></div>
-    </div>
-  </div>
-  <div class="bar-container">
-    <div class="bar-info">
-      <small>No</small>
-      <small>{{ poll.negativeValue }}</small>
-    </div>
-    <div class="bar">
-      <div
-        class="bar-fill error-background"
-        [ngStyle]="{ width: poll.negativeRatio + '%' }"
-      ></div>
-    </div>
   </div>
 </div>

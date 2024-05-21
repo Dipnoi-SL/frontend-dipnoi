@@ -122,6 +122,34 @@ export class Proposal extends AbstractEntity {
     return this.importance.toFixed(2).toString().replace('.', ',');
   }
 
+  get prettyImportanceWeightsSum() {
+    return this.importanceWeightsSum.toFixed(2).toString().replace('.', ',');
+  }
+
+  get prettyState() {
+    return this.state === ProposalStateEnum.INITIAL_PHASE ||
+      this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
+      this.state === ProposalStateEnum.PENDING_REVIEW
+      ? 'Pending'
+      : this.state === ProposalStateEnum.FINAL_PHASE ||
+          this.state === ProposalStateEnum.LAST_CALL
+        ? 'Open'
+        : this.state === ProposalStateEnum.SELECTED_FOR_DEVELOPMENT ||
+            this.state === ProposalStateEnum.IN_DEVELOPMENT
+          ? 'Selected'
+          : this.state === ProposalStateEnum.COMPLETED
+            ? 'Implemented'
+            : 'Archived';
+  }
+
+  get prettyDisregardingReason() {
+    return this.state === ProposalStateEnum.NOT_BACKED
+      ? 'Not backed'
+      : this.state === ProposalStateEnum.NOT_VIABLE
+        ? 'Not viable'
+        : 'None';
+  }
+
   get positiveRatio() {
     return this.totalValue
       ? Math.round((100 * this.positiveValue) / this.totalValue)
@@ -271,7 +299,17 @@ export class Proposal extends AbstractEntity {
       .replace(
         /(<h1|<h2|<h3|<h4|<h5|<h6)/g,
         '$1' + ' style="margin-bottom: 15px; margin-top: 30px;"',
-      );
+      )
+      .replace(/(<[^>]+>)/, function (match) {
+        if (match.includes('style=')) {
+          return match.replace(
+            /style="([^"]*)"/,
+            'style="$1; margin-top: 0px;"',
+          );
+        } else {
+          return match.replace(/<([^>]+)>/, '<$1 style="margin-top: 0px;">');
+        }
+      });
   }
 
   getCurrentDescription(authUser: MyUser | null) {

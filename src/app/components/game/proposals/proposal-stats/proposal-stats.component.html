@@ -127,13 +127,13 @@
         <p class="p-category">Votes</p>
 
         <p class="p-value">
-          {{ proposal.importanceWeightsSum }}
+          {{ proposal.prettyImportanceWeightsSum }}
         </p>
       </div>
       <div class="box-row">
         <p class="p-category">Average</p>
         <div class="value-icon">
-          <p class="p-value">{{ proposal.importance }}</p>
+          <p class="p-value">{{ proposal.prettyImportance }}</p>
           <img
             *ngIf="proposal.importance < 1"
             class="score-icon"
@@ -190,7 +190,7 @@
               proposal.isNotViable
             "
             class="image"
-            src="../../../assets/icons/vector-up-colored.svg"
+            src="../../../assets/icons/lock.svg"
           />
         </div>
         <div class="box-row bar-row">
@@ -260,7 +260,7 @@
           <div class="box-column">
             <div class="value-icon">
               <p class="p-value">
-                {{ currentPoll.positiveValue }}
+                {{ currentPoll.prettyPositiveValue }}
               </p>
               <img
                 class="image"
@@ -269,7 +269,7 @@
             </div>
             <div class="value-icon">
               <p class="p-value">
-                {{ currentPoll.negativeValue }}
+                {{ currentPoll.prettyNegativeValue }}
               </p>
               <img
                 class="image"
@@ -307,37 +307,49 @@
       <div class="box-row">
         <p class="p-category">Stage</p>
         <p class="p-value">
-          {{ proposal.state }}
+          {{ proposal.prettyState }}
         </p>
       </div>
       <div *ngIf="proposal.isNotBacked || proposal.isNotViable" class="box-row">
-        <p class="p-category">Motive</p>
+        <p class="p-category">Reason</p>
         <p class="p-value">
-          {{ proposal.state }}
+          {{ proposal.prettyDisregardingReason }}
         </p>
       </div>
       <div *ngIf="proposal.cost" class="box-row">
         <p class="p-category">Cost</p>
         <p class="p-value">
-          {{ proposal.cost }}
+          {{ proposal.prettyCost }}
         </p>
       </div>
       <div class="box-row">
-        <p class="p-category">Releases</p>
+        <p class="p-category">Created</p>
         <div class="box-column">
-          <p class="p-value">Created {{ proposal.formattedCreatedAt }}</p>
-          <p class="p-value" *ngIf="proposal.resetAt">
-            Opened {{ proposal.formattedResetAt }}
-          </p>
-          <p class="p-value" *ngIf="proposal.selectedAt">
-            Selected {{ proposal.formattedSelectedAt }}
-          </p>
-          <p class="p-value" *ngIf="proposal.disregardedAt">
-            Archived {{ proposal.formattedDisregardedAt }}
-          </p>
-          <p class="p-value" *ngIf="proposal.completedAt">
-            Implemented {{ proposal.formattedCompletedAt }}
-          </p>
+          <p class="p-value">{{ proposal.formattedCreatedAt }}</p>
+        </div>
+      </div>
+      <div *ngIf="proposal.resetAt" class="box-row">
+        <p class="p-category">Opened</p>
+        <div class="box-column">
+          <p class="p-value">{{ proposal.formattedResetAt }}</p>
+        </div>
+      </div>
+      <div *ngIf="proposal.selectedAt" class="box-row">
+        <p class="p-category">Selected</p>
+        <div class="box-column">
+          <p class="p-value">{{ proposal.formattedSelectedAt }}</p>
+        </div>
+      </div>
+      <div *ngIf="proposal.disregardedAt" class="box-row">
+        <p class="p-category">Archived</p>
+        <div class="box-column">
+          <p class="p-value">{{ proposal.formattedDisregardedAt }}</p>
+        </div>
+      </div>
+      <div *ngIf="proposal.completedAt" class="box-row">
+        <p class="p-category">Implemented</p>
+        <div class="box-column">
+          <p class="p-value">{{ proposal.formattedCompletedAt }}</p>
         </div>
       </div>
     </div>
