@@ -45,6 +45,7 @@ export class ProposalContentComponent
   }>
   implements OnInit, OnDestroy
 {
+  @Input({ required: true }) commentSectionRef!: HTMLElement;
   @Input({ required: true }) proposal!: Proposal;
 
   stateChangeForm = this.formBuilder.group({
@@ -177,6 +178,10 @@ export class ProposalContentComponent
 
       this.onCancel();
     }
+  }
+
+  onScrollToCommentSection() {
+    this.commentSectionRef.scrollIntoView({ behavior: 'smooth' });
   }
 
   override ngOnDestroy() {

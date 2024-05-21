@@ -4,9 +4,9 @@
       <h2>
         {{ proposal.getCurrentTitle(authUser.data) }}
       </h2>
-      <div class="icon-button">
+      <a class="icon-button" (click)="onScrollToCommentSection()">
         <img src="../../../../../assets/icons/comment.svg" />
-      </div>
+      </a>
       <div
         class="icon-button"
         (click)="onFollow()"
@@ -171,4 +171,5 @@
       [innerHTML]="proposal.getCurrentHtmlDescription(authUser.data) | safeHtml"
     ></div>
   </ng-container>
+  <div></div>
 </div>

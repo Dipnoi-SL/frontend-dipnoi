@@ -1,13 +1,15 @@
 <div class="app-header">
   <div class="app-header-content">
-    <div class="logo">
-      <div class="image-container">
-        <img src="../../../assets/icons/logo-icon.png" />
-      </div>
-      <div class="runic">
-        Runa
-        <br />
-        Forge
+    <div class="logo-container">
+      <div class="logo" [routerLink]="libraryItem.path">
+        <div class="image-container">
+          <img src="../../../assets/icons/logo-icon.png" />
+        </div>
+        <div class="runic">
+          Runa
+          <br />
+          Forge
+        </div>
       </div>
     </div>
     <dipnoi-main-navigation></dipnoi-main-navigation>
