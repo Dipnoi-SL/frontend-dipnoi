@@ -45,7 +45,7 @@
 .profile-banner {
   width: 100%;
   height: 300px;
-  background-color: #ffffff;
+  background-color: black;
 }
 
 .profile-functions {
@@ -55,7 +55,7 @@
   flex-shrink: 1;
 }
 
-.profile-ppic {
+.profile-pic {
   position: relative;
   border: variables.$outline-variant solid 1px;
   top: -81px;
@@ -63,8 +63,6 @@
   display: flex;
   flex-direction: row;
   background-color: #ff0000;
-  width: 160px;
-  height: 160px;
   border-radius: 100px;
 }
 

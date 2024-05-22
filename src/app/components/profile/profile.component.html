@@ -11,6 +11,15 @@
         <div class="profile-functions">
           <div class="profile-stats">
             <div class="profile-ppic"></div>
+            <ng-container *ngIf="userService.authUser$ | async as authUser">
+              <img
+                class="profile-pic"
+                [ngSrc]="authUser.avatarUri"
+                [width]="160"
+                [height]="160"
+                [priority]="true"
+              />
+            </ng-container>
           </div>
           <div class="full-vertical-divider"></div>
           <div class="profile-history">
