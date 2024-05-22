@@ -12,5 +12,5 @@ import { SafeHtmlPipe } from '../../../../pipes/safe-html.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent {
-  @Input({ required: true }) post!: Post;
+  @Input({ required: true }) post?: Post;
 }

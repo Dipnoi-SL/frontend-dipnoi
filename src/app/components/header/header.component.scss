@@ -16,6 +16,8 @@
 .logo {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   flex-grow: 0;
   flex-shrink: 0;
   gap: 15px;
@@ -27,13 +29,21 @@
 }
 
 .runic {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+}
+
+.runic-line {
   font-family: 'eric';
   color: variables.$text-color;
   font-size: 28px;
-  line-height: 28px;
+  line-height: 26px;
   font-weight: variables.$font-weight-bold;
   letter-spacing: 4px;
   font-kerning: none;
+  padding-bottom: 4px;
 }
 
 .image-container {

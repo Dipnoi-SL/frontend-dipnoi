@@ -11,6 +11,7 @@ import { PendingProposalsComponent } from './components/game/proposals/pending-p
 import { PendingReviewComponent } from './components/game/proposals/pending-review/pending-review.component';
 import { ChangelogComponent } from './components/game/proposals/changelog/changelog.component';
 import { ArchiveComponent } from './components/game/proposals/archive/archive.component';
+import { GameActiveGuard } from './guards/game-active.guard';
 
 export enum RoutePathEnum {
   ABOUT_US = 'about-us',
@@ -51,6 +52,7 @@ export const routes: Routes = [
       {
         path: RoutePathEnum.PROPOSALS,
         component: ProposalsComponent,
+        canActivate: [GameActiveGuard],
         children: [
           {
             path: RoutePathEnum.HOME,
