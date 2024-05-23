@@ -22,6 +22,7 @@
               formControlName="commentToCreate"
               #commentToCreate
               placeholder="Add comment..."
+              (keydown.enter)="onSubmit()"
             />
           </div>
           <div *ngIf="createCommentForm.valid" class="actions">
@@ -54,7 +55,7 @@
       [fromRoot]="true"
       [infiniteScrollDistance]="1"
     >
-      <div *ngFor="let comment of comments">
+      <div *ngFor="let comment of comments; trackBy: trackById">
         <dipnoi-comment [comment]="comment"></dipnoi-comment>
       </div>
     </div>

@@ -19,6 +19,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Comment } from '../../../../models/comment.model';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -83,6 +84,10 @@ export class CommentListComponent
           this.onCancel();
         },
       });
+  }
+
+  trackById(index: number, comment: Comment) {
+    return comment.id;
   }
 
   override ngOnDestroy() {

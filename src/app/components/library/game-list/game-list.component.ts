@@ -10,6 +10,7 @@ import { InsufficientItemsDirective } from '../../../directives/insufficient-ite
 import { GameOrderByEnum, OrderEnum } from '../../../constants/enums';
 import { GameService } from '../../../services/game.service';
 import { GameCardComponent } from '../game-card/game-card.component';
+import { Game } from '../../../models/game.model';
 
 @Component({
   selector: 'dipnoi-game-list',
@@ -42,5 +43,9 @@ export class GameListComponent implements OnChanges {
 
   onScrollEnd() {
     this.gameService.readManyMore(this.params)?.subscribe();
+  }
+
+  trackById(index: number, game: Game) {
+    return game.id;
   }
 }

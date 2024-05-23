@@ -20,6 +20,7 @@ import { UserService } from '../../../../services/user.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RoutePathEnum } from '../../../../app.routes';
+import { Proposal } from '../../../../models/proposal.model';
 
 @Component({
   selector: 'dipnoi-pending-proposals',
@@ -165,6 +166,10 @@ export class PendingProposalsComponent
 
   handleOnToggleUpdated(isToggled: boolean) {
     this.updateState({ isPinnedShown: isToggled });
+  }
+
+  trackById(index: number, proposal: Proposal) {
+    return proposal.id;
   }
 
   override ngOnDestroy() {

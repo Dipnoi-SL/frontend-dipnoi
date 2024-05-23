@@ -39,11 +39,11 @@
         >
           <div class="icon-container icon-container-priority">
             <img
-              *ngIf="proposal.myImportanceVote === 5"
+              [ngClass]="{ hidden: proposal.myImportanceVote !== 5 }"
               src="../../../assets/icons/prio-5-colored.svg"
             />
             <img
-              *ngIf="proposal.myImportanceVote !== 5"
+              [ngClass]="{ hidden: proposal.myImportanceVote === 5 }"
               src="../../../assets/icons/prio-5.svg"
             />
           </div>
@@ -55,11 +55,11 @@
         >
           <div class="icon-container icon-container-priority">
             <img
-              *ngIf="proposal.myImportanceVote === 4"
+              [ngClass]="{ hidden: proposal.myImportanceVote !== 4 }"
               src="../../../assets/icons/prio-4-colored.svg"
             />
             <img
-              *ngIf="proposal.myImportanceVote !== 4"
+              [ngClass]="{ hidden: proposal.myImportanceVote === 4 }"
               src="../../../assets/icons/prio-4.svg"
             />
           </div>
@@ -71,11 +71,11 @@
         >
           <div class="icon-container icon-container-priority">
             <img
-              *ngIf="proposal.myImportanceVote === 3"
+              [ngClass]="{ hidden: proposal.myImportanceVote !== 3 }"
               src="../../../assets/icons/prio-3-colored.svg"
             />
             <img
-              *ngIf="proposal.myImportanceVote !== 3"
+              [ngClass]="{ hidden: proposal.myImportanceVote === 3 }"
               src="../../../assets/icons/prio-3.svg"
             />
           </div>
@@ -87,11 +87,11 @@
         >
           <div class="icon-container icon-container-priority">
             <img
-              *ngIf="proposal.myImportanceVote === 2"
+              [ngClass]="{ hidden: proposal.myImportanceVote !== 2 }"
               src="../../../assets/icons/prio-2-colored.svg"
             />
             <img
-              *ngIf="proposal.myImportanceVote !== 2"
+              [ngClass]="{ hidden: proposal.myImportanceVote === 2 }"
               src="../../../assets/icons/prio-2.svg"
             />
           </div>
@@ -103,11 +103,11 @@
         >
           <div class="icon-container icon-container-priority">
             <img
-              *ngIf="proposal.myImportanceVote === 1"
+              [ngClass]="{ hidden: proposal.myImportanceVote !== 1 }"
               src="../../../assets/icons/prio-1-colored.svg"
             />
             <img
-              *ngIf="proposal.myImportanceVote !== 1"
+              [ngClass]="{ hidden: proposal.myImportanceVote === 1 }"
               src="../../../assets/icons/prio-1.svg"
             />
           </div>
@@ -125,35 +125,43 @@
         <div class="value-icon">
           <p class="p-value">{{ proposal.prettyImportance }}</p>
           <img
-            *ngIf="proposal.importance < 1"
+            [ngClass]="{
+              hidden: proposal.importance >= 1
+            }"
             class="score-icon"
             width="11"
             height="10"
             src="../../../../../assets/icons/chevron-down-double.svg"
           />
           <img
-            *ngIf="proposal.importance >= 1 && proposal.importance < 2"
+            [ngClass]="{
+              hidden: proposal.importance < 1 || proposal.importance >= 2
+            }"
             class="score-icon"
             width="12"
             height="8"
             src="../../../../../assets/icons/chevron-down-single.svg"
           />
           <img
-            *ngIf="proposal.importance >= 2 && proposal.importance < 3"
+            [ngClass]="{
+              hidden: proposal.importance < 2 || proposal.importance >= 3
+            }"
             class="score-icon"
             width="12"
             height="6"
             src="../../../../../assets/icons/equal.svg"
           />
           <img
-            *ngIf="proposal.importance >= 3 && proposal.importance < 4"
+            [ngClass]="{
+              hidden: proposal.importance < 3 || proposal.importance >= 4
+            }"
             class="score-icon"
             width="12"
             height="8"
             src="../../../../../assets/icons/chevron-up-single.svg"
           />
           <img
-            *ngIf="proposal.importance >= 4"
+            [ngClass]="{ hidden: proposal.importance < 4 }"
             class="score-icon"
             width="11"
             height="10"
@@ -172,13 +180,14 @@
         <div class="backing-title">
           <h4>Backing</h4>
           <img
-            *ngIf="
-              proposal.isSelectedForDevelopment ||
-              proposal.isInDevelopment ||
-              proposal.isCompleted ||
-              proposal.isNotBacked ||
-              proposal.isNotViable
-            "
+            [ngClass]="{
+              hidden:
+                !proposal.isSelectedForDevelopment &&
+                !proposal.isInDevelopment &&
+                !proposal.isCompleted &&
+                !proposal.isNotBacked &&
+                !proposal.isNotViable
+            }"
             class="lock"
             src="../../../assets/icons/lock.svg"
           />
@@ -199,11 +208,11 @@
           >
             <div class="icon-container adjustment-vector-up">
               <img
-                *ngIf="!!currentPoll.myInterestVote"
+                [ngClass]="{ hidden: !currentPoll.myInterestVote }"
                 src="../../../assets/icons/vector-up-colored.svg"
               />
               <img
-                *ngIf="!currentPoll.myInterestVote"
+                [ngClass]="{ hidden: !!currentPoll.myInterestVote }"
                 src="../../../assets/icons/vector-up.svg"
               />
             </div>
@@ -231,11 +240,11 @@
           >
             <div class="icon-container adjustment-vector-down">
               <img
-                *ngIf="currentPoll.myInterestVote === false"
+                [ngClass]="{ hidden: currentPoll.myInterestVote !== false }"
                 src="../../../assets/icons/vector-down-colored.svg"
               />
               <img
-                *ngIf="currentPoll.myInterestVote !== false"
+                [ngClass]="{ hidden: currentPoll.myInterestVote === false }"
                 src="../../../assets/icons/vector-down.svg"
               />
             </div>
@@ -265,11 +274,15 @@
               {{ currentPoll.balance }}
             </p>
             <img
-              *ngIf="currentPoll.positiveValue >= currentPoll.negativeValue"
+              [ngClass]="{
+                hidden: currentPoll.positiveValue < currentPoll.negativeValue
+              }"
               src="../../../assets/icons/vector-up-colored.svg"
             />
             <img
-              *ngIf="currentPoll.positiveValue < currentPoll.negativeValue"
+              [ngClass]="{
+                hidden: currentPoll.positiveValue >= currentPoll.negativeValue
+              }"
               src="../../../assets/icons/vector-down-colored.svg"
             />
           </div>

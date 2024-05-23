@@ -22,7 +22,7 @@
             <ng-container *ngIf="pollService.polls$ | async as polls">
               <div class="poll-section">
                 <dipnoi-poll
-                  *ngFor="let poll of polls"
+                  *ngFor="let poll of polls; trackBy: trackById"
                   [poll]="poll"
                 ></dipnoi-poll>
               </div>

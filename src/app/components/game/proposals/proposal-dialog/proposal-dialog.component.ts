@@ -16,6 +16,7 @@ import { NgIconComponent } from '@ng-icons/core';
 import { UserService } from '../../../../services/user.service';
 import { ProposalStatsComponent } from '../proposal-stats/proposal-stats.component';
 import { ProposalContentComponent } from '../proposal-content/proposal-content.component';
+import { Poll } from '../../../../models/poll.model';
 
 @Component({
   selector: 'dipnoi-proposal-dialog',
@@ -54,6 +55,10 @@ export class ProposalDialogComponent implements OnInit, OnDestroy {
 
       this.pollService.readMany().subscribe();
     });
+  }
+
+  trackById(index: number, poll: Poll) {
+    return poll.id;
   }
 
   ngOnDestroy() {

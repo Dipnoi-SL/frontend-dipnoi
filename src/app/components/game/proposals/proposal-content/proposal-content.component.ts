@@ -49,7 +49,7 @@ export class ProposalContentComponent
   @Input({ required: true }) proposal!: Proposal;
 
   stateChangeForm = this.formBuilder.group({
-    cost: [0],
+    cost: ['0'],
     disregardingReason: [''],
   });
   specificationForm = this.formBuilder.group({
@@ -148,7 +148,7 @@ export class ProposalContentComponent
         if (this.state.changingTo === ProposalStateEnum.FINAL_PHASE) {
           this.proposalService
             .createOrUpdateOneApproval({
-              cost: this.stateChangeForm.controls.cost.value,
+              cost: parseInt(this.stateChangeForm.controls.cost.value),
             })
             ?.subscribe();
         } else {

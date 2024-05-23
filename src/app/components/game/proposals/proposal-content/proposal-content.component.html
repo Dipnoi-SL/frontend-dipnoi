@@ -13,10 +13,13 @@
         [ngClass]="{ disabled: !authUser.data?.active }"
       >
         <img
-          *ngIf="proposal.followed"
+          [ngClass]="{ hidden: !proposal.followed }"
           src="../../../assets/icons/star-colored.svg"
         />
-        <img *ngIf="!proposal.followed" src="../../../assets/icons/star.svg" />
+        <img
+          [ngClass]="{ hidden: proposal.followed }"
+          src="../../../assets/icons/star.svg"
+        />
       </div>
     </ng-container>
     <ng-container *ngIf="userService.authUser$ | async as authUser">
@@ -70,6 +73,7 @@
           formControlName="cost"
           #cost
           required
+          (keydown.enter)="onSubmit()"
         />
         <div class="full-vertical-divider"></div>
         <p class="currency-label">€</p>
@@ -86,6 +90,7 @@
           formControlName="disregardingReason"
           #disregardingReason
           required
+          (keydown.enter)="onSubmit()"
         />
 
         <p class="text-field-label">Disregarding reason</p>
