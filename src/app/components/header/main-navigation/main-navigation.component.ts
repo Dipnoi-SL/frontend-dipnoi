@@ -128,4 +128,8 @@ export class MainNavigationComponent
       this.gameService.deleteOneNavigation({ id: game.id })?.subscribe();
     }
   }
+
+  trackById(index: number, game: Game) {
+    return game.id;
+  }
 }

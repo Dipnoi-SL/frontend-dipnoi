@@ -14,6 +14,7 @@ import {
 } from '../../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../../directives/insufficient-items.directive';
 import { ProposalSectionCardComponent } from '../proposal-section-card/proposal-section-card.component';
+import { Proposal } from '../../../../models/proposal.model';
 
 @Component({
   selector: 'dipnoi-proposal-section-list',
@@ -50,5 +51,9 @@ export class ProposalSectionListComponent implements OnChanges {
 
   onScrollEnd() {
     this.proposalService.readManyMore(this.params)?.subscribe();
+  }
+
+  trackById(index: number, proposal: Proposal) {
+    return proposal.id;
   }
 }

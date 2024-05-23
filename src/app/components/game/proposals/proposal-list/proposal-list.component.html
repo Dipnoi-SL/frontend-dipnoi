@@ -13,7 +13,7 @@
     [infiniteScrollDistance]="1"
   >
     <dipnoi-proposal-card
-      *ngFor="let proposal of proposals"
+      *ngFor="let proposal of proposals; trackBy: trackById"
       [proposal]="proposal"
     ></dipnoi-proposal-card>
   </div>

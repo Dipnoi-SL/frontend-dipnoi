@@ -13,7 +13,7 @@
     [infiniteScrollDistance]="1"
   >
     <dipnoi-proposal-section-card
-      *ngFor="let proposal of proposals; let i = index"
+      *ngFor="let proposal of proposals; let i = index; trackBy: trackById"
       [proposal]="proposal"
       [previousProposal]="proposals[i - 1]"
     ></dipnoi-proposal-section-card>

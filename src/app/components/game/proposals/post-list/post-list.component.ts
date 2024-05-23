@@ -13,6 +13,7 @@ import { InsufficientItemsDirective } from '../../../../directives/insufficient-
 import { PostService } from '../../../../services/post.service';
 import { PostItemComponent } from '../post-item/post-item.component';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
+import { Post } from '../../../../models/post.model';
 
 @Component({
   selector: 'dipnoi-post-list',
@@ -58,5 +59,9 @@ export class PostListComponent
     this.updateState({ selectedPost: index });
 
     this.onSelectedUpdated.emit(index);
+  }
+
+  trackById(index: number, post: Post) {
+    return post.id;
   }
 }

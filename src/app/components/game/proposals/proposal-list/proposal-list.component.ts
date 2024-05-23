@@ -14,6 +14,7 @@ import {
   ProposalStateEnum,
 } from '../../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../../directives/insufficient-items.directive';
+import { Proposal } from '../../../../models/proposal.model';
 
 @Component({
   selector: 'dipnoi-proposal-list',
@@ -50,5 +51,9 @@ export class ProposalListComponent implements OnChanges {
 
   onScrollEnd() {
     this.proposalService.readManyMore(this.params)?.subscribe();
+  }
+
+  trackById(index: number, proposal: Proposal) {
+    return proposal.id;
   }
 }

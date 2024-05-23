@@ -13,7 +13,7 @@
     [infiniteScrollDistance]="1"
   >
     <dipnoi-game-card
-      *ngFor="let game of games"
+      *ngFor="let game of games; trackBy: trackById"
       [game]="game"
     ></dipnoi-game-card>
   </div>

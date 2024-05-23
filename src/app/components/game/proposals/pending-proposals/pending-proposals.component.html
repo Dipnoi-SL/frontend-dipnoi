@@ -51,7 +51,7 @@
         *ngIf="state.isPinnedShown && pinnedProposals.length"
       >
         <dipnoi-proposal-card
-          *ngFor="let proposal of pinnedProposals"
+          *ngFor="let proposal of pinnedProposals; trackBy: trackById"
           [proposal]="proposal"
         ></dipnoi-proposal-card>
         <div class="inset-horizontal-divider single-divider"></div>
