@@ -10,11 +10,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { provideIcons } from '@ng-icons/core';
 import {
-  matAccountCircleOutline,
   matVisibilityOffOutline,
   matVisibilityOutline,
-  matThumbUpOutline,
-  matThumbDownOutline,
   matDoneOutline,
   matCloseOutline,
   matPendingOutline,
@@ -34,11 +31,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideIcons({
-      matAccountCircleOutline,
       matVisibilityOffOutline,
       matVisibilityOutline,
-      matThumbUpOutline,
-      matThumbDownOutline,
       matDoneOutline,
       matCloseOutline,
       matPendingOutline,

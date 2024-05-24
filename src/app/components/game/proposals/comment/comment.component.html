@@ -1,53 +1,83 @@
-<div class="comment-container">
-  <img
-    class="avatar"
-    [ngSrc]="comment.user.avatarUri"
-    [width]="40"
-    [height]="40"
-    [priority]="true"
-  />
-  <div class="info-container">
-    <div class="header">
-      <h5>{{ comment.user.nickname }}</h5>
-      <small>{{ comment.formattedCreatedAt }}</small>
-    </div>
-    <p>{{ comment.body }}</p>
-    <div class="actions">
-      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
-        <div
-          class="icon-button"
-          (click)="onVote(true)"
-          [ngClass]="{ disabled: !authUser.data?.active }"
+<ng-container *ngIf="state$ | async as state">
+  <div class="comment-container">
+    <img
+      class="avatar"
+      [ngSrc]="comment.user.avatarUri"
+      [width]="40"
+      [height]="40"
+      [priority]="true"
+    />
+    <div class="info-container">
+      <div class="header">
+        <h5>{{ comment.user.nickname }}</h5>
+        <small>{{ comment.formattedCreatedAt }}</small>
+      </div>
+      <p>{{ comment.body }}</p>
+      <div class="actions">
+        <ng-container
+          *ngIf="{ data: userService.authUser$ | async } as authUser"
         >
-          <img
-            [ngClass]="{ hidden: !comment.myFeedback }"
-            class="thumb-up-adjustment"
-            src="../../../assets/icons/thumb-up-colored.svg"
-          />
-          <img
-            [ngClass]="{ hidden: !!comment.myFeedback }"
-            class="thumb-up-adjustment"
-            src="../../../assets/icons/thumb-up.svg"
-          />
-        </div>
-        <small>{{ comment.positiveValue }}</small>
-        <div
-          class="icon-button"
-          (click)="onVote(false)"
-          [ngClass]="{ disabled: !authUser.data?.active }"
-        >
-          <img
-            [ngClass]="{ hidden: comment.myFeedback !== false }"
-            class="thumb-down-adjustment"
-            src="../../../assets/icons/thumb-down-colored.svg"
-          />
-          <img
-            [ngClass]="{ hidden: comment.myFeedback === false }"
-            class="thumb-down-adjustment"
-            src="../../../assets/icons/thumb-down.svg"
-          />
-        </div>
-      </ng-container>
+          <div
+            class="icon-button"
+            (click)="onVote(true)"
+            [ngClass]="{ disabled: !authUser.data?.active }"
+          >
+            <ngx-spinner
+              [name]="'thumbs-up' + comment.id"
+              bdColor="transparent"
+              [fullScreen]="false"
+              size="small"
+              [showSpinner]="state.isThumbsUpLoading"
+              type="ball-scale-multiple"
+            ></ngx-spinner>
+            <img
+              [ngClass]="{
+                hidden: !comment.myFeedback || state.isThumbsUpLoading
+              }"
+              class="thumb-up-adjustment"
+              src="../../../assets/icons/thumb-up-colored.svg"
+            />
+            <img
+              [ngClass]="{
+                hidden: !!comment.myFeedback || state.isThumbsUpLoading
+              }"
+              class="thumb-up-adjustment"
+              src="../../../assets/icons/thumb-up.svg"
+            />
+          </div>
+          <small>{{ comment.positiveValue }}</small>
+          <div
+            class="icon-button"
+            (click)="onVote(false)"
+            [ngClass]="{ disabled: !authUser.data?.active }"
+          >
+            <ngx-spinner
+              [name]="'thumbs-down' + comment.id"
+              bdColor="transparent"
+              [fullScreen]="false"
+              size="small"
+              [showSpinner]="state.isThumbsDownLoading"
+              type="ball-scale-multiple"
+            ></ngx-spinner>
+            <img
+              [ngClass]="{
+                hidden:
+                  comment.myFeedback !== false || state.isThumbsDownLoading
+              }"
+              class="thumb-down-adjustment"
+              src="../../../assets/icons/thumb-down-colored.svg"
+            />
+            <img
+              [ngClass]="{
+                hidden:
+                  comment.myFeedback === false || state.isThumbsDownLoading
+              }"
+              class="thumb-down-adjustment"
+              src="../../../assets/icons/thumb-down.svg"
+            />
+          </div>
+        </ng-container>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

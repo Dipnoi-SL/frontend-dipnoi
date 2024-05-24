@@ -1,4 +1,5 @@
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
@@ -16,6 +17,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { AuthService } from './services/auth.service';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { ProposalCreationComponent } from './components/game/proposals/proposal-creation/proposal-creation.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +30,9 @@ import { ProposalCreationComponent } from './components/game/proposals/proposal-
     HeaderComponent,
     HttpClientModule,
     DialogModule,
+    NgxSpinnerModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
