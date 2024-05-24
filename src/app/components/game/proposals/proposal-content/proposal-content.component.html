@@ -10,7 +10,7 @@
         </a>
         <div
           class="icon-button"
-          (click)="onFollow()"
+          (click)="authUser.data?.active && onFollow()"
           [ngClass]="{ disabled: !authUser.data?.active }"
         >
           <ngx-spinner
