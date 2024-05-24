@@ -33,7 +33,8 @@
               "src/_variables.scss",
               "src/_base.scss",
               "src/_layouts.scss",
-              "src/_mixins.scss"
+              "src/_mixins.scss",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": []
           },
@@ -91,7 +92,8 @@
               "src/_variables.scss",
               "src/_base.scss",
               "src/_layouts.scss",
-              "src/_mixins.scss"
+              "src/_mixins.scss",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": []
           }

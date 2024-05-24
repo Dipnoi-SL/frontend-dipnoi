@@ -20,7 +20,8 @@ import {
 } from '@angular/forms';
 import { SafeHtmlPipe } from '../../../../pipes/safe-html.pipe';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
+import { NgxSpinnerComponent } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-proposal-content',
@@ -33,6 +34,7 @@ import { Subscription } from 'rxjs';
     ReactiveFormsModule,
     SafeHtmlPipe,
     NgxEditorModule,
+    NgxSpinnerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -42,6 +44,7 @@ export class ProposalContentComponent
     isEditingCost: boolean;
     isEditingDisregardingReason: boolean;
     isSpecifying: boolean;
+    isFollowLoading: boolean;
   }>
   implements OnInit, OnDestroy
 {
@@ -87,6 +90,7 @@ export class ProposalContentComponent
       isEditingCost: false,
       isEditingDisregardingReason: false,
       isSpecifying: false,
+      isFollowLoading: false,
     });
   }
 
@@ -99,10 +103,26 @@ export class ProposalContentComponent
   }
 
   onFollow() {
+    this.updateState({ isFollowLoading: true });
+
     if (this.proposal.followed) {
-      this.proposalService.deleteOneFollow()?.subscribe();
+      this.proposalService
+        .deleteOneFollow()
+        ?.pipe(
+          finalize(() => {
+            this.updateState({ isFollowLoading: false });
+          }),
+        )
+        .subscribe();
     } else {
-      this.proposalService.createOneFollow()?.subscribe();
+      this.proposalService
+        .createOneFollow()
+        ?.pipe(
+          finalize(() => {
+            this.updateState({ isFollowLoading: false });
+          }),
+        )
+        .subscribe();
     }
   }
 
