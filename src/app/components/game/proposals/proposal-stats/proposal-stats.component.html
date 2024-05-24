@@ -32,7 +32,7 @@
           <div
             class="icon-button"
             [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="onImportanceVote(5)"
+            (click)="authUser.data?.active && onImportanceVote(5)"
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -64,7 +64,7 @@
           <div
             class="icon-button"
             [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="onImportanceVote(4)"
+            (click)="authUser.data?.active && onImportanceVote(4)"
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -96,7 +96,7 @@
           <div
             class="icon-button"
             [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="onImportanceVote(3)"
+            (click)="authUser.data?.active && onImportanceVote(3)"
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -128,7 +128,7 @@
           <div
             class="icon-button"
             [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="onImportanceVote(2)"
+            (click)="authUser.data?.active && onImportanceVote(2)"
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -160,7 +160,7 @@
           <div
             class="icon-button"
             [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="onImportanceVote(1)"
+            (click)="authUser.data?.active && onImportanceVote(1)"
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -281,7 +281,15 @@
                   proposal.isNotBacked ||
                   proposal.isNotViable
               }"
-              (click)="onInterestVote(true, currentPoll)"
+              (click)="
+                authUser.data?.active &&
+                  !proposal.isSelectedForDevelopment &&
+                  !proposal.isInDevelopment &&
+                  !proposal.isCompleted &&
+                  !proposal.isNotBacked &&
+                  !proposal.isNotViable &&
+                  onInterestVote(true, currentPoll)
+              "
             >
               <div class="icon-container adjustment-vector-up">
                 <ngx-spinner
@@ -329,7 +337,15 @@
                   proposal.isNotBacked ||
                   proposal.isNotViable
               }"
-              (click)="onInterestVote(false, currentPoll)"
+              (click)="
+                authUser.data?.active &&
+                  !proposal.isSelectedForDevelopment &&
+                  !proposal.isInDevelopment &&
+                  !proposal.isCompleted &&
+                  !proposal.isNotBacked &&
+                  !proposal.isNotViable &&
+                  onInterestVote(false, currentPoll)
+              "
             >
               <div class="icon-container adjustment-vector-down">
                 <ngx-spinner

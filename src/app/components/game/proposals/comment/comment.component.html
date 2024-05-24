@@ -19,7 +19,7 @@
         >
           <div
             class="icon-button"
-            (click)="onVote(true)"
+            (click)="authUser.data?.active && onVote(true)"
             [ngClass]="{ disabled: !authUser.data?.active }"
           >
             <ngx-spinner
@@ -48,7 +48,7 @@
           <small>{{ comment.positiveValue }}</small>
           <div
             class="icon-button"
-            (click)="onVote(false)"
+            (click)="authUser.data?.active && onVote(false)"
             [ngClass]="{ disabled: !authUser.data?.active }"
           >
             <ngx-spinner
