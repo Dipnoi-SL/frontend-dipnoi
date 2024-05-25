@@ -45,21 +45,18 @@ export class Poll extends AbstractEntity {
   }
 
   get balance() {
-    return Math.abs(this.positiveValue - this.negativeValue)
-      .toFixed(2)
-      .toString()
-      .replace('.', ',');
+    return Math.round(Math.abs(this.positiveValue - this.negativeValue));
   }
 
   get prettyPositiveValue() {
-    return this.positiveValue.toFixed(2).toString().replace('.', ',');
+    return Math.round(this.positiveValue);
   }
 
   get prettyNullValue() {
-    return this.nullValue.toFixed(2).toString().replace('.', ',');
+    return Math.round(this.nullValue);
   }
 
   get prettyNegativeValue() {
-    return this.negativeValue.toFixed(2).toString().replace('.', ',');
+    return Math.round(this.negativeValue);
   }
 }

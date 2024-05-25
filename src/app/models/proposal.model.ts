@@ -123,7 +123,7 @@ export class Proposal extends AbstractEntity {
   }
 
   get prettyImportanceWeightsSum() {
-    return this.importanceWeightsSum.toFixed(2).toString().replace('.', ',');
+    return Math.round(this.importanceWeightsSum);
   }
 
   get prettyState() {
