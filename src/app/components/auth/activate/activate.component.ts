@@ -25,11 +25,18 @@ import {
 } from '../../../constants/literals';
 import { UserService } from '../../../services/user.service';
 import { NgIconComponent } from '@ng-icons/core';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-activate',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, NgIconComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    NgIconComponent,
+    NgxSpinnerComponent,
+  ],
   templateUrl: './activate.component.html',
   styleUrl: './activate.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,12 +46,14 @@ export class ActivateComponent
     typing: boolean;
     finished: boolean;
     activationToken: string;
+    isActivationLoading: boolean;
   }>
   implements OnInit, OnDestroy
 {
   queryParams$!: Subscription;
   statusChanges$!: Subscription;
   typing$!: Subscription;
+  spinners$!: Subscription;
   typingTimeout!: NodeJS.Timeout;
   signUpQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_UP };
   activateForm = this.formBuilder.group({
@@ -67,8 +76,14 @@ export class ActivateComponent
     public route: ActivatedRoute,
     public router: Router,
     public changeDetectorRef: ChangeDetectorRef,
+    public spinnerService: NgxSpinnerService,
   ) {
-    super({ typing: false, finished: false, activationToken: '' });
+    super({
+      typing: false,
+      finished: false,
+      activationToken: '',
+      isActivationLoading: false,
+    });
   }
 
   ngOnInit() {
@@ -95,15 +110,30 @@ export class ActivateComponent
         this.updateState({ typing: false });
       }, 500);
     });
+
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isActivationLoading) {
+        this.spinnerService.show('activation');
+      } else {
+        this.spinnerService.hide('activation');
+      }
+    });
   }
 
   onFinish() {
+    this.updateState({ isActivationLoading: true });
+
     if (this.state.activationToken) {
       this.authService
         .activate({
           nickname: this.activateForm.controls.nickname.value as string,
           activationToken: this.state.activationToken,
         })
+        .pipe(
+          finalize(() => {
+            this.updateState({ isActivationLoading: false });
+          }),
+        )
         .subscribe({
           next: () => {
             this.updateState({ finished: true });
@@ -114,7 +144,12 @@ export class ActivateComponent
         .socialActivate({
           nickname: this.activateForm.controls.nickname.value as string,
         })
-        ?.subscribe({
+        ?.pipe(
+          finalize(() => {
+            this.updateState({ isActivationLoading: false });
+          }),
+        )
+        .subscribe({
           next: () => {
             this.updateState({ finished: true });
           },
@@ -146,6 +181,8 @@ export class ActivateComponent
   }
 
   override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
     this.typing$.unsubscribe();
 
     this.queryParams$.unsubscribe();

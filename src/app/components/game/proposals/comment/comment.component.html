@@ -23,11 +23,11 @@
             [ngClass]="{ disabled: !authUser.data?.active }"
           >
             <ngx-spinner
+              *ngIf="state.isThumbsUpLoading"
               [name]="'thumbs-up' + comment.id"
               bdColor="transparent"
               [fullScreen]="false"
               size="small"
-              [showSpinner]="state.isThumbsUpLoading"
               type="ball-scale-multiple"
             ></ngx-spinner>
             <img
@@ -52,11 +52,11 @@
             [ngClass]="{ disabled: !authUser.data?.active }"
           >
             <ngx-spinner
+              *ngIf="state.isThumbsDownLoading"
               [name]="'thumbs-down' + comment.id"
               bdColor="transparent"
               [fullScreen]="false"
               size="small"
-              [showSpinner]="state.isThumbsDownLoading"
               type="ball-scale-multiple"
             ></ngx-spinner>
             <img

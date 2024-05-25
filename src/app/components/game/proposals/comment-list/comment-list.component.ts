@@ -10,7 +10,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommentOrderByEnum, OrderEnum } from '../../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../../directives/insufficient-items.directive';
 import { CommentService } from '../../../../services/comment.service';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
 import { CommentComponent } from '../comment/comment.component';
 import { UserService } from '../../../../services/user.service';
@@ -20,6 +20,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Comment } from '../../../../models/comment.model';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -33,6 +34,7 @@ import { Comment } from '../../../../models/comment.model';
     CommentComponent,
     ReactiveFormsModule,
     NgOptimizedImage,
+    NgxSpinnerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -42,6 +44,7 @@ export class CommentListComponent
       orderBy?: CommentOrderByEnum;
       order?: OrderEnum;
     };
+    isCreateCommentLoading: boolean;
   }>
   implements OnInit, OnDestroy
 {
@@ -51,18 +54,28 @@ export class CommentListComponent
     commentToCreate: ['', Validators.required],
   });
   authUser$!: Subscription;
+  spinners$!: Subscription;
 
   constructor(
     public commentService: CommentService,
     public userService: UserService,
     public formBuilder: NonNullableFormBuilder,
+    public spinnerService: NgxSpinnerService,
   ) {
-    super({ params: {} });
+    super({ params: {}, isCreateCommentLoading: false });
   }
 
   ngOnInit() {
     this.authUser$ = this.userService.authUser$.subscribe(() => {
       this.commentService.readMany(this.state.params).subscribe();
+    });
+
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isCreateCommentLoading) {
+        this.spinnerService.show('create-comment');
+      } else {
+        this.spinnerService.hide('create-comment');
+      }
     });
   }
 
@@ -75,11 +88,18 @@ export class CommentListComponent
   }
 
   onSubmit() {
+    this.updateState({ isCreateCommentLoading: true });
+
     this.commentService
       .createOne({
         body: this.createCommentForm.controls.commentToCreate.value,
       })
-      ?.subscribe({
+      ?.pipe(
+        finalize(() => {
+          this.updateState({ isCreateCommentLoading: false });
+        }),
+      )
+      .subscribe({
         next: () => {
           this.onCancel();
         },
@@ -91,6 +111,8 @@ export class CommentListComponent
   }
 
   override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
     this.authUser$.unsubscribe();
 
     super.ngOnDestroy();

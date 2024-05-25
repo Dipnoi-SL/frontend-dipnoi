@@ -134,7 +134,15 @@
               [disabled]="!creationForm.valid"
               type="submit"
             >
-              Submit
+              <ngx-spinner
+                *ngIf="state.isCreateProposalLoading"
+                [name]="'create-proposal'"
+                bdColor="transparent"
+                [fullScreen]="false"
+                size="small"
+                type="ball-scale-multiple"
+              ></ngx-spinner>
+              {{ state.isCreateProposalLoading ? '' : 'Submit' }}
             </button>
           </div>
         </div>

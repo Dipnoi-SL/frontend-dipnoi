@@ -25,7 +25,15 @@
                 [disabled]="!authUser.data?.active"
                 (click)="onSendRequest()"
               >
-                Vote
+                <ngx-spinner
+                  *ngIf="state.isRequestLoading"
+                  [name]="'request'"
+                  bdColor="transparent"
+                  [fullScreen]="false"
+                  size="small"
+                  type="ball-scale-multiple"
+                ></ngx-spinner>
+                {{ state.isRequestLoading ? '' : 'Vote' }}
               </button>
             </div>
           </ng-container>
