@@ -41,7 +41,15 @@
         [disabled]="!signInForm.valid"
         type="submit"
       >
-        Sign in
+        <ngx-spinner
+          *ngIf="state.isSignInLoading"
+          [name]="'sign-in'"
+          bdColor="transparent"
+          [fullScreen]="false"
+          size="small"
+          type="ball-scale-multiple"
+        ></ngx-spinner>
+        {{ state.isSignInLoading ? '' : 'Sign in' }}
       </button>
 
       <div class="separation">
@@ -50,13 +58,29 @@
         <div class="full-horizontal-divider"></div>
       </div>
       <button class="button-base button-base-google" (click)="onGoogleSignIn()">
-        Sign in with Google
+        <ngx-spinner
+          *ngIf="state.isGoogleLoading"
+          [name]="'google-sign-in'"
+          bdColor="transparent"
+          [fullScreen]="false"
+          size="small"
+          type="ball-scale-multiple"
+        ></ngx-spinner>
+        {{ state.isGoogleLoading ? '' : 'Sign in with Google' }}
       </button>
       <button
         class="button-base button-base-facebook"
         (click)="onFacebookSignIn()"
       >
-        Sign in with Facebook
+        <ngx-spinner
+          *ngIf="state.isFacebookLoading"
+          [name]="'facebook-sign-in'"
+          bdColor="transparent"
+          [fullScreen]="false"
+          size="small"
+          type="ball-scale-multiple"
+        ></ngx-spinner>
+        {{ state.isFacebookLoading ? '' : 'Sign in with Facebook' }}
       </button>
     </form>
     <div class="links">

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProposalService } from '../../../../services/proposal.service';
 import { NgIconComponent } from '@ng-icons/core';
@@ -6,9 +12,9 @@ import { Proposal } from '../../../../models/proposal.model';
 import { PollService } from '../../../../services/poll.service';
 import { Poll } from '../../../../models/poll.model';
 import { UserService } from '../../../../services/user.service';
-import { NgxSpinnerComponent } from 'ngx-spinner';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
-import { finalize } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-proposal-stats',
@@ -18,22 +24,52 @@ import { finalize } from 'rxjs';
   imports: [CommonModule, NgIconComponent, NgxSpinnerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalStatsComponent extends StatefulComponent<{
-  isImportanceLoading: boolean[];
-  isPositiveInterestLoading: boolean;
-  isNegativeInterestLoading: boolean;
-}> {
+export class ProposalStatsComponent
+  extends StatefulComponent<{
+    isImportanceLoading: boolean[];
+    isPositiveInterestLoading: boolean;
+    isNegativeInterestLoading: boolean;
+  }>
+  implements OnInit, OnDestroy
+{
   @Input({ required: true }) proposal!: Proposal;
+
+  spinners$!: Subscription;
 
   constructor(
     public proposalService: ProposalService,
     public pollService: PollService,
     public userService: UserService,
+    public spinnerService: NgxSpinnerService,
   ) {
     super({
       isImportanceLoading: [],
       isPositiveInterestLoading: false,
       isNegativeInterestLoading: false,
+    });
+  }
+
+  ngOnInit() {
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isPositiveInterestLoading) {
+        this.spinnerService.show('positive-interest');
+      } else {
+        this.spinnerService.hide('positive-interest');
+      }
+
+      if (state.isNegativeInterestLoading) {
+        this.spinnerService.show('negative-interest');
+      } else {
+        this.spinnerService.hide('negative-interest');
+      }
+
+      for (let i = 1; i < 6; i += 1) {
+        if (state.isImportanceLoading[i]) {
+          this.spinnerService.show('importance-' + i);
+        } else {
+          this.spinnerService.hide('importance-' + i);
+        }
+      }
     });
   }
 
@@ -113,5 +149,11 @@ export class ProposalStatsComponent extends StatefulComponent<{
         )
         .subscribe();
     }
+  }
+
+  override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

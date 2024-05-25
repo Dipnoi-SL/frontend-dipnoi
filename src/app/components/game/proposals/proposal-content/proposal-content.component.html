@@ -14,11 +14,11 @@
           [ngClass]="{ disabled: !authUser.data?.active }"
         >
           <ngx-spinner
+            *ngIf="state.isFollowLoading"
             name="follow"
             bdColor="transparent"
             [fullScreen]="false"
             size="small"
-            [showSpinner]="state.isFollowLoading"
             type="ball-scale-multiple"
           ></ngx-spinner>
           <img
@@ -76,7 +76,7 @@
         class="actions-container"
         *ngIf="!proposal.isPendingSpecification"
         [formGroup]="stateChangeForm"
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="onSubmitTransition()"
       >
         <div class="text-field-container cost" *ngIf="state.isEditingCost">
           <input
@@ -85,7 +85,7 @@
             formControlName="cost"
             #cost
             required
-            (keydown.enter)="onSubmit()"
+            (keydown.enter)="onSubmitTransition()"
           />
           <div class="full-vertical-divider"></div>
           <p class="currency-label">€</p>
@@ -102,7 +102,7 @@
             formControlName="disregardingReason"
             #disregardingReason
             required
-            (keydown.enter)="onSubmit()"
+            (keydown.enter)="onSubmitTransition()"
           />
 
           <p class="text-field-label">Disregarding reason</p>
@@ -117,7 +117,15 @@
             [disabled]="!stateChangeForm.valid"
             type="submit"
           >
-            Submit
+            <ngx-spinner
+              *ngIf="state.isTransitionLoading"
+              [name]="'transition'"
+              bdColor="transparent"
+              [fullScreen]="false"
+              size="small"
+              type="ball-scale-multiple"
+            ></ngx-spinner>
+            {{ state.isTransitionLoading ? '' : 'Submit' }}
           </button>
         </div>
       </form>
@@ -125,7 +133,7 @@
         class="actions-container"
         *ngIf="proposal.isPendingSpecification"
         [formGroup]="specificationForm"
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="onSubmitSpecification()"
       >
         <div class="text-field-container">
           <input
@@ -162,7 +170,15 @@
             [disabled]="!specificationForm.valid"
             type="submit"
           >
-            Submit
+            <ngx-spinner
+              *ngIf="state.isSpecificationLoading"
+              [name]="'specification'"
+              bdColor="transparent"
+              [fullScreen]="false"
+              size="small"
+              type="ball-scale-multiple"
+            ></ngx-spinner>
+            {{ state.isSpecificationLoading ? '' : 'Submit' }}
           </button>
         </div>
       </form>

@@ -21,7 +21,7 @@ import {
 import { SafeHtmlPipe } from '../../../../pipes/safe-html.pipe';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { Subscription, finalize } from 'rxjs';
-import { NgxSpinnerComponent } from 'ngx-spinner';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-proposal-content',
@@ -45,6 +45,8 @@ export class ProposalContentComponent
     isEditingDisregardingReason: boolean;
     isSpecifying: boolean;
     isFollowLoading: boolean;
+    isTransitionLoading: boolean;
+    isSpecificationLoading: boolean;
   }>
   implements OnInit, OnDestroy
 {
@@ -60,6 +62,7 @@ export class ProposalContentComponent
     finalDescription: ['', Validators.required],
   });
   editor$!: Subscription;
+  spinners$!: Subscription;
   editor!: Editor;
   toolbar: Toolbar = [
     [
@@ -84,6 +87,7 @@ export class ProposalContentComponent
     public proposalService: ProposalService,
     public formBuilder: NonNullableFormBuilder,
     public changeDetectorRef: ChangeDetectorRef,
+    public spinnerService: NgxSpinnerService,
   ) {
     super({
       changingTo: null,
@@ -91,6 +95,8 @@ export class ProposalContentComponent
       isEditingDisregardingReason: false,
       isSpecifying: false,
       isFollowLoading: false,
+      isTransitionLoading: false,
+      isSpecificationLoading: false,
     });
   }
 
@@ -99,6 +105,26 @@ export class ProposalContentComponent
 
     this.editor$ = this.editor.valueChanges.subscribe(() => {
       this.changeDetectorRef.markForCheck();
+    });
+
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isFollowLoading) {
+        this.spinnerService.show('follow');
+      } else {
+        this.spinnerService.hide('follow');
+      }
+
+      if (state.isTransitionLoading) {
+        this.spinnerService.show('transition');
+      } else {
+        this.spinnerService.hide('transition');
+      }
+
+      if (state.isSpecificationLoading) {
+        this.spinnerService.show('specification');
+      } else {
+        this.spinnerService.hide('specification');
+      }
     });
   }
 
@@ -162,15 +188,26 @@ export class ProposalContentComponent
     });
   }
 
-  onSubmit() {
+  onSubmitTransition() {
     if (this.state.changingTo) {
+      this.updateState({ isTransitionLoading: true });
+
       if (this.proposal.isPendingReview) {
         if (this.state.changingTo === ProposalStateEnum.FINAL_PHASE) {
           this.proposalService
             .createOrUpdateOneApproval({
               cost: parseInt(this.stateChangeForm.controls.cost.value),
             })
-            ?.subscribe();
+            ?.pipe(
+              finalize(() => {
+                this.updateState({ isTransitionLoading: false });
+              }),
+            )
+            .subscribe({
+              next: () => {
+                this.onCancel();
+              },
+            });
         } else {
           this.proposalService
             .createOrUpdateOneRejection({
@@ -178,26 +215,55 @@ export class ProposalContentComponent
               disregardingReason:
                 this.stateChangeForm.controls.disregardingReason.value,
             })
-            ?.subscribe();
+            ?.pipe(
+              finalize(() => {
+                this.updateState({ isTransitionLoading: false });
+              }),
+            )
+            .subscribe({
+              next: () => {
+                this.onCancel();
+              },
+            });
         }
-      } else if (this.proposal.isPendingSpecification) {
-        this.proposalService
-          .createOrUpdateOneSpecification({
-            finalTitle: this.specificationForm.controls.finalTitle.value,
-            finalDescription:
-              this.specificationForm.controls.finalDescription.value,
-          })
-          ?.subscribe();
       } else {
         this.proposalService
           .createOneTransition({
             state: this.state.changingTo,
           })
-          ?.subscribe();
+          ?.pipe(
+            finalize(() => {
+              this.updateState({ isTransitionLoading: false });
+            }),
+          )
+          .subscribe({
+            next: () => {
+              this.onCancel();
+            },
+          });
       }
-
-      this.onCancel();
     }
+  }
+
+  onSubmitSpecification() {
+    this.updateState({ isSpecificationLoading: true });
+
+    this.proposalService
+      .createOrUpdateOneSpecification({
+        finalTitle: this.specificationForm.controls.finalTitle.value,
+        finalDescription:
+          this.specificationForm.controls.finalDescription.value,
+      })
+      ?.pipe(
+        finalize(() => {
+          this.updateState({ isSpecificationLoading: false });
+        }),
+      )
+      .subscribe({
+        next: () => {
+          this.onCancel();
+        },
+      });
   }
 
   onScrollToCommentSection() {
@@ -205,6 +271,8 @@ export class ProposalContentComponent
   }
 
   override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
     this.editor.destroy();
 
     this.editor$.unsubscribe();

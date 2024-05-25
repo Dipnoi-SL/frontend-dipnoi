@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Comment } from '../../../../models/comment.model';
 import { CommentService } from '../../../../services/comment.service';
 import { NgIconComponent } from '@ng-icons/core';
 import { UserService } from '../../../../services/user.service';
-import { NgxSpinnerComponent } from 'ngx-spinner';
-import { finalize } from 'rxjs';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { Subscription, finalize } from 'rxjs';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
 
 @Component({
@@ -21,17 +27,39 @@ import { StatefulComponent } from '../../../../directives/stateful-component.dir
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentComponent extends StatefulComponent<{
-  isThumbsUpLoading: boolean;
-  isThumbsDownLoading: boolean;
-}> {
+export class CommentComponent
+  extends StatefulComponent<{
+    isThumbsUpLoading: boolean;
+    isThumbsDownLoading: boolean;
+  }>
+  implements OnInit, OnDestroy
+{
   @Input({ required: true }) comment!: Comment;
+
+  spinners$!: Subscription;
 
   constructor(
     public userService: UserService,
     public commentService: CommentService,
+    public spinnerService: NgxSpinnerService,
   ) {
     super({ isThumbsUpLoading: false, isThumbsDownLoading: false });
+  }
+
+  ngOnInit() {
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isThumbsUpLoading) {
+        this.spinnerService.show('thumbs-up' + this.comment.id);
+      } else {
+        this.spinnerService.hide('thumbs-up' + this.comment.id);
+      }
+
+      if (state.isThumbsDownLoading) {
+        this.spinnerService.show('thumbs-down' + this.comment.id);
+      } else {
+        this.spinnerService.hide('thumbs-down' + this.comment.id);
+      }
+    });
   }
 
   onVote(myFeedback: boolean) {
@@ -72,5 +100,11 @@ export class CommentComponent extends StatefulComponent<{
         )
         .subscribe();
     }
+  }
+
+  override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

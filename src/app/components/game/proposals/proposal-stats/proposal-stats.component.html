@@ -36,11 +36,11 @@
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
+                *ngIf="state.isImportanceLoading[5]"
                 name="importance-5"
                 bdColor="transparent"
                 [fullScreen]="false"
                 size="small"
-                [showSpinner]="state.isImportanceLoading[5]"
                 type="ball-scale-multiple"
               ></ngx-spinner>
               <img
@@ -68,11 +68,11 @@
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
+                *ngIf="state.isImportanceLoading[4]"
                 name="importance-4"
                 bdColor="transparent"
                 [fullScreen]="false"
                 size="small"
-                [showSpinner]="state.isImportanceLoading[4]"
                 type="ball-scale-multiple"
               ></ngx-spinner>
               <img
@@ -100,11 +100,11 @@
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
+                *ngIf="state.isImportanceLoading[3]"
                 name="importance-3"
                 bdColor="transparent"
                 [fullScreen]="false"
                 size="small"
-                [showSpinner]="state.isImportanceLoading[3]"
                 type="ball-scale-multiple"
               ></ngx-spinner>
               <img
@@ -132,11 +132,11 @@
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
+                *ngIf="state.isImportanceLoading[2]"
                 name="importance-2"
                 bdColor="transparent"
                 [fullScreen]="false"
                 size="small"
-                [showSpinner]="state.isImportanceLoading[2]"
                 type="ball-scale-multiple"
               ></ngx-spinner>
               <img
@@ -164,11 +164,11 @@
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
+                *ngIf="state.isImportanceLoading[1]"
                 name="importance-1"
                 bdColor="transparent"
                 [fullScreen]="false"
                 size="small"
-                [showSpinner]="state.isImportanceLoading[1]"
                 type="ball-scale-multiple"
               ></ngx-spinner>
               <img
@@ -192,7 +192,6 @@
         </div>
         <div class="box-row">
           <p class="p-category">Votes</p>
-
           <p class="p-value">
             {{ proposal.prettyImportanceWeightsSum }}
           </p>
@@ -293,11 +292,11 @@
             >
               <div class="icon-container adjustment-vector-up">
                 <ngx-spinner
+                  *ngIf="state.isPositiveInterestLoading"
                   name="positive-interest"
                   bdColor="transparent"
                   [fullScreen]="false"
                   size="small"
-                  [showSpinner]="state.isPositiveInterestLoading"
                   type="ball-scale-multiple"
                 ></ngx-spinner>
                 <img
@@ -349,11 +348,11 @@
             >
               <div class="icon-container adjustment-vector-down">
                 <ngx-spinner
+                  *ngIf="state.isNegativeInterestLoading"
                   name="negative-interest"
                   bdColor="transparent"
                   [fullScreen]="false"
                   size="small"
-                  [showSpinner]="state.isNegativeInterestLoading"
                   type="ball-scale-multiple"
                 ></ngx-spinner>
                 <img

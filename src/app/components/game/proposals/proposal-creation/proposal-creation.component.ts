@@ -18,18 +18,24 @@ import {
 import { DialogRef } from '@angular/cdk/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
 import { ProposalCategoryEnum } from '../../../../constants/enums';
 import { ProposalService } from '../../../../services/proposal.service';
 import { RoutePathEnum } from '../../../../app.routes';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-proposal-creation',
   standalone: true,
   templateUrl: './proposal-creation.component.html',
   styleUrl: './proposal-creation.component.scss',
-  imports: [CommonModule, ReactiveFormsModule, NgxEditorModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgxEditorModule,
+    NgxSpinnerComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProposalCreationComponent
@@ -37,6 +43,7 @@ export class ProposalCreationComponent
     thumbnailSrc: string;
     thumbnail?: File;
     createdProposalId?: number;
+    isCreateProposalLoading: boolean;
   }>
   implements OnInit, OnDestroy
 {
@@ -57,6 +64,7 @@ export class ProposalCreationComponent
     ),
   });
   editor$!: Subscription;
+  spinners$!: Subscription;
   editor!: Editor;
   toolbar: Toolbar = [
     [
@@ -83,8 +91,9 @@ export class ProposalCreationComponent
     public router: Router,
     public route: ActivatedRoute,
     public changeDetectorRef: ChangeDetectorRef,
+    public spinnerService: NgxSpinnerService,
   ) {
-    super({ thumbnailSrc: '' });
+    super({ thumbnailSrc: '', isCreateProposalLoading: false });
   }
 
   ngOnInit() {
@@ -92,6 +101,14 @@ export class ProposalCreationComponent
 
     this.editor$ = this.editor.valueChanges.subscribe(() => {
       this.changeDetectorRef.markForCheck();
+    });
+
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isCreateProposalLoading) {
+        this.spinnerService.show('create-proposal');
+      } else {
+        this.spinnerService.hide('create-proposal');
+      }
     });
   }
 
@@ -113,6 +130,8 @@ export class ProposalCreationComponent
   }
 
   onSubmit() {
+    this.updateState({ isCreateProposalLoading: true });
+
     if (this.state.createdProposalId) {
       this.uploadThumbnail();
     } else {
@@ -142,7 +161,12 @@ export class ProposalCreationComponent
         .createOrUpdateOneThumbnail({
           thumbnail: this.state.thumbnail,
         })
-        ?.subscribe({
+        ?.pipe(
+          finalize(() => {
+            this.updateState({ isCreateProposalLoading: false });
+          }),
+        )
+        .subscribe({
           next: () => {
             this.router.navigate([], {
               relativeTo: this.route,
@@ -206,6 +230,8 @@ export class ProposalCreationComponent
   }
 
   override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
     this.editor.destroy();
 
     this.editor$.unsubscribe();

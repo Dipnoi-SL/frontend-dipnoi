@@ -131,7 +131,15 @@
           [disabled]="!activateForm.valid"
           type="submit"
         >
-          Finish
+          <ngx-spinner
+            *ngIf="state.isActivationLoading"
+            [name]="'activation'"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          {{ state.isActivationLoading ? '' : 'Finish' }}
         </button>
 
         <button

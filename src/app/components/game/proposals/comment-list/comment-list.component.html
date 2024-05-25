@@ -34,7 +34,15 @@
               [disabled]="!createCommentForm.valid || !authUser.active"
               type="submit"
             >
-              Submit
+              <ngx-spinner
+                *ngIf="state.isCreateCommentLoading"
+                [name]="'create-comment'"
+                bdColor="transparent"
+                [fullScreen]="false"
+                size="small"
+                type="ball-scale-multiple"
+              ></ngx-spinner>
+              {{ state.isCreateCommentLoading ? '' : 'Submit' }}
             </button>
           </div>
         </form>
