@@ -20,7 +20,7 @@
             "
           >
             <ng-container *ngIf="pollService.polls$ | async as polls">
-              <div class="poll-section">
+              <div *ngIf="polls.length" class="poll-section">
                 <dipnoi-poll
                   *ngFor="let poll of polls; trackBy: trackById"
                   [poll]="poll"
@@ -29,7 +29,7 @@
             </ng-container>
           </ng-container>
           <div class="inset-horizontal-divider"></div>
-          <h2 #commentSection>Comments ({{ selectedProposal.numComments }})</h2>
+          <h3 #commentSection>Comments ({{ selectedProposal.numComments }})</h3>
         </ng-container>
         <dipnoi-comment-list
           [infiniteScrollContainerRef]="infiniteScrollContainerRef"

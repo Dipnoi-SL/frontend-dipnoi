@@ -34,34 +34,37 @@
             {{ proposal.formattedLastImportantDate }}
           </p>
         </div>
-        <div *ngIf="proposal.isSelectedForDevelopment" class="tag tag-orange">
-          <p>On hold</p>
-        </div>
-        <div *ngIf="proposal.isInDevelopment" class="tag tag-green">
-          <p>In development</p>
-        </div>
-        <div *ngIf="proposal.isLastCall" class="tag tag-red">
-          <p>Last call</p>
-        </div>
-        <ng-container *ngIf="userService.authUser$ | async as authUser">
-          <div
-            *ngIf="
-              proposal.isPendingSpecification &&
-              authUser.id === proposal.user.id
-            "
-            class="tag tag-blue tag-selected"
-          >
-            <img
-              class="score-icon position-adjustment"
-              src="../../../../../assets/icons/arrow-up.svg"
-            />
-            <p>Selected</p>
+        <div class="header-section">
+          <div class="inset-vertical-divider"></div>
+          <div *ngIf="proposal.isSelectedForDevelopment" class="tag tag-orange">
+            <p>On hold</p>
           </div>
-        </ng-container>
-        <div *ngFor="let tag of proposal.categories" class="tag tag-black">
-          <p>
-            {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
-          </p>
+          <div *ngIf="proposal.isInDevelopment" class="tag tag-green">
+            <p>In development</p>
+          </div>
+          <div *ngIf="proposal.isLastCall" class="tag tag-red">
+            <p>Last call</p>
+          </div>
+          <ng-container *ngIf="userService.authUser$ | async as authUser">
+            <div
+              *ngIf="
+                proposal.isPendingSpecification &&
+                authUser.id === proposal.user.id
+              "
+              class="tag tag-blue tag-selected"
+            >
+              <img
+                class="score-icon position-adjustment"
+                src="../../../../../assets/icons/arrow-up.svg"
+              />
+              <p>Selected</p>
+            </div>
+          </ng-container>
+          <div *ngFor="let tag of proposal.categories" class="tag tag-black">
+            <p>
+              {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
+            </p>
+          </div>
         </div>
       </div>
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">

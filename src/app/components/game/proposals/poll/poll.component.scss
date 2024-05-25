@@ -1,11 +1,19 @@
 @use '../../../../../variables';
 
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+}
+
 .poll {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
-  max-width: 400px;
+  width: 550px;
+  align-items: center;
   height: fit-content;
 }
 
@@ -19,68 +27,52 @@
 }
 
 .button-base {
-  height: 34px;
-  flex-grow: 1;
+  height: 28px;
+  width: 103px;
+  flex-grow: 0;
   flex-shrink: 0;
+  outline: solid 1px variables.$outline-variant;
 }
 
 .button-label {
-  color: variables.$outline;
-}
-
-.left {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.center {
-  border-radius: 0px;
-}
-
-.right {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  color: variables.$text-color;
 }
 
 .bar-container {
   display: flex;
-  flex-direction: column;
-  gap: 0px;
-  height: fit-content;
-  width: 100%;
-}
-
-.bar-info {
-  box-sizing: border-box;
-  display: flex;
+  flex-grow: 1;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 0px 3px;
+  align-items: center;
+  gap: 10px;
   height: fit-content;
-  width: 100%;
-}
-
-.bar {
-  width: 100%;
 }
 
 h5 {
-  box-sizing: border-box;
-  padding: 0px 11px;
+  width: 100%;
+  text-align: justify;
 }
 
 .selected-label {
   color: variables.$surface;
+  font-weight: variables.$font-weight-medium;
 }
 
 .selected-green {
   background-color: variables.$green;
+  outline: none;
 }
 
 .selected-yellow {
   background-color: variables.$yellow;
+  outline: none;
 }
 
 .selected-red {
   background-color: variables.$red;
+  outline: none;
+}
+
+.stat-container {
+  height: fit-content;
+  width: 25px;
 }
