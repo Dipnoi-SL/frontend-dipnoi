@@ -12,24 +12,26 @@
             [commentSectionRef]="commentSection"
             [proposal]="selectedProposal"
           ></dipnoi-proposal-content>
-          <ng-container
-            *ngIf="
-              selectedProposal.isInitialPhase ||
-              selectedProposal.isPendingSpecification ||
-              selectedProposal.isPendingReview
-            "
-          >
-            <ng-container *ngIf="pollService.polls$ | async as polls">
+          <div class="inset-horizontal-divider margin-fix"></div>
+          <ng-container *ngIf="pollService.polls$ | async as polls">
+            <ng-container
+              *ngIf="
+                polls.length &&
+                (selectedProposal.isInitialPhase ||
+                  selectedProposal.isPendingSpecification ||
+                  selectedProposal.isPendingReview)
+              "
+            >
               <div class="poll-section">
                 <dipnoi-poll
                   *ngFor="let poll of polls; trackBy: trackById"
                   [poll]="poll"
                 ></dipnoi-poll>
               </div>
+              <div class="inset-horizontal-divider"></div>
             </ng-container>
           </ng-container>
-          <div class="inset-horizontal-divider"></div>
-          <h2 #commentSection>Comments ({{ selectedProposal.numComments }})</h2>
+          <h3 #commentSection>Comments ({{ selectedProposal.numComments }})</h3>
         </ng-container>
         <dipnoi-comment-list
           [infiniteScrollContainerRef]="infiniteScrollContainerRef"

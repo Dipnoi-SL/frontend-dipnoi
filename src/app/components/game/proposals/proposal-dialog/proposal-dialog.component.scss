@@ -5,12 +5,17 @@
   padding-left: 30px;
 }
 
+.margin-fix {
+  margin-top: -15px;
+}
+
 .poll-section {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: fit-content;
-  gap: 20px;
+
+  gap: 30px;
 }
 
 .dialog-main-container {
@@ -31,7 +36,7 @@
   padding: 0px 15px 0px 0px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   height: 100%;
 }
 
