@@ -1,0 +1,429 @@
+@use 'variables';
+
+/* Main */
+html,
+body,
+app-root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* For Mobile */
+@media screen {
+  app-root {
+    zoom: 0.53;
+  }
+}
+
+/* For Tablets */
+@media screen and (min-width: 640px) {
+  app-root {
+    zoom: 0.53;
+  }
+}
+
+/* For Laptop */
+@media screen and (min-width: 768px) {
+  app-root {
+    zoom: 0.53;
+  }
+}
+
+/* For Laptop L */
+@media screen and (min-width: 1280px) {
+  app-root {
+    zoom: 0.75;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  app-root {
+    zoom: 0.8;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  app-root {
+    zoom: 0.85;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  app-root {
+    zoom: 0.9;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  app-root {
+    zoom: 1;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* Autofill text field stuff */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s !important;
+}
+
+input:autofill {
+  background: inherit;
+}
+
+/* Modal overlay */
+.cdk-overlay-dark-backdrop,
+.cdk-overlay-backdrop-showing {
+  background-color: rgba(0, 0, 0, 0.7) !important; // Darken the backdrop
+}
+
+/* Fonts */
+h1 {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-xxxl;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-xxl;
+  font-weight: variables.$font-weight-medium;
+  letter-spacing: variables.$font-letter-spacing-tightest;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h2 {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-xxl;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-xl;
+  font-weight: variables.$font-weight-medium;
+  letter-spacing: variables.$font-letter-spacing-tightest;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h3 {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-xl;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-lg;
+  font-weight: variables.$font-weight-medium;
+  letter-spacing: variables.$font-letter-spacing-tightest;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h4 {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-lg;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-md;
+  font-weight: variables.$font-weight-medium;
+  letter-spacing: variables.$font-letter-spacing-tightest;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+h5 {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-md;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-md;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-loose;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: none;
+  font-kerning: normal;
+  text-align: left;
+}
+
+p {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: justify;
+}
+
+small {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-xs;
+  color: variables.$outline;
+  line-height: variables.$font-line-height-xs;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-normal;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: left;
+}
+
+li {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: justify;
+}
+
+.hyperlink {
+  cursor: pointer;
+  display: inline-block;
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$hyperlink-color;
+  text-decoration: underline;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: justify;
+}
+
+@font-face {
+  font-family: 'eric';
+  src: url('../src/assets/fonts/ComicRunes.otf') format('truetype');
+}
+
+.hidden {
+  display: none;
+}
+
+.disabled {
+  opacity: 0.5 !important;
+}
+
+.disabled:hover {
+  cursor: not-allowed !important;
+}
+
+button:disabled {
+  opacity: 0.5 !important;
+}
+
+button:disabled:hover {
+  cursor: not-allowed !important;
+}
+
+/* Cursors */
+a {
+  cursor: pointer;
+  color: blue;
+}
+
+/* Interactions*/
+.selection-surface {
+  background-color: variables.$hover-surface-color !important;
+}
+
+.selection-card {
+  background-color: variables.$hover-card-color !important;
+}
+
+.hover-card:hover {
+  cursor: pointer;
+  background-color: variables.$hover-card-color !important;
+
+  .card-fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$hover-card-color,
+      rgba(0, 0, 0, 0)
+    ) !important;
+  }
+}
+
+.hover-card:active {
+  background-color: variables.$highlight-card-color !important;
+
+  .card-fade-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$highlight-card-color,
+      rgba(0, 0, 0, 0)
+    ) !important;
+  }
+}
+
+.hover-surface:hover {
+  cursor: pointer;
+  background-color: variables.$hover-surface-color !important;
+
+  .card-surface-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$hover-surface-color,
+      rgba(0, 0, 0, 0)
+    ) !important;
+  }
+}
+
+.hover-surface:active {
+  background-color: variables.$highlight-surface-color !important;
+
+  .card-surface-bottom {
+    background: linear-gradient(
+      to top,
+      variables.$highlight-surface-color,
+      rgba(0, 0, 0, 0)
+    ) !important;
+  }
+}
+
+.hover-blue:hover {
+  cursor: pointer;
+  background-color: variables.$hover-blue-light-color !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: variables.$scrollbar-color;
+  border: 1px solid variables.$outline-variant;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Fade */
+.card-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(
+    to top,
+    rgba($color: variables.$card, $alpha: 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.surface-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(
+    to top,
+    rgba($color: variables.$surface, $alpha: 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+/*Input text field*/
+.text-field-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  align-items: center;
+  background-color: variables.$text-field-color;
+  border: solid 1px variables.$outline-variant;
+  border-radius: variables.$border-radius-base;
+}
+
+.text-field-base {
+  box-sizing: border-box;
+  min-width: 0px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: fit-content;
+  background-color: inherit;
+  border: none;
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-sm;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+}
+
+.text-field-label {
+  background-color: variables.$surface;
+  padding: 0px 4px;
+  position: absolute;
+  pointer-events: none;
+  line-height: 0px;
+  left: 12px;
+  top: 50%;
+  transition: 0.2s ease all;
+  color: variables.$outline;
+}
+
+.text-field-base::placeholder {
+  color: variables.$outline;
+}
+
+input:focus ~ .text-field-label,
+input:valid ~ .text-field-label {
+  top: -1px;
+  height: 1px;
+  font-size: variables.$font-size-xs;
+}
+
+.text-field-label-focused {
+  top: -1px;
+  height: 1px;
+  font-size: variables.$font-size-xs;
+}
+
+.text-field-error {
+  border-color: variables.$red;
+
+  .text-field-label {
+    color: variables.$red;
+  }
+}

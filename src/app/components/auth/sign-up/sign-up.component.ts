@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -9,6 +14,7 @@ import { AuthService } from '../../../services/auth.service';
 import { AuthComponent } from '../auth.component';
 import {
   EMAIL_VALIDATION_REGEXP,
+  PASSWORD_VALIDATION_MIN_LENGTH,
   PASSWORD_VALIDATION_REGEXP,
 } from '../../../constants/literals';
 import { DialogRef } from '@angular/cdk/dialog';
@@ -22,6 +28,8 @@ import {
   SocialAuthService,
 } from '@abacritt/angularx-social-login';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { Subscription, finalize } from 'rxjs';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-sign-up',
@@ -33,17 +41,27 @@ import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
     RouterLink,
     RecaptchaModule,
     RecaptchaFormsModule,
+    NgxSpinnerComponent,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignUpComponent extends StatefulComponent<{
-  hasErrored: boolean;
-  hidePassword: boolean;
-  finished: boolean;
-}> {
+export class SignUpComponent
+  extends StatefulComponent<{
+    typing: boolean;
+    hidePassword: boolean;
+    finished: boolean;
+    isSignUpLoading: boolean;
+    isGoogleLoading: boolean;
+    isFacebookLoading: boolean;
+  }>
+  implements OnInit, OnDestroy
+{
   signInQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_IN };
+  typing$!: Subscription;
+  spinners$!: Subscription;
+  typingTimeout!: NodeJS.Timeout;
   signUpForm = this.formBuilder.group({
     email: [
       '',
@@ -51,7 +69,11 @@ export class SignUpComponent extends StatefulComponent<{
     ],
     password: [
       '',
-      [Validators.required, Validators.pattern(PASSWORD_VALIDATION_REGEXP)],
+      [
+        Validators.required,
+        Validators.minLength(PASSWORD_VALIDATION_MIN_LENGTH),
+        Validators.pattern(PASSWORD_VALIDATION_REGEXP),
+      ],
     ],
     recaptchaResponse: [null as string | null, Validators.required],
   });
@@ -63,27 +85,67 @@ export class SignUpComponent extends StatefulComponent<{
     public route: ActivatedRoute,
     public socialAuthService: SocialAuthService,
     public router: Router,
+    public spinnerService: NgxSpinnerService,
   ) {
     super({
-      hasErrored: false,
+      typing: false,
       hidePassword: true,
       finished: false,
+      isSignUpLoading: false,
+      isGoogleLoading: false,
+      isFacebookLoading: false,
+    });
+  }
+
+  ngOnInit() {
+    this.typing$ = this.signUpForm.valueChanges.subscribe(() => {
+      this.updateState({ typing: true });
+
+      clearTimeout(this.typingTimeout);
+
+      this.typingTimeout = setTimeout(() => {
+        this.updateState({ typing: false });
+      }, 500);
+
+      this.spinners$ = this.state$.subscribe((state) => {
+        if (state.isSignUpLoading) {
+          this.spinnerService.show('sign-up');
+        } else {
+          this.spinnerService.hide('sign-up');
+        }
+
+        if (state.isGoogleLoading) {
+          this.spinnerService.show('google-sign-up');
+        } else {
+          this.spinnerService.hide('google-sign-up');
+        }
+
+        if (state.isFacebookLoading) {
+          this.spinnerService.show('facebook-sign-up');
+        } else {
+          this.spinnerService.hide('facebook-sign-up');
+        }
+      });
     });
   }
 
   onSignUp() {
+    this.updateState({ isSignUpLoading: true });
+
     this.authService
       .signUp({
         email: this.signUpForm.controls.email.value,
         password: this.signUpForm.controls.password.value,
         recaptchaResponse: this.signUpForm.controls.recaptchaResponse.value!,
       })
+      .pipe(
+        finalize(() => {
+          this.updateState({ isSignUpLoading: false });
+        }),
+      )
       .subscribe({
         next: () => {
           this.updateState({ finished: true });
-        },
-        error: () => {
-          this.updateState({ hasErrored: true });
         },
       });
   }
@@ -96,24 +158,15 @@ export class SignUpComponent extends StatefulComponent<{
     this.socialAuthService
       .getAccessToken(GoogleLoginProvider.PROVIDER_ID)
       .then((accessToken) => {
-        this.authService.googleSignIn({ accessToken }).subscribe({
-          next: () => {
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { [RoutePathEnum.AUTH]: RoutePathEnum.ACTIVATE },
-              queryParamsHandling: 'merge',
-            });
-          },
-        });
-      });
-  }
+        this.updateState({ isSignUpLoading: true });
 
-  onFacebookSignUp() {
-    this.socialAuthService
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((user) => {
         this.authService
-          .facebookSignIn({ accessToken: user.authToken })
+          .googleSignIn({ accessToken })
+          .pipe(
+            finalize(() => {
+              this.updateState({ isGoogleLoading: false });
+            }),
+          )
           .subscribe({
             next: () => {
               this.router.navigate([], {
@@ -124,5 +177,38 @@ export class SignUpComponent extends StatefulComponent<{
             },
           });
       });
+  }
+
+  onFacebookSignUp() {
+    this.socialAuthService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((user) => {
+        this.updateState({ isSignUpLoading: true });
+
+        this.authService
+          .facebookSignIn({ accessToken: user.authToken })
+          .pipe(
+            finalize(() => {
+              this.updateState({ isFacebookLoading: false });
+            }),
+          )
+          .subscribe({
+            next: () => {
+              this.router.navigate([], {
+                relativeTo: this.route,
+                queryParams: { [RoutePathEnum.AUTH]: RoutePathEnum.ACTIVATE },
+                queryParamsHandling: 'merge',
+              });
+            },
+          });
+      });
+  }
+
+  override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
+    this.typing$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

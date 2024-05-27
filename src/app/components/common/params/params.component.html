@@ -1,0 +1,58 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="search-tools-panel">
+    <div *ngIf="orderOptions" class="dropdown" (click)="toggleOrderDropdown()">
+      <div class="dropdown-button hover-card">
+        <p>{{ orderOptions[state.params.selectedOrder] }}</p>
+        <img src="../../../../assets/icons/dropdown.svg" />
+      </div>
+      <div
+        class="dropdown-base"
+        [style.display]="state.isOrderDropdownOpen ? undefined : 'none'"
+      >
+        <div
+          *ngFor="let option of orderOptions; let i = index"
+          class="dropdown-option hover-card"
+          (click)="onOrderChange(i)"
+        >
+          <p class="dropdown-option-text">
+            {{ option }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="filterOptions"
+      class="dropdown"
+      (click)="toggleFilterDropdown()"
+    >
+      <div class="dropdown-button hover-card">
+        <p>{{ filterOptions[state.params.selectedFilter] }}</p>
+        <img src="../../../../assets/icons/dropdown.svg" />
+      </div>
+      <div
+        class="dropdown-base"
+        [style.display]="state.isFilterDropdownOpen ? undefined : 'none'"
+      >
+        <div
+          *ngFor="let option of filterOptions; let i = index"
+          class="dropdown-option hover-card"
+          (click)="onFilterChange(i)"
+        >
+          <p class="dropdown-option-text">
+            {{ option }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="searchbar">
+      <img class="image" src="../../../../assets/icons/magnifying-glass.svg" />
+      <input
+        class="text-field-searchbar"
+        type="text"
+        [(ngModel)]="search"
+        (keydown)="debounceSearch()"
+        placeholder="Search"
+      />
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,21 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="central-frame-content">
+    <div class="central-frame-content-header">
+      <h1>Backlog</h1>
+      <dipnoi-params
+        (onParamsUpdated)="handleOnParamsUpdated($event)"
+        [filterOptions]="filterOptions"
+        [orderOptions]="orderOptions"
+        [defaultFilter]="4"
+        [defaultOrder]="0"
+      ></dipnoi-params>
+    </div>
+    <div class="list-wrapper" #infiniteScrollContainerRef>
+      <dipnoi-proposal-list
+        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        [params]="state.params"
+      ></dipnoi-proposal-list>
+    </div>
+    <div class="surface-fade-bottom wrapper-fade-fix"></div>
+  </div>
+</ng-container>

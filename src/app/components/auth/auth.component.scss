@@ -1,5 +1,10 @@
-.wrapper {
-  padding: 50px;
-  width: 380px;
-  background-color: grey;
+@use '../../../variables';
+
+.dialog {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  width: variables.$auth-dialog-width;
+  height: fit-content;
+  padding: 40px;
 }

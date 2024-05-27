@@ -1,4 +1,5 @@
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
@@ -10,12 +11,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { RoutePathEnum } from './app.routes';
-import { ProposalDialogComponent } from './components/proposals/proposal-dialog/proposal-dialog.component';
+import { ProposalDialogComponent } from './components/game/proposals/proposal-dialog/proposal-dialog.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { AuthService } from './services/auth.service';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
-import { ProposalCreationComponent } from './components/proposals/proposal-creation/proposal-creation.component';
+import { ProposalCreationComponent } from './components/game/proposals/proposal-creation/proposal-creation.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +30,9 @@ import { ProposalCreationComponent } from './components/proposals/proposal-creat
     HeaderComponent,
     HttpClientModule,
     DialogModule,
+    NgxSpinnerModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -38,7 +42,10 @@ export class AppComponent implements OnInit, OnDestroy {
     { component: ComponentType<any>; ref: DialogRef<Component> | null }
   > = {
     [RoutePathEnum.AUTH]: { component: AuthComponent, ref: null },
-    [RoutePathEnum.PROPOSAL]: { component: ProposalDialogComponent, ref: null },
+    [RoutePathEnum.SELECTED_PROPOSAL]: {
+      component: ProposalDialogComponent,
+      ref: null,
+    },
     [RoutePathEnum.CREATION]: {
       component: ProposalCreationComponent,
       ref: null,
@@ -90,6 +97,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.dialogInfo[queryParam].ref = this.dialog.open(
         this.dialogInfo[queryParam].component,
+        { autoFocus: false },
       );
 
       this.dialogInfo[queryParam].ref?.closed.subscribe(() => {

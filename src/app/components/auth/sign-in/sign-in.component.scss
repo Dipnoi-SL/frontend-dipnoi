@@ -1,83 +1,93 @@
-form {
+@use '../../../../variables';
+
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.input-field {
-  border: 1px solid black;
+  box-sizing: border-box;
+  height: 100%;
   width: 100%;
-  height: 48px;
+  gap: 30px;
 }
 
-.floating-label {
-  padding: 0px 4px;
-  background-color: white;
-  position: absolute;
-  pointer-events: none;
-  line-height: 0px;
-  left: 16px;
-  top: 50%;
-  transition: 0.2s ease all;
-  opacity: 0.5;
-}
-
-input:focus ~ .floating-label,
-input:valid ~ .floating-label {
-  top: 0px;
-  bottom: 10px;
-  left: 16px;
-  font-size: 14px;
-  opacity: 1;
-  height: 1px;
-}
-
-.suffix {
-  position: absolute;
-  right: 16px;
-}
-
-.row {
-  position: relative;
-  width: 100%;
+.header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
   align-items: center;
+  height: fit-content;
+  width: 100%;
+  p {
+    text-align: center;
+  }
 }
 
-.feedback {
+.image {
+  width: 100px;
+  height: 94px;
+}
+
+.main-content {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.options {
-  margin-top: 20px;
+  flex-direction: column;
+  height: fit-content;
+  width: 100%;
+  align-items: center;
   gap: 20px;
 }
 
-.google-button {
-  background-color: #e6533a;
+.button-base {
+  width: 100%;
+  height: 50px;
+  box-shadow: none;
 }
 
-.facebook-button {
-  background-color: #1976d2;
+.suffix {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: fit-content;
+  flex-shrink: 0;
+  flex-grow: 0;
+  color: variables.$text-color;
+}
+
+.separation {
+  display: flex;
+  height: fit-content;
+  width: 75%;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  h5 {
+    color: variables.$outline-variant;
+  }
+}
+
+.separation-text {
+  width: fit-content;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.full-horizontal-divider {
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .links {
-  margin-top: 20px;
-  gap: 10px;
-}
-
-.left-link {
-  width: 150px;
-  text-align: end;
-}
-
-.right-link {
-  width: 150px;
-}
-
-.text {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  gap: 20px;
+  p {
+    color: variables.$outline;
+    text-align: center;
+  }
 }

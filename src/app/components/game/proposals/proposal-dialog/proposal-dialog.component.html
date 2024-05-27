@@ -1,0 +1,58 @@
+<div class="dialog">
+  <div class="dialog-main-container">
+    <div class="dialog-main-content">
+      <div
+        class="main-content-scrollable-container"
+        #infiniteScrollContainerRef
+      >
+        <ng-container
+          *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
+        >
+          <dipnoi-proposal-content
+            [commentSectionRef]="commentSection"
+            [proposal]="selectedProposal"
+          ></dipnoi-proposal-content>
+          <div class="inset-horizontal-divider margin-fix"></div>
+          <ng-container *ngIf="pollService.polls$ | async as polls">
+            <ng-container
+              *ngIf="
+                polls.length &&
+                (selectedProposal.isInitialPhase ||
+                  selectedProposal.isPendingSpecification ||
+                  selectedProposal.isPendingReview)
+              "
+            >
+              <div class="poll-section">
+                <dipnoi-poll
+                  *ngFor="let poll of polls; trackBy: trackById"
+                  [poll]="poll"
+                ></dipnoi-poll>
+              </div>
+              <div class="inset-horizontal-divider"></div>
+            </ng-container>
+          </ng-container>
+          <h3 #commentSection>Comments ({{ selectedProposal.numComments }})</h3>
+        </ng-container>
+        <dipnoi-comment-list
+          [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        ></dipnoi-comment-list>
+      </div>
+      <div class="surface-fade-bottom fade-fix"></div>
+    </div>
+    <div class="dialog-side-panel">
+      <div
+        class="main-content-scrollable-container"
+        #infiniteScrollContainerRef
+      >
+        <ng-container
+          *ngIf="proposalService.selectedProposal$ | async as selectedProposal"
+        >
+          <dipnoi-proposal-stats
+            [proposal]="selectedProposal"
+          ></dipnoi-proposal-stats>
+        </ng-container>
+      </div>
+      <div class="surface-fade-bottom fade-fix"></div>
+    </div>
+  </div>
+</div>

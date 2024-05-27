@@ -1,0 +1,48 @@
+@use '../../../../../variables';
+@use '../../../../../mixins';
+
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.content-header-section {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.create-button {
+  gap: 7px;
+}
+
+.pinned-proposals {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0px 30px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+  justify-content: end;
+  align-items: center;
+}
+
+.single-divider {
+  align-self: center;
+  margin: 10px 0px;
+}
+
+.wrapper-fade-fix {
+  right: 15px;
+}
+
+.button-base {
+  width: fit-content;
+  padding: 0px 15px;
+  @include mixins.shadow-4;
+}

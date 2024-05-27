@@ -1,0 +1,50 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="central-frame-content">
+    <div class="central-frame-content-header">
+      <h1>Home</h1>
+    </div>
+    <div class="content">
+      <div class="proposals">
+        <div class="header">
+          <div class="full-horizontal-divider"></div>
+          <h2 class="subtitle">Daily spotlight</h2>
+          <div class="full-horizontal-divider"></div>
+        </div>
+        <ng-container
+          *ngIf="
+            proposalService.spotlightProposal$ | async as spotlightProposal
+          "
+        >
+          <dipnoi-spotlight-proposal
+            [proposal]="spotlightProposal"
+          ></dipnoi-spotlight-proposal>
+        </ng-container>
+      </div>
+      <div class="news">
+        <div class="header">
+          <div class="full-horizontal-divider"></div>
+          <h2 class="subtitle">News</h2>
+          <div class="full-horizontal-divider"></div>
+        </div>
+        <div class="vertical-card vertical-card-news">
+          <div class="selected-news">
+            <ng-container *ngIf="postService.posts$ | async as posts">
+              <dipnoi-post [post]="posts[state.selectedPost]"></dipnoi-post>
+            </ng-container>
+            <div class="card-fade-bottom selected-news-fade-fix"></div>
+          </div>
+          <div class="full-vertical-divider"></div>
+          <div class="news-list-container">
+            <div class="news-list" #infiniteScrollContainerRef>
+              <dipnoi-post-list
+                [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+                (onSelectedUpdated)="onSelectedPostUpdated($event)"
+              ></dipnoi-post-list>
+            </div>
+            <div class="card-fade-bottom news-list-fade-fix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

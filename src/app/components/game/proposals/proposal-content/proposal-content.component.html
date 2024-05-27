@@ -1,0 +1,211 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="dialog-main-content">
+    <div class="header">
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <h2>
+          {{ proposal.getCurrentTitle(authUser.data) }}
+        </h2>
+        <a class="icon-button" (click)="onScrollToCommentSection()">
+          <img src="../../../../../assets/icons/comment.svg" />
+        </a>
+        <div
+          class="icon-button"
+          (click)="authUser.data?.active && onFollow()"
+          [ngClass]="{ disabled: !authUser.data?.active }"
+        >
+          <ngx-spinner
+            *ngIf="state.isFollowLoading"
+            name="follow"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          <img
+            [ngClass]="{ hidden: !proposal.followed || state.isFollowLoading }"
+            src="../../../assets/icons/star-colored.svg"
+          />
+          <img
+            [ngClass]="{ hidden: proposal.followed || state.isFollowLoading }"
+            src="../../../assets/icons/star.svg"
+          />
+        </div>
+      </ng-container>
+      <ng-container *ngIf="userService.authUser$ | async as authUser">
+        <div
+          *ngIf="
+            proposal.isPendingSpecification && proposal.user.id === authUser.id
+          "
+          (click)="onNextState()"
+        >
+          <div class="tag tag-card hover-card"><p>Specify</p></div>
+        </div>
+        <ng-container *ngIf="authUser.isDeveloper">
+          <div *ngIf="proposal.isPendingReview" (click)="onNextState()">
+            <div class="tag tag-card hover-card"><p>Accept</p></div>
+          </div>
+          <div *ngIf="proposal.isPendingReview" (click)="onPreviousState()">
+            <div class="tag tag-card hover-card"><p>Request edit</p></div>
+          </div>
+          <div *ngIf="proposal.isPendingReview" (click)="onDisregard()">
+            <div class="tag tag-card hover-card"><p>Deny</p></div>
+          </div>
+          <div *ngIf="proposal.isFinalPhase" (click)="onNextState()">
+            <div class="tag tag-card hover-card"><p>Last call</p></div>
+          </div>
+          <div *ngIf="proposal.isLastCall" (click)="onPreviousState()">
+            <div class="tag tag-card hover-card"><p>Return to open</p></div>
+          </div>
+          <div *ngIf="proposal.isLastCall" (click)="onNextState()">
+            <div class="tag tag-card hover-card"><p>Select development</p></div>
+          </div>
+          <div
+            *ngIf="proposal.isSelectedForDevelopment"
+            (click)="onNextState()"
+          >
+            <div class="tag tag-card hover-card"><p>Start development</p></div>
+          </div>
+          <div *ngIf="proposal.isInDevelopment" (click)="onNextState()">
+            <div class="tag tag-card hover-card"><p>Complete</p></div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div *ngIf="state.changingTo">
+      <form
+        class="actions-container"
+        *ngIf="!proposal.isPendingSpecification"
+        [formGroup]="stateChangeForm"
+        (ngSubmit)="onSubmitTransition()"
+      >
+        <div class="text-field-container cost" *ngIf="state.isEditingCost">
+          <input
+            class="text-field-base"
+            type="text"
+            formControlName="cost"
+            #cost
+            required
+            (keydown.enter)="onSubmitTransition()"
+          />
+          <div class="full-vertical-divider"></div>
+          <p class="currency-label">€</p>
+          <p class="text-field-label">Cost</p>
+        </div>
+
+        <div
+          class="text-field-container"
+          *ngIf="state.isEditingDisregardingReason"
+        >
+          <input
+            class="text-field-base"
+            type="text"
+            formControlName="disregardingReason"
+            #disregardingReason
+            required
+            (keydown.enter)="onSubmitTransition()"
+          />
+
+          <p class="text-field-label">Disregarding reason</p>
+        </div>
+
+        <div class="actions">
+          <button class="button-base button-base-trans" (click)="onCancel()">
+            Cancel
+          </button>
+          <button
+            class="button-base button-base-blue"
+            [disabled]="!stateChangeForm.valid"
+            type="submit"
+          >
+            <ngx-spinner
+              *ngIf="state.isTransitionLoading"
+              [name]="'transition'"
+              bdColor="transparent"
+              [fullScreen]="false"
+              size="small"
+              type="ball-scale-multiple"
+            ></ngx-spinner>
+            {{ state.isTransitionLoading ? '' : 'Submit' }}
+          </button>
+        </div>
+      </form>
+      <form
+        class="actions-container"
+        *ngIf="proposal.isPendingSpecification"
+        [formGroup]="specificationForm"
+        (ngSubmit)="onSubmitSpecification()"
+      >
+        <div class="text-field-container">
+          <input
+            class="text-field-base"
+            type="text"
+            formControlName="finalTitle"
+            placeholder="Type Here..."
+            required
+          />
+          <p class="text-field-label text-field-label-focused">Title</p>
+        </div>
+
+        <div class="text-field-container description-input">
+          <ngx-editor-menu
+            class="editor-menu"
+            [editor]="editor"
+            [toolbar]="toolbar"
+          ></ngx-editor-menu>
+          <div class="full-horizontal-divider"></div>
+
+          <ngx-editor
+            class="editor-menu"
+            [editor]="editor"
+            formControlName="finalDescription"
+          ></ngx-editor>
+          <p class="text-field-label text-field-label-focused">Description</p>
+        </div>
+        <div class="actions">
+          <button class="button-base button-base-trans" (click)="onCancel()">
+            Cancel
+          </button>
+          <button
+            class="button-base button-base-blue"
+            [disabled]="!specificationForm.valid"
+            type="submit"
+          >
+            <ngx-spinner
+              *ngIf="state.isSpecificationLoading"
+              [name]="'specification'"
+              bdColor="transparent"
+              [fullScreen]="false"
+              size="small"
+              type="ball-scale-multiple"
+            ></ngx-spinner>
+            {{ state.isSpecificationLoading ? '' : 'Submit' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+      <ng-container
+        *ngIf="
+          proposal.disregardingReason &&
+          (proposal.isNotBacked ||
+            proposal.isNotViable ||
+            ((proposal.isPendingSpecification || proposal.isPendingReview) &&
+              (authUser.data?.isDeveloper ||
+                proposal.user.id === authUser.data?.id)))
+        "
+      >
+        <h3>Dev comment</h3>
+        <p>{{ proposal.disregardingReason }}</p>
+        <div class="inset-horizontal-divider"></div>
+      </ng-container>
+      <div
+        class="margin"
+        [innerHTML]="
+          proposal.getCurrentHtmlDescription(authUser.data) | safeHtml
+        "
+      ></div>
+    </ng-container>
+    <div></div>
+  </div>
+</ng-container>

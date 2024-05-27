@@ -1,0 +1,94 @@
+/* Background colors */
+$surface: #191c1e;
+$card: #1e2224;
+
+/* Outline colors */
+$outline: #8b9198;
+$outline-variant: #2d3236;
+
+/* Text colors */
+$text-color: #c1c7ce;
+$hyperlink-color: #6bafc3;
+
+/* Specific element colors */
+$scrollbar-color: #101214;
+$bar-progress-color: #313539;
+$text-field-color: #171a1c;
+$tag-black-color: #181c20;
+
+/* Interaction colors*/
+$highlight-surface-color: #303335; // $surface with 0.1 opacity white on top
+$hover-surface-color: #202325; // $surface with 0.03 opacity white on top
+$highlight-card-color: #35383a; // $card with 0.1 opacity white on top
+$hover-card-color: #25292b; // $card with 0.03 opacity white on top
+$highlight-text-field-color: #303335; // $text-field-color with 0.1 opacity white on top
+$hover-text-field-color: #202325; // $text-field-color with 0.03 opacity white on top
+$highlight-green-color: #69bb5b; // $green with 0.2 opacity white on top
+$hover-green-color: #4eaf3e; // $green with 0.06 opacity white on top
+$highlight-blue-light-color: #61c1ff; // $blue-light with 0.2 opacity white on top
+$hover-blue-light-color: #45b7ff; // $blue-light with 0.06 opacity white on top
+$highlight-google-color: #eb7561; // $google with 0.2 opacity white on top
+$hover-google-color: #e85d46; // $google with 0.06 opacity white on top
+$highlight-facebook-color: #4791db; // $facebook with 0.2 opacity white on top
+$hover-facebook-color: #277ed5; // $facebook with 0.06 opacity white on top
+
+/* Secondary colors */
+$red: #b7151e;
+$yellow: #c6a700;
+$green: #43aa32;
+$olive: #869f25;
+$blue-light: #39b2ff;
+$orange: #d48d09;
+$gray: #c1c1c1;
+
+/* Social colors */
+$google: #e6533a;
+$facebook: #1976d2;
+
+/* Font families */
+$font-family-base: 'Roboto';
+
+/* Font sizes */
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 24px;
+$font-size-xxl: 28px;
+$font-size-xxxl: 36px;
+
+/* Line heights */
+$font-line-height-xs: 16px;
+$font-line-height-sm: 20px;
+$font-line-height-md: 24px;
+$font-line-height-lg: 32px;
+$font-line-height-xl: 36px;
+$font-line-height-xxl: 44px;
+
+/* Font weights */
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+/* Letter spacings */
+$font-letter-spacing-tightest: 0px;
+$font-letter-spacing-tight: 0.25px;
+$font-letter-spacing-normal: 0.4px;
+$font-letter-spacing-loose: 0.5px;
+
+/* Paragraph spacings */
+$font-paragraph-spacing-normal: 0px;
+
+/* Divider sizes */
+$divider-size-normal: 1px;
+
+/* Component measurements */
+$sidenav-width: 260px;
+$header-height: 90px;
+$news-cards-width: 362px;
+$news-list-item-height: 100px;
+$auth-dialog-width: 460px;
+
+/* Border radius */
+$border-radius-base: 12px;
+$border-radius-small: 8px;

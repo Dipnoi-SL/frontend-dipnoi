@@ -2,23 +2,40 @@
   <ng-container
     *ngIf="userService.authUser$ | async as authUser; else elseAuthUser"
   >
-    <div class="dropdown" (click)="toggleDropdown()">
-      <div class="dropdown-button">
-        <ng-icon name="matAccountCircleOutline"></ng-icon>
+    <div class="secondary-navigation">
+      <div class="profile-button" [routerLink]="profileItem.path">
+        <h3>{{ profileItem.title }}</h3>
       </div>
-      <div
-        class="dropdown-content"
-        [style.display]="state.isDropdownOpen ? 'block' : 'none'"
-      >
-        <div *ngFor="let item of navigationItems" [routerLink]="item.path">
-          {{ item.title }}
+      <div class="full-vertical-divider"></div>
+      <div class="dropdown" (click)="toggleDropdown()">
+        <img
+          class="dropdown-button"
+          [ngSrc]="authUser.avatarUri"
+          [width]="40"
+          [height]="40"
+          [priority]="true"
+        />
+        <div
+          class="dropdown-base"
+          [style.display]="state.isDropdownOpen ? 'block' : 'none'"
+        >
+          <div
+            class="dropdown-option hover-card"
+            *ngFor="let item of navigationItems"
+            [routerLink]="item.path"
+          >
+            <p class="dropwdown-option-text">{{ item.title }}</p>
+          </div>
+          <div class="dropdown-option hover-card" (click)="onSignOut()">
+            <p class="dropwdown-option-text">Sign out</p>
+          </div>
         </div>
-        <div (click)="onSignOut()">Sign out</div>
       </div>
     </div>
   </ng-container>
   <ng-template #elseAuthUser>
     <div
+      class="button-base button-base-blue"
       [routerLink]="[]"
       [relativeTo]="route"
       [queryParams]="signInQueryParam"

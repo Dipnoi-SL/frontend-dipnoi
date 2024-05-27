@@ -1,139 +1,194 @@
 <ng-container *ngIf="state$ | async as state">
-  <ng-container *ngIf="state.finished">
-    <h1 class="text">Activate your account</h1>
-    <p class="text">
-      Success! Your account has been created. To activate it, please click on
-      the confirmation link we have sent to your email address.
-    </p>
-  </ng-container>
-  <ng-container *ngIf="!state.finished">
-    <h1 class="text">Sign up</h1>
-    <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-      <div class="row">
-        <input
-          class="input-field"
-          type="text"
-          formControlName="email"
-          required
-        />
-        <p class="floating-label">Email address</p>
+  <div class="dialog-content">
+    <ng-container *ngIf="state.finished">
+      <div class="header">
+        <!-- 
+        <img class="image" src="../../../assets/icons/Logo1.png" />
+      -->
+        <h3>Activate your account</h3>
+        <p>
+          Success! Your account has been created. To activate it, please click
+          on the confirmation link we have sent to your email address.
+        </p>
       </div>
-      <div>
-        <small
-          *ngIf="
-            signUpForm.controls.email.hasError('required') &&
-            signUpForm.controls.email.touched
-          "
-          class="error"
-        >
-          Must not be empty
-        </small>
-        <small
-          *ngIf="
-            signUpForm.controls.email.hasError('pattern') &&
-            signUpForm.controls.email.touched
-          "
-          class="error"
-        >
-          Must be a valid email
-        </small>
+    </ng-container>
+    <ng-container *ngIf="!state.finished">
+      <div class="header">
+        <!-- 
+        <img class="image" src="../../../assets/icons/Logo1.png" />
+      -->
+        <h3>Sign up</h3>
       </div>
-      <div class="row">
-        <input
-          class="input-field"
-          [type]="state.hidePassword ? 'password' : 'text'"
-          formControlName="password"
-          required
-        />
-        <p class="floating-label">Password</p>
-        <ng-icon
-          class="suffix"
-          (click)="onHidePassword()"
-          [name]="
-            state.hidePassword
-              ? 'matVisibilityOffOutline'
-              : 'matVisibilityOutline'
-          "
-        ></ng-icon>
-      </div>
-      <div>
-        <small *ngIf="signUpForm.controls.password.untouched">
-          <br />
-          Must contain at least 8 characters
-          <br />
-          Must contain at least one lowercase letter
-          <br />
-          Must contain at least one uppercase letter
-          <br />
-          Must contain at least one number
-          <br />
-          Must contain at least one special character
-        </small>
-        <small
-          *ngIf="
-            signUpForm.controls.password.hasError('required') &&
-            signUpForm.controls.password.touched
-          "
-          class="error"
-        >
-          <br />
-          Must not be empty
-        </small>
-        <small
-          *ngIf="
-            signUpForm.controls.password.hasError('pattern') &&
-            signUpForm.controls.password.touched
-          "
-          class="error"
-        >
-          <br />
-          Must contain at least 8 characters
-          <br />
-          Must contain at least one lowercase letter
-          <br />
-          Must contain at least one uppercase letter
-          <br />
-          Must contain at least one number
-          <br />
-          Must contain at least one special character
-        </small>
-      </div>
-      <re-captcha class="row" formControlName="recaptchaResponse"></re-captcha>
-      <button class="row" [disabled]="!signUpForm.valid" type="submit">
-        Continue
-      </button>
-      <p *ngIf="state.hasErrored" class="row error feedback">
-        Something wrong happened
-      </p>
-    </form>
-    <div class="row options">
-      <div class="horizontal-divider"></div>
-      <p>OR</p>
-      <div class="horizontal-divider"></div>
-    </div>
-    <div class="row google-button" (click)="onGoogleSignUp()">
-      <p>Sign up with Google</p>
-    </div>
-    <div class="row facebook-button" (click)="onFacebookSignUp()">
-      <p>Sign up with Facebook</p>
-    </div>
-    <div class="row links">
-      <small
-        [routerLink]="[]"
-        [relativeTo]="route"
-        [queryParams]="signInQueryParam"
-        queryParamsHandling="merge"
+      <form
+        class="main-content"
+        [formGroup]="signUpForm"
+        (ngSubmit)="onSignUp()"
       >
-        Already have an account? Sign in
-      </small>
-    </div>
-    <div class="row">
-      <small class="text">
-        By continuing I acknowledge that I have read and agree to the
-        <span>Terms of Service</span>
-        and
-        <span>Privacy Policy</span>
-      </small>
-    </div>
-  </ng-container>
+        <div class="text-and-error">
+          <div
+            class="text-field-container"
+            [ngClass]="{
+              'text-field-error':
+                signUpForm.controls.email.dirty &&
+                signUpForm.controls.email.invalid &&
+                !state.typing
+            }"
+          >
+            <input
+              class="text-field-base"
+              type="text"
+              formControlName="email"
+              required
+            />
+            <p class="text-field-label">Email address</p>
+          </div>
+          <div
+            *ngIf="signUpForm.controls.email.dirty && !state.typing"
+            class="error"
+          >
+            <small *ngIf="signUpForm.controls.email.hasError('required')">
+              Must not be empty
+            </small>
+            <small *ngIf="signUpForm.controls.email.hasError('pattern')">
+              Must be a valid email
+            </small>
+          </div>
+        </div>
+        <div class="text-and-error">
+          <div
+            class="text-field-container grow"
+            [ngClass]="{
+              'text-field-error':
+                signUpForm.controls.password.dirty &&
+                signUpForm.controls.password.invalid &&
+                !state.typing
+            }"
+          >
+            <input
+              class="text-field-base"
+              [type]="state.hidePassword ? 'password' : 'text'"
+              formControlName="password"
+              required
+            />
+            <p class="text-field-label">Password</p>
+            <ng-icon
+              class="suffix"
+              (click)="onHidePassword()"
+              [name]="
+                state.hidePassword
+                  ? 'matVisibilityOffOutline'
+                  : 'matVisibilityOutline'
+              "
+            ></ng-icon>
+            <div class="tooltip-element">
+              <ng-icon class="suffix" name="matInfoOutline"></ng-icon>
+              <div class="tooltip-container">
+                <ul>
+                  <li><small>Must contain at least 8 characters</small></li>
+
+                  <li>
+                    <small>
+                      Must contain at least one letter and one number
+                    </small>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="signUpForm.controls.password.dirty && !state.typing"
+            class="error"
+          >
+            <small *ngIf="signUpForm.controls.password.hasError('required')">
+              Must not be empty
+            </small>
+            <small *ngIf="signUpForm.controls.password.hasError('minlength')">
+              Must contain at least 8 characters
+            </small>
+            <small
+              *ngIf="
+                signUpForm.controls.password.hasError('pattern') &&
+                !signUpForm.controls.password.hasError('minlength')
+              "
+            >
+              Must contain at least one letter and one number
+            </small>
+          </div>
+        </div>
+
+        <re-captcha
+          class="row"
+          formControlName="recaptchaResponse"
+        ></re-captcha>
+        <button
+          class="button-base button-base-blue"
+          [disabled]="!signUpForm.valid"
+          type="submit"
+        >
+          <ngx-spinner
+            *ngIf="state.isSignUpLoading"
+            [name]="'sign-up'"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          {{ state.isSignUpLoading ? '' : 'Continue' }}
+        </button>
+
+        <div class="separation">
+          <div class="full-horizontal-divider"></div>
+          <h5 class="separation-text">OR</h5>
+          <div class="full-horizontal-divider"></div>
+        </div>
+
+        <button
+          class="button-base button-base-google"
+          (click)="onGoogleSignUp()"
+        >
+          <ngx-spinner
+            *ngIf="state.isGoogleLoading"
+            [name]="'google-sign-up'"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          {{ state.isGoogleLoading ? '' : 'Sign up with Google' }}
+        </button>
+        <button
+          class="button-base button-base-facebook"
+          (click)="onFacebookSignUp()"
+        >
+          <ngx-spinner
+            *ngIf="state.isFacebookLoading"
+            [name]="'facebook-sign-up'"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          {{ state.isFacebookLoading ? '' : 'Sign up with Facebook' }}
+        </button>
+      </form>
+
+      <div class="links">
+        <p>
+          By continuing I acknowledge that I have read and agree to the
+          <span class="hyperlink">Terms of Service</span>
+          and
+          <span class="hyperlink">Privacy Policy</span>
+        </p>
+        <p
+          [routerLink]="[]"
+          [relativeTo]="route"
+          [queryParams]="signInQueryParam"
+          queryParamsHandling="merge"
+        >
+          Already have an account?
+          <span class="hyperlink">Sign in</span>
+        </p>
+      </div>
+    </ng-container>
+  </div>
 </ng-container>

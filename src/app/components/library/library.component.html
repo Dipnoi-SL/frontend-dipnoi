@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <div class="left-panel">
+    <div class="left-panel-content"></div>
+    <div class="full-vertical-divider"></div>
+  </div>
+  <div class="central-frame">
+    <div class="central-frame-content">
+      <div class="central-frame-content-header">
+        <dipnoi-params
+          (onParamsUpdated)="handleOnParamsUpdated($event)"
+          [orderOptions]="orderOptions"
+          [defaultOrder]="0"
+        ></dipnoi-params>
+      </div>
+      <div class="list-wrapper" #infiniteScrollContainerRef>
+        <dipnoi-game-list
+          [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+          [params]="state.params"
+        ></dipnoi-game-list>
+      </div>
+      <div class="surface-fade-bottom wrapper-fade-fix"></div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="full-vertical-divider"></div>
+    <div class="right-panel-content"></div>
+  </div>
+</div>

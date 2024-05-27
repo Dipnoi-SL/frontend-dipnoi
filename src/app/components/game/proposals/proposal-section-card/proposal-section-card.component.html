@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <div *ngIf="proposal.isFirstInSection(previousProposal)" class="section">
+    <div class="full-horizontal-divider section-divider"></div>
+    <h5 class="date">
+      {{ proposal.lastImportantDate | date: 'MMMM, y' | uppercase }}
+    </h5>
+    <div class="full-horizontal-divider section-divider"></div>
+  </div>
+  <div
+    class="horizontal-card hover-card"
+    [routerLink]="[]"
+    [relativeTo]="route"
+    [queryParams]="proposal.selectedQueryParam"
+    queryParamsHandling="merge"
+  >
+    <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+      <h5 class="h5-title">{{ proposal.getCurrentTitle(authUser.data) }}</h5>
+    </ng-container>
+    <h5 class="h5-user">{{ proposal.user.nickname }}</h5>
+    <div class="tags">
+      <div *ngFor="let tag of proposal.categories" class="tag tag-black">
+        <h5>
+          {{ tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase() }}
+        </h5>
+      </div>
+    </div>
+    <h5 class="h5-date-created">Created {{ proposal.formattedCreatedAt }}</h5>
+    <h5 class="h5-date-finalized">
+      {{ proposal.isCompleted ? 'Implemented' : 'Archived' }}
+      {{ proposal.formattedLastImportantDate }}
+    </h5>
+  </div>
+</div>

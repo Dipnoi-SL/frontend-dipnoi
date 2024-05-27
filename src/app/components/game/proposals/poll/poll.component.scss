@@ -1,0 +1,78 @@
+@use '../../../../../variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+}
+
+.poll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 550px;
+  align-items: center;
+  height: fit-content;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  height: fit-content;
+}
+
+.button-base {
+  height: 28px;
+  width: 103px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  outline: solid 1px variables.$outline-variant;
+}
+
+.button-label {
+  color: variables.$text-color;
+}
+
+.bar-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  height: fit-content;
+}
+
+h5 {
+  width: 100%;
+  text-align: justify;
+}
+
+.selected-label {
+  color: variables.$surface;
+  font-weight: variables.$font-weight-medium;
+}
+
+.selected-green {
+  background-color: variables.$green;
+  outline: none;
+}
+
+.selected-yellow {
+  background-color: variables.$yellow;
+  outline: none;
+}
+
+.selected-red {
+  background-color: variables.$red;
+  outline: none;
+}
+
+.stat-container {
+  height: fit-content;
+  width: 25px;
+}

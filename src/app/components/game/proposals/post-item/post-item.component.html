@@ -1,0 +1,15 @@
+<div class="content hover-card" [ngClass]="{ 'selection-card': selected }">
+  <img
+    class="image"
+    [ngSrc]="post.thumbnailUri"
+    [width]="80"
+    [height]="60"
+    [priority]="true"
+  />
+  <div class="text-container">
+    <p [ngClass]="{ 'selected-text': selected }">{{ post.title }}</p>
+    <div class="time-container">
+      <small>{{ post.timeCreated }}</small>
+    </div>
+  </div>
+</div>

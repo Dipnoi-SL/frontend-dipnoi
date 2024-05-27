@@ -1,0 +1,65 @@
+@use '../../../../../variables';
+
+.avatar {
+  border-radius: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+.description-container {
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.description {
+  height: 0px;
+}
+
+h3 {
+  height: fit-content;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.card-footer {
+  height: fit-content;
+  flex-shrink: 0;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.full-horizontal-divider {
+  flex-grow: 1;
+  background-color: variables.$text-color;
+}
+
+.bold {
+  font-weight: variables.$font-weight-medium;
+  width: fit-content;
+  flex-shrink: 0;
+}
+
+.vertical-card-spotlight {
+  padding: 30px;
+}
+
+.image {
+  border-radius: variables.$border-radius-base;
+}

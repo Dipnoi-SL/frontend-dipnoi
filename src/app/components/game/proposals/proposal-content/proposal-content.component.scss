@@ -1,0 +1,101 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
+}
+
+.cost-box {
+  width: 170px;
+  height: fit-content;
+}
+
+.disregarding-box {
+  width: 100%;
+  height: fit-content;
+}
+
+.title-box {
+  width: 100%;
+  height: fit-content;
+}
+
+.description-box {
+  width: 100%;
+  height: fit-content;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-self: end;
+  width: fit-content;
+  height: fit-content;
+}
+
+.dialog-main-content {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.margin {
+  margin-top: 40px !important;
+}
+
+.button-base {
+  height: 20px;
+  width: 70px;
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  height: fit-content;
+  width: 100%;
+}
+
+.currency-label {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.full-vertical-divider {
+  margin: -13px 0px;
+  height: calc(100% + 26px);
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.text-field-container {
+  gap: 14px;
+  flex-basis: 50px;
+}
+
+.cost {
+  width: 155px;
+}
+
+.inset-horizontal-divider {
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-self: center;
+}
+
+.icon-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  cursor: pointer;
+}

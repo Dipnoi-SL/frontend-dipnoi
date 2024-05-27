@@ -1,0 +1,120 @@
+<ng-container *ngIf="state$ | async as state">
+  <div class="poll">
+    <h5>{{ poll.label }}</h5>
+    <div class="button-row">
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <div
+          class="button-base button-base-trans"
+          (click)="onVote(true)"
+          [ngClass]="{
+            disabled: !authUser.data?.active,
+            'selected-green': !!poll.myInterestVote,
+            'hover-card': !poll.myInterestVote
+          }"
+        >
+          <ngx-spinner
+            *ngIf="state.isYesLoading"
+            [name]="'yes' + poll.id"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          <p
+            class="button-label"
+            [ngClass]="{ 'selected-label': !!poll.myInterestVote }"
+          >
+            {{ state.isYesLoading ? '' : 'Yes' }}
+          </p>
+        </div>
+
+        <div class="bar-container">
+          <div class="bar">
+            <div
+              class="bar-fill success-background"
+              [ngStyle]="{ width: poll.positiveRatio + '%' }"
+            ></div>
+          </div>
+          <small class="stat-container">{{ poll.prettyPositiveValue }}</small>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="button-row">
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <div
+          class="button-base button-base-trans"
+          (click)="onVote(null)"
+          [ngClass]="{
+            disabled: !authUser.data?.active,
+            'selected-yellow': poll.myInterestVote === null,
+            'hover-card': poll.myInterestVote !== null
+          }"
+        >
+          <ngx-spinner
+            *ngIf="state.isSkipLoading"
+            [name]="'skip' + poll.id"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          <p
+            class="button-label"
+            [ngClass]="{ 'selected-label': poll.myInterestVote === null }"
+          >
+            {{ state.isSkipLoading ? '' : 'Skip' }}
+          </p>
+        </div>
+        <div class="bar-container">
+          <div class="bar">
+            <div
+              class="bar-fill warning-background"
+              [ngStyle]="{ width: poll.nullRatio + '%' }"
+            ></div>
+          </div>
+          <small class="stat-container">{{ poll.prettyNullValue }}</small>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="button-row">
+      <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
+        <div
+          class="button-base button-base-trans"
+          (click)="onVote(false)"
+          [ngClass]="{
+            disabled: !authUser.data?.active,
+            'selected-red': poll.myInterestVote === false,
+            'hover-card': poll.myInterestVote !== false
+          }"
+        >
+          <ngx-spinner
+            *ngIf="state.isNoLoading"
+            [name]="'no' + poll.id"
+            bdColor="transparent"
+            [fullScreen]="false"
+            size="small"
+            type="ball-scale-multiple"
+          ></ngx-spinner>
+          <p
+            class="button-label"
+            [ngClass]="{ 'selected-label': poll.myInterestVote === false }"
+          >
+            {{ state.isNoLoading ? '' : 'No' }}
+          </p>
+        </div>
+
+        <div class="bar-container">
+          <div class="bar">
+            <div
+              class="bar-fill error-background"
+              [ngStyle]="{ width: poll.negativeRatio + '%' }"
+            ></div>
+          </div>
+          <small class="stat-container">{{ poll.prettyNegativeValue }}</small>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

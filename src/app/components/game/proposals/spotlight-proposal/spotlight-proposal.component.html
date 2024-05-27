@@ -1,0 +1,35 @@
+<div
+  class="vertical-card vertical-card-spotlight hover-card"
+  [routerLink]="[]"
+  [relativeTo]="route"
+  [queryParams]="proposal.selectedQueryParam"
+  queryParamsHandling="merge"
+>
+  <img
+    class="image"
+    [ngSrc]="proposal.thumbnailUri"
+    [width]="302"
+    [height]="302"
+    [priority]="true"
+  />
+  <div class="content">
+    <h3 class="title">{{ proposal.getCurrentTitle(null) }}</h3>
+
+    <div class="description-container">
+      <p class="description">{{ proposal.getCurrentDescription(null) }}</p>
+      <div class="card-fade-bottom"></div>
+    </div>
+
+    <div class="card-footer">
+      <div class="full-horizontal-divider"></div>
+      <p class="bold">{{ proposal.user.nickname }}</p>
+      <img
+        class="avatar"
+        [ngSrc]="proposal.user.avatarUri"
+        [width]="33"
+        [height]="33"
+        [priority]="true"
+      />
+    </div>
+  </div>
+</div>

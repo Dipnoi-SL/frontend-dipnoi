@@ -1,0 +1,153 @@
+<ng-container *ngIf="state$ | async as state">
+  <form class="dialog" [formGroup]="creationForm" (ngSubmit)="onSubmit()">
+    <h2>Proposal creation</h2>
+    <div class="dialog-main-container">
+      <div class="dialog-main-content">
+        <div class="main-content-scrollable-container">
+          <h3>Details</h3>
+          <div class="text-field-container">
+            <input
+              class="text-field-base"
+              type="text"
+              formControlName="initialTitle"
+              placeholder="Type Here..."
+              required
+            />
+            <p class="text-field-label text-field-label-focused">Title</p>
+          </div>
+          <div class="text-field-container description-input">
+            <ngx-editor-menu
+              class="editor-menu"
+              [editor]="editor"
+              [toolbar]="toolbar"
+            ></ngx-editor-menu>
+            <div class="full-horizontal-divider"></div>
+
+            <ngx-editor
+              class="editor-menu"
+              [editor]="editor"
+              formControlName="initialDescription"
+            ></ngx-editor>
+            <p class="text-field-label text-field-label-focused">Description</p>
+          </div>
+          <div class="poll-section" formArrayName="pollLabels" #pollSection>
+            <div
+              *ngFor="
+                let control of creationForm.controls.pollLabels.controls;
+                let i = index
+              "
+              class="text-field-container poll-container"
+            >
+              <div class="icon-container" (click)="removePollLabelsControl(i)">
+                <img
+                  class="icon-gap"
+                  src="../../../assets/icons/subtract.svg"
+                />
+              </div>
+              <div class="full-vertical-divider trim"></div>
+              <input
+                type="text"
+                class="text-field-base"
+                [formControlName]="i"
+                placeholder="Type Here..."
+              />
+              <p class="text-field-label text-field-label-focused">
+                Poll question
+              </p>
+              <div class="full-vertical-divider"></div>
+              <p>Yes / Skip / No</p>
+            </div>
+          </div>
+          <div
+            class="text-field-container poll-container"
+            (click)="addPollLabelsControl()"
+          >
+            <div class="icon-container">
+              <img class="icon-gap" src="../../../assets/icons/add-green.svg" />
+            </div>
+            <div class="full-vertical-divider trim"></div>
+            <input
+              type="text"
+              class="text-field-base"
+              placeholder="Type Here..."
+            />
+            <p class="text-field-label text-field-label-focused">
+              Poll question
+            </p>
+            <div class="full-vertical-divider"></div>
+            <p>Yes / Skip / No</p>
+          </div>
+        </div>
+        <div class="surface-fade-bottom fade-fix"></div>
+      </div>
+      <div class="dialog-side-panel">
+        <div class="side-panel-scrollable-container">
+          <div class="section">
+            <h3>Thumbnail</h3>
+
+            <div class="text-field-container thumbnail">
+              <input
+                class="upload-action input-opacity hover-surface"
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                formControlName="thumbnail"
+                (change)="onFileChange($event)"
+                #thumbnail
+              />
+              <img
+                *ngIf="state.thumbnailSrc"
+                class="upload"
+                [src]="state.thumbnailSrc"
+              />
+              <img class="icon" src="../../../assets/icons/add-image.svg" />
+            </div>
+          </div>
+          <div class="section">
+            <h3>Categories</h3>
+            <div class="categories-container text-field-container">
+              <div class="categories-list" formArrayName="categories">
+                <div *ngFor="let category of categories; let i = index">
+                  <label class="tag tag-blue hover-blue">
+                    <input
+                      class="checkbox"
+                      type="checkbox"
+                      [formControlName]="i"
+                    />
+                    <span class="custom-checkbox"></span>
+                    <p>
+                      {{
+                        category.charAt(0).toUpperCase() +
+                          category.slice(1).toLowerCase()
+                      }}
+                    </p>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section actions">
+            <button class="button-base button-base-trans" (click)="onCancel()">
+              Cancel
+            </button>
+            <button
+              class="button-base button-base-blue"
+              [disabled]="!creationForm.valid"
+              type="submit"
+            >
+              <ngx-spinner
+                *ngIf="state.isCreateProposalLoading"
+                [name]="'create-proposal'"
+                bdColor="transparent"
+                [fullScreen]="false"
+                size="small"
+                type="ball-scale-multiple"
+              ></ngx-spinner>
+              {{ state.isCreateProposalLoading ? '' : 'Submit' }}
+            </button>
+          </div>
+        </div>
+        <div class="surface-fade-bottom fade-fix"></div>
+      </div>
+    </div>
+  </form>
+</ng-container>

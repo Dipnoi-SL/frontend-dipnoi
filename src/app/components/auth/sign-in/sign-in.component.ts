@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
@@ -13,23 +18,37 @@ import {
   GoogleLoginProvider,
   SocialAuthService,
 } from '@abacritt/angularx-social-login';
+import { Subscription, finalize } from 'rxjs';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-sign-in',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgIconComponent, RouterLink],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgIconComponent,
+    RouterLink,
+    NgxSpinnerComponent,
+  ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignInComponent extends StatefulComponent<{
-  hasErrored: boolean;
-  hidePassword: boolean;
-}> {
+export class SignInComponent
+  extends StatefulComponent<{
+    hidePassword: boolean;
+    isSignInLoading: boolean;
+    isGoogleLoading: boolean;
+    isFacebookLoading: boolean;
+  }>
+  implements OnInit, OnDestroy
+{
   signUpQueryParam = { [RoutePathEnum.AUTH]: RoutePathEnum.SIGN_UP };
   forgotPasswordQueryParam = {
     [RoutePathEnum.AUTH]: RoutePathEnum.FORGOT_PASSWORD,
   };
+  spinners$!: Subscription;
   signInForm = this.formBuilder.group({
     email: [''],
     password: [''],
@@ -41,25 +60,57 @@ export class SignInComponent extends StatefulComponent<{
     public dialogRef: DialogRef<AuthComponent>,
     public route: ActivatedRoute,
     public socialAuthService: SocialAuthService,
+    public spinnerService: NgxSpinnerService,
   ) {
     super({
-      hasErrored: false,
       hidePassword: true,
+      isSignInLoading: false,
+      isGoogleLoading: false,
+      isFacebookLoading: false,
+    });
+  }
+
+  ngOnInit() {
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isSignInLoading) {
+        this.spinnerService.show('sign-in');
+      } else {
+        this.spinnerService.hide('sign-in');
+      }
+
+      if (state.isGoogleLoading) {
+        this.spinnerService.show('google-sign-in');
+      } else {
+        this.spinnerService.hide('google-sign-in');
+      }
+
+      if (state.isFacebookLoading) {
+        this.spinnerService.show('facebook-sign-in');
+      } else {
+        this.spinnerService.hide('facebook-sign-in');
+      }
     });
   }
 
   onSignIn() {
+    this.updateState({ isSignInLoading: true });
+
     this.authService
       .signIn({
         email: this.signInForm.controls.email.value,
         password: this.signInForm.controls.password.value,
       })
+      .pipe(
+        finalize(() => {
+          this.updateState({ isSignInLoading: false });
+        }),
+      )
       .subscribe({
         next: () => {
           this.dialogRef.close();
         },
         error: () => {
-          this.updateState({ hasErrored: true });
+          // TODO: Open error toast
         },
       });
   }
@@ -72,11 +123,20 @@ export class SignInComponent extends StatefulComponent<{
     this.socialAuthService
       .getAccessToken(GoogleLoginProvider.PROVIDER_ID)
       .then((accessToken) => {
-        this.authService.googleSignIn({ accessToken }).subscribe({
-          next: () => {
-            this.dialogRef.close();
-          },
-        });
+        this.updateState({ isGoogleLoading: true });
+
+        this.authService
+          .googleSignIn({ accessToken })
+          .pipe(
+            finalize(() => {
+              this.updateState({ isGoogleLoading: false });
+            }),
+          )
+          .subscribe({
+            next: () => {
+              this.dialogRef.close();
+            },
+          });
       });
   }
 
@@ -84,13 +144,26 @@ export class SignInComponent extends StatefulComponent<{
     this.socialAuthService
       .signIn(FacebookLoginProvider.PROVIDER_ID)
       .then((user) => {
+        this.updateState({ isFacebookLoading: true });
+
         this.authService
           .facebookSignIn({ accessToken: user.authToken })
+          .pipe(
+            finalize(() => {
+              this.updateState({ isFacebookLoading: false });
+            }),
+          )
           .subscribe({
             next: () => {
               this.dialogRef.close();
             },
           });
       });
+  }
+
+  override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

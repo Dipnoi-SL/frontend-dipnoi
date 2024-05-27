@@ -50,3 +50,8 @@ export enum CommentOrderByEnum {
 export enum PostOrderByEnum {
   CREATED_AT = 'createdAt',
 }
+
+export enum GameOrderByEnum {
+  NAME = 'name',
+  NUM_VOTES = 'numVotes',
+}

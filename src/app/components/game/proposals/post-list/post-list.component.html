@@ -1,0 +1,26 @@
+<ng-container *ngIf="state$ | async as state">
+  <ng-container *ngIf="postService.posts$ | async as posts">
+    <div
+      class="news-list-content"
+      infiniteScroll
+      insufficientItems
+      [existingItems]="posts.length"
+      [containerRef]="infiniteScrollContainerRef"
+      (loadMoreItems)="onScrollEnd()"
+      [scrollWindow]="false"
+      (scrolled)="onScrollEnd()"
+      [infiniteScrollContainer]="infiniteScrollContainerRef"
+      [fromRoot]="true"
+      [infiniteScrollDistance]="1"
+    >
+      <div *ngFor="let post of posts; let i = index; trackBy: trackById">
+        <dipnoi-post-item
+          (click)="onSelected(i)"
+          [post]="post"
+          [selected]="i === state.selectedPost"
+        ></dipnoi-post-item>
+        <div class="full-horizontal-divider"></div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

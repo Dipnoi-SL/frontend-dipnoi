@@ -1,0 +1,116 @@
+@use '../../../variables';
+@use '../../../layouts';
+@use '../../../components';
+
+:host {
+  flex-grow: 1;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.central-frame {
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 0px;
+}
+
+.left-panel-content {
+  flex-grow: 1;
+}
+
+.right-panel-content {
+  flex-grow: 1;
+}
+
+.left-panel {
+  flex-shrink: 0;
+}
+
+.right-panel {
+  flex-shrink: 0;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.profile-banner {
+  width: 100%;
+  height: 300px;
+  background-color: black;
+}
+
+.profile-functions {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.profile-pic {
+  position: relative;
+  border: variables.$outline-variant solid 1px;
+  top: -81px;
+  left: calc((512px / 2) - 80px);
+  display: flex;
+  flex-direction: row;
+  background-color: #ff0000;
+  border-radius: 100px;
+}
+
+.profile-stats {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 100%;
+  width: 512px;
+}
+
+.profile-history {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 99px;
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.post-history {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 30px;
+  gap: 10px;
+}
+
+.horizontal-card {
+  align-items: center;
+  justify-content: space-evenly;
+  height: 56px;
+  gap: 20px;
+  padding: 0px 30px;
+}

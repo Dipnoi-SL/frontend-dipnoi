@@ -30,6 +30,7 @@ export class Proposal extends AbstractEntity {
   myImportanceVote?: number | null;
   followed!: boolean;
   user!: User;
+  gameId!: number;
 
   constructor(data: Proposal) {
     super(data);
@@ -81,26 +82,82 @@ export class Proposal extends AbstractEntity {
     return this.positiveValue + this.negativeValue;
   }
 
+  get prettyTotalValue() {
+    const millions = Math.floor(this.totalValue / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.totalValue / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.round(this.totalValue);
+  }
+
+  get prettyCost() {
+    if (this.cost === null) {
+      return null;
+    }
+
+    const millions = Math.floor(this.cost / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.cost / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return this.cost;
+  }
+
+  get prettyImportance() {
+    return this.importance.toFixed(2).toString().replace('.', ',');
+  }
+
+  get prettyImportanceWeightsSum() {
+    return Math.round(this.importanceWeightsSum);
+  }
+
+  get prettyState() {
+    return this.state === ProposalStateEnum.INITIAL_PHASE ||
+      this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
+      this.state === ProposalStateEnum.PENDING_REVIEW
+      ? 'Pending'
+      : this.state === ProposalStateEnum.FINAL_PHASE ||
+          this.state === ProposalStateEnum.LAST_CALL
+        ? 'Open'
+        : this.state === ProposalStateEnum.SELECTED_FOR_DEVELOPMENT ||
+            this.state === ProposalStateEnum.IN_DEVELOPMENT
+          ? 'Selected'
+          : this.state === ProposalStateEnum.COMPLETED
+            ? 'Implemented'
+            : 'Archived';
+  }
+
+  get prettyDisregardingReason() {
+    return this.state === ProposalStateEnum.NOT_BACKED
+      ? 'Not backed'
+      : this.state === ProposalStateEnum.NOT_VIABLE
+        ? 'Not viable'
+        : 'None';
+  }
+
   get positiveRatio() {
     return this.totalValue
       ? Math.round((100 * this.positiveValue) / this.totalValue)
       : 0;
   }
 
-  get importanceTag() {
-    return this.importance > 4
-      ? 'MAX'
-      : this.importance > 3
-        ? 'HIGH'
-        : this.importance > 2
-          ? 'MED'
-          : this.importance > 1
-            ? 'LOW'
-            : 'MIN';
-  }
-
   get selectedQueryParam() {
-    return { [RoutePathEnum.PROPOSAL]: this.id };
+    return { [RoutePathEnum.SELECTED_PROPOSAL]: this.id };
   }
 
   get lastImportantDate() {
@@ -226,12 +283,33 @@ export class Proposal extends AbstractEntity {
   }
 
   getCurrentHtmlDescription(authUser: MyUser | null) {
-    return !this.finalDescription ||
+    const html =
+      !this.finalDescription ||
       this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
       (this.state === ProposalStateEnum.PENDING_REVIEW &&
         !authUser?.isDeveloper)
-      ? this.initialDescription
-      : this.finalDescription;
+        ? this.initialDescription
+        : this.finalDescription;
+
+    return html
+      .replace(
+        /(<p|<ul|<ol)/g,
+        '$1' + ' style="margin-bottom: 15px; margin-top: 0px;"',
+      )
+      .replace(
+        /(<h1|<h2|<h3|<h4|<h5|<h6)/g,
+        '$1' + ' style="margin-bottom: 15px; margin-top: 30px;"',
+      )
+      .replace(/(<[^>]+>)/, function (match) {
+        if (match.includes('style=')) {
+          return match.replace(
+            /style="([^"]*)"/,
+            'style="$1; margin-top: 0px;"',
+          );
+        } else {
+          return match.replace(/<([^>]+)>/, '<$1 style="margin-top: 0px;">');
+        }
+      });
   }
 
   getCurrentDescription(authUser: MyUser | null) {

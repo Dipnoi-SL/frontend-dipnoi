@@ -1,0 +1,70 @@
+<div class="library-button" [routerLink]="libraryItem.path">
+  <h3>{{ libraryItem.title }}</h3>
+</div>
+<ng-container *ngIf="userService.authUser$ | async as authUser">
+  <div class="full-vertical-divider"></div>
+  <ng-container *ngIf="gameService.navigationGames$ | async as navigationGames">
+    <ng-container *ngIf="authUser.active">
+      <img
+        *ngFor="let game of navigationGames; trackBy: trackById"
+        class="game"
+        [routerLink]="game.selectedGameRoutePath"
+        [ngSrc]="game.iconUri"
+        [width]="45"
+        [height]="45"
+        [priority]="true"
+      />
+    </ng-container>
+  </ng-container>
+  <button
+    class="card-button add-button hover-card"
+    (click)="toggleAddDropdown($event)"
+    [disabled]="!authUser.active"
+  >
+    <img src="../../../assets/icons/add-green.svg" />
+    <div
+      class="dropdown-base"
+      [style.display]="state.isAddDropdownOpen ? undefined : 'none'"
+    >
+      <div class="searchbar">
+        <img src="../../../../assets/icons/magnifying-glass.svg" />
+        <input
+          class="text-field-searchbar"
+          type="text"
+          [(ngModel)]="search"
+          (keydown)="debounceSearch()"
+          placeholder="Search"
+        />
+      </div>
+      <div class="full-horizontal-divider"></div>
+      <ng-container *ngIf="gameService.dropdownGames$ | async as dropdownGames">
+        <ng-container
+          *ngIf="gameService.navigationGames$ | async as navigationGames"
+        >
+          <ng-container *ngIf="dropdownGames.length">
+            <div
+              *ngFor="let game of dropdownGames; trackBy: trackById"
+              class="dropdown-option hover-card"
+              (click)="onAddOrDeleteNavigationGame(navigationGames, game)"
+            >
+              <img
+                [ngClass]="{ hidden: isNavigationGame(navigationGames, game) }"
+                src="../../../../assets/icons/add-green.svg"
+              />
+              <img
+                [ngClass]="{ hidden: !isNavigationGame(navigationGames, game) }"
+                src="../../../../assets/icons/subtract.svg"
+              />
+              <p class="dropdown-option-text">
+                {{ game.name }}
+              </p>
+            </div>
+          </ng-container>
+          <div *ngIf="!dropdownGames.length" class="dropdown-option disabled">
+            <p class="dropdown-option-text">No results found</p>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </button>
+</ng-container>

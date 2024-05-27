@@ -1,4 +1,8 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  isDevMode,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -6,18 +10,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { provideIcons } from '@ng-icons/core';
 import {
-  matAccessibleForwardOutline,
-  matAccountCircleOutline,
-  matExpandMoreOutline,
   matVisibilityOffOutline,
   matVisibilityOutline,
-  matThumbUpOutline,
-  matThumbDownOutline,
-  matChatOutline,
-  matStarOutlineOutline,
   matDoneOutline,
   matCloseOutline,
   matPendingOutline,
+  matInfoOutline,
 } from '@ng-icons/material-icons/outline';
 import {
   FacebookLoginProvider,
@@ -26,24 +24,19 @@ import {
 } from '@abacritt/angularx-social-login';
 import { environment } from '../environments/environment';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
     provideIcons({
-      matAccountCircleOutline,
       matVisibilityOffOutline,
       matVisibilityOutline,
-      matExpandMoreOutline,
-      matAccessibleForwardOutline,
-      matThumbUpOutline,
-      matThumbDownOutline,
-      matChatOutline,
-      matStarOutlineOutline,
       matDoneOutline,
       matCloseOutline,
       matPendingOutline,
+      matInfoOutline,
     }),
     importProvidersFrom(HttpClientModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -79,5 +72,9 @@ export const appConfig: ApplicationConfig = {
         theme: 'dark',
       } as RecaptchaSettings,
     },
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 };

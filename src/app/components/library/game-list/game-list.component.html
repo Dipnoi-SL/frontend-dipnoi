@@ -1,0 +1,20 @@
+<ng-container *ngIf="gameService.games$ | async as games">
+  <div
+    class="wrapper"
+    infiniteScroll
+    insufficientItems
+    [existingItems]="games.length"
+    [containerRef]="infiniteScrollContainerRef"
+    (loadMoreItems)="onScrollEnd()"
+    [scrollWindow]="false"
+    (scrolled)="onScrollEnd()"
+    [infiniteScrollContainer]="infiniteScrollContainerRef"
+    [fromRoot]="true"
+    [infiniteScrollDistance]="1"
+  >
+    <dipnoi-game-card
+      *ngFor="let game of games; trackBy: trackById"
+      [game]="game"
+    ></dipnoi-game-card>
+  </div>
+</ng-container>
