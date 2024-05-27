@@ -413,6 +413,10 @@ $maxScreenWidth: 1920px;
   justify-content: space-between !important;
 }
 
+.NgxEditor__MenuBar button:not(:disabled) {
+  cursor: pointer !important;
+}
+
 .NgxEditor__Placeholder:before {
   font-family: variables.$font-family-base !important;
   font-size: variables.$font-size-sm !important;
@@ -447,6 +451,12 @@ $maxScreenWidth: 1920px;
 
 .NgxEditor__MenuItem:hover {
   cursor: pointer !important;
+  background-color: variables.$hover-text-field-color !important;
+  border-radius: variables.$border-radius-small !important;
+}
+
+.NgxEditor__MenuItem--Icon:hover {
+  background-color: inherit !important;
   background-color: variables.$hover-text-field-color !important;
   border-radius: variables.$border-radius-small !important;
 }
