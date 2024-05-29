@@ -34,7 +34,8 @@
               "src/_base.scss",
               "src/_layouts.scss",
               "src/_mixins.scss",
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -93,7 +94,8 @@
               "src/_base.scss",
               "src/_layouts.scss",
               "src/_mixins.scss",
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           }
