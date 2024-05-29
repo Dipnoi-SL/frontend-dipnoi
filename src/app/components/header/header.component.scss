@@ -31,8 +31,9 @@
 .runic {
   display: flex;
   flex-direction: column;
+  height: 55px;
   gap: 2px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .runic-line {
@@ -40,10 +41,11 @@
   font-family: 'eric';
   color: variables.$text-color;
   font-size: 28px;
-  line-height: 26px;
+  line-height: 24px;
   font-weight: variables.$font-weight-bold;
   letter-spacing: 4px;
   font-kerning: none;
+  height: fit-content;
   padding-bottom: 4px;
 }
 
