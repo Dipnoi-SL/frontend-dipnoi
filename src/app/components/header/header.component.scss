@@ -36,6 +36,7 @@
 }
 
 .runic-line {
+  box-sizing: border-box;
   font-family: 'eric';
   color: variables.$text-color;
   font-size: 28px;
