@@ -34,6 +34,7 @@
   height: 55px;
   gap: 2px;
   justify-content: space-between;
+  margin-top: -9px;
 }
 
 .runic-line {
@@ -46,7 +47,6 @@
   letter-spacing: 4px;
   font-kerning: none;
   height: fit-content;
-  padding-bottom: 4px;
 }
 
 .image-container {
@@ -56,6 +56,12 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .image-container img {
