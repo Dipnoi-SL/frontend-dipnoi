@@ -20,6 +20,7 @@ import {
 } from '@abacritt/angularx-social-login';
 import { Subscription, finalize } from 'rxjs';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'dipnoi-sign-in',
@@ -61,6 +62,7 @@ export class SignInComponent
     public route: ActivatedRoute,
     public socialAuthService: SocialAuthService,
     public spinnerService: NgxSpinnerService,
+    public toastService: ToastrService,
   ) {
     super({
       hidePassword: true,
@@ -108,9 +110,6 @@ export class SignInComponent
       .subscribe({
         next: () => {
           this.dialogRef.close();
-        },
-        error: () => {
-          // TODO: Open error toast
         },
       });
   }

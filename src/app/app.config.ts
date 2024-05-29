@@ -25,6 +25,8 @@ import {
 import { environment } from '../environments/environment';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { provideServiceWorker } from '@angular/service-worker';
+import { provideToastr } from 'ngx-toastr';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,6 +42,7 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom(HttpClientModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -75,6 +78,13 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
+    }),
+    provideToastr({
+      progressBar: true,
+      timeOut: 5000,
+      preventDuplicates: true,
+      includeTitleDuplicates: true,
+      resetTimeoutOnDuplicate: true,
     }),
   ],
 };
