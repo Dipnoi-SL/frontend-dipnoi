@@ -195,10 +195,15 @@
                 proposal.user.id === authUser.data?.id)))
         "
       >
-        <h3>Dev comment</h3>
-        <p>{{ proposal.disregardingReason }}</p>
-        <div class="inset-horizontal-divider"></div>
+        <div class="gap">
+          <div class="dev-comment">
+            <h3 class="color">Dev comment</h3>
+            <p class="color">{{ proposal.disregardingReason }}</p>
+          </div>
+          <div class="inset-horizontal-divider"></div>
+        </div>
       </ng-container>
+
       <div
         class="margin"
         [innerHTML]="

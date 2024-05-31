@@ -10,12 +10,21 @@
           <h2 class="subtitle">Daily spotlight</h2>
           <div class="full-horizontal-divider"></div>
         </div>
+        <ngx-spinner
+          *ngIf="state.isSpotlightReloading"
+          name="spotlight"
+          bdColor="transparent"
+          [fullScreen]="false"
+          size="large"
+          type="ball-scale-multiple"
+        ></ngx-spinner>
         <ng-container
           *ngIf="
             proposalService.spotlightProposal$ | async as spotlightProposal
           "
         >
           <dipnoi-spotlight-proposal
+            *ngIf="!state.isSpotlightReloading"
             [proposal]="spotlightProposal"
           ></dipnoi-spotlight-proposal>
         </ng-container>
@@ -26,7 +35,18 @@
           <h2 class="subtitle">News</h2>
           <div class="full-horizontal-divider"></div>
         </div>
-        <div class="vertical-card vertical-card-news">
+        <ngx-spinner
+          *ngIf="state.isNewsReloading"
+          name="news"
+          bdColor="transparent"
+          [fullScreen]="false"
+          size="large"
+          type="ball-scale-multiple"
+        ></ngx-spinner>
+        <div
+          *ngIf="!state.isNewsReloading"
+          class="vertical-card vertical-card-news"
+        >
           <div class="selected-news">
             <ng-container *ngIf="postService.posts$ | async as posts">
               <dipnoi-post [post]="posts[state.selectedPost]"></dipnoi-post>

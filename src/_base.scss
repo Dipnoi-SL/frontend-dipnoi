@@ -10,6 +10,7 @@ app-root {
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
+  background-color: variables.$surface;
 }
 
 /* For Mobile */
@@ -320,7 +321,7 @@ a {
 
 ::-webkit-scrollbar-thumb {
   background: variables.$scrollbar-color;
-  border: 1px solid variables.$outline-variant;
+  border: 1px solid variables.$outline-variant-dark;
   border-radius: 100px;
 }
 

@@ -3,6 +3,8 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -11,6 +13,9 @@ import { GameOrderByEnum, OrderEnum } from '../../../constants/enums';
 import { GameService } from '../../../services/game.service';
 import { GameCardComponent } from '../game-card/game-card.component';
 import { Game } from '../../../models/game.model';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { Subscription, finalize } from 'rxjs';
 
 @Component({
   selector: 'dipnoi-game-list',
@@ -22,10 +27,14 @@ import { Game } from '../../../models/game.model';
     InfiniteScrollModule,
     GameCardComponent,
     InsufficientItemsDirective,
+    NgxSpinnerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameListComponent implements OnChanges {
+export class GameListComponent
+  extends StatefulComponent<{ isReloading: boolean }>
+  implements OnInit, OnChanges, OnDestroy
+{
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) params!: {
     take?: number;
@@ -35,10 +44,36 @@ export class GameListComponent implements OnChanges {
     search?: string;
   };
 
-  constructor(public gameService: GameService) {}
+  spinners$!: Subscription;
+
+  constructor(
+    public gameService: GameService,
+    public spinnerService: NgxSpinnerService,
+  ) {
+    super({ isReloading: false });
+  }
+
+  ngOnInit() {
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isReloading) {
+        this.spinnerService.show('game-list');
+      } else {
+        this.spinnerService.hide('game-list');
+      }
+    });
+  }
 
   ngOnChanges() {
-    this.gameService.readMany(this.params).subscribe();
+    this.updateState({ isReloading: true });
+
+    this.gameService
+      .readMany(this.params)
+      .pipe(
+        finalize(() => {
+          this.updateState({ isReloading: false });
+        }),
+      )
+      .subscribe();
   }
 
   onScrollEnd() {
@@ -47,5 +82,11 @@ export class GameListComponent implements OnChanges {
 
   trackById(index: number, game: Game) {
     return game.id;
+  }
+
+  override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }
