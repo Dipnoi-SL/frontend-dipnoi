@@ -3,6 +3,8 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -15,6 +17,9 @@ import {
 } from '../../../../constants/enums';
 import { InsufficientItemsDirective } from '../../../../directives/insufficient-items.directive';
 import { Proposal } from '../../../../models/proposal.model';
+import { StatefulComponent } from '../../../../directives/stateful-component.directive';
+import { Subscription, finalize } from 'rxjs';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dipnoi-proposal-list',
@@ -26,10 +31,14 @@ import { Proposal } from '../../../../models/proposal.model';
     InfiniteScrollModule,
     ProposalCardComponent,
     InsufficientItemsDirective,
+    NgxSpinnerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalListComponent implements OnChanges {
+export class ProposalListComponent
+  extends StatefulComponent<{ isReloading: boolean }>
+  implements OnInit, OnChanges, OnDestroy
+{
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
   @Input({ required: true }) params!: {
     take?: number;
@@ -43,10 +52,36 @@ export class ProposalListComponent implements OnChanges {
     userId?: number;
   };
 
-  constructor(public proposalService: ProposalService) {}
+  spinners$!: Subscription;
+
+  constructor(
+    public proposalService: ProposalService,
+    public spinnerService: NgxSpinnerService,
+  ) {
+    super({ isReloading: false });
+  }
+
+  ngOnInit() {
+    this.spinners$ = this.state$.subscribe((state) => {
+      if (state.isReloading) {
+        this.spinnerService.show('proposal-list');
+      } else {
+        this.spinnerService.hide('proposal-list');
+      }
+    });
+  }
 
   ngOnChanges() {
-    this.proposalService.readMany(this.params).subscribe();
+    this.updateState({ isReloading: true });
+
+    this.proposalService
+      .readMany(this.params)
+      .pipe(
+        finalize(() => {
+          this.updateState({ isReloading: false });
+        }),
+      )
+      .subscribe();
   }
 
   onScrollEnd() {
@@ -55,5 +90,11 @@ export class ProposalListComponent implements OnChanges {
 
   trackById(index: number, proposal: Proposal) {
     return proposal.id;
+  }
+
+  override ngOnDestroy() {
+    this.spinners$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

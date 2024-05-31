@@ -3,7 +3,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -28,22 +27,15 @@ import { Post } from '../../../../models/post.model';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostListComponent
-  extends StatefulComponent<{ selectedPost: number }>
-  implements OnInit
-{
+export class PostListComponent extends StatefulComponent<{
+  selectedPost: number;
+}> {
   @Input({ required: true }) infiniteScrollContainerRef!: HTMLElement;
 
   @Output() onSelectedUpdated = new EventEmitter<number>();
 
   constructor(public postService: PostService) {
     super({ selectedPost: 0 });
-  }
-
-  ngOnInit() {
-    this.postService
-      .readMany({ orderBy: PostOrderByEnum.CREATED_AT, order: OrderEnum.DESC })
-      .subscribe();
   }
 
   onScrollEnd() {
