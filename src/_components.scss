@@ -35,25 +35,25 @@ $maxScreenWidth: 1920px;
 /* Dividers */
 .inset-horizontal-divider {
   height: variables.$divider-size-normal;
-  background-color: variables.$outline-variant;
+  background-color: variables.$outline-variant-dark;
   width: 75%;
 }
 
 .full-horizontal-divider {
   height: variables.$divider-size-normal;
-  background-color: variables.$outline-variant;
+  background-color: variables.$outline-variant-dark;
   width: 100%;
 }
 
 .inset-vertical-divider {
   width: variables.$divider-size-normal;
-  background-color: variables.$outline-variant;
+  background-color: variables.$outline-variant-dark;
   height: 75%;
 }
 
 .full-vertical-divider {
   width: variables.$divider-size-normal;
-  background-color: variables.$outline-variant;
+  background-color: variables.$outline-variant-dark;
   height: 100%;
 }
 
@@ -501,7 +501,7 @@ $maxScreenWidth: 1920px;
 }
 
 .NgxEditor__Seperator {
-  border-left: solid 1px variables.$outline-variant !important;
+  border-left: solid 1px variables.$outline-variant-dark !important;
   margin-left: 6px !important;
 }
 
