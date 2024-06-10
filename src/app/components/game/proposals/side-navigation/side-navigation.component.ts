@@ -49,5 +49,10 @@ export class SideNavigationComponent {
     path: RoutePathEnum.PENDING_REVIEW,
   };
 
+  statsItem = {
+    title: 'Stats',
+    path: RoutePathEnum.STATS,
+  };
+
   constructor(public userService: UserService) {}
 }

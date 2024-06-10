@@ -12,6 +12,7 @@ import { PendingReviewComponent } from './components/game/proposals/pending-revi
 import { ChangelogComponent } from './components/game/proposals/changelog/changelog.component';
 import { ArchiveComponent } from './components/game/proposals/archive/archive.component';
 import { GameActiveGuard } from './guards/game-active.guard';
+import { StatsComponent } from './components/game/proposals/stats/stats.component';
 
 export enum RoutePathEnum {
   ABOUT_US = 'about-us',
@@ -24,6 +25,7 @@ export enum RoutePathEnum {
   OPEN_PROPOSALS = 'open-proposals',
   PENDING_PROPOSALS = 'pending-proposals',
   PENDING_REVIEW = 'pending-review',
+  STATS = 'stats',
   CHANGELOG = 'changelog',
   ARCHIVE = 'archive',
   AUTH = 'auth',
@@ -73,6 +75,10 @@ export const routes: Routes = [
           {
             path: RoutePathEnum.PENDING_REVIEW,
             component: PendingReviewComponent,
+          },
+          {
+            path: RoutePathEnum.STATS,
+            component: StatsComponent,
           },
           {
             path: RoutePathEnum.CHANGELOG,
