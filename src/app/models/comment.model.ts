@@ -4,9 +4,10 @@ import { User } from './user.model';
 
 export class Comment extends AbstractEntity {
   body!: string;
-  positiveValue!: number;
-  negativeValue!: number;
-  popularity!: number;
+  positiveValue?: number;
+  negativeValue?: number;
+  popularity?: number;
+  lastDayPopularity?: number;
   myFeedback?: boolean | null;
   user!: User;
   proposalId!: number;

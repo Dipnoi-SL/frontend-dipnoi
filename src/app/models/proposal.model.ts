@@ -12,15 +12,14 @@ export class Proposal extends AbstractEntity {
   thumbnailUri!: string;
   state!: ProposalStateEnum;
   numComments!: number;
-  positiveValue!: number;
-  negativeValue!: number;
-  popularity!: number;
-  lastDayPopularity!: number;
-  trending!: number;
+  positiveValue?: number;
+  negativeValue?: number;
+  popularity?: number;
+  lastDayPopularity?: number;
   cost!: number | null;
-  importance!: number;
-  importanceWeightsSum!: number;
-  priority!: number;
+  importance?: number;
+  importanceWeightsSum?: number;
+  priority?: number;
   disregardingReason!: string | null;
   categories!: ProposalCategoryEnum[];
   resetAt!: string | null;
@@ -79,10 +78,18 @@ export class Proposal extends AbstractEntity {
   }
 
   get totalValue() {
+    if (this.positiveValue === undefined || this.negativeValue === undefined) {
+      return;
+    }
+
     return this.positiveValue + this.negativeValue;
   }
 
   get prettyTotalValue() {
+    if (this.totalValue === undefined) {
+      return;
+    }
+
     const millions = Math.floor(this.totalValue / 1000000);
 
     if (millions) {
@@ -119,10 +126,18 @@ export class Proposal extends AbstractEntity {
   }
 
   get prettyImportance() {
+    if (this.importance === undefined) {
+      return;
+    }
+
     return this.importance.toFixed(2).toString().replace('.', ',');
   }
 
   get prettyImportanceWeightsSum() {
+    if (this.importanceWeightsSum === undefined) {
+      return;
+    }
+
     return Math.round(this.importanceWeightsSum);
   }
 
@@ -151,9 +166,11 @@ export class Proposal extends AbstractEntity {
   }
 
   get positiveRatio() {
-    return this.totalValue
-      ? Math.round((100 * this.positiveValue) / this.totalValue)
-      : 0;
+    if (!this.totalValue || this.positiveValue === undefined) {
+      return;
+    }
+
+    return Math.round((100 * this.positiveValue) / this.totalValue);
   }
 
   get selectedQueryParam() {

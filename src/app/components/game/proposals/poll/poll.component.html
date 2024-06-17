@@ -5,11 +5,17 @@
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
         <div
           class="button-base button-base-trans"
-          (click)="onVote(true)"
+          (click)="
+            authUser.data?.active &&
+              poll.myInterestVote === undefined &&
+              onVote(true)
+          "
           [ngClass]="{
-            disabled: !authUser.data?.active,
+            disabled:
+              !authUser.data?.active || poll.myInterestVote !== undefined,
             'selected-green': !!poll.myInterestVote,
-            'hover-card': !poll.myInterestVote
+            'hover-card':
+              authUser.data?.active && poll.myInterestVote === undefined
           }"
         >
           <ngx-spinner
@@ -32,7 +38,7 @@
           <div class="bar">
             <div
               class="bar-fill success-background"
-              [ngStyle]="{ width: poll.positiveRatio + '%' }"
+              [ngStyle]="{ width: (poll.positiveRatio ?? 0) + '%' }"
             ></div>
           </div>
           <small class="stat-container">{{ poll.prettyPositiveValue }}</small>
@@ -44,11 +50,17 @@
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
         <div
           class="button-base button-base-trans"
-          (click)="onVote(null)"
+          (click)="
+            authUser.data?.active &&
+              poll.myInterestVote === undefined &&
+              onVote(null)
+          "
           [ngClass]="{
-            disabled: !authUser.data?.active,
+            disabled:
+              !authUser.data?.active || poll.myInterestVote !== undefined,
             'selected-yellow': poll.myInterestVote === null,
-            'hover-card': poll.myInterestVote !== null
+            'hover-card':
+              authUser.data?.active && poll.myInterestVote === undefined
           }"
         >
           <ngx-spinner
@@ -70,7 +82,7 @@
           <div class="bar">
             <div
               class="bar-fill warning-background"
-              [ngStyle]="{ width: poll.nullRatio + '%' }"
+              [ngStyle]="{ width: (poll.nullRatio ?? 0) + '%' }"
             ></div>
           </div>
           <small class="stat-container">{{ poll.prettyNullValue }}</small>
@@ -82,11 +94,17 @@
       <ng-container *ngIf="{ data: userService.authUser$ | async } as authUser">
         <div
           class="button-base button-base-trans"
-          (click)="onVote(false)"
+          (click)="
+            authUser.data?.active &&
+              poll.myInterestVote === undefined &&
+              onVote(false)
+          "
           [ngClass]="{
-            disabled: !authUser.data?.active,
+            disabled:
+              !authUser.data?.active || poll.myInterestVote !== undefined,
             'selected-red': poll.myInterestVote === false,
-            'hover-card': poll.myInterestVote !== false
+            'hover-card':
+              authUser.data?.active && poll.myInterestVote === undefined
           }"
         >
           <ngx-spinner
@@ -109,7 +127,7 @@
           <div class="bar">
             <div
               class="bar-fill error-background"
-              [ngStyle]="{ width: poll.negativeRatio + '%' }"
+              [ngStyle]="{ width: (poll.negativeRatio ?? 0) + '%' }"
             ></div>
           </div>
           <small class="stat-container">{{ poll.prettyNegativeValue }}</small>

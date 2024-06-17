@@ -19,8 +19,15 @@
         >
           <div
             class="icon-button"
-            (click)="authUser.data?.active && onVote(true)"
-            [ngClass]="{ disabled: !authUser.data?.active }"
+            (click)="
+              authUser.data?.active &&
+                comment.myFeedback === undefined &&
+                onVote(true)
+            "
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active || comment.myFeedback !== undefined
+            }"
           >
             <ngx-spinner
               *ngIf="state.isThumbsUpLoading"
@@ -48,8 +55,15 @@
           <small>{{ comment.positiveValue }}</small>
           <div
             class="icon-button"
-            (click)="authUser.data?.active && onVote(false)"
-            [ngClass]="{ disabled: !authUser.data?.active }"
+            (click)="
+              authUser.data?.active &&
+                comment.myFeedback === undefined &&
+                onVote(false)
+            "
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active || comment.myFeedback !== undefined
+            }"
           >
             <ngx-spinner
               *ngIf="state.isThumbsDownLoading"

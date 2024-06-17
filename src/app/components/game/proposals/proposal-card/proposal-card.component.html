@@ -77,7 +77,11 @@
 
     <div class="scores">
       <div
-        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        *ngIf="
+          !proposal.isSelectedForDevelopment &&
+          !proposal.isInDevelopment &&
+          proposal.positiveRatio !== undefined
+        "
         class="score-row"
       >
         <p
@@ -133,7 +137,11 @@
         </div>
       </div>
       <div
-        *ngIf="!proposal.isSelectedForDevelopment && !proposal.isInDevelopment"
+        *ngIf="
+          !proposal.isSelectedForDevelopment &&
+          !proposal.isInDevelopment &&
+          proposal.prettyTotalValue !== undefined
+        "
         class="score-row"
       >
         <p class="p-score-text">
@@ -147,7 +155,10 @@
         </div>
       </div>
       <div
-        *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
+        *ngIf="
+          (proposal.isSelectedForDevelopment || proposal.isInDevelopment) &&
+          proposal.importance !== undefined
+        "
         class="score-row"
       >
         <p
