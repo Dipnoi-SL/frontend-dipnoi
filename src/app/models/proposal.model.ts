@@ -18,7 +18,8 @@ export class Proposal extends AbstractEntity {
   lastDayPopularity?: number;
   cost!: number | null;
   importance?: number;
-  importanceWeightsSum?: number;
+  interestWeightsSum!: number;
+  importanceWeightsSum!: number;
   priority?: number;
   disregardingReason!: string | null;
   categories!: ProposalCategoryEnum[];
@@ -77,32 +78,52 @@ export class Proposal extends AbstractEntity {
     return this.state === ProposalStateEnum.NOT_VIABLE;
   }
 
-  get totalValue() {
-    if (this.positiveValue === undefined || this.negativeValue === undefined) {
-      return;
-    }
-
-    return this.positiveValue + this.negativeValue;
-  }
-
-  get prettyTotalValue() {
-    if (this.totalValue === undefined) {
-      return;
-    }
-
-    const millions = Math.floor(this.totalValue / 1000000);
+  get prettyNumComments() {
+    const millions = Math.floor(this.numComments / 1000000);
 
     if (millions) {
       return millions + 'M';
     }
 
-    const thousands = Math.floor(this.totalValue / 1000);
+    const thousands = Math.floor(this.numComments / 1000);
 
     if (thousands) {
       return thousands + 'K';
     }
 
-    return Math.round(this.totalValue);
+    return this.numComments;
+  }
+
+  get prettyInterestWeightsSum() {
+    const millions = Math.floor(this.interestWeightsSum / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.interestWeightsSum / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.floor(this.interestWeightsSum);
+  }
+
+  get prettyImportanceWeightsSum() {
+    const millions = Math.floor(this.importanceWeightsSum / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.importanceWeightsSum / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.floor(this.importanceWeightsSum);
   }
 
   get prettyCost() {
@@ -133,14 +154,6 @@ export class Proposal extends AbstractEntity {
     return this.importance.toFixed(2).toString().replace('.', ',');
   }
 
-  get prettyImportanceWeightsSum() {
-    if (this.importanceWeightsSum === undefined) {
-      return;
-    }
-
-    return Math.round(this.importanceWeightsSum);
-  }
-
   get prettyState() {
     return this.state === ProposalStateEnum.INITIAL_PHASE ||
       this.state === ProposalStateEnum.PENDING_SPECIFICATION ||
@@ -166,11 +179,11 @@ export class Proposal extends AbstractEntity {
   }
 
   get positiveRatio() {
-    if (!this.totalValue || this.positiveValue === undefined) {
+    if (!this.interestWeightsSum || this.positiveValue === undefined) {
       return;
     }
 
-    return Math.round((100 * this.positiveValue) / this.totalValue);
+    return Math.round((100 * this.positiveValue) / this.interestWeightsSum);
   }
 
   get selectedQueryParam() {
