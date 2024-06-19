@@ -9,36 +9,25 @@
         <div class="content">
           <div class="profile-functions">
             <div class="tabs">
-              <div class="tab">
-                <h5>Overview</h5>
-              </div>
-
-              <div class="tab">
-                <h5>Proposals</h5>
-              </div>
-
-              <div class="tab">
-                <h5>Favorite proposals</h5>
-              </div>
-              <div class="tab">
-                <h5>Comments</h5>
-              </div>
-              <div class="tab">
-                <h5>Games</h5>
+              <div *ngFor="let item of navigationItems" class="tab">
+                <div
+                  class="tab-content"
+                  [routerLink]="item.path"
+                  routerLinkActive="selection-tab"
+                >
+                  <h5>
+                    {{ item.title }}
+                  </h5>
+                  <div
+                    [routerLink]="item.path"
+                    routerLinkActive="underline"
+                  ></div>
+                </div>
               </div>
             </div>
 
-            <div class="tab-content">
-              <div class="profile-ppic"></div>
-              <ng-container *ngIf="userService.authUser$ | async as authUser">
-                <img
-                  class="profile-pic"
-                  [ngSrc]="authUser.avatarUri"
-                  [width]="160"
-                  [height]="160"
-                  [priority]="true"
-                />
-              </ng-container>
+            <div class="section-content">
+              <router-outlet></router-outlet>
             </div>
           </div>
         </div>

@@ -250,6 +250,10 @@ a {
 }
 
 /* Interactions*/
+.selection-tab {
+  font-weight: variables.$font-weight-medium !important;
+}
+
 .selection-surface {
   background-color: variables.$hover-surface-color !important;
 }

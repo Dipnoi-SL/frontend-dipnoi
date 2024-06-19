@@ -1,0 +1,9 @@
+@use '../../../../variables';
+
+.profile-pic {
+  border: variables.$outline-variant solid 1px;
+  display: flex;
+  flex-direction: row;
+  background-color: #ff0000;
+  border-radius: 100px;
+}

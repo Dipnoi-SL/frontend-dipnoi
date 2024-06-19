@@ -13,6 +13,10 @@ import { ChangelogComponent } from './components/game/proposals/changelog/change
 import { ArchiveComponent } from './components/game/proposals/archive/archive.component';
 import { GameActiveGuard } from './guards/game-active.guard';
 import { StatsComponent } from './components/game/proposals/stats/stats.component';
+import { ProfileOverviewComponent } from './components/profile/overview/profile-overview.component';
+import { ProfileGamesComponent } from './components/profile/games/profile-games.component';
+import { ProfileProposalsComponent } from './components/profile/proposals/profile-proposals.component';
+import { ProfileCommentsComponent } from './components/profile/comments/profile-comments.component';
 
 export enum RoutePathEnum {
   ABOUT_US = 'about-us',
@@ -40,6 +44,8 @@ export enum RoutePathEnum {
   CREATION = 'create',
   LIBRARY = 'library',
   PROFILE = 'profile',
+  OVERVIEW = 'overview',
+  COMMENTS = 'comments',
   GAMES = 'games',
   GAME_ID = 'gameId',
   REQUESTS = 'requests',
@@ -103,6 +109,28 @@ export const routes: Routes = [
   {
     path: RoutePathEnum.PROFILE,
     component: ProfileComponent,
+    children: [
+      {
+        path: RoutePathEnum.OVERVIEW,
+        component: ProfileOverviewComponent,
+      },
+      {
+        path: RoutePathEnum.GAMES,
+        component: ProfileGamesComponent,
+      },
+      {
+        path: RoutePathEnum.PROPOSALS,
+        component: ProfileProposalsComponent,
+      },
+      {
+        path: RoutePathEnum.COMMENTS,
+        component: ProfileCommentsComponent,
+      },
+      {
+        path: '**',
+        redirectTo: RoutePathEnum.OVERVIEW,
+      },
+    ],
   },
   {
     path: RoutePathEnum.LIBRARY,
