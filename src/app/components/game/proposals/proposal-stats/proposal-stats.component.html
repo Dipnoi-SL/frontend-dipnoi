@@ -26,13 +26,29 @@
         *ngIf="proposal.isSelectedForDevelopment || proposal.isInDevelopment"
         class="vertical-card"
       >
-        <h4>Priority</h4>
-
+        <div class="card-title">
+          <h4>Priority</h4>
+          <img
+            [ngClass]="{
+              hidden: proposal.myImportanceVote === undefined
+            }"
+            class="lock"
+            src="../../../assets/icons/lock.svg"
+          />
+        </div>
         <div class="box-row row-icon">
           <div
             class="icon-button"
-            [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="authUser.data?.active && onImportanceVote(5)"
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active ||
+                proposal.myImportanceVote !== undefined
+            }"
+            (click)="
+              authUser.data?.active &&
+                proposal.myImportanceVote === undefined &&
+                onImportanceVote(5)
+            "
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -63,8 +79,16 @@
           </div>
           <div
             class="icon-button"
-            [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="authUser.data?.active && onImportanceVote(4)"
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active ||
+                proposal.myImportanceVote !== undefined
+            }"
+            (click)="
+              authUser.data?.active &&
+                proposal.myImportanceVote === undefined &&
+                onImportanceVote(4)
+            "
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -95,8 +119,16 @@
           </div>
           <div
             class="icon-button"
-            [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="authUser.data?.active && onImportanceVote(3)"
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active ||
+                proposal.myImportanceVote !== undefined
+            }"
+            (click)="
+              authUser.data?.active &&
+                proposal.myImportanceVote === undefined &&
+                onImportanceVote(3)
+            "
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -127,8 +159,16 @@
           </div>
           <div
             class="icon-button"
-            [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="authUser.data?.active && onImportanceVote(2)"
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active ||
+                proposal.myImportanceVote !== undefined
+            }"
+            (click)="
+              authUser.data?.active &&
+                proposal.myImportanceVote === undefined &&
+                onImportanceVote(2)
+            "
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -159,8 +199,16 @@
           </div>
           <div
             class="icon-button"
-            [ngClass]="{ disabled: !authUser.data?.active }"
-            (click)="authUser.data?.active && onImportanceVote(1)"
+            [ngClass]="{
+              disabled:
+                !authUser.data?.active ||
+                proposal.myImportanceVote !== undefined
+            }"
+            (click)="
+              authUser.data?.active &&
+                proposal.myImportanceVote === undefined &&
+                onImportanceVote(1)
+            "
           >
             <div class="icon-container icon-container-priority">
               <ngx-spinner
@@ -190,61 +238,77 @@
             </div>
           </div>
         </div>
-        <div class="box-row">
-          <p class="p-category">Votes</p>
-          <p class="p-value">
-            {{ proposal.prettyImportanceWeightsSum }}
-          </p>
-        </div>
-        <div class="box-row">
-          <p class="p-category">Average</p>
-          <div class="value-icon">
-            <p class="p-value">{{ proposal.prettyImportance }}</p>
-            <img
-              [ngClass]="{
-                hidden: proposal.importance >= 1
-              }"
-              class="score-icon"
-              width="11"
-              height="10"
-              src="../../../../../assets/icons/chevron-down-double.svg"
-            />
-            <img
-              [ngClass]="{
-                hidden: proposal.importance < 1 || proposal.importance >= 2
-              }"
-              class="score-icon"
-              width="12"
-              height="8"
-              src="../../../../../assets/icons/chevron-down-single.svg"
-            />
-            <img
-              [ngClass]="{
-                hidden: proposal.importance < 2 || proposal.importance >= 3
-              }"
-              class="score-icon"
-              width="12"
-              height="6"
-              src="../../../../../assets/icons/equal.svg"
-            />
-            <img
-              [ngClass]="{
-                hidden: proposal.importance < 3 || proposal.importance >= 4
-              }"
-              class="score-icon"
-              width="12"
-              height="8"
-              src="../../../../../assets/icons/chevron-up-single.svg"
-            />
-            <img
-              [ngClass]="{ hidden: proposal.importance < 4 }"
-              class="score-icon"
-              width="11"
-              height="10"
-              src="../../../../../assets/icons/chevron-up-double.svg"
-            />
+        <ng-container *ngIf="proposal.importance !== undefined">
+          <div class="box-row">
+            <p class="p-category">Votes</p>
+            <p class="p-value">
+              {{ proposal.prettyImportanceWeightsSum }}
+            </p>
           </div>
-        </div>
+          <div class="box-row">
+            <p class="p-category">Average</p>
+            <div class="value-icon">
+              <p class="p-value">{{ proposal.prettyImportance }}</p>
+              <img
+                [ngClass]="{
+                  hidden:
+                    proposal.importance === undefined ||
+                    proposal.importance >= 1
+                }"
+                class="score-icon"
+                width="11"
+                height="10"
+                src="../../../../../assets/icons/chevron-down-double.svg"
+              />
+              <img
+                [ngClass]="{
+                  hidden:
+                    proposal.importance === undefined ||
+                    proposal.importance < 1 ||
+                    proposal.importance >= 2
+                }"
+                class="score-icon"
+                width="12"
+                height="8"
+                src="../../../../../assets/icons/chevron-down-single.svg"
+              />
+              <img
+                [ngClass]="{
+                  hidden:
+                    proposal.importance === undefined ||
+                    proposal.importance < 2 ||
+                    proposal.importance >= 3
+                }"
+                class="score-icon"
+                width="12"
+                height="6"
+                src="../../../../../assets/icons/equal.svg"
+              />
+              <img
+                [ngClass]="{
+                  hidden:
+                    proposal.importance === undefined ||
+                    proposal.importance < 3 ||
+                    proposal.importance >= 4
+                }"
+                class="score-icon"
+                width="12"
+                height="8"
+                src="../../../../../assets/icons/chevron-up-single.svg"
+              />
+              <img
+                [ngClass]="{
+                  hidden:
+                    proposal.importance === undefined || proposal.importance < 4
+                }"
+                class="score-icon"
+                width="11"
+                height="10"
+                src="../../../../../assets/icons/chevron-up-double.svg"
+              />
+            </div>
+          </div>
+        </ng-container>
       </div>
       <ng-container
         *ngIf="
@@ -253,7 +317,7 @@
         "
       >
         <div class="vertical-card">
-          <div class="backing-title">
+          <div class="card-title">
             <h4>Backing</h4>
             <img
               [ngClass]="{
@@ -262,7 +326,8 @@
                   !proposal.isInDevelopment &&
                   !proposal.isCompleted &&
                   !proposal.isNotBacked &&
-                  !proposal.isNotViable
+                  !proposal.isNotViable &&
+                  currentPoll.myInterestVote === undefined
               }"
               class="lock"
               src="../../../assets/icons/lock.svg"
@@ -278,7 +343,8 @@
                   proposal.isInDevelopment ||
                   proposal.isCompleted ||
                   proposal.isNotBacked ||
-                  proposal.isNotViable
+                  proposal.isNotViable ||
+                  currentPoll.myInterestVote !== undefined
               }"
               (click)="
                 authUser.data?.active &&
@@ -287,6 +353,7 @@
                   !proposal.isCompleted &&
                   !proposal.isNotBacked &&
                   !proposal.isNotViable &&
+                  currentPoll.myInterestVote === undefined &&
                   onInterestVote(true, currentPoll)
               "
             >
@@ -321,7 +388,7 @@
               <div
                 class="bar-fill success-background"
                 [ngStyle]="{
-                  width: currentPoll.positiveRatio + '%'
+                  width: (currentPoll.positiveRatio ?? 0) + '%'
                 }"
               ></div>
             </div>
@@ -334,7 +401,8 @@
                   proposal.isInDevelopment ||
                   proposal.isCompleted ||
                   proposal.isNotBacked ||
-                  proposal.isNotViable
+                  proposal.isNotViable ||
+                  currentPoll.myInterestVote !== undefined
               }"
               (click)="
                 authUser.data?.active &&
@@ -343,6 +411,7 @@
                   !proposal.isCompleted &&
                   !proposal.isNotBacked &&
                   !proposal.isNotViable &&
+                  currentPoll.myInterestVote === undefined &&
                   onInterestVote(false, currentPoll)
               "
             >
@@ -374,47 +443,56 @@
               </div>
             </div>
           </div>
-          <div class="box-row">
-            <p class="p-category">Votes</p>
-            <div class="box-column">
-              <div class="value-icon">
-                <p class="p-value">
-                  {{ currentPoll.prettyPositiveValue }}
-                </p>
-                <img src="../../../assets/icons/vector-up-colored.svg" />
-              </div>
-              <div class="value-icon">
-                <p class="p-value">
-                  {{ currentPoll.prettyNegativeValue }}
-                </p>
-                <img src="../../../assets/icons/vector-down-colored.svg" />
+          <ng-container
+            *ngIf="
+              currentPoll.positiveValue !== undefined &&
+              currentPoll.negativeValue !== undefined
+            "
+          >
+            <div class="box-row">
+              <p class="p-category">Votes</p>
+              <div class="box-column">
+                <div class="value-icon">
+                  <p class="p-value">
+                    {{ currentPoll.prettyPositiveValue }}
+                  </p>
+                  <img src="../../../assets/icons/vector-up-colored.svg" />
+                </div>
+                <div class="value-icon">
+                  <p class="p-value">
+                    {{ currentPoll.prettyNegativeValue }}
+                  </p>
+                  <img src="../../../assets/icons/vector-down-colored.svg" />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="box-row">
-            <p class="p-category">Balance</p>
-            <div class="value-icon">
-              <p class="p-value">
-                {{ currentPoll.balance }}
-              </p>
-              <img
-                [ngClass]="{
-                  hidden: currentPoll.positiveValue < currentPoll.negativeValue
-                }"
-                src="../../../assets/icons/vector-up-colored.svg"
-              />
-              <img
-                [ngClass]="{
-                  hidden: currentPoll.positiveValue >= currentPoll.negativeValue
-                }"
-                src="../../../assets/icons/vector-down-colored.svg"
-              />
+            <div class="box-row">
+              <p class="p-category">Balance</p>
+              <div class="value-icon">
+                <p class="p-value">
+                  {{ currentPoll.balance }}
+                </p>
+                <img
+                  [ngClass]="{
+                    hidden:
+                      currentPoll.positiveValue < currentPoll.negativeValue
+                  }"
+                  src="../../../assets/icons/vector-up-colored.svg"
+                />
+                <img
+                  [ngClass]="{
+                    hidden:
+                      currentPoll.positiveValue >= currentPoll.negativeValue
+                  }"
+                  src="../../../assets/icons/vector-down-colored.svg"
+                />
+              </div>
             </div>
-          </div>
-          <div class="box-row">
-            <p class="p-category">Ratio</p>
-            <p class="p-value">{{ currentPoll.positiveRatio }}%</p>
-          </div>
+            <div class="box-row">
+              <p class="p-category">Ratio</p>
+              <p class="p-value">{{ currentPoll.positiveRatio }}%</p>
+            </div>
+          </ng-container>
         </div>
       </ng-container>
       <div class="vertical-card">
