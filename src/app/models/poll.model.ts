@@ -63,7 +63,21 @@ export class Poll extends AbstractEntity {
       return;
     }
 
-    return Math.round(Math.abs(this.positiveValue - this.negativeValue));
+    const totalValue = Math.abs(this.positiveValue - this.negativeValue);
+
+    const millions = Math.floor(totalValue / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(totalValue / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.floor(totalValue);
   }
 
   get prettyPositiveValue() {
@@ -71,7 +85,19 @@ export class Poll extends AbstractEntity {
       return;
     }
 
-    return Math.round(this.positiveValue);
+    const millions = Math.floor(this.positiveValue / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.positiveValue / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.floor(this.positiveValue);
   }
 
   get prettyNullValue() {
@@ -79,7 +105,19 @@ export class Poll extends AbstractEntity {
       return;
     }
 
-    return Math.round(this.nullValue);
+    const millions = Math.floor(this.nullValue / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.nullValue / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.floor(this.nullValue);
   }
 
   get prettyNegativeValue() {
@@ -87,6 +125,18 @@ export class Poll extends AbstractEntity {
       return;
     }
 
-    return Math.round(this.negativeValue);
+    const millions = Math.floor(this.negativeValue / 1000000);
+
+    if (millions) {
+      return millions + 'M';
+    }
+
+    const thousands = Math.floor(this.negativeValue / 1000);
+
+    if (thousands) {
+      return thousands + 'K';
+    }
+
+    return Math.floor(this.negativeValue);
   }
 }

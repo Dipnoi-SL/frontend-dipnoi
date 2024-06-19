@@ -74,78 +74,10 @@
       </ng-container>
     </div>
     <div class="full-vertical-divider inset-vertical-divider-mod"></div>
-
     <div class="scores">
-      <div
-        *ngIf="
-          !proposal.isSelectedForDevelopment &&
-          !proposal.isInDevelopment &&
-          proposal.positiveRatio !== undefined
-        "
-        class="score-row"
-      >
-        <p
-          class="p-score-text"
-          [ngClass]="{
-            'text-red': proposal.positiveRatio < 20,
-            'text-orange':
-              proposal.positiveRatio >= 20 && proposal.positiveRatio < 40,
-            'text-yellow':
-              proposal.positiveRatio >= 40 && proposal.positiveRatio < 60,
-            'text-olive':
-              proposal.positiveRatio >= 60 && proposal.positiveRatio < 80,
-            'text-green': proposal.positiveRatio >= 80
-          }"
-        >
-          {{ proposal.positiveRatio }}%
-        </p>
-        <div class="score-icon-container">
-          <img
-            [ngClass]="{ hidden: proposal.positiveRatio >= 20 }"
-            class="score-icon"
-            src="../../../../../assets/icons/battery-red.svg"
-          />
-          <img
-            [ngClass]="{
-              hidden:
-                proposal.positiveRatio < 20 || proposal.positiveRatio >= 40
-            }"
-            class="score-icon"
-            src="../../../../../assets/icons/battery-orange.svg"
-          />
-          <img
-            [ngClass]="{
-              hidden:
-                proposal.positiveRatio < 40 || proposal.positiveRatio >= 60
-            }"
-            class="score-icon"
-            src="../../../../../assets/icons/battery-yellow.svg"
-          />
-          <img
-            [ngClass]="{
-              hidden:
-                proposal.positiveRatio < 60 || proposal.positiveRatio >= 80
-            }"
-            class="score-icon"
-            src="../../../../../assets/icons/battery-olive.svg"
-          />
-          <img
-            [ngClass]="{ hidden: proposal.positiveRatio < 80 }"
-            class="score-icon"
-            src="../../../../../assets/icons/battery-green.svg"
-          />
-        </div>
-      </div>
-      <div
-        *ngIf="
-          !proposal.isSelectedForDevelopment &&
-          !proposal.isInDevelopment &&
-          proposal.prettyTotalValue !== undefined
-        "
-        class="score-row"
-      >
-        <p class="p-score-text">
-          {{ proposal.prettyTotalValue }}
+      <div class="score-row">
+        <p class="p-score-text text-olive">
+          {{ proposal.prettyInterestWeightsSum }}
         </p>
         <div class="score-icon-container">
           <img
@@ -154,56 +86,14 @@
           />
         </div>
       </div>
-      <div
-        *ngIf="
-          (proposal.isSelectedForDevelopment || proposal.isInDevelopment) &&
-          proposal.importance !== undefined
-        "
-        class="score-row"
-      >
-        <p
-          class="p-score-text"
-          [ngClass]="{
-            'text-red': proposal.importance < 1,
-            'text-orange': proposal.importance >= 1 && proposal.importance < 2,
-            'text-yellow': proposal.importance >= 2 && proposal.importance < 3,
-            'text-olive': proposal.importance >= 3 && proposal.importance < 4,
-            'text-green': proposal.importance >= 4
-          }"
-        >
-          {{ proposal.prettyImportance }}
+      <div class="score-row">
+        <p class="p-score-text">
+          {{ proposal.prettyNumComments }}
         </p>
         <div class="score-icon-container">
           <img
-            [ngClass]="{ hidden: proposal.importance >= 1 }"
             class="score-icon"
-            src="../../../../../assets/icons/chevron-down-double.svg"
-          />
-          <img
-            [ngClass]="{
-              hidden: proposal.importance < 1 || proposal.importance >= 2
-            }"
-            class="score-icon"
-            src="../../../../../assets/icons/chevron-down-single.svg"
-          />
-          <img
-            [ngClass]="{
-              hidden: proposal.importance < 2 || proposal.importance >= 3
-            }"
-            class="score-icon"
-            src="../../../../../assets/icons/equal.svg"
-          />
-          <img
-            [ngClass]="{
-              hidden: proposal.importance < 3 || proposal.importance >= 4
-            }"
-            class="score-icon"
-            src="../../../../../assets/icons/chevron-up-single.svg"
-          />
-          <img
-            [ngClass]="{ hidden: proposal.importance < 4 }"
-            class="score-icon"
-            src="../../../../../assets/icons/chevron-up-double.svg"
+            src="../../../../../assets/icons/comment-filled.svg"
           />
         </div>
       </div>
