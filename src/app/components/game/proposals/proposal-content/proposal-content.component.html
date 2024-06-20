@@ -76,7 +76,6 @@
         class="actions-container"
         *ngIf="!proposal.isPendingSpecification"
         [formGroup]="stateChangeForm"
-        (ngSubmit)="onSubmitTransition()"
       >
         <div class="text-field-container cost" *ngIf="state.isEditingCost">
           <input
@@ -115,7 +114,7 @@
           <button
             class="button-base button-base-blue"
             [disabled]="!stateChangeForm.valid"
-            type="submit"
+            (click)="onSubmitTransition()"
           >
             <ngx-spinner
               *ngIf="state.isTransitionLoading"
@@ -133,7 +132,6 @@
         class="actions-container"
         *ngIf="proposal.isPendingSpecification"
         [formGroup]="specificationForm"
-        (ngSubmit)="onSubmitSpecification()"
       >
         <div class="text-field-container">
           <input
@@ -168,7 +166,7 @@
           <button
             class="button-base button-base-blue"
             [disabled]="!specificationForm.valid"
-            type="submit"
+            (click)="onSubmitSpecification()"
           >
             <ngx-spinner
               *ngIf="state.isSpecificationLoading"

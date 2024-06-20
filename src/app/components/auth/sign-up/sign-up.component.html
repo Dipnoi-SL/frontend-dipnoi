@@ -2,9 +2,6 @@
   <div class="dialog-content">
     <ng-container *ngIf="state.finished">
       <div class="header">
-        <!-- 
-        <img class="image" src="../../../assets/icons/Logo1.png" />
-      -->
         <h3>Activate your account</h3>
         <p>
           Success! Your account has been created. To activate it, please click
@@ -14,16 +11,9 @@
     </ng-container>
     <ng-container *ngIf="!state.finished">
       <div class="header">
-        <!-- 
-        <img class="image" src="../../../assets/icons/Logo1.png" />
-      -->
         <h3>Sign up</h3>
       </div>
-      <form
-        class="main-content"
-        [formGroup]="signUpForm"
-        (ngSubmit)="onSignUp()"
-      >
+      <form class="main-content" [formGroup]="signUpForm">
         <div class="text-and-error">
           <div
             class="text-field-container"
@@ -123,7 +113,7 @@
         <button
           class="button-base button-base-blue"
           [disabled]="!signUpForm.valid"
-          type="submit"
+          (click)="onSignUp()"
         >
           <ngx-spinner
             *ngIf="state.isSignUpLoading"
