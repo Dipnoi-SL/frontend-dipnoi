@@ -65,7 +65,7 @@ export class MainNavigationComponent
   ngOnInit() {
     this.authUser$ = this.userService.authUser$.subscribe((authUser) => {
       if (authUser) {
-        this.gameService.readManyAsNavigation().subscribe();
+        this.gameService.readManyAsNavigation()?.subscribe();
       }
     });
   }

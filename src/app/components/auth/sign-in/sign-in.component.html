@@ -6,7 +6,7 @@
       -->
       <h3>Sign in</h3>
     </div>
-    <form class="main-content" [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+    <form class="main-content" [formGroup]="signInForm">
       <div class="text-field-container">
         <input
           class="text-field-base"
@@ -39,7 +39,7 @@
       <button
         class="button-base button-base-blue"
         [disabled]="!signInForm.valid"
-        type="submit"
+        (click)="onSignIn()"
       >
         <ngx-spinner
           *ngIf="state.isSignInLoading"

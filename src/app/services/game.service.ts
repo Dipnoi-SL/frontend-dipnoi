@@ -183,16 +183,20 @@ export class GameService {
   }
 
   readManyAsNavigation() {
-    return this.http
-      .get<Game[]>(`${environment.apiUrl}/games/navigations`)
-      .pipe(
-        map((res) => res.map((game) => new Game(game))),
-        tap({
-          next: (res) => {
-            this._navigationGames$.next(res);
-          },
-        }),
-      );
+    if (this.userService.isActive) {
+      return this.http
+        .get<Game[]>(`${environment.apiUrl}/games/navigations`)
+        .pipe(
+          map((res) => res.map((game) => new Game(game))),
+          tap({
+            next: (res) => {
+              this._navigationGames$.next(res);
+            },
+          }),
+        );
+    }
+
+    return;
   }
 
   createOneNavigation(params: { id: number }) {
