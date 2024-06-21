@@ -50,6 +50,7 @@ export class ProposalListComponent
     createdAt?: string;
     resetAt?: string;
     userId?: number;
+    gameId?: number;
   };
 
   spinners$!: Subscription;

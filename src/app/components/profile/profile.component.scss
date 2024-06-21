@@ -84,6 +84,7 @@
 }
 
 .profile-content .content {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -91,7 +92,7 @@
   width: 100%;
   position: relative;
   z-index: 3;
-  padding: 30px 0px;
+  padding: 30px 30px 0px 30px;
 }
 
 .tabs {
@@ -126,6 +127,5 @@
 }
 
 .section-content {
-  display: flex;
-  flex-direction: column;
+  flex-grow: 1;
 }

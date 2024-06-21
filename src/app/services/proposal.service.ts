@@ -52,10 +52,11 @@ export class ProposalService {
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
   }) {
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params: { ...params, gameId: this.gameService.selectedGameId! },
+        params,
       })
       .pipe(
         map((res) => ({
@@ -85,13 +86,13 @@ export class ProposalService {
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
   }) {
     if (this.meta?.hasNextPage) {
       return this.http
         .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
           params: {
             ...params,
-            gameId: this.gameService.selectedGameId!,
             page: this.meta.page + 1,
           },
         })
@@ -126,10 +127,11 @@ export class ProposalService {
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
   }) {
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params: { ...params, gameId: this.gameService.selectedGameId! },
+        params,
       })
       .pipe(
         map((res) => ({

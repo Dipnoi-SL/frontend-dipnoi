@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProposalListComponent } from '../../game/proposals/proposal-list/proposal-list.component';
 import {
@@ -8,6 +13,8 @@ import {
 } from '../../../constants/enums';
 import { StatefulComponent } from '../../../directives/stateful-component.directive';
 import { ParamsComponent } from '../../common/params/params.component';
+import { UserService } from '../../../services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   imports: [CommonModule, ProposalListComponent, ParamsComponent],
@@ -17,22 +24,25 @@ import { ParamsComponent } from '../../common/params/params.component';
   styleUrl: './profile-proposals.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileProposalsComponent extends StatefulComponent<{
-  params: {
-    take?: number;
-    page?: number;
-    orderBy?: ProposalOrderByEnum;
-    order?: OrderEnum;
-    states?: ProposalStateEnum[];
-    search?: string;
-    createdAt?: string;
-    resetAt?: string;
-    selectedAt?: string;
-    disregardedAt?: string;
-    completedAt?: string;
-    userId?: number;
-  };
-}> {
+export class ProfileProposalsComponent
+  extends StatefulComponent<{
+    params: {
+      take?: number;
+      page?: number;
+      orderBy?: ProposalOrderByEnum;
+      order?: OrderEnum;
+      states?: ProposalStateEnum[];
+      search?: string;
+      createdAt?: string;
+      resetAt?: string;
+      selectedAt?: string;
+      disregardedAt?: string;
+      completedAt?: string;
+      userId?: number;
+    };
+  }>
+  implements OnInit, OnDestroy
+{
   filterOptionsData = [
     {
       key: 'resetAt',
@@ -71,14 +81,25 @@ export class ProfileProposalsComponent extends StatefulComponent<{
     },
   ];
   orderOptions = this.orderOptionsData.map((option) => option.text);
+  authUser$!: Subscription;
 
-  constructor() {
+  constructor(public userService: UserService) {
     super({
       params: {
         states: [ProposalStateEnum.FINAL_PHASE, ProposalStateEnum.LAST_CALL],
         orderBy: ProposalOrderByEnum.RESET_AT,
         order: OrderEnum.DESC,
       },
+    });
+  }
+
+  ngOnInit() {
+    this.authUser$ = this.userService.authUser$.subscribe((authUser) => {
+      if (authUser) {
+        this.updateState({
+          params: { ...this.state.params, userId: authUser.id },
+        });
+      }
     });
   }
 
@@ -105,5 +126,11 @@ export class ProfileProposalsComponent extends StatefulComponent<{
     this.updateState({
       params: newParams,
     });
+  }
+
+  override ngOnDestroy() {
+    this.authUser$.unsubscribe();
+
+    super.ngOnDestroy();
   }
 }

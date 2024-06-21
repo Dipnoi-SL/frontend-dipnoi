@@ -8,6 +8,7 @@ import {
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
 import { ParamsComponent } from '../../../common/params/params.component';
 import { ProposalSectionListComponent } from '../proposal-section-list/proposal-section-list.component';
+import { GameService } from '../../../../services/game.service';
 
 @Component({
   selector: 'dipnoi-archive',
@@ -31,14 +32,16 @@ export class ArchiveComponent extends StatefulComponent<{
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
   };
 }> {
-  constructor() {
+  constructor(public gameService: GameService) {
     super({
       params: {
         states: [ProposalStateEnum.NOT_BACKED, ProposalStateEnum.NOT_VIABLE],
         orderBy: ProposalOrderByEnum.DISREGARDED_AT,
         order: OrderEnum.DESC,
+        gameId: gameService.selectedGameId,
       },
     });
   }

@@ -7,28 +7,26 @@
     <div class="central-frame-content">
       <div class="profile-content">
         <div class="content">
-          <div class="profile-functions">
-            <div class="tabs">
-              <div *ngFor="let item of navigationItems" class="tab">
+          <div class="tabs">
+            <div *ngFor="let item of navigationItems" class="tab">
+              <div
+                class="tab-content"
+                [routerLink]="item.path"
+                routerLinkActive="selection-tab"
+              >
+                <h5>
+                  {{ item.title }}
+                </h5>
                 <div
-                  class="tab-content"
                   [routerLink]="item.path"
-                  routerLinkActive="selection-tab"
-                >
-                  <h5>
-                    {{ item.title }}
-                  </h5>
-                  <div
-                    [routerLink]="item.path"
-                    routerLinkActive="underline"
-                  ></div>
-                </div>
+                  routerLinkActive="underline"
+                ></div>
               </div>
             </div>
+          </div>
 
-            <div class="section-content">
-              <router-outlet></router-outlet>
-            </div>
+          <div class="section-content">
+            <router-outlet></router-outlet>
           </div>
         </div>
       </div>

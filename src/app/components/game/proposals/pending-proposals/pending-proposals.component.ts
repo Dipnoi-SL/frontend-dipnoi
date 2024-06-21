@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RoutePathEnum } from '../../../../app.routes';
 import { Proposal } from '../../../../models/proposal.model';
+import { GameService } from '../../../../services/game.service';
 
 @Component({
   selector: 'dipnoi-pending-proposals',
@@ -52,6 +53,7 @@ export class PendingProposalsComponent
       disregardedAt?: string;
       completedAt?: string;
       userId?: number;
+      gameId?: number;
     };
     isPinnedShown: boolean;
   }>
@@ -101,6 +103,7 @@ export class PendingProposalsComponent
   constructor(
     public proposalService: ProposalService,
     public userService: UserService,
+    public gameService: GameService,
     public route: ActivatedRoute,
   ) {
     super({
@@ -112,6 +115,7 @@ export class PendingProposalsComponent
         ],
         orderBy: ProposalOrderByEnum.CREATED_AT,
         order: OrderEnum.DESC,
+        gameId: gameService.selectedGameId,
       },
       isPinnedShown: true,
     });
@@ -127,6 +131,7 @@ export class PendingProposalsComponent
             order: OrderEnum.DESC,
             states: [ProposalStateEnum.PENDING_SPECIFICATION],
             userId: authUser.id,
+            gameId: this.gameService.selectedGameId,
           })
           .subscribe({
             next: () => {

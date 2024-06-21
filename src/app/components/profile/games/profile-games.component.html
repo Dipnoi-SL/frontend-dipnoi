@@ -1,5 +1,18 @@
-<div class="central-frame-content">
-  <div class="central-frame-content-header"></div>
-  <div class="list-wrapper" #infiniteScrollContainerRef></div>
-  <div class="surface-fade-bottom wrapper-fade-fix"></div>
-</div>
+<ng-container *ngIf="state$ | async as state">
+  <div class="central-frame-content">
+    <div class="central-frame-content-header">
+      <dipnoi-params
+        (onParamsUpdated)="handleOnParamsUpdated($event)"
+        [orderOptions]="orderOptions"
+        [defaultOrder]="0"
+      ></dipnoi-params>
+    </div>
+    <div class="list-wrapper" #infiniteScrollContainerRef>
+      <dipnoi-game-list
+        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        [params]="state.params"
+      ></dipnoi-game-list>
+    </div>
+    <div class="surface-fade-bottom wrapper-fade-fix"></div>
+  </div>
+</ng-container>

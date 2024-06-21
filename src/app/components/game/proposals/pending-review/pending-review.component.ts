@@ -8,6 +8,7 @@ import {
 } from '../../../../constants/enums';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
 import { ParamsComponent } from '../../../common/params/params.component';
+import { GameService } from '../../../../services/game.service';
 
 @Component({
   selector: 'dipnoi-pending-review',
@@ -31,6 +32,7 @@ export class PendingReviewComponent extends StatefulComponent<{
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
   };
 }> {
   filterOptionsData = [
@@ -72,12 +74,13 @@ export class PendingReviewComponent extends StatefulComponent<{
   ];
   orderOptions = this.orderOptionsData.map((option) => option.text);
 
-  constructor() {
+  constructor(public gameService: GameService) {
     super({
       params: {
         states: [ProposalStateEnum.PENDING_REVIEW],
         orderBy: ProposalOrderByEnum.CREATED_AT,
         order: OrderEnum.DESC,
+        gameId: gameService.selectedGameId,
       },
     });
   }
