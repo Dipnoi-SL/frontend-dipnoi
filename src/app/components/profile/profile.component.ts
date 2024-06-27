@@ -15,20 +15,20 @@ import { RoutePathEnum } from '../../app.routes';
 export class ProfileComponent {
   navigationItems = [
     {
-      title: 'Overview',
+      title: 'OVERVIEW',
       path: RoutePathEnum.OVERVIEW,
     },
     {
-      title: 'Games',
-      path: RoutePathEnum.GAMES,
-    },
-    {
-      title: 'Proposals',
+      title: 'PROPOSALS',
       path: RoutePathEnum.PROPOSALS,
     },
     {
-      title: 'Comments',
+      title: 'COMMENTS',
       path: RoutePathEnum.COMMENTS,
+    },
+    {
+      title: 'GAMES',
+      path: RoutePathEnum.GAMES,
     },
   ];
 

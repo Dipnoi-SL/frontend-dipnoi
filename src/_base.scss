@@ -218,6 +218,28 @@ li {
   text-align: justify;
 }
 
+.middot {
+  font-family: variables.$font-family-base;
+  font-size: variables.$font-size-middot;
+  color: variables.$text-color;
+  line-height: variables.$font-line-height-sm;
+  font-weight: variables.$font-weight-normal;
+  letter-spacing: variables.$font-letter-spacing-tight;
+  margin-top: variables.$font-paragraph-spacing-normal;
+  margin-bottom: variables.$font-paragraph-spacing-normal;
+  font-variant-ligatures: normal;
+  font-kerning: normal;
+  text-align: justify;
+}
+
+.bold {
+  font-weight: variables.$font-weight-bold;
+}
+
+.medium {
+  font-weight: variables.$font-weight-medium;
+}
+
 @font-face {
   font-family: 'eric';
   src: url('../src/assets/fonts/ComicRunes.otf') format('truetype');
