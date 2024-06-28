@@ -1,9 +1,13 @@
-<ng-container *ngIf="userService.authUser$ | async as authUser">
-  <img
-    class="profile-pic"
-    [ngSrc]="authUser.avatarUri"
-    [width]="160"
-    [height]="160"
-    [priority]="true"
-  />
-</ng-container>
+<div class="overview-content">
+  <div class="content">
+    <ng-container *ngIf="userService.authUser$ | async as authUser">
+      <img
+        class="profile-pic"
+        [ngSrc]="authUser.avatarUri"
+        [width]="160"
+        [height]="160"
+        [priority]="true"
+      />
+    </ng-container>
+  </div>
+</div>
