@@ -69,9 +69,13 @@ export class ParamsComponent
 
   @HostListener('document:click', ['$event.target'])
   closeDropdown(element: HTMLElement) {
-    if (!element.closest('.dropdown-button')) {
+    if (!element.closest('.dropdown-button-filter')) {
       this.updateState({
         isFilterDropdownOpen: false,
+      });
+    }
+    if (!element.closest('.dropdown-button-order')) {
+      this.updateState({
         isOrderDropdownOpen: false,
       });
     }

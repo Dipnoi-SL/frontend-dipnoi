@@ -1,7 +1,30 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="central-frame-content">
     <div class="central-frame-content-header">
-      <h5 class="medium">CREATED v</h5>
+      <div
+        *ngIf="sectionOptions"
+        class="dropdown"
+        (click)="toggleSectionDropdown()"
+      >
+        <div class="dropdown-button-section">
+          <h5>{{ sectionOptions[state.selectedSection] }}</h5>
+          <img src="../../../../assets/icons/dropdown.svg" />
+        </div>
+        <div
+          class="dropdown-base"
+          [style.display]="state.isSectionDropdownOpen ? undefined : 'none'"
+        >
+          <div
+            *ngFor="let option of sectionOptions; let i = index"
+            class="dropdown-option hover-card"
+            (click)="onSectionChange(i)"
+          >
+            <h5 class="dropdown-option-text">
+              {{ option }}
+            </h5>
+          </div>
+        </div>
+      </div>
       <dipnoi-params
         (onParamsUpdated)="handleOnParamsUpdated($event)"
         [filterOptions]="filterOptions"
