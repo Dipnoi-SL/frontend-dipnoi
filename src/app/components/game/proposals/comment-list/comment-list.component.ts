@@ -21,6 +21,7 @@ import {
 } from '@angular/forms';
 import { Comment } from '../../../../models/comment.model';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { ProposalService } from '../../../../services/proposal.service';
 
 @Component({
   selector: 'dipnoi-comment-list',
@@ -43,6 +44,7 @@ export class CommentListComponent
     params: {
       orderBy?: CommentOrderByEnum;
       order?: OrderEnum;
+      proposalId?: number;
     };
     isCreateCommentLoading: boolean;
   }>
@@ -58,11 +60,17 @@ export class CommentListComponent
 
   constructor(
     public commentService: CommentService,
+    public proposalService: ProposalService,
     public userService: UserService,
     public formBuilder: NonNullableFormBuilder,
     public spinnerService: NgxSpinnerService,
   ) {
-    super({ params: {}, isCreateCommentLoading: false });
+    super({
+      params: {
+        proposalId: proposalService.selectedProposalId,
+      },
+      isCreateCommentLoading: false,
+    });
   }
 
   ngOnInit() {

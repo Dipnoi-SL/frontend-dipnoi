@@ -1,4 +1,3 @@
-@use '../../../../variables';
 :host {
   width: 100%;
   height: 100%;
@@ -8,63 +7,12 @@
   right: 15px;
 }
 
-.central-frame {
-  background-color: unset;
-}
-
-.comment {
+.central-frame-content-header {
   display: flex;
-  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
   height: fit-content;
-  width: 100%;
-  gap: 10px;
-}
-
-.first-row {
-  display: flex;
   flex-direction: row;
-  height: fit-content;
-  align-items: center;
-  width: 100%;
-  gap: 12px;
-}
-
-.second-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: fit-content;
-  width: 100%;
-  gap: 12px;
-}
-
-.description {
-  height: fit-content;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  word-break: break-word;
-  overflow: hidden;
-  width: 100%;
-}
-
-.reply {
-  display: flex;
-  flex-direction: row;
-  width: fit-content;
-  height: fit-content;
-}
-
-.color {
-  color: variables.$outline;
-}
-
-.comment-list {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  gap: 20px;
+  justify-content: flex-end;
   padding: 0px 30px;
 }

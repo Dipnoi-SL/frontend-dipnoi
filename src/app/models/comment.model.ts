@@ -29,4 +29,34 @@ export class Comment extends AbstractEntity {
       day: 'numeric',
     });
   }
+
+  get timeCreated() {
+    const daysCreated = Math.floor(
+      (Date.now() - new Date(this.createdAt).getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    const yearsCreated = Math.floor(daysCreated / 365);
+
+    if (yearsCreated) {
+      return yearsCreated + 'y';
+    }
+
+    const monthsCreated = Math.floor(daysCreated / 30);
+
+    if (monthsCreated) {
+      return monthsCreated + 'm';
+    }
+
+    const weeksCreated = Math.floor(daysCreated / 7);
+
+    if (weeksCreated) {
+      return weeksCreated + 'w';
+    }
+
+    if (daysCreated) {
+      return daysCreated + 'd';
+    }
+
+    return 'now';
+  }
 }

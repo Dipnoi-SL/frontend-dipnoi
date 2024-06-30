@@ -1,64 +1,18 @@
-<div class="central-frame-content">
-  <div class="central-frame-content-header">
-    <dipnoi-params></dipnoi-params>
-  </div>
-  <div class="comment-list">
-    <div class="comment">
-      <div class="first-row">
-        <div class="section">
-          <h5 class="medium">Open proposals</h5>
-        </div>
-        <div class="middot">·</div>
-        <h5 class="medium">Eric de leche</h5>
-      </div>
-      <div class="second-row">
-        <div class="reply">
-          <p class="color">Reply to</p>
-          <p class="medium">&nbsp;Pablo 47 chromosomes</p>
-        </div>
-        <small>2 years</small>
-      </div>
-      <p class="description">
-        Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo al
-        horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo
-        al horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno
-        Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo al
-        horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo
-        al horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno
-        Pollo al horno Pollo al horno
-      </p>
+<ng-container *ngIf="state$ | async as state">
+  <div class="central-frame-content">
+    <div class="central-frame-content-header">
+      <dipnoi-params
+        (onParamsUpdated)="handleOnParamsUpdated($event)"
+        [orderOptions]="orderOptions"
+        [defaultOrder]="0"
+      ></dipnoi-params>
     </div>
-
-    <div class="full-horizontal-divider"></div>
-    <div class="comment">
-      <div class="first-row">
-        <div class="section">
-          <h5 class="medium">Open proposals</h5>
-        </div>
-        <div class="middot">·</div>
-        <h5 class="medium">Eric de leche</h5>
-      </div>
-      <div class="second-row">
-        <div class="reply">
-          <p class="color">Comment</p>
-        </div>
-        <small>2 years</small>
-      </div>
-      <p class="description">
-        Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo al
-        horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo
-        al horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno
-        Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo al
-        horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo
-        al horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno
-        Pollo al horno Pollo al hornoPollo al horno Pollo al horno Pollo al
-        horno Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo
-        al horno Pollo al horno Pollo al hornoPollo al horno Pollo al horno
-        Pollo al horno Pollo al horno Pollo al horno Pollo al horno Pollo al
-        horno Pollo al horno Pollo al horno Pollo al horno
-      </p>
+    <div class="list-wrapper" #infiniteScrollContainerRef>
+      <dipnoi-profile-comment-list
+        [infiniteScrollContainerRef]="infiniteScrollContainerRef"
+        [params]="state.params"
+      ></dipnoi-profile-comment-list>
     </div>
+    <div class="surface-fade-bottom wrapper-fade-fix"></div>
   </div>
-
-  <div class="surface-fade-bottom wrapper-fade-fix"></div>
-</div>
+</ng-container>

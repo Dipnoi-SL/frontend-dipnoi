@@ -34,13 +34,12 @@ export class CommentService {
     page?: number;
     orderBy?: CommentOrderByEnum;
     order?: OrderEnum;
+    proposalId?: number;
+    userId?: number;
   }) {
     return this.http
       .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
-        params: {
-          ...params,
-          proposalId: this.proposalService.selectedProposalId!,
-        },
+        params,
       })
       .pipe(
         map((res) => ({
@@ -62,13 +61,14 @@ export class CommentService {
     page?: number;
     orderBy?: CommentOrderByEnum;
     order?: OrderEnum;
+    proposalId?: number;
+    userId?: number;
   }) {
     if (this.meta?.hasNextPage) {
       return this.http
         .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
           params: {
             ...params,
-            proposalId: this.proposalService.selectedProposalId!,
             page: this.meta.page + 1,
           },
         })
