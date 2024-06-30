@@ -1,0 +1,28 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper-fade-fix {
+  right: 15px;
+}
+
+.central-frame-content-header {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: fit-content;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 30px;
+}
+
+.dropdown-button-section {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}

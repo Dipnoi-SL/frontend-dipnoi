@@ -1,7 +1,7 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="search-tools-panel">
     <div *ngIf="orderOptions" class="dropdown" (click)="toggleOrderDropdown()">
-      <div class="dropdown-button hover-card">
+      <div class="dropdown-button dropdown-button-order hover-card">
         <p>{{ orderOptions[state.params.selectedOrder] }}</p>
         <img src="../../../../assets/icons/dropdown.svg" />
       </div>
@@ -25,7 +25,7 @@
       class="dropdown"
       (click)="toggleFilterDropdown()"
     >
-      <div class="dropdown-button hover-card">
+      <div class="dropdown-button dropdown-button-filter hover-card">
         <p>{{ filterOptions[state.params.selectedFilter] }}</p>
         <img src="../../../../assets/icons/dropdown.svg" />
       </div>

@@ -8,6 +8,7 @@ import {
 } from '../../../../constants/enums';
 import { StatefulComponent } from '../../../../directives/stateful-component.directive';
 import { ParamsComponent } from '../../../common/params/params.component';
+import { GameService } from '../../../../services/game.service';
 
 @Component({
   selector: 'dipnoi-backlog',
@@ -31,6 +32,7 @@ export class BacklogComponent extends StatefulComponent<{
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
   };
 }> {
   filterOptionsData = [
@@ -72,7 +74,7 @@ export class BacklogComponent extends StatefulComponent<{
   ];
   orderOptions = this.orderOptionsData.map((option) => option.text);
 
-  constructor() {
+  constructor(public gameService: GameService) {
     super({
       params: {
         states: [
@@ -81,6 +83,7 @@ export class BacklogComponent extends StatefulComponent<{
         ],
         orderBy: ProposalOrderByEnum.SELECTED_AT,
         order: OrderEnum.DESC,
+        gameId: gameService.selectedGameId,
       },
     });
   }

@@ -1,44 +1,31 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostListener,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProposalListComponent } from '../proposal-list/proposal-list.component';
+import { ProposalListComponent } from '../../game/proposals/proposal-list/proposal-list.component';
 import {
   OrderEnum,
   ProposalOrderByEnum,
   ProposalStateEnum,
-} from '../../../../constants/enums';
-import { StatefulComponent } from '../../../../directives/stateful-component.directive';
-import { ParamsComponent } from '../../../common/params/params.component';
-import { ToggleComponent } from '../toggle/toggle.component';
-import { ProposalCardComponent } from '../proposal-card/proposal-card.component';
-import { ProposalService } from '../../../../services/proposal.service';
-import { UserService } from '../../../../services/user.service';
+} from '../../../constants/enums';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { ParamsComponent } from '../../common/params/params.component';
+import { UserService } from '../../../services/user.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { RoutePathEnum } from '../../../../app.routes';
-import { Proposal } from '../../../../models/proposal.model';
-import { GameService } from '../../../../services/game.service';
 
 @Component({
-  selector: 'dipnoi-pending-proposals',
+  imports: [CommonModule, ProposalListComponent, ParamsComponent],
+  selector: 'dipnoi-profile-proposals',
   standalone: true,
-  templateUrl: './pending-proposals.component.html',
-  styleUrl: './pending-proposals.component.scss',
-  imports: [
-    CommonModule,
-    ProposalListComponent,
-    ParamsComponent,
-    ToggleComponent,
-    ProposalCardComponent,
-    RouterLink,
-  ],
+  templateUrl: './profile-proposals.component.html',
+  styleUrl: './profile-proposals.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PendingProposalsComponent
+export class ProfileProposalsComponent
   extends StatefulComponent<{
     params: {
       take?: number;
@@ -53,14 +40,14 @@ export class PendingProposalsComponent
       disregardedAt?: string;
       completedAt?: string;
       userId?: number;
-      gameId?: number;
+      followed?: boolean;
     };
-    isPinnedShown: boolean;
+    userId?: number;
+    selectedSection: number;
+    isSectionDropdownOpen: boolean;
   }>
   implements OnInit, OnDestroy
 {
-  authUser$!: Subscription;
-  proposalCreationQueryParam = { [RoutePathEnum.CREATION]: true };
   filterOptionsData = [
     {
       key: 'createdAt',
@@ -99,48 +86,77 @@ export class PendingProposalsComponent
     },
   ];
   orderOptions = this.orderOptionsData.map((option) => option.text);
+  sectionOptionsData = [
+    { key: 'userId', value: undefined, text: 'CREATED' },
+    {
+      key: 'followed',
+      value: undefined,
+      text: 'FAVORITES',
+    },
+  ];
+  sectionOptions = this.sectionOptionsData.map((option) => option.text);
+  authUser$!: Subscription;
 
-  constructor(
-    public proposalService: ProposalService,
-    public userService: UserService,
-    public gameService: GameService,
-    public route: ActivatedRoute,
-  ) {
+  constructor(public userService: UserService) {
     super({
       params: {
-        states: [
-          ProposalStateEnum.INITIAL_PHASE,
-          ProposalStateEnum.PENDING_SPECIFICATION,
-          ProposalStateEnum.PENDING_REVIEW,
-        ],
+        states: [],
         orderBy: ProposalOrderByEnum.CREATED_AT,
         order: OrderEnum.DESC,
-        gameId: gameService.selectedGameId,
       },
-      isPinnedShown: true,
+      selectedSection: 0,
+      isSectionDropdownOpen: false,
     });
   }
 
   ngOnInit() {
     this.authUser$ = this.userService.authUser$.subscribe((authUser) => {
       if (authUser) {
-        this.proposalService
-          .readManyAsPinned({
-            take: 3,
-            orderBy: ProposalOrderByEnum.CREATED_AT,
-            order: OrderEnum.DESC,
-            states: [ProposalStateEnum.PENDING_SPECIFICATION],
-            userId: authUser.id,
-            gameId: this.gameService.selectedGameId,
-          })
-          .subscribe({
-            next: () => {
-              this.updateState({ isPinnedShown: true });
-            },
+        this.updateState({
+          params: { ...this.state.params },
+          userId: authUser.id,
+        });
+
+        if (this.state.selectedSection === 0) {
+          this.updateState({
+            params: { ...this.state.params, userId: authUser.id },
           });
-      } else {
-        this.updateState({ isPinnedShown: false });
+        }
       }
+    });
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  closeDropdown(element: HTMLElement) {
+    if (!element.closest('.dropdown-button-section')) {
+      this.updateState({
+        isSectionDropdownOpen: false,
+      });
+    }
+  }
+
+  toggleSectionDropdown() {
+    this.updateState({
+      isSectionDropdownOpen: !this.state.isSectionDropdownOpen,
+    });
+  }
+
+  onSectionChange(index: number) {
+    const newParams: Record<string, unknown> = {
+      ...this.state.params,
+      userId: index === 0 ? this.state.userId : undefined,
+      followed: index === 1 ? true : undefined,
+    };
+
+    for (const key of Object.keys(newParams)) {
+      if (newParams[key] === undefined || newParams[key] === '') {
+        delete newParams[key];
+      }
+    }
+
+    this.updateState({
+      params: newParams,
+      selectedSection: index,
     });
   }
 
@@ -167,14 +183,6 @@ export class PendingProposalsComponent
     this.updateState({
       params: newParams,
     });
-  }
-
-  handleOnToggleUpdated(isToggled: boolean) {
-    this.updateState({ isPinnedShown: isToggled });
-  }
-
-  trackById(index: number, proposal: Proposal) {
-    return proposal.id;
   }
 
   override ngOnDestroy() {

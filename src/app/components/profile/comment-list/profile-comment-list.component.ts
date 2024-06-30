@@ -8,34 +8,30 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { ProposalCardComponent } from '../proposal-card/proposal-card.component';
-import { ProposalService } from '../../../../services/proposal.service';
-import {
-  OrderEnum,
-  ProposalOrderByEnum,
-  ProposalStateEnum,
-} from '../../../../constants/enums';
-import { InsufficientItemsDirective } from '../../../../directives/insufficient-items.directive';
-import { Proposal } from '../../../../models/proposal.model';
-import { StatefulComponent } from '../../../../directives/stateful-component.directive';
 import { Subscription, finalize } from 'rxjs';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { InsufficientItemsDirective } from '../../../directives/insufficient-items.directive';
+import { CommentOrderByEnum, OrderEnum } from '../../../constants/enums';
+import { StatefulComponent } from '../../../directives/stateful-component.directive';
+import { CommentService } from '../../../services/comment.service';
+import { ProfileCommentComponent } from '../comment/profile-comment.component';
+import { Comment } from '../../../models/comment.model';
 
 @Component({
-  selector: 'dipnoi-proposal-list',
+  selector: 'dipnoi-profile-comment-list',
   standalone: true,
-  templateUrl: './proposal-list.component.html',
-  styleUrl: './proposal-list.component.scss',
+  templateUrl: './profile-comment-list.component.html',
+  styleUrl: './profile-comment-list.component.scss',
   imports: [
     CommonModule,
     InfiniteScrollModule,
-    ProposalCardComponent,
     InsufficientItemsDirective,
     NgxSpinnerComponent,
+    ProfileCommentComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProposalListComponent
+export class ProfileCommentListComponent
   extends StatefulComponent<{ isReloading: boolean }>
   implements OnInit, OnChanges, OnDestroy
 {
@@ -43,20 +39,15 @@ export class ProposalListComponent
   @Input({ required: true }) params!: {
     take?: number;
     page?: number;
-    orderBy?: ProposalOrderByEnum;
+    orderBy?: CommentOrderByEnum;
     order?: OrderEnum;
-    states?: ProposalStateEnum[];
-    search?: string;
-    createdAt?: string;
-    resetAt?: string;
     userId?: number;
-    gameId?: number;
   };
 
   spinners$!: Subscription;
 
   constructor(
-    public proposalService: ProposalService,
+    public commentService: CommentService,
     public spinnerService: NgxSpinnerService,
   ) {
     super({ isReloading: false });
@@ -65,9 +56,9 @@ export class ProposalListComponent
   ngOnInit() {
     this.spinners$ = this.state$.subscribe((state) => {
       if (state.isReloading) {
-        this.spinnerService.show('proposal-list');
+        this.spinnerService.show('profile-comment-list');
       } else {
-        this.spinnerService.hide('proposal-list');
+        this.spinnerService.hide('profile-comment-list');
       }
     });
   }
@@ -75,7 +66,7 @@ export class ProposalListComponent
   ngOnChanges() {
     this.updateState({ isReloading: true });
 
-    this.proposalService
+    this.commentService
       .readMany(this.params)
       .pipe(
         finalize(() => {
@@ -86,11 +77,11 @@ export class ProposalListComponent
   }
 
   onScrollEnd() {
-    this.proposalService.readManyMore(this.params)?.subscribe();
+    this.commentService.readManyMore(this.params)?.subscribe();
   }
 
-  trackById(index: number, proposal: Proposal) {
-    return proposal.id;
+  trackById(index: number, comment: Comment) {
+    return comment.id;
   }
 
   override ngOnDestroy() {

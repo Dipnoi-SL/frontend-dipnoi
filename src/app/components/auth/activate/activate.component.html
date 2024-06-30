@@ -21,11 +21,7 @@
         </p>
       </div>
 
-      <form
-        class="main-content"
-        [formGroup]="activateForm"
-        (ngSubmit)="onFinish()"
-      >
+      <form class="main-content" [formGroup]="activateForm">
         <div class="text-and-error">
           <div
             class="text-field-container"
@@ -129,7 +125,7 @@
         <button
           class="button-base button-base-blue"
           [disabled]="!activateForm.valid"
-          type="submit"
+          (click)="onFinish()"
         >
           <ngx-spinner
             *ngIf="state.isActivationLoading"

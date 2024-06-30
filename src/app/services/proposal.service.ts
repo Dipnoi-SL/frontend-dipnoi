@@ -52,11 +52,16 @@ export class ProposalService {
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
+    followed?: boolean;
   }) {
     return this.http
-      .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params: { ...params, gameId: this.gameService.selectedGameId! },
-      })
+      .get<Page<Proposal>>(
+        `${environment.apiUrl}/proposals${params.followed ? '/followed' : ''}`,
+        {
+          params,
+        },
+      )
       .pipe(
         map((res) => ({
           data: res.data.map((proposal) => new Proposal(proposal)),
@@ -85,16 +90,20 @@ export class ProposalService {
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
+    followed?: boolean;
   }) {
     if (this.meta?.hasNextPage) {
       return this.http
-        .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-          params: {
-            ...params,
-            gameId: this.gameService.selectedGameId!,
-            page: this.meta.page + 1,
+        .get<Page<Proposal>>(
+          `${environment.apiUrl}/proposals${params.followed ? '/followed' : ''}`,
+          {
+            params: {
+              ...params,
+              page: this.meta.page + 1,
+            },
           },
-        })
+        )
         .pipe(
           map((res) => ({
             data: res.data.map((proposal) => new Proposal(proposal)),
@@ -126,10 +135,11 @@ export class ProposalService {
     disregardedAt?: string;
     completedAt?: string;
     userId?: number;
+    gameId?: number;
   }) {
     return this.http
       .get<Page<Proposal>>(`${environment.apiUrl}/proposals`, {
-        params: { ...params, gameId: this.gameService.selectedGameId! },
+        params,
       })
       .pipe(
         map((res) => ({

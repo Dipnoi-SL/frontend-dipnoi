@@ -12,7 +12,6 @@
         <form
           class="comment-field-buttons"
           [formGroup]="createCommentForm"
-          (ngSubmit)="onSubmit()"
           style="width: 100%"
         >
           <div class="text-field-container">
@@ -32,7 +31,7 @@
             <button
               class="button-base button-base-blue"
               [disabled]="!createCommentForm.valid || !authUser.active"
-              type="submit"
+              (click)="onSubmit()"
             >
               <ngx-spinner
                 *ngIf="state.isCreateCommentLoading"
