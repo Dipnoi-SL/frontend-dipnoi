@@ -44,7 +44,6 @@ export class CommentListComponent
     params: {
       orderBy?: CommentOrderByEnum;
       order?: OrderEnum;
-      proposalId?: number;
     };
     isCreateCommentLoading: boolean;
   }>
@@ -66,16 +65,19 @@ export class CommentListComponent
     public spinnerService: NgxSpinnerService,
   ) {
     super({
-      params: {
-        proposalId: proposalService.selectedProposalId,
-      },
+      params: {},
       isCreateCommentLoading: false,
     });
   }
 
   ngOnInit() {
     this.authUser$ = this.userService.authUser$.subscribe(() => {
-      this.commentService.readMany(this.state.params).subscribe();
+      this.commentService
+        .readMany({
+          ...this.state.params,
+          proposalId: this.proposalService.selectedProposalId,
+        })
+        .subscribe();
     });
 
     this.spinners$ = this.state$.subscribe((state) => {
@@ -88,7 +90,12 @@ export class CommentListComponent
   }
 
   onScrollEnd() {
-    this.commentService.readManyMore(this.state.params)?.subscribe();
+    this.commentService
+      .readManyMore({
+        ...this.state.params,
+        proposalId: this.proposalService.selectedProposalId,
+      })
+      ?.subscribe();
   }
 
   onCancel() {

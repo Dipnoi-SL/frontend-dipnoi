@@ -1,5 +1,6 @@
 import { RoutePathEnum } from '../app.routes';
 import { AbstractEntity } from './abstract-entity.model';
+import { Proposal } from './proposal.model';
 import { User } from './user.model';
 
 export class Comment extends AbstractEntity {
@@ -11,11 +12,18 @@ export class Comment extends AbstractEntity {
   myFeedback?: boolean | null;
   user!: User;
   proposalId!: number;
+  proposal?: Proposal;
 
   constructor(data: Comment) {
     super(data);
 
     Object.assign(this, data);
+
+    this.user = new User(data.user);
+
+    if (data.proposal) {
+      this.proposal = new Proposal(data.proposal);
+    }
   }
 
   get selectedProposalQueryParam() {

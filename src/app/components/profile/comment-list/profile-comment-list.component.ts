@@ -42,6 +42,7 @@ export class ProfileCommentListComponent
     orderBy?: CommentOrderByEnum;
     order?: OrderEnum;
     userId?: number;
+    withProposal?: string;
   };
 
   spinners$!: Subscription;
@@ -67,7 +68,7 @@ export class ProfileCommentListComponent
     this.updateState({ isReloading: true });
 
     this.commentService
-      .readMany(this.params)
+      .readManyAsProfile(this.params)
       .pipe(
         finalize(() => {
           this.updateState({ isReloading: false });
@@ -77,7 +78,7 @@ export class ProfileCommentListComponent
   }
 
   onScrollEnd() {
-    this.commentService.readManyMore(this.params)?.subscribe();
+    this.commentService.readManyMoreAsProfile(this.params)?.subscribe();
   }
 
   trackById(index: number, comment: Comment) {

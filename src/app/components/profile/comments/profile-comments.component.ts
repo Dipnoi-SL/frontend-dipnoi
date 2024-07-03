@@ -28,6 +28,7 @@ export class ProfileCommentsComponent
       orderBy?: CommentOrderByEnum;
       order?: OrderEnum;
       userId?: number;
+      withProposal?: string;
     };
   }>
   implements OnInit, OnDestroy
@@ -48,6 +49,7 @@ export class ProfileCommentsComponent
       params: {
         orderBy: CommentOrderByEnum.CREATED_AT,
         order: OrderEnum.DESC,
+        withProposal: 'true',
       },
     });
   }
