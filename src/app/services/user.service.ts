@@ -4,6 +4,7 @@ import { BehaviorSubject, map, tap } from 'rxjs';
 import { MyUser } from '../models/my-user.model';
 import { environment } from '../../environments/environment';
 import { NicknameExistance } from '../models/nickname-existance.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,11 @@ export class UserService {
 
   isActive = false;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
     this.authUser$.subscribe((authUser) => {
       this.isActive = authUser?.active ?? false;
     });
@@ -33,6 +38,12 @@ export class UserService {
 
   clearMe() {
     this._authUser$.next(null);
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      skipLocationChange: true,
+      onSameUrlNavigation: 'reload',
+    });
   }
 
   updateMe(params: { nickname: string }) {
