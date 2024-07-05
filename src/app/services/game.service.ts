@@ -39,11 +39,17 @@ export class GameService {
     orderBy?: GameOrderByEnum;
     order?: OrderEnum;
     search?: string;
+    played?: boolean;
+    wishlisted?: boolean;
+    favorites?: boolean;
   }) {
     return this.http
-      .get<Page<Game>>(`${environment.apiUrl}/games`, {
-        params,
-      })
+      .get<Page<Game>>(
+        `${environment.apiUrl}/games${params.played ? '/played' : params.wishlisted ? '/wishlists' : params.favorites ? '/favorites' : ''}`,
+        {
+          params,
+        },
+      )
       .pipe(
         map((res) => ({
           data: res.data.map((game) => new Game(game)),
@@ -65,12 +71,18 @@ export class GameService {
     orderBy?: GameOrderByEnum;
     order?: OrderEnum;
     search?: string;
+    played?: boolean;
+    wishlisted?: boolean;
+    favorites?: boolean;
   }) {
     if (this.meta?.hasNextPage) {
       return this.http
-        .get<Page<Game>>(`${environment.apiUrl}/games`, {
-          params: { ...params, page: this.meta.page + 1 },
-        })
+        .get<Page<Game>>(
+          `${environment.apiUrl}/games${params.played ? '/played' : params.wishlisted ? '/wishlists' : params.favorites ? '/favorites' : ''}`,
+          {
+            params: { ...params, page: this.meta.page + 1 },
+          },
+        )
         .pipe(
           map((res) => ({
             data: res.data.map((game) => new Game(game)),
