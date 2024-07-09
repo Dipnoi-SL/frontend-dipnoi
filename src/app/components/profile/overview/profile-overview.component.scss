@@ -157,6 +157,32 @@
   padding: 0px 30px 30px 0px;
 }
 
+.user-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: fit-content;
+  width: 100%;
+}
+
+.user-stats-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: fit-content;
+  width: fit-content;
+}
+
+.user-stats-field-title {
+  width: 100%;
+  height: fit-content;
+}
+
+.user-stats-field-value {
+  width: 100%;
+  height: fit-content;
+}
+
 .central-frame-content {
   display: flex;
   flex-direction: row;
