@@ -240,6 +240,10 @@ li {
   font-weight: variables.$font-weight-medium;
 }
 
+.italic {
+  font-style: italic;
+}
+
 @font-face {
   font-family: 'eric';
   src: url('../src/assets/fonts/ComicRunes.otf') format('truetype');
