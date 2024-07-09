@@ -7,7 +7,7 @@
     size="large"
     type="ball-scale-multiple"
   ></ngx-spinner>
-  <ng-container *ngIf="commentService.comments$ | async as comments">
+  <ng-container *ngIf="commentService.profileComments$ | async as comments">
     <div
       *ngIf="!state.isReloading"
       class="wrapper"

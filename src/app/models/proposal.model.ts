@@ -36,6 +36,8 @@ export class Proposal extends AbstractEntity {
     super(data);
 
     Object.assign(this, data);
+
+    this.user = new User(data.user);
   }
 
   get isInitialPhase() {

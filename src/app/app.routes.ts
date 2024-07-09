@@ -17,6 +17,7 @@ import { ProfileOverviewComponent } from './components/profile/overview/profile-
 import { ProfileGamesComponent } from './components/profile/games/profile-games.component';
 import { ProfileProposalsComponent } from './components/profile/proposals/profile-proposals.component';
 import { ProfileCommentsComponent } from './components/profile/comments/profile-comments.component';
+import { SignedInGuard } from './guards/signed-in.guard';
 
 export enum RoutePathEnum {
   ABOUT_US = 'about-us',
@@ -61,6 +62,7 @@ export const routes: Routes = [
         path: RoutePathEnum.PROPOSALS,
         component: ProposalsComponent,
         canActivate: [GameActiveGuard],
+        runGuardsAndResolvers: 'always',
         children: [
           {
             path: RoutePathEnum.HOME,
@@ -109,6 +111,8 @@ export const routes: Routes = [
   {
     path: RoutePathEnum.PROFILE,
     component: ProfileComponent,
+    canActivate: [SignedInGuard],
+    runGuardsAndResolvers: 'always',
     children: [
       {
         path: RoutePathEnum.OVERVIEW,

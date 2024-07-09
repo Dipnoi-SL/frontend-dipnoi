@@ -26,14 +26,11 @@ export class GameActiveGuard implements CanActivate {
       .pipe(
         map((game) => {
           if (!game.active) {
-            this.router.navigate(
-              [
-                RoutePathEnum.GAMES,
-                this.gameService.selectedGameId,
-                RoutePathEnum.REQUESTS,
-              ],
-              { replaceUrl: true },
-            );
+            this.router.navigate([
+              RoutePathEnum.GAMES,
+              this.gameService.selectedGameId,
+              RoutePathEnum.REQUESTS,
+            ]);
 
             return false;
           }

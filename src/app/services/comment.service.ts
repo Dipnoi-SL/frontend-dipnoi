@@ -17,10 +17,14 @@ export class CommentService {
   private _comments$ = new BehaviorSubject<Comment[] | null>(null);
   comments$ = this._comments$.asObservable();
 
+  private _profileComments$ = new BehaviorSubject<Comment[] | null>(null);
+  profileComments$ = this._profileComments$.asObservable();
+
   private _spotlightComment$ = new BehaviorSubject<Comment | null>(null);
   spotlightComment$ = this._spotlightComment$.asObservable();
 
   meta: PageMeta | null = null;
+  profileMeta: PageMeta | null = null;
 
   constructor(
     private http: HttpClient,
@@ -36,6 +40,7 @@ export class CommentService {
     order?: OrderEnum;
     proposalId?: number;
     userId?: number;
+    withProposal?: string;
   }) {
     return this.http
       .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
@@ -63,6 +68,7 @@ export class CommentService {
     order?: OrderEnum;
     proposalId?: number;
     userId?: number;
+    withProposal?: string;
   }) {
     if (this.meta?.hasNextPage) {
       return this.http
@@ -82,6 +88,71 @@ export class CommentService {
               this._comments$.next(this._comments$.value!.concat(res.data));
 
               this.meta = res.meta;
+            },
+          }),
+        );
+    }
+
+    return;
+  }
+
+  readManyAsProfile(params: {
+    take?: number;
+    page?: number;
+    orderBy?: CommentOrderByEnum;
+    order?: OrderEnum;
+    proposalId?: number;
+    userId?: number;
+    withProposal?: string;
+  }) {
+    return this.http
+      .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
+        params,
+      })
+      .pipe(
+        map((res) => ({
+          data: res.data.map((comment) => new Comment(comment)),
+          meta: new PageMeta(res.meta),
+        })),
+        tap({
+          next: (res) => {
+            this._profileComments$.next(res.data);
+
+            this.profileMeta = res.meta;
+          },
+        }),
+      );
+  }
+
+  readManyMoreAsProfile(params: {
+    take?: number;
+    page?: number;
+    orderBy?: CommentOrderByEnum;
+    order?: OrderEnum;
+    proposalId?: number;
+    userId?: number;
+    withProposal?: string;
+  }) {
+    if (this.profileMeta?.hasNextPage) {
+      return this.http
+        .get<Page<Comment>>(`${environment.apiUrl}/comments`, {
+          params: {
+            ...params,
+            page: this.profileMeta.page + 1,
+          },
+        })
+        .pipe(
+          map((res) => ({
+            data: res.data.map((comment) => new Comment(comment)),
+            meta: new PageMeta(res.meta),
+          })),
+          tap({
+            next: (res) => {
+              this._profileComments$.next(
+                this._profileComments$.value!.concat(res.data),
+              );
+
+              this.profileMeta = res.meta;
             },
           }),
         );
