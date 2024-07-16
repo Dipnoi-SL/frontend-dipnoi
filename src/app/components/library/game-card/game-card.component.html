@@ -1,13 +1,66 @@
-<div class="vertical-card hover-card" [routerLink]="game.selectedGameRoutePath">
-  <div class="game-cover"></div>
-  <img
-    class="game-cover"
-    [ngSrc]="game.thumbnailUri"
-    [width]="150"
-    [height]="240"
-    [priority]="true"
-  />
-  <div class="game-panel">
-    <p class="bold">{{ game.name }}</p>
+<ng-container *ngIf="state$ | async as state">
+  <div
+    class="vertical-card"
+    (mouseenter)="onCardEnter()"
+    (mouseleave)="onCardLeave()"
+  >
+    <ng-container *ngIf="userService.authUser$ | async as authUser">
+      <button
+        class="card-button add-button hover-card"
+        [ngClass]="{ hidden: !state.isHovered }"
+        (click)="toggleAddDropdown()"
+        [disabled]="!authUser.active"
+      >
+        <img src="../../../assets/icons/add-green.svg" />
+        <div
+          class="dropdown-base"
+          [style.display]="state.isAddDropdownOpen ? undefined : 'none'"
+        >
+          <div class="dropdown-option hover-card" (click)="onAddToPlayed()">
+            <p class="dropdown-option-text">Add to played</p>
+          </div>
+          <div class="dropdown-option hover-card" (click)="onAddToFavorites()">
+            <p class="dropdown-option-text">Add to favorites</p>
+          </div>
+          <div class="dropdown-option hover-card" (click)="onAddToWishlist()">
+            <p class="dropdown-option-text">Add to wishlist</p>
+          </div>
+          <div
+            class="dropdown-option hover-card"
+            (click)="onRemoveFromPlayed()"
+          >
+            <p class="dropdown-option-text">Remove from played</p>
+          </div>
+          <div
+            class="dropdown-option hover-card"
+            (click)="onRemoveFromFavorites()"
+          >
+            <p class="dropdown-option-text">Remove from favorites</p>
+          </div>
+          <div
+            class="dropdown-option hover-card"
+            (click)="onRemoveFromWishlist()"
+          >
+            <p class="dropdown-option-text">Remove from wishlist</p>
+          </div>
+        </div>
+      </button>
+    </ng-container>
+    <div
+      class="game-cover-panel-wrapper hover-card"
+      [routerLink]="game.selectedGameRoutePath"
+    >
+      <img
+        class="game-cover"
+        [ngClass]="{ 'game-cover-blur': state.isHovered }"
+        [ngSrc]="game.thumbnailUri"
+        [width]="150"
+        [height]="240"
+        [priority]="true"
+      />
+      <div class="game-panel">
+        <p class="bold">{{ game.name }}</p>
+      </div>
+    </div>
   </div>
-</div>
+</ng-container>

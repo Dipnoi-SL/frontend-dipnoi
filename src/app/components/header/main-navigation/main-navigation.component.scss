@@ -44,6 +44,7 @@
 .dropdown-option-text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 1;
   word-break: break-word;
   overflow: hidden;

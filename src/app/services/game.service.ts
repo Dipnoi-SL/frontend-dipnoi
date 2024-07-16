@@ -266,4 +266,64 @@ export class GameService {
 
     return;
   }
+
+  createOnePlayed(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .post<Game>(`${environment.apiUrl}/games/${params.id}/played`, {})
+        .pipe(map((res) => new Game(res)));
+    }
+
+    return;
+  }
+
+  deleteOnePlayed(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .delete<Game>(`${environment.apiUrl}/games/${params.id}/played`, {})
+        .pipe(map((res) => new Game(res)));
+    }
+
+    return;
+  }
+
+  createOneFavorite(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .post<Game>(`${environment.apiUrl}/games/${params.id}/favorites`, {})
+        .pipe(map((res) => new Game(res)));
+    }
+
+    return;
+  }
+
+  deleteOneFavorite(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .delete<Game>(`${environment.apiUrl}/games/${params.id}/favorites`, {})
+        .pipe(map((res) => new Game(res)));
+    }
+
+    return;
+  }
+
+  createOneWishlist(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .post<Game>(`${environment.apiUrl}/games/${params.id}/wishlists`, {})
+        .pipe(map((res) => new Game(res)));
+    }
+
+    return;
+  }
+
+  deleteOneWishlist(params: { id: number }) {
+    if (this.userService.isActive) {
+      return this.http
+        .delete<Game>(`${environment.apiUrl}/games/${params.id}/wishlists`, {})
+        .pipe(map((res) => new Game(res)));
+    }
+
+    return;
+  }
 }
